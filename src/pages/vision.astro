@@ -33,39 +33,32 @@ const sections = [
       </div>
       <p class="lead reveal" style="--i:2">The distance between a person who wants to help and a person who needs help should not erase the knowledge, agency or dignity of either.</p>
     </div>
-    <div class="principles">
-      <article class="principle principle--bento reveal" style="--i:3">
-        <div class="principle__header">
-          <span class="principle__number">01</span>
-          <span class="principle__badge badge badge--primary">Core Mandate</span>
-        </div>
-        <h3>Local leadership</h3>
-        <p>The best decisions are usually made by people who understand the place, the relationships and the consequences.</p>
-        <div class="principle__footer">
-          <span class="principle__meta-tag">Self-Determination</span>
-        </div>
+    <div class="principles principles--editorial">
+      <article class="principle-item reveal" style="--i:3">
+        <header class="principle-item__head">
+          <span class="principle-item__num">01</span>
+          <span class="principle-item__kicker">Core Mandate</span>
+        </header>
+        <h3 class="principle-item__title">Local leadership</h3>
+        <p class="principle-item__body">The best decisions are usually made by people who understand the place, the relationships and the consequences.</p>
       </article>
-      <article class="principle principle--bento reveal" style="--i:4">
-        <div class="principle__header">
-          <span class="principle__number">02</span>
-          <span class="principle__badge badge badge--emerald">Approach</span>
-        </div>
-        <h3>Dignity in the details</h3>
-        <p>Good help is practical and respectful. It gives people room to choose, ask questions and say no.</p>
-        <div class="principle__footer">
-          <span class="principle__meta-tag">Mutual Respect</span>
-        </div>
+
+      <article class="principle-item reveal" style="--i:4">
+        <header class="principle-item__head">
+          <span class="principle-item__num">02</span>
+          <span class="principle-item__kicker">Approach</span>
+        </header>
+        <h3 class="principle-item__title">Dignity in the details</h3>
+        <p class="principle-item__body">Good help is practical and respectful. It gives people room to choose, ask questions and say no.</p>
       </article>
-      <article class="principle principle--bento reveal" style="--i:5">
-        <div class="principle__header">
-          <span class="principle__number">03</span>
-          <span class="principle__badge badge">Goal</span>
-        </div>
-        <h3>Needed a little less</h3>
-        <p>Success is not making an organisation permanent. It is strengthening the systems a community already owns.</p>
-        <div class="principle__footer">
-          <span class="principle__meta-tag">Sustainability</span>
-        </div>
+
+      <article class="principle-item reveal" style="--i:5">
+        <header class="principle-item__head">
+          <span class="principle-item__num">03</span>
+          <span class="principle-item__kicker">Goal</span>
+        </header>
+        <h3 class="principle-item__title">Needed a little less</h3>
+        <p class="principle-item__body">Success is not making an organisation permanent. It is strengthening the systems a community already owns.</p>
       </article>
     </div>
   </Panel>
@@ -76,13 +69,34 @@ const sections = [
       <p class="eyebrow reveal">A modest role</p>
       <h2 class="reveal" style="--i:1" id="belief-title">Bring resources. Remove obstacles. Then make space.</h2>
     </div>
-    <div class="columns columns--wide prose">
-      <p class="reveal" style="--i:2">The most useful role for an outside organisation is a modest one: bring resources, remove obstacles, share responsibility and then step back. That means giving up the need to be the hero of every story.</p>
-      <p class="reveal" style="--i:3">Our vision is ambitious, but the work is ordinary. It is a conversation with a teacher, a repaired roof, a stocked clinic, a community meeting where the right person is finally heard.</p>
+
+    <!-- 3-Step Modest Action Flow -->
+    <div class="modest-flow reveal" style="--i:2">
+      <div class="modest-step">
+        <span class="modest-step__num">01</span>
+        <h3 class="modest-step__title">Bring Resources</h3>
+        <p class="modest-step__desc">Deliver grants, clean water equipment, and medical supplies directly into the hands of local organizers.</p>
+      </div>
+      <div class="modest-step">
+        <span class="modest-step__num">02</span>
+        <h3 class="modest-step__title">Remove Obstacles</h3>
+        <p class="modest-step__desc">Handle transport, border permits, and legal paperwork so local teams focus entirely on field execution.</p>
+      </div>
+      <div class="modest-step">
+        <span class="modest-step__num">03</span>
+        <h3 class="modest-step__title">Make Space</h3>
+        <p class="modest-step__desc">Transfer project governance, sign off audits, and step aside as community management takes full control.</p>
+      </div>
     </div>
-    <blockquote class="pull-quote pull-quote--card pull-quote--interactive reveal" style="--i:4; margin-top:var(--space-8)">
-      “We would like to be a small part of that future, and then to be needed a little less each year.”
-      <cite class="pull-quote__cite">— Field Journal Reflection, 2026</cite>
+
+    <div class="columns columns--wide prose reveal" style="--i:3; margin-top: var(--space-6);">
+      <p>The most useful role for an outside organisation is a modest one: bring resources, remove obstacles, share responsibility and then step back. That means giving up the need to be the hero of every story.</p>
+      <p>Our vision is ambitious, but the work is ordinary. It is a conversation with a teacher, a repaired roof, a stocked clinic, a community meeting where the right person is finally heard.</p>
+    </div>
+
+    <blockquote class="editorial-quote reveal" style="--i:4; margin-top: var(--space-7);">
+      <p class="editorial-quote__text">“We would like to be a small part of that future, and then to be needed a little less each year.”</p>
+      <cite class="editorial-quote__cite">— Field Journal Reflection, 2026</cite>
     </blockquote>
   </Panel>
 </EditorialPage>
