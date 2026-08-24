@@ -16,6 +16,7 @@
     "prelaunch": "npm run build && npm run check:placeholders && npm run check:empty"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/dm-sans": "^5.2.6",
     "@fontsource-variable/newsreader": "^5.2.6",
@@ -24,6 +25,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.4",
     "sharp": "^0.35.3",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
   }
 }

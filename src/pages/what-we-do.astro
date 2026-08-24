@@ -7,6 +7,7 @@ import waterImage from '../assets/images/essay-03-water-tank.png';
 import roofingImage from '../assets/images/essay-04-roofing-sheets.png';
 import heroImage from '../assets/images/hero-connection.png';
 import handsImage from '../assets/images/essay-06-hands.png';
+import coopImage from '../assets/images/essay-07-cooperative.png';
 
 const sections = [
   { id: 'top', label: 'What we do' },
@@ -21,56 +22,56 @@ const workAreas = [
     fig: 'FIG 02.1',
     category: 'Essentials & Water',
     title: 'Food, water and essentials',
-    body: 'Emergency food, clean water, cooking equipment, blankets and hygiene supplies. We buy locally wherever we can.',
+    body: 'Emergency food supplies, clean drinking water systems, warm blankets and hygiene kits. We source from local vendors to strengthen regional economies and ensure culturally familiar aid.',
     stat: '142,000+',
-    statLabel: 'People served with direct local sourcing',
+    statLabel: 'People reached with direct local procurement',
     location: 'East Africa & SE Asia',
     image: waterImage,
-    alt: 'A hand tests water flowing from a community standpipe into a clean container.',
+    alt: 'A community member tests clean water flowing from a local filtration standpipe.',
     href: '/#donate',
-    linkText: 'Fund Emergency Relief'
+    linkText: 'Fund Direct Relief'
   },
   {
     num: '02',
     fig: 'FIG 02.2',
     category: 'Education & Schools',
     title: 'Schools and learning',
-    body: 'School fees, books, uniforms and safe places to study, so a crisis at home does not end a child’s education.',
+    body: 'Coverage for school tuition, books, uniforms and safe classroom facilities, ensuring household crisis or displacement never interrupts a child’s education.',
     stat: '48 Schools',
-    statLabel: 'Partner learning centers kept open',
+    statLabel: 'Community learning centers kept fully operational',
     location: 'Rift Valley & Rural Districts',
     image: learningImage,
-    alt: 'A teacher leans toward children around a table as they work in a bright classroom.',
+    alt: 'A teacher guides young students working together at a classroom table.',
     href: '/vision/',
-    linkText: 'Explore Education Work'
+    linkText: 'Explore Education Impact'
   },
   {
     num: '03',
     fig: 'FIG 02.3',
     category: 'Rapid Relief',
     title: 'Emergency response',
-    body: 'When crisis strikes, we move quickly with shelter, water, food and medical supplies through partners already there.',
+    body: 'Rapid crisis mobilization delivering temporary shelter kits, clean water purification, food rations and medical supplies through trusted local ground partners.',
     stat: '<48 Hours',
-    statLabel: 'Average crisis dispatch time to field units',
+    statLabel: 'Average dispatch time to active field units',
     location: 'Active Crisis Zones',
     image: heroImage,
-    alt: 'Three community members pass a sack from a small truck while working together.',
+    alt: 'Community members coordinate and unload relief supplies from a logistics vehicle.',
     href: '/#donate',
-    linkText: 'Fund Rapid Dispatch'
+    linkText: 'Fund Emergency Response'
   },
   {
     num: '04',
     fig: 'FIG 02.4',
     category: 'Long-term Autonomy',
     title: 'Long-term recovery',
-    body: 'The quiet work after headlines move on: repairing homes, restarting small businesses and helping groups run services.',
+    body: 'Sustained post-crisis recovery: rebuilding damaged homes, micro-financing small businesses, and helping local cooperatives achieve permanent self-reliance.',
     stat: '85 Networks',
-    statLabel: 'Cooperative local partner initiatives',
+    statLabel: 'Autonomous partner cooperatives established',
     location: 'Sub-Saharan & Pacific',
     image: roofingImage,
-    alt: 'Two adults carry corrugated roofing sheets along a repaired road with a child walking nearby.',
+    alt: 'Local workers transport corrugated roofing sheets along a repaired village road.',
     href: '/vision/',
-    linkText: 'Explore Recovery Work'
+    linkText: 'Learn About Recovery'
   }
 ];
 ---
@@ -89,7 +90,7 @@ const workAreas = [
   sections={sections}
   total={4}
 >
-  <!-- 02 — Four areas (Editorial 2x2 Grid) -->
+  <!-- 02 — Four areas (Asymmetric Bento Grid) -->
   <Panel id="areas" ground="sand" index={2} total={4} label="Four areas" labelledby="areas-title" width="wide" nextId="calculator" nextLabel="Calculate impact">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
@@ -99,40 +100,47 @@ const workAreas = [
       <p class="lead reveal" style="--i:2">The categories help us explain the work. On the ground they overlap, because real lives do too.</p>
     </div>
     
-    <div class="editorial-areas-grid reveal" style="--i:3;">
+    <div class="bento-areas-grid reveal" style="--i:3;">
       {workAreas.map((area, idx) => (
-        <article class="editorial-area-card">
-          <div class="editorial-area-card__media">
+        <article class={`bento-area-card bento-area-card--${idx + 1}`}>
+          <div class="bento-area-card__media">
             <Picture
               src={area.image}
-              widths={[350, 600]}
-              sizes="(min-width: 768px) 25vw, 45vw"
+              widths={[350, 700]}
+              sizes={idx === 0 ? "(min-width: 940px) 45vw, 90vw" : "(min-width: 940px) 25vw, 45vw"}
               formats={['avif', 'webp']}
               fallbackFormat="jpeg"
-              quality={80}
+              quality={85}
               alt={area.alt}
               loading="lazy"
             />
+            <span class="bento-area-card__badge">{area.category}</span>
           </div>
-          <figcaption class="approach-photo-caption">
-            <span class="approach-photo-caption__num">{area.fig}</span>
-            <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-card__tag">{area.category}</span>
-            <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-photo-caption__text">📍 {area.location}</span>
-          </figcaption>
-          <div class="editorial-area-card__content">
-            <div class="editorial-area-card__header-row">
-              <span class="editorial-area-card__num">{area.num}</span>
-              <h3 class="editorial-area-card__title">{area.title}</h3>
+          
+          <div class="bento-area-card__body">
+            <div class="bento-area-card__top">
+              <div class="bento-area-card__title-row">
+                <span class="bento-area-card__num">{area.num}</span>
+                <span class="bento-area-card__divider" aria-hidden="true">/</span>
+                <h3 class="bento-area-card__title">{area.title}</h3>
+              </div>
+              <span class="bento-area-card__fig">
+                {area.fig} • 
+                <span class="bento-area-card__location">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {area.location}
+                </span>
+              </span>
             </div>
-            <p class="editorial-area-card__body">{area.body}</p>
-            <div class="editorial-area-card__stat-row">
-              <span class="editorial-area-card__stat-val">{area.stat}</span>
-              <span class="editorial-area-card__stat-label">{area.statLabel}</span>
-            </div>
-            <div class="editorial-area-card__action">
-              <a href={area.href} class="editorial-area-card__link">
+            
+            <p class="bento-area-card__desc">{area.body}</p>
+            
+            <div class="bento-area-card__footer">
+              <div class="bento-area-card__stat">
+                <span class="bento-area-card__stat-val">{area.stat}</span>
+                <span class="bento-area-card__stat-label">{area.statLabel}</span>
+              </div>
+              <a href={area.href} class="bento-area-card__link">
                 {area.linkText} <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -198,43 +206,84 @@ const workAreas = [
     </div>
   </Panel>
 
-  <!-- 04 — How they connect -->
+  <!-- 04 — How they connect (Pure Editorial Journal Narrative) -->
   <Panel id="connect" ground="paper" index={4} total={4} label="How they connect" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
-    <div class="panel-head">
-      <p class="eyebrow reveal"><span class="eyebrow__dot"></span>How the areas connect</p>
-      <h2 class="reveal" style="--i:1" id="connect-title">We fund the combination that makes a plan hold together.</h2>
+    <div class="panel-head panel-head--split" style="margin-bottom: clamp(0.4rem, 1vh, 0.75rem);">
+      <div class="panel-head__title">
+        <p class="eyebrow reveal"><span class="eyebrow__dot"></span>The Interconnected Ecosystem</p>
+        <h2 class="reveal" style="--i:1" id="connect-title">We fund the combination that makes a plan hold together.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">A crisis does not arrive in separate silos. Food at home keeps a child in school. A repaired roof protects family health. We treat needs as connected rather than isolated transactions.</p>
     </div>
     
-    <div class="connect-split-grid reveal" style="--i:2">
-      <div class="connect-copy">
-        <p class="lead" style="font-size: 0.95rem; margin-bottom: 0.75rem; line-height: 1.45;">Keeping a child in school can depend on food at home. Repairing a roof can depend on a local builder having the tools to start again.</p>
-        <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 0.75rem; line-height: 1.45;">So we treat needs as connected rather than as separate transactions — and we let the people living with them decide the order.</p>
-        <blockquote class="pull-quote pull-quote--card" style="margin-top: 0.5rem;">
+    <div class="connect-journal-grid reveal" style="--i:3;">
+      <!-- Left Column: Flat Hairline Typographic Connections Flow -->
+      <div class="connect-stories">
+        <article class="connect-story">
+          <div class="connect-story__head">
+            <span class="connect-story__num">01</span>
+            <span class="connect-story__title">Essentials → Education</span>
+            <span class="connect-story__stat">94% Retention</span>
+          </div>
+          <p class="connect-story__body">Emergency food & clean water delivered directly to families in Kitui prevents student dropout during seasonal droughts.</p>
+        </article>
+
+        <article class="connect-story">
+          <div class="connect-story__head">
+            <span class="connect-story__num">02</span>
+            <span class="connect-story__title">Shelter → Health</span>
+            <span class="connect-story__stat">&lt;48h Response</span>
+          </div>
+          <p class="connect-story__body">Roofing kits and medical supplies dispatched within 48 hours stabilize displaced families before disease outbreaks can start.</p>
+        </article>
+
+        <article class="connect-story">
+          <div class="connect-story__head">
+            <span class="connect-story__num">03</span>
+            <span class="connect-story__title">Relief → Cooperatives</span>
+            <span class="connect-story__stat">85 Co-ops</span>
+          </div>
+          <p class="connect-story__body">Once immediate grain is secured, seed micro-grants help displaced farmers build autonomous, self-sustaining agricultural cooperatives.</p>
+        </article>
+
+        <article class="connect-story">
+          <div class="connect-story__head">
+            <span class="connect-story__num">04</span>
+            <span class="connect-story__title">Autonomy → Future</span>
+            <span class="connect-story__stat">100% Local Led</span>
+          </div>
+          <p class="connect-story__body">Decisions remain entirely with local community councils. By combining short-term relief with long-term capital, projects endure.</p>
+        </article>
+      </div>
+
+      <!-- Right Column: Editorial Media Feature & Pull Quote -->
+      <div class="connect-feature">
+        <figure class="connect-feature__media" style="margin: 0;">
+          <div class="connect-feature__media-box">
+            <Picture
+              src={handsImage}
+              widths={[400, 750]}
+              sizes="(min-width: 940px) 40vw, 90vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={82}
+              alt="Community members passing essential supplies hand to hand."
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
+            <span class="approach-photo-caption__num">FIG 04.1</span>
+            <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+            <span class="approach-card__tag">Integrated Support Matrix</span>
+            <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+            <span class="approach-photo-caption__text">Turkana & Kitui Field Operations</span>
+          </figcaption>
+        </figure>
+
+        <blockquote class="pull-quote pull-quote--card" style="margin-top: clamp(0.35rem, 0.8vh, 0.6rem);">
           “Start with what people say they need.”
         </blockquote>
       </div>
-
-      <figure class="connect-media-figure" style="margin: 0;">
-        <div class="connect-media-box">
-          <Picture
-            src={handsImage}
-            widths={[400, 700]}
-            sizes="(min-width: 940px) 35vw, 90vw"
-            formats={['avif', 'webp']}
-            fallbackFormat="jpeg"
-            quality={80}
-            alt="Community hands passing essential supplies hand-to-hand."
-            loading="lazy"
-          />
-        </div>
-        <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
-          <span class="approach-photo-caption__num">FIG 04.1</span>
-          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-          <span class="approach-card__tag">Integrated Support</span>
-          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-          <span class="approach-photo-caption__text">Direct local action</span>
-        </figcaption>
-      </figure>
     </div>
   </Panel>
 </EditorialPage>
