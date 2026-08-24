@@ -1,0 +1,9 @@
+{
+  "name": "Hands Across Humanity",
+  "short_name": "Hands Across Humanity",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#FAF7F2",
+  "description": "Humanitarian relief and community support through local people and practical work."
+}

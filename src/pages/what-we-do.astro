@@ -1,0 +1,111 @@
+---
+import { Picture } from 'astro:assets';
+import EditorialPage from '../components/EditorialPage.astro';
+import Panel from '../components/Panel.astro';
+import learningImage from '../assets/images/work-schools-learning.png';
+import waterImage from '../assets/images/essay-03-water-tank.png';
+import roofingImage from '../assets/images/essay-04-roofing-sheets.png';
+import heroImage from '../assets/images/hero-connection.png';
+
+const sections = [
+  { id: 'top', label: 'What we do' },
+  { id: 'areas', label: 'Four areas' },
+  { id: 'connect', label: 'How they connect' }
+];
+
+const workAreas = [
+  {
+    number: '01',
+    title: 'Food, water and essentials',
+    body: 'Emergency food, clean water, cooking equipment, blankets and hygiene supplies. We buy locally wherever we can.',
+    image: waterImage,
+    alt: 'A hand tests water flowing from a community standpipe into a clean container.'
+  },
+  {
+    number: '02',
+    title: 'Schools and learning',
+    body: 'School fees, books, uniforms and safe places to study, so a crisis at home does not end a child’s education.',
+    image: learningImage,
+    alt: 'A teacher leans toward children around a table as they work in a bright classroom.'
+  },
+  {
+    number: '03',
+    title: 'Emergency response',
+    body: 'When people are forced to leave home, we move quickly with shelter, water, food and medical supplies through partners already there.',
+    image: heroImage,
+    alt: 'Three community members pass a sack from a small truck while working together.'
+  },
+  {
+    number: '04',
+    title: 'Long-term recovery',
+    body: 'The quiet work after the news moves on: repairing homes, restarting small businesses and helping groups run services themselves.',
+    image: roofingImage,
+    alt: 'Two adults carry corrugated roofing sheets along a repaired road with a child walking nearby.'
+  }
+];
+---
+
+<EditorialPage
+  activePage="what-we-do"
+  eyebrow="What we do"
+  title="Four kinds of work, shaped by local priorities."
+  lead="A family in an emergency may need food this week and a school place next term. Our work is designed to meet both."
+  description="Hands Across Humanity works with local communities on essentials, education, emergency response and long-term recovery."
+  image={learningImage}
+  imageAlt="A teacher leans toward children around a table as they work in a bright classroom."
+  caption="Urgent support and long-term opportunity belong together."
+  nextHref="/vision/"
+  nextLabel="Read our vision"
+  sections={sections}
+  total={3}
+>
+  <!-- 02 — Four areas -->
+  <Panel id="areas" ground="sand" index={2} total={3} label="Four areas" labelledby="areas-title" width="wide" nextId="connect" nextLabel="How they connect">
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <p class="eyebrow reveal">The work in practice</p>
+        <h2 class="reveal" style="--i:1" id="areas-title">Four areas. One principle: start with what people say they need.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">The categories help us explain the work. On the ground they overlap, because real lives do too.</p>
+    </div>
+    <div class="work-grid">
+      {workAreas.map((area, index) => (
+        <article class="work-card reveal" style={`--i:${index + 1}`}>
+          <div class="work-card__media">
+            <Picture
+              src={area.image}
+              widths={[400, 600, 900]}
+              sizes="(min-width: 1180px) 22vw, (min-width: 700px) 44vw, 30vw"
+              formats={['avif', 'webp']}
+          fallbackFormat="jpeg"
+          quality={62}
+              alt={area.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="work-card__body">
+            <span class="work-card__number">{area.number}</span>
+            <h3>{area.title}</h3>
+            <p>{area.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Panel>
+
+  <!-- 03 — How they connect -->
+  <Panel id="connect" ground="paper" index={3} total={3} label="How they connect" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
+    <div class="panel-head">
+      <p class="eyebrow reveal">How the areas connect</p>
+      <h2 class="reveal" style="--i:1" id="connect-title">We fund the combination that makes a plan hold together.</h2>
+    </div>
+    <div class="columns columns--wide prose">
+      <p class="reveal" style="--i:2">Keeping a child in school can depend on food at home. Repairing a roof can depend on a local builder having the tools to start again.</p>
+      <p class="reveal" style="--i:3">So we treat needs as connected rather than as separate transactions — and we let the people living with them decide the order.</p>
+    </div>
+    <blockquote class="pull-quote pull-quote--rule reveal" style="--i:4; margin-top:var(--space-8)">
+      “Start with what people say they need.”
+    </blockquote>
+  </Panel>
+</EditorialPage>

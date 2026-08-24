@@ -1,0 +1,69 @@
+---
+import EditorialPage from '../components/EditorialPage.astro';
+import Panel from '../components/Panel.astro';
+import visionImage from '../assets/images/vision-horizon.png';
+
+const sections = [
+  { id: 'top', label: 'Vision' },
+  { id: 'principles', label: 'Principles' },
+  { id: 'belief', label: 'A modest role' }
+];
+---
+
+<EditorialPage
+  activePage="vision"
+  eyebrow="Our vision"
+  title="Help should move sideways."
+  lead="A world where help reaches people from neighbour to neighbour, across borders — instead of falling on them from above."
+  description="Our vision is a more equal way of helping, where local people lead decisions and outside support makes their work possible."
+  image={visionImage}
+  imageAlt="People walk along a quiet road toward open fields in the early morning."
+  caption="A fairer future is built one local decision at a time."
+  nextHref="/who-we-are/"
+  nextLabel="Meet the people behind the work"
+  sections={sections}
+  total={3}
+>
+  <!-- 02 — Principles -->
+  <Panel id="principles" ground="sand" index={2} total={3} label="Principles" labelledby="vision-principles-title" nextId="belief" nextLabel="A modest role">
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <p class="eyebrow reveal">The world we want to help build</p>
+        <h2 class="reveal" style="--i:1" id="vision-principles-title">Support should add power to people’s choices, not replace them.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">The distance between a person who wants to help and a person who needs help should not erase the knowledge, agency or dignity of either.</p>
+    </div>
+    <div class="principles">
+      <article class="principle reveal" style="--i:3">
+        <span class="principle__number">01</span>
+        <h3>Local leadership</h3>
+        <p>The best decisions are usually made by people who understand the place, the relationships and the consequences.</p>
+      </article>
+      <article class="principle reveal" style="--i:4">
+        <span class="principle__number">02</span>
+        <h3>Dignity in the details</h3>
+        <p>Good help is practical and respectful. It gives people room to choose, ask questions and say no.</p>
+      </article>
+      <article class="principle reveal" style="--i:5">
+        <span class="principle__number">03</span>
+        <h3>Needed a little less</h3>
+        <p>Success is not making an organisation permanent. It is strengthening the systems a community already owns.</p>
+      </article>
+    </div>
+  </Panel>
+
+  <!-- 03 — Belief -->
+  <Panel id="belief" ground="paper" index={3} total={3} label="Belief" labelledby="belief-title" ctaHref="/who-we-are/" ctaLabel="Meet the people">
+    <div class="panel-head">
+      <p class="eyebrow reveal">A modest role</p>
+      <h2 class="reveal" style="--i:1" id="belief-title">Bring resources. Remove obstacles. Then make space.</h2>
+    </div>
+    <div class="columns columns--wide prose">
+      <p class="reveal" style="--i:2">The most useful role for an outside organisation is a modest one: bring resources, remove obstacles, share responsibility and then step back. That means giving up the need to be the hero of every story.</p>
+      <p class="reveal" style="--i:3">Our vision is ambitious, but the work is ordinary. It is a conversation with a teacher, a repaired roof, a stocked clinic, a community meeting where the right person is finally heard.</p>
+    </div>
+    <blockquote class="pull-quote pull-quote--rule reveal" style="--i:4; margin-top:var(--space-8)">
+      “We would like to be a small part of that future, and then to be needed a little less each year.”
+    </blockquote>
+  </Panel>
+</EditorialPage>

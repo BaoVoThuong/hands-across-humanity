@@ -1,0 +1,87 @@
+---
+import { Picture } from 'astro:assets';
+import EditorialPage from '../components/EditorialPage.astro';
+import Panel from '../components/Panel.astro';
+import portraitImage from '../assets/images/who-we-are-portrait.png';
+import cooperativeImage from '../assets/images/essay-07-cooperative.png';
+
+const sections = [
+  { id: 'top', label: 'Who we are' },
+  { id: 'model', label: 'How we work' },
+  { id: 'practice', label: 'In practice' }
+];
+---
+
+<EditorialPage
+  activePage="who-we-are"
+  eyebrow="Who we are"
+  title="The people closest to the work lead it."
+  lead="A small humanitarian organisation with a clear job: make local work possible, then be honest about how it goes."
+  description="Hands Across Humanity works through community groups, local staff, teachers, nurses, volunteers and neighbours."
+  image={portraitImage}
+  imageAlt="A community organiser stands in a doorway while neighbours prepare a meeting space behind them."
+  caption="People who live close to the work should lead it."
+  nextHref="/mission/"
+  nextLabel="Read our mission"
+  sections={sections}
+  total={3}
+>
+  <!-- 02 — Model -->
+  <Panel id="model" ground="sand" index={2} total={3} label="How we work" labelledby="model-title" nextId="practice" nextLabel="In practice">
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <p class="eyebrow reveal">A small organisation with a clear job</p>
+        <h2 class="reveal" style="--i:1" id="model-title">We are not the experts. The people we work with are.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">We raise support from people who want to help, and put it to work through people who already live in the places we support.</p>
+    </div>
+    <div class="page-hero__grid">
+      <div class="columns prose" style="gap:var(--space-4)">
+        <p class="reveal" style="--i:3">That includes community groups, local staff, teachers, nurses, volunteers and neighbours. They know which family was missed, which road is open and what will still be needed in six months.</p>
+        <p class="reveal" style="--i:4">Outsiders can bring money, supplies and attention. Our responsibility is to bring those resources without taking over decisions that belong to the community.</p>
+      </div>
+      <figure class="page-hero__media reveal" style="--i:5">
+        <Picture
+          src={cooperativeImage}
+          widths={[600, 900, 1200]}
+          sizes="(min-width: 940px) 46vw, 92vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="jpeg"
+          quality={62}
+          alt="Members of a small cooperative count stock together in a shop, one writing in a ledger."
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Local groups run the work; we make it possible.</figcaption>
+      </figure>
+    </div>
+  </Panel>
+
+  <!-- 03 — Practice -->
+  <Panel id="practice" ground="paper" index={3} total={3} label="In practice" labelledby="practice-title" ctaHref="/mission/" ctaLabel="Read our mission">
+    <div class="panel-head">
+      <p class="eyebrow reveal">How that shows up</p>
+      <h2 class="reveal" style="--i:1" id="practice-title">Three habits, kept in public.</h2>
+    </div>
+    <div class="principles">
+      <article class="principle reveal" style="--i:2">
+        <span class="principle__number">01</span>
+        <h3>We listen before we act</h3>
+        <p>A plan starts with local knowledge, not a template brought from somewhere else.</p>
+      </article>
+      <article class="principle reveal" style="--i:3">
+        <span class="principle__number">02</span>
+        <h3>We work through relationships</h3>
+        <p>Trust is built by showing up consistently and keeping promises small enough to keep.</p>
+      </article>
+      <article class="principle reveal" style="--i:4">
+        <span class="principle__number">03</span>
+        <h3>We tell the truth plainly</h3>
+        <p>We share what happened, what changed and what did not work, without hiding behind jargon.</p>
+      </article>
+    </div>
+    <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top:var(--space-8)">
+      “Help does not fall on people from above. It reaches sideways.”
+    </blockquote>
+  </Panel>
+</EditorialPage>

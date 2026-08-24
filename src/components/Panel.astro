@@ -1,0 +1,52 @@
+---
+interface Props {
+  id: string;
+  ground?: 'paper' | 'sand' | 'ink';
+  index: number;
+  total: number;
+  label: string;
+  labelledby?: string;
+  width?: 'default' | 'narrow' | 'wide';
+  nextId?: string;
+  nextLabel?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+  hero?: boolean;
+}
+
+const {
+  id, ground = 'paper', index, total, label,
+  labelledby, width = 'default', nextId, nextLabel, ctaHref, ctaLabel, hero = false
+} = Astro.props;
+
+const containerClass =
+  width === 'narrow' ? 'container-narrow' : width === 'wide' ? 'container-wide' : 'container';
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section
+  class:list={['panel', `panel--${ground}`, hero && 'panel--hero']}
+  id={id}
+  data-panel
+  aria-labelledby={labelledby}
+>
+  <p class="panel__meta">
+    <span>{label}</span>
+    <span><b>{pad(index)}</b> / {pad(total)}</span>
+  </p>
+
+  <div class={containerClass}>
+    <slot />
+  </div>
+
+  <div class="panel__foot">
+    <span>Hands Across Humanity</span>
+    {ctaHref && ctaLabel ? (
+      <a class="btn btn--donate btn--foot" href={ctaHref}>{ctaLabel}<span class="btn__arrow" aria-hidden="true">→</span></a>
+    ) : nextId && nextLabel ? (
+      <a href={`#${nextId}`}>{nextLabel}<span aria-hidden="true">↓</span></a>
+    ) : (
+      <span>End of page</span>
+    )}
+  </div>
+</section>
