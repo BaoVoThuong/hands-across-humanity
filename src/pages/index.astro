@@ -187,9 +187,11 @@ const faqs = [
   description={description}
 >
   <main id="main">
-    <HeroSection />
-    <StatsBar stats={stats} />
-    <TrustStrip />
+    <div class="hero-fold-group">
+      <HeroSection />
+      <StatsBar stats={stats} />
+      <TrustStrip />
+    </div>
     <ImpactCalculator />
     <ProjectsGrid projects={projects} />
     <ProcessSection steps={processSteps} />
@@ -198,3 +200,4 @@ const faqs = [
     <ClosingCTA />
   </main>
 </SiteLayout>
+
