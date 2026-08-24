@@ -77,10 +77,10 @@ const projects = [
 ];
 
 const processSteps = [
-  { num: '01', title: 'Local Needs Identification', text: 'Grassroots leaders assess urgent community gaps and design solutions tailored to local conditions.' },
-  { num: '02', title: 'Direct Capital Deployment', text: 'Funds transfer directly to registered local field partners with zero middleman overhead.' },
-  { num: '03', title: 'Community-Led Execution', text: 'Villagers and regional specialists build infrastructure, ensuring long-term local ownership.' },
-  { num: '04', title: 'Audited Impact Verification', text: 'Every project publishes verified photographic, financial, and metric updates to donors.' }
+  { num: '01', title: 'Grassroots Identification', text: 'Local community leaders assess urgent ground needs and design tailored infrastructure solutions.' },
+  { num: '02', title: 'Direct Field Funding', text: 'Capital transfers directly to registered local partners with zero administrative overhead.' },
+  { num: '03', title: 'Community-Led Build', text: 'Local technicians and residents construct facilities, ensuring long-term self-reliance.' },
+  { num: '04', title: 'Audited Impact Proof', text: 'Every project publishes verified financial receipts, photo evidence, and metric logs.' }
 ];
 
 const testimonials = [
@@ -88,13 +88,15 @@ const testimonials = [
     quote: '“Hands Across Humanity provides the fastest, most transparent funding mechanism we have ever worked with. They trust local leaders to know what their communities need.”',
     name: 'Dr. Amina Mwangi',
     role: 'Regional Director, East Africa Water Trust',
-    avatar: portraitImage
+    initials: 'AM',
+    accentColor: 'var(--primary)'
   },
   {
     quote: '“As a corporate donor, seeing exactly where every dollar goes with verified photo updates and audited receipts gives our foundation complete confidence.”',
     name: 'Marcus Vance',
     role: 'Chair, Global Impact Philanthropy Alliance',
-    avatar: portraitImage
+    initials: 'MV',
+    accentColor: 'var(--emerald)'
   },
   {
     quote: '“When the flooding destroyed our school roofs, help arrived within 48 hours. Our children were back learning in clean classrooms within two weeks.”',
@@ -135,24 +137,15 @@ const faqs = [
       <div class="container">
         <div class="hero-v2__grid">
           <div class="hero-v2__copy">
-            <div class="hero-v2__live-bar reveal">
-              <span class="badge__dot badge__dot--pulse"></span>
-              <span class="live-bar__text">Active Field Operations 2026</span>
-              <span class="live-bar__divider">•</span>
-              <span class="live-bar__sub">Direct Ground Dispatch</span>
-            </div>
             <h1 class="hero-v2__title reveal" style="--i:1">Direct, Transparent Aid Led by Local Communities.</h1>
             <p class="lead reveal" style="--i:2">We bridge global resources directly to ground-level humanitarian leaders—funding clean water systems, school construction, emergency relief, and community self-reliance.</p>
 
-            <div class="btn-row reveal" style="--i:3; margin-top: 1.5rem;">
+            <div class="btn-row reveal" style="--i:3; margin-top: 1.75rem;">
               <a class="btn btn--primary" href="#donate">
                 Donate Now<span class="btn__arrow" aria-hidden="true">→</span>
               </a>
               <a class="btn btn--secondary" href="#projects">
-                Explore Projects
-              </a>
-              <a class="btn btn--ghost" href="#calculator">
-                Calculate Impact
+                Explore Field Projects
               </a>
             </div>
 
@@ -185,9 +178,7 @@ const faqs = [
               fetchpriority="high"
             />
             <div class="hero-v2__dispatch-card">
-              <div class="dispatch-card__tag">
-                <span class="badge__dot"></span> VERIFIED FIELD DISPATCH
-              </div>
+              <span class="dispatch-card__tag">Verified Dispatch</span>
               <p class="dispatch-card__text">
                 <strong>Kitui County Well #42:</strong> Clean water flow established for 1,400 local families.
               </p>
@@ -335,24 +326,24 @@ const faqs = [
               </div>
               <div class="project-card__body">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; gap: 0.5rem;">
+                  <div class="project-card__meta-header">
                     <span class="project-category-tag">{item.category}</span>
-                    <span style="font-size: 0.8125rem; font-weight: 600; color: var(--primary);">📍 {item.location}</span>
+                    <span class="project-card__location">📍 {item.location}</span>
                   </div>
                   <h3>{item.title}</h3>
-                  <p style="font-size: 0.875rem; color: var(--slate-600); margin-top: 0.5rem;">{item.impact}</p>
+                  <p class="project-card__impact">{item.impact}</p>
                 </div>
                 <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; font-weight: 600; color: var(--slate-700); margin-bottom: 0.25rem;">
+                  <div class="project-card__funding-meta">
                     <span>Raised: {item.raised}</span>
                     <span>Goal: {item.goal} ({item.progress}%)</span>
                   </div>
                   <div class="project-card__progress-track">
                     <div class="project-card__progress-bar" style={`width: ${item.progress}%`}></div>
                   </div>
-                  <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                    <button type="button" class="btn btn--ghost open-modal-btn" data-title={item.title} data-category={item.category} data-location={item.location} data-impact={item.impact} data-partner={item.auditPartner} data-details={item.details} data-raised={item.raised} data-goal={item.goal} data-progress={item.progress} style="flex: 1; min-height: 2.5rem; font-size: 0.8125rem; padding-inline: 0.5rem;">Audit & Info</button>
-                    <a href="#donate" class="btn btn--primary" style="flex: 1; min-height: 2.5rem; font-size: 0.8125rem; padding-inline: 0.5rem;">Support →</a>
+                  <div class="project-card__actions">
+                    <button type="button" class="btn btn--ghost open-modal-btn" data-title={item.title} data-category={item.category} data-location={item.location} data-impact={item.impact} data-partner={item.auditPartner} data-details={item.details} data-raised={item.raised} data-goal={item.goal} data-progress={item.progress}>Audit & Info</button>
+                    <a href="#donate" class="btn btn--primary">Support →</a>
                   </div>
                 </div>
               </div>
@@ -399,8 +390,8 @@ const faqs = [
     <section class="section section--paper">
       <div class="container">
         <div class="section-head section-head--center reveal">
-          <h2>How Sideways Aid Works</h2>
-          <p class="lead">We bypass bureaucratic red tape by funding communities directly with full financial transparency.</p>
+          <h2>Our Direct Funding Model</h2>
+          <p class="lead">We route capital directly to vetted local community partners, ensuring zero middleman friction and complete financial transparency.</p>
         </div>
 
         <div class="process-grid">
@@ -428,15 +419,21 @@ const faqs = [
             <div class="testimonial-card reveal" style={`--i:${i + 1}`}>
               <p class="testimonial-card__quote">{t.quote}</p>
               <div class="testimonial-card__author">
-                <Picture
-                  src={t.avatar}
-                  widths={[100]}
-                  formats={['avif', 'webp']}
-                  fallbackFormat="jpeg"
-                  quality={70}
-                  alt={t.name}
-                  class="testimonial-card__avatar"
-                />
+                {t.avatar ? (
+                  <Picture
+                    src={t.avatar}
+                    widths={[100]}
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpeg"
+                    quality={70}
+                    alt={t.name}
+                    class="testimonial-card__avatar"
+                  />
+                ) : (
+                  <div class="testimonial-card__monogram" style={`background: ${t.accentColor};`}>
+                    {t.initials}
+                  </div>
+                )}
                 <div class="testimonial-card__info">
                   <p>{t.name}</p>
                   <p>{t.role}</p>
@@ -475,7 +472,7 @@ const faqs = [
         <p class="lead reveal" style="--i:2; margin-inline: auto; color: var(--slate-300);">Join over 8,400 regular monthly partners transforming lives through clean water, safe schools, and emergency recovery.</p>
 
         <div class="btn-row reveal" style="--i:3; justify-content: center; margin-top: 2rem;">
-          <a class="btn btn--primary" href="#" onclick="alert('Thank you! Donation payment checkout portal connects before launch.'); return false;" style="font-size: 1.125rem; min-height: 3.5rem; padding-inline: 2.5rem;">
+          <a class="btn btn--primary" href="#calculator" style="font-size: 1.125rem; min-height: 3.5rem; padding-inline: 2.5rem;">
             Make a Donation Now<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
           <a class="btn btn--ghost" href="/who-we-are/">
