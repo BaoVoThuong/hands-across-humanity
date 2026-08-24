@@ -27,6 +27,20 @@ const {
 
 const onThisPage = sections.slice(1);
 const firstSection = onThisPage[0];
+const heroSignals = [
+  {
+    title: 'Local leadership',
+    text: 'People closest to the work help decide what is safe, possible and still needed.',
+  },
+  {
+    title: 'Practical support',
+    text: 'Clean water, shelter, medical care and safe learning spaces make the next day possible.',
+  },
+  {
+    title: 'Staying power',
+    text: 'Recovery and self-reliance remain part of the work after the headline changes.',
+  },
+];
 ---
 
 <SiteLayout
@@ -39,10 +53,11 @@ const firstSection = onThisPage[0];
     <Panel id="top" ground="paper" index={1} total={total} label={eyebrow} labelledby="page-title" nextId={firstSection?.id} nextLabel={firstSection?.label} hero={true}>
       <div class="page-hero__grid">
         <div class="page-hero__copy">
-          <h1 class="reveal page-hero__title" style="--i:1;" id="page-title">{title}</h1>
-          <p class="lead reveal page-hero__lead" style="--i:2;">{lead}</p>
+          <p class="page-hero__kicker reveal" style="--i:1;">{eyebrow}</p>
+          <h1 class="reveal page-hero__title" style="--i:2;" id="page-title">{title}</h1>
+          <p class="lead reveal page-hero__lead" style="--i:3;">{lead}</p>
 
-          <div class="btn-row reveal page-hero__actions" style="--i:3;">
+          <div class="btn-row reveal page-hero__actions" style="--i:4;">
             {firstSection && (
               <a class="btn btn--primary" href={`#${firstSection.id}`}>
                 {firstSection.label}<span class="btn__arrow" aria-hidden="true">↓</span>
@@ -52,12 +67,12 @@ const firstSection = onThisPage[0];
           </div>
 
           {onThisPage.length > 0 && (
-            <nav class="reveal page-hero__subnav" style="--i:4;" aria-label="On this page navigation">
+            <nav class="reveal page-hero__subnav" style="--i:5;" aria-label="On this page navigation">
               <p class="page-hero__subnav-title">On this page</p>
               <div class="page-hero__subnav-items">
-                {onThisPage.map((section: RailItem, i: number) => (
+                {onThisPage.map((section: RailItem) => (
                   <a href={`#${section.id}`} class="page-hero__nav-link">
-                    <span class="page-hero__nav-num">0{i + 2}</span> {section.label}
+                    {section.label}
                   </a>
                 ))}
               </div>
@@ -86,12 +101,21 @@ const firstSection = onThisPage[0];
           </figcaption>
         </figure>
       </div>
+
+      <div class="page-hero__signals reveal" style="--i:6;" aria-label="How we work">
+        {heroSignals.map((signal) => (
+          <div class="page-hero__signal">
+            <p class="page-hero__signal-title">{signal.title}</p>
+            <p class="page-hero__signal-text">{signal.text}</p>
+          </div>
+        ))}
+      </div>
     </Panel>
 
     <slot />
 
     <!-- Bottom Page Navigation / Authentic Journal Transition -->
-    <section class="chapter-transition chapter-transition--dark" id="next-chapter">
+    <section class="chapter-transition chapter-transition--warm" id="next-chapter">
       <div class="container-narrow">
         <blockquote class="chapter-transition__quote">
           {quote || "“Help reaches people through people who are already there.”"}

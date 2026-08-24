@@ -19,7 +19,6 @@ const navItems = [
   { href: '/who-we-are/', label: 'Who We Are', key: 'who-we-are' }
 ];
 
-const donateHref = '/#donate';
 ---
 
 <!doctype html>
@@ -43,11 +42,11 @@ const donateHref = '/#donate';
       description
     })} />
   </head>
-  <body>
+  <body class:list={{ 'site-body--editorial': Boolean(activePage) }}>
     <!--
     THESIS: High-impact commercial humanitarian platform with elevated visual hierarchy, structured proof points, interactive impact controls, rich project cards, and clean typography.
     OWN-WORLD: Palette: Warm alabaster ground (#FAF8F5), deep midnight slate (#0F172A), rich terracotta ember accent (#C84B2C), emerald trust accent (#059669), sleek glass navigation. Typography: Newsreader Display Serif + Public Sans.
-    STORY: Visitors instantly grasp the mission, explore active field projects, test donation impact via an interactive calculator, view field stories & proof points, and convert via prominent CTAs.
+    STORY: Visitors instantly grasp the mission, explore active field projects, view field stories & proof points, and follow the work through prominent CTAs.
     FIRST VIEWPORT: Split hero with bold headline, action CTAs, real-time live field badge overlay, and stats bar.
     FORM: Form 4 candidate, seed bd589f42.
     FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
@@ -79,9 +78,6 @@ const donateHref = '/#donate';
         </nav>
 
         <div class="header-actions">
-          <a class="btn btn--primary btn--header" href={donateHref}>
-            Donate<span class="btn__arrow" aria-hidden="true">→</span>
-          </a>
           <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false" aria-label="Open main menu">
             <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
           </button>
@@ -103,22 +99,6 @@ const donateHref = '/#donate';
             >{item.label}</a>
           ))}
         </nav>
-        <div style="margin-top: 1.5rem;">
-          <a class="btn btn--primary" style="width: 100%;" href={donateHref}>Donate Now<span class="btn__arrow" aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Sticky Donor Bar -->
-    <div class="mobile-sticky-bar" aria-label="Quick action navigation">
-      <div class="mobile-sticky-bar__inner">
-        <div class="mobile-sticky-bar__info">
-          <span class="mobile-sticky-bar__label">94% Direct Aid</span>
-          <span class="mobile-sticky-bar__sub">Verified Field Impact</span>
-        </div>
-        <a class="btn btn--primary btn--sm mobile-sticky-bar__btn" href={donateHref}>
-          Donate Now <span class="btn__arrow" aria-hidden="true">→</span>
-        </a>
       </div>
     </div>
 

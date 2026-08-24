@@ -3,7 +3,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import TrustStrip from '../components/ui/TrustStrip.astro';
 import HeroSection from '../components/home/HeroSection.astro';
 import StatsBar from '../components/home/StatsBar.astro';
-import ImpactCalculator from '../components/home/ImpactCalculator.astro';
 import ProjectsGrid from '../components/projects/ProjectsGrid.astro';
 import ProcessSection from '../components/home/ProcessSection.astro';
 import TestimonialSection from '../components/home/TestimonialSection.astro';
@@ -203,16 +202,6 @@ const faqs = [
     category: 'Enterprise & Foundations',
     q: 'Can corporate partners or foundations sponsor specific projects?',
     a: 'Absolutely. We offer dedicated co-sponsorship programs for foundations and enterprises, including customized impact dashboards and quarterly field audit reports.'
-  },
-  {
-    category: 'Audit & Accountability',
-    q: 'How are field projects audited and verified over time?',
-    a: 'Every field project undergoes dual-layer auditing: local registered engineering boards verify construction milestones, and photo/video GPS logs are published directly to our transparent public ledger.'
-  },
-  {
-    category: 'Donor Transparency',
-    q: 'Can I track the exact field project my funds were allocated to?',
-    a: 'Yes. Donors receive dedicated tracking codes allowing them to view real-time milestone updates, photo proof of completion, and community impact reports for their specific project.'
   }
 ];
 ---
@@ -227,7 +216,6 @@ const faqs = [
       <StatsBar stats={stats} />
       <TrustStrip />
     </div>
-    <ImpactCalculator />
     <ProjectsGrid projects={projects} />
     <ProcessSection steps={processSteps} />
     <TestimonialSection testimonials={testimonials} />
@@ -235,4 +223,3 @@ const faqs = [
     <ClosingCTA />
   </main>
 </SiteLayout>
-
