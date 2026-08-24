@@ -1,6 +1,10 @@
 ---
 import { Picture } from 'astro:assets';
 import heroImage from '../../assets/images/hero-connection.png';
+import waterTankImage from '../../assets/images/essay-03-water-tank.png';
+import roofingImage from '../../assets/images/essay-04-roofing-sheets.png';
+import cooperativeImage from '../../assets/images/essay-07-cooperative.png';
+import schoolsImage from '../../assets/images/work-schools-learning.png';
 
 interface Props {
   kicker?: string;
@@ -13,10 +17,43 @@ interface Props {
 const {
   kicker = "Grassroots Relief Network",
   title = "Direct, Transparent Aid Led by Local Communities.",
-  lead = "We bridge global resources directly to ground-level humanitarian leaders—funding clean water systems, school construction, emergency relief, and community self-reliance.",
+  lead = "We bridge global resources directly to ground-level humanitarian leaders - funding clean water systems, school construction, emergency relief, and community self-reliance.",
   donateUrl = "#donate",
   exploreUrl = "#projects"
 } = Astro.props;
+
+const slides = [
+  {
+    image: heroImage,
+    alt: "Community members collaborating hand to hand near a transport vehicle.",
+    lead: "Verified Field Dispatch #01",
+    title: "Kitui County Well #42: Clean water flow established for 1,400 families."
+  },
+  {
+    image: waterTankImage,
+    alt: "Clean water tank system installation in dry village landscape.",
+    lead: "Verified Field Dispatch #02",
+    title: "Turkana Solar Filtration: Delivering 5,000 liters of safe drinking water daily."
+  },
+  {
+    image: roofingImage,
+    alt: "Workers installing durable metal roofing sheets for community school.",
+    lead: "Verified Field Dispatch #03",
+    title: "Kibera School Reconstruction: Weatherproof roofing installed for 6 primary classrooms."
+  },
+  {
+    image: cooperativeImage,
+    alt: "Women farmers collaborating in agricultural cooperative field.",
+    lead: "Verified Field Dispatch #04",
+    title: "Rift Valley Farmers Collective: Empowering 320 women with modern tools."
+  },
+  {
+    image: schoolsImage,
+    alt: "Children receiving books and learning tablets in bright classroom.",
+    lead: "Verified Field Dispatch #05",
+    title: "Sub-Saharan Learning Grant: Distributing books & digital tablets to 500 students."
+  }
+];
 ---
 
 <section class="hero-v2" id="hero">
@@ -24,8 +61,7 @@ const {
     <div class="hero-v2__grid">
       <div class="hero-v2__copy">
         <div class="hero-v2__kicker reveal" style="--i:1">
-          <span class="hero-v2__kicker-dot" aria-hidden="true"></span>
-          <span>{kicker}</span>
+          <span class="hero-v2__kicker-text">{kicker}</span>
         </div>
 
         <h1 class="hero-v2__title reveal" style="--i:2">{title}</h1>
@@ -35,50 +71,254 @@ const {
           <a class="btn btn--primary btn--lg" href={donateUrl}>
             Donate Now<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
-          <a class="btn btn--secondary btn--lg" href={exploreUrl}>
+          <a class="btn btn--ghost btn--lg" href={exploreUrl}>
             Explore Field Projects
           </a>
         </div>
 
         <div class="hero-v2__metrics reveal" style="--i:5">
           <div class="hero-metric">
-            <span class="hero-metric__val">94%</span>
-            <span class="hero-metric__label">Direct Allocation</span>
-          </div>
-          <div class="hero-metric__divider" aria-hidden="true"></div>
-          <div class="hero-metric">
-            <span class="hero-metric__val">$0</span>
-            <span class="hero-metric__label">Middleman Fees</span>
+            <span class="hero-metric__val">$2.4M+</span>
+            <span class="hero-metric__label">Direct Aid Deployed</span>
           </div>
           <div class="hero-metric__divider" aria-hidden="true"></div>
           <div class="hero-metric">
             <span class="hero-metric__val">100%</span>
-            <span class="hero-metric__label">Audited Proof</span>
+            <span class="hero-metric__label">Transparent Audits</span>
+          </div>
+          <div class="hero-metric__divider" aria-hidden="true"></div>
+          <div class="hero-metric">
+            <span class="hero-metric__val">42</span>
+            <span class="hero-metric__label">Active Field Wells & Schools</span>
           </div>
         </div>
       </div>
 
       <div class="hero-v2__media-col reveal" style="--i:3">
-        <div class="hero-v2__frame">
-          <Picture
-            src={heroImage}
-            widths={[600, 900, 1200]}
-            sizes="(min-width: 960px) 55vw, 100vw"
-            formats={['avif', 'webp']}
-            fallbackFormat="jpeg"
-            quality={85}
-            alt="Community members collaborating hand to hand near a transport vehicle."
-            loading="eager"
-            fetchpriority="high"
-          />
+        <div class="hero-carousel" id="hero-carousel" aria-label="Field dispatch showcase" role="region">
+          {/* Progress bar indicator */}
+          <div class="hero-carousel__progress-track" aria-hidden="true">
+            <div class="hero-carousel__progress-bar" id="hero-carousel-progress"></div>
+          </div>
+
+          {/* Slides stack */}
+          <div class="hero-carousel__slides">
+            {slides.map((slide, index) => (
+              <div
+                class={`hero-carousel__slide ${index === 0 ? 'is-active' : ''}`}
+                data-slide-index={index}
+                aria-hidden={index === 0 ? "false" : "true"}
+              >
+                <Picture
+                  src={slide.image}
+                  widths={[600, 900, 1200]}
+                  sizes="(min-width: 960px) 55vw, 100vw"
+                  formats={['avif', 'webp']}
+                  fallbackFormat="jpeg"
+                  quality={85}
+                  alt={slide.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : "auto"}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Arrows (Visible on hover) */}
+          <button class="hero-carousel__arrow hero-carousel__arrow--prev" id="hero-carousel-prev" aria-label="Previous slide" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="hero-carousel__arrow hero-carousel__arrow--next" id="hero-carousel-next" aria-label="Next slide" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          {/* Indicator dots */}
+          <div class="hero-carousel__indicators">
+            {slides.map((_, index) => (
+              <button
+                class={`hero-carousel__dot ${index === 0 ? 'is-active' : ''}`}
+                data-goto-slide={index}
+                aria-label={`Go to slide ${index + 1}`}
+                type="button"
+              ></button>
+            ))}
+          </div>
+
+          {/* Dynamic Caption */}
           <div class="hero-v2__caption">
-            <span class="hero-v2__caption-tag">Verified Field Dispatch</span>
-            <span class="hero-v2__caption-text">Kitui County Well #42 — Clean water flow established for 1,400 families.</span>
+            <div class="hero-v2__caption-header">
+              <span class="hero-v2__caption-dot" aria-hidden="true"></span>
+              <span class="hero-v2__caption-lead" id="hero-carousel-lead">{slides[0].lead}</span>
+              <span class="hero-carousel__counter" id="hero-carousel-counter">1 / {slides.length}</span>
+            </div>
+            <p class="hero-v2__caption-text" id="hero-carousel-text">{slides[0].title}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const DURATION = 5000;
+  const carousel = document.getElementById('hero-carousel');
+  if (carousel) {
+    const slides = carousel.querySelectorAll('.hero-carousel__slide');
+    const progressBar = document.getElementById('hero-carousel-progress');
+    const prevBtn = document.getElementById('hero-carousel-prev');
+    const nextBtn = document.getElementById('hero-carousel-next');
+    const dots = carousel.querySelectorAll('.hero-carousel__dot');
+    const leadEl = document.getElementById('hero-carousel-lead');
+    const textEl = document.getElementById('hero-carousel-text');
+    const counterEl = document.getElementById('hero-carousel-counter');
+
+    const slideData = [
+      {
+        lead: "Verified Field Dispatch #01",
+        text: "Kitui County Well #42: Clean water flow established for 1,400 families."
+      },
+      {
+        lead: "Verified Field Dispatch #02",
+        text: "Turkana Solar Filtration: Delivering 5,000 liters of safe drinking water daily."
+      },
+      {
+        lead: "Verified Field Dispatch #03",
+        text: "Kibera School Reconstruction: Weatherproof roofing installed for 6 primary classrooms."
+      },
+      {
+        lead: "Verified Field Dispatch #04",
+        text: "Rift Valley Farmers Collective: Empowering 320 women with modern tools."
+      },
+      {
+        lead: "Verified Field Dispatch #05",
+        text: "Sub-Saharan Learning Grant: Distributing books & digital tablets to 500 students."
+      }
+    ];
+
+    let currentIndex = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    let isHovered = false;
+
+    function startProgressBar() {
+      if (!progressBar) return;
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      // Trigger reflow to restart CSS transition
+      void progressBar.offsetWidth;
+      progressBar.style.transition = `width ${DURATION}ms linear`;
+      progressBar.style.width = '100%';
+    }
+
+    function goToSlide(index: number) {
+      if (index === currentIndex) return;
+      slides[currentIndex]?.classList.remove('is-active');
+      slides[currentIndex]?.setAttribute('aria-hidden', 'true');
+      dots[currentIndex]?.classList.remove('is-active');
+
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides[currentIndex]?.classList.add('is-active');
+      slides[currentIndex]?.setAttribute('aria-hidden', 'false');
+      dots[currentIndex]?.classList.add('is-active');
+
+      if (leadEl && slideData[currentIndex]) leadEl.textContent = slideData[currentIndex].lead;
+      if (textEl && slideData[currentIndex]) textEl.textContent = slideData[currentIndex].text;
+      if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${slides.length}`;
+
+      restartTimer();
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    function startTimer() {
+      stopTimer();
+      startProgressBar();
+      timer = setInterval(() => {
+        if (!isHovered) {
+          nextSlide();
+        }
+      }, DURATION);
+    }
+
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function restartTimer() {
+      stopTimer();
+      startTimer();
+    }
+
+    prevBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      prevSlide();
+    });
+
+    nextBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      nextSlide();
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(idx);
+      });
+    });
+
+    carousel.addEventListener('mouseenter', () => {
+      isHovered = true;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isHovered = false;
+    });
+
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextSlide();
+      }
+    });
+
+    // Touch swipe gesture handling for mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].clientX;
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }, { passive: true });
+
+    startTimer();
+  }
+</script>
 
 

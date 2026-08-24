@@ -20,7 +20,9 @@ Production preview was checked across `/`, `/mission/`, `/what-we-do/`, `/vision
 - Navigation resolves to four dedicated pages with the active page state
 - Home cards navigate to the Mission page
 - Mobile menu opens, sets `aria-expanded`, makes `main` inert, closes on Escape, and returns focus to the toggle
-- No console errors or page errors
+- Hero Carousel advances smoothly every 5 seconds with zero Cumulative Layout Shift (CLS)
+- Hero section does not jump or jerk vertically when clicking inside the Carousel or toggling controls (no `tabindex="0"` on wrapper, fixed caption `min-height: 82px`)
+- Hover controls and dot indicators function without console errors
 
 ## Launch blockers intentionally left for client handoff
 

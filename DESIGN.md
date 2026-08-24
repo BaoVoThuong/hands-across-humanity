@@ -192,16 +192,25 @@ Surfaces use subtle, layered shadow depth paired with crisp border definitions t
 - **Background:** Crisp white surface (`#FFFFFF`) framed by semi-transparent dark backdrop overlay (`rgba(15, 23, 42, 0.6)` with backdrop blur).
 - **Header:** Sticky modal bar with project title, audit partner verification badge, and circular close button.
 
+### Hero Section Field Dispatch Carousel
+- **Structure:** 5-slide interactive showcase (`hero-connection.png`, `essay-03-water-tank.png`, `essay-04-roofing-sheets.png`, `essay-07-cooperative.png`, `work-schools-learning.png`).
+- **Progress Track:** Clean 3px Terracotta Ember progress bar (`#E05A36`) animating smoothly from 0% to 100% over 5 seconds (`5000ms`) without artificial neon glow box-shadows.
+- **Hover Arrow Controls:** Glassmorphism circle buttons (`rgba(15, 23, 42, 0.75)` with `backdrop-filter: blur(8px)`) that transition in on container hover with Terracotta Ember hover state (`#C84B2C`).
+- **Pagination & Counter:** Floating translucent dot pill indicator with active Terracotta indicator (`#E05A36`) paired with monospaced counter badge (`1 / 5`).
+- **Interactive Logic:** Auto-advances every 5s; pauses on hover (`mouseenter`/`mouseleave`); resets timer on prev/next/dot click; supports `ArrowLeft`/`ArrowRight` keyboard navigation.
+
 ## Do's and Don'ts
 
 ### Do:
 - **Do** maintain strict color role separation: Terracotta Ember for actions, Emerald for metrics/proofs, Slate for text.
 - **Do** use responsive type scales (`clamp()`) and `font-variation-settings: 'opsz'` for variable serif headings.
 - **Do** pair project cards with real field photographs, location indicators, and explicit audit partner names.
-- **Do** provide keyboard-accessible modal dialogs and filter controls with clean focus rings (`outline: 3px solid var(--primary)`).
+- **Do** lock image caption dimensions using `min-height` (`82px`) and `min-height: 2.6rem` on caption text to prevent Cumulative Layout Shift (CLS) during carousel transitions.
+- **Do** anchor top-level hero sections with `justify-content: flex-start` to avoid vertical re-centering jitter under sticky headers.
 
 ### Don't:
 - **Don't** use pure stark black (`#000000`) for text or backgrounds; always use Midnight Slate (`#0F172A`) or Body Slate (`#1E293B`).
+- **Don't** add `tabindex="0"` to outer carousel containers or layout frames; mouse clicks trigger native focus `scrollIntoView`, causing annoying header jump.
 - **Don't** place generic non-profit placeholder icons; use documentary imagery and verified field data.
 - **Don't** overcrowd card layouts; maintain generous internal padding (`1.5rem`) and clear spatial separation between image, metadata, progress, and CTAs.
 - **Don't** break pagination grid bounds during filtering; hide out-of-filter cards smoothly using CSS transitions.
