@@ -2,9 +2,10 @@
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
 import { Picture } from 'astro:assets';
+import publicMedicalClinic from '../assets/images/public-medical-clinic.jpg';
+import publicPracticalRelief from '../assets/images/public-practical-relief.jpg';
 import heroImage from '../assets/images/hero-connection.png';
 import waterImage from '../assets/images/essay-03-water-tank.png';
-import roofImage from '../assets/images/essay-04-roofing-sheets.png';
 import coopImage from '../assets/images/essay-07-cooperative.png';
 import handsImage from '../assets/images/essay-06-hands.png';
 import schoolImage from '../assets/images/work-schools-learning.png';
@@ -21,11 +22,11 @@ const ruleCards = [
     num: '01',
     category: 'Practicality',
     title: 'Useful over impressive',
-    body: 'We choose the practical response a family can use, not the project that photographs best.',
-    image: roofImage,
-    alt: 'Galvanized roofing sheets delivered for emergency school shelter repairs.',
-    captionTitle: 'Kitui Emergency Roof Repair',
-    captionStat: '150 families sheltered',
+    body: 'We prioritize immediate practical supplies that families can directly use — like clean water containers, durable blankets, and emergency shelter kits — over grand photo ops.',
+    image: publicPracticalRelief,
+    alt: 'Direct distribution of essential supplies and clean water containers to local families.',
+    captionTitle: 'Kitui Practical Aid Distribution',
+    captionStat: '150 families served',
     href: '/what-we-do/#shelter',
     linkText: 'View Emergency Relief'
   },
@@ -74,7 +75,7 @@ const ruleCards = [
   <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three rules">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal"><span class="eyebrow__dot"></span>What we mean by help</p>
+        <p class="eyebrow reveal">What we mean by help</p>
         <h2 class="reveal" style="--i:1" id="approach-title">Move at the speed of need. Stay for the work after.</h2>
       </div>
       <p class="lead reveal" style="--i:2">A crisis does not arrive in neat categories. Hunger affects school. A damaged roof affects health. Displacement turns every ordinary task into a negotiation.</p>
@@ -85,13 +86,13 @@ const ruleCards = [
         <div class="photo-manga-grid">
           <div class="photo-manga-grid__main">
             <Picture
-              src={roofImage}
+              src={publicMedicalClinic}
               widths={[300, 500]}
               sizes="(min-width: 768px) 30vw, 60vw"
               formats={['avif', 'webp']}
               fallbackFormat="jpeg"
               quality={80}
-              alt="Emergency galvanized roofing sheets dispatched to cyclone relief shelters."
+              alt="Medical professional carrying out rapid community medical consultation."
               loading="lazy"
             />
           </div>
@@ -212,7 +213,7 @@ const ruleCards = [
   <!-- 03 — Rules -->
   <Panel id="rules" ground="paper" index={3} total={3} label="Rules" labelledby="rules-title" ctaHref="/what-we-do/" ctaLabel="See what we do">
     <div class="panel-head">
-      <p class="eyebrow reveal"><span class="eyebrow__dot"></span>How we decide</p>
+      <p class="eyebrow reveal">How we decide</p>
       <h2 class="reveal" style="--i:1" id="rules-title">Three rules we hold to.</h2>
     </div>
     

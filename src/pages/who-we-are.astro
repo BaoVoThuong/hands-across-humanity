@@ -2,8 +2,8 @@
 import { Picture } from 'astro:assets';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import portraitImage from '../assets/images/who-we-are-portrait.png';
-import cooperativeImage from '../assets/images/essay-07-cooperative.png';
+import publicCommunityTree from '../assets/images/public-community-tree.jpg';
+import publicVolunteerFood from '../assets/images/public-volunteer-food.jpg';
 
 const sections = [
   { id: 'top', label: 'Who we are' },
@@ -18,8 +18,8 @@ const sections = [
   title="The people closest to the work lead it."
   lead="A small humanitarian organisation with a clear job: make local work possible, then be honest about how it goes."
   description="Hands Across Humanity works through community groups, local staff, teachers, nurses, volunteers and neighbours."
-  image={portraitImage}
-  imageAlt="A community organiser stands in a doorway while neighbours prepare a meeting space behind them."
+  image={publicCommunityTree}
+  imageAlt="Local community members and leaders gathered together under a tree during a field consultation."
   caption="People who live close to the work should lead it."
   nextHref="/mission/"
   nextLabel="Read our mission"
@@ -61,13 +61,13 @@ const sections = [
       <figure class="model-showcase__media reveal" style="--i:4">
         <div class="model-showcase__image-frame">
           <Picture
-            src={cooperativeImage}
+            src={publicVolunteerFood}
             widths={[600, 900, 1200]}
             sizes="(min-width: 940px) 46vw, 92vw"
             formats={['avif', 'webp']}
             fallbackFormat="jpeg"
             quality={75}
-            alt="Members of a small cooperative count stock together in a shop, one writing in a ledger."
+            alt="Local volunteers organizing fresh food and community supplies."
             loading="lazy"
             decoding="async"
           />
@@ -98,7 +98,7 @@ const sections = [
   <!-- 03 — Practice -->
   <Panel id="practice" ground="paper" index={3} total={3} label="In practice" labelledby="practice-title" ctaHref="/mission/" ctaLabel="Read our mission">
     <div class="panel-head">
-      <p class="eyebrow reveal">How that shows up</p>
+        <p class="eyebrow reveal">How that shows up</p>
       <h2 class="reveal" style="--i:1" id="practice-title">Three habits, kept in public.</h2>
     </div>
     <!-- 3-Step Action Habits Flow (styled like vision.astro modest-flow) -->

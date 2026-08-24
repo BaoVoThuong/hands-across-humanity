@@ -14,99 +14,74 @@ const {
 
 <section class="section section--paper" id="calculator">
   <div class="container">
-    <div class="section-head section-head--center reveal">
-      <h2>{title}</h2>
-      <p class="lead">{lead}</p>
-    </div>
-
-    <div class="calculator-card reveal" style="--i:2">
-      <!-- Input Column -->
-      <div class="calc-input-col">
-        <div class="calc-header-block">
-          <label class="calc-input-heading">Contribution Frequency</label>
-          <div class="calc-toggle" role="radiogroup" aria-label="Donation frequency">
-            <button type="button" class="calc-toggle__btn is-active" id="calc-monthly" role="radio" aria-checked="true">
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              Monthly Partner
-            </button>
-            <button type="button" class="calc-toggle__btn" id="calc-once" role="radio" aria-checked="false">
-              One-Time Gift
-            </button>
-          </div>
-        </div>
-
-        <div class="calc-amount-header">
-          <label for="calc-custom-input" class="calc-amount-label">Select Contribution Amount (USD)</label>
-          <span class="calc-frequency-badge" id="calc-freq-label">Renews Monthly</span>
-        </div>
-
-        <div class="calc-amount-group">
-          <div class="calc-presets" role="radiogroup" aria-label="Donation preset amounts">
-            <button type="button" class="calc-preset-btn" data-amt="25" role="radio" aria-checked="false" aria-label="Donate $25 USD">$25</button>
-            <button type="button" class="calc-preset-btn is-active" data-amt="50" role="radio" aria-checked="true" aria-label="Donate $50 USD">$50</button>
-            <button type="button" class="calc-preset-btn" data-amt="100" role="radio" aria-checked="false" aria-label="Donate $100 USD">$100</button>
-            <button type="button" class="calc-preset-btn" data-amt="250" role="radio" aria-checked="false" aria-label="Donate $250 USD">$250</button>
-            <button type="button" class="calc-preset-btn" data-amt="500" role="radio" aria-checked="false" aria-label="Donate $500 USD">$500</button>
-          </div>
-
-          <div class="calc-custom-container">
-            <div class="calc-custom-wrapper">
-              <span class="calc-custom-symbol" aria-hidden="true">$</span>
-              <input 
-                type="number" 
-                id="calc-custom-input" 
-                class="calc-custom-input" 
-                placeholder="Or enter custom amount in USD" 
-                min="5" 
-                max="50000" 
-                step="5"
-                aria-label="Enter custom donation amount in US Dollars"
-              />
-              <span class="calc-custom-currency">USD</span>
-            </div>
-            <div class="calc-validation-msg" id="calc-val-msg" aria-live="polite"></div>
-          </div>
+    <div class="calc-container reveal">
+      <div class="calc-input-panel">
+        <div class="calc-header">
+          <p class="eyebrow">Direct Allocation Engine</p>
+          <h2 id="calc-title" class="calc-title">{title}</h2>
+          <p class="calc-lead">{lead}</p>
         </div>
         
-        <div class="calc-trust-card">
-          <div class="calc-trust-card__header">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            <span class="calc-trust-card__title">Direct Impact Allocation</span>
+        <!-- Frequency Selector -->
+        <div class="calc-freq-group">
+          <label class="calc-label">Giving Frequency</label>
+          <div class="calc-toggle" role="group" aria-label="Donation frequency">
+            <button type="button" class="calc-toggle__btn is-active" id="calc-monthly" data-freq="monthly" aria-pressed="true">Monthly Partner</button>
+            <button type="button" class="calc-toggle__btn" id="calc-once" data-freq="once" aria-pressed="false">One-Time Gift</button>
           </div>
-          <p class="calc-trust-card__text">
-            <strong>94% of funds</strong> directly purchase ground-level supplies and fund local field workers. Fully tax-deductible under 501(c)(3) public charity status.
-          </p>
+        </div>
+
+        <!-- Presets & Custom Amount Grid -->
+        <div class="calc-amount-group">
+          <div class="calc-amount-header">
+            <label class="calc-label">Select Amount (USD)</label>
+            <span class="calc-guarantee-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span><strong>94%</strong> directly to field initiatives</span>
+            </span>
+          </div>
+
+          <div class="calc-presets-grid" role="group" aria-label="Select donation amount">
+            <button type="button" class="calc-preset-btn" data-amt="25">$25</button>
+            <button type="button" class="calc-preset-btn is-active" data-amt="50">$50</button>
+            <button type="button" class="calc-preset-btn" data-amt="100">$100</button>
+            <button type="button" class="calc-preset-btn" data-amt="250">$250</button>
+            <button type="button" class="calc-preset-btn" data-amt="500">$500</button>
+          </div>
+
+          <!-- Custom Amount Input -->
+          <div class="calc-custom-box">
+            <span class="calc-custom-symbol">$</span>
+            <input type="number" id="calc-custom-input" class="calc-custom-input" placeholder="Or enter custom amount in USD" min="5" max="50000" step="5" aria-label="Custom donation amount in dollars" />
+          </div>
         </div>
       </div>
 
-      <!-- Human-Centered Editorial Field Record Output Column -->
-      <div class="calc-output" id="calc-output-card">
-        <div class="calc-output__top">
-          <div class="calc-output__meta">
-            <span class="calc-output__receipt-id">FIELD RECORD #HAH-2026</span>
-            <span class="calc-output__multiplier" id="calc-annual-impact">~ $600 / year total</span>
-          </div>
-
-          <div class="calc-output__hero-metric">
-            <span class="calc-output__num" id="calc-metric-num">100</span>
-            <span class="calc-output__unit" id="calc-metric-unit">Days of Clean Water</span>
+      <!-- Result Card -->
+      <div class="calc-result-panel">
+        <div class="calc-result-header">
+          <span class="calc-result-tag">Estimated Direct Impact</span>
+          <div class="calc-result-price-wrap">
+            <span id="calc-metric-num" class="calc-result-price">$50 / mo</span>
           </div>
         </div>
 
-        <div class="calc-output__body">
-          <p class="calc-output__desc" id="calc-text">
-            Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.
-          </p>
-        </div>
+        <ul class="calc-impact-list">
+          <li class="calc-impact-item">
+            <span class="calc-impact-icon" aria-hidden="true">✓</span>
+            <span id="calc-metric-unit" class="calc-impact-text">Provides <strong>100 days of clean drinking water</strong> for 2 rural families.</span>
+          </li>
+          <li class="calc-impact-item">
+            <span class="calc-impact-icon" aria-hidden="true">✓</span>
+            <span id="calc-text" class="calc-impact-text">Delivers emergency water purification tablets & essential school supplies.</span>
+          </li>
+        </ul>
 
-        <div class="calc-output__footer">
-          <a class="btn btn--primary calc-output__cta" id="calc-cta-btn" href="#donate">
+        <div class="calc-result-footer">
+          <a id="calc-cta-btn" href="#donate" class="btn btn--primary calc-submit-btn">
             Fund This Impact <span class="btn__arrow" aria-hidden="true">→</span>
           </a>
-          <div class="calc-output__audit-note">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            Audited & Dispatched to Registered Local Partners
-          </div>
+          <p class="calc-tax-note">Audited & Dispatched to Registered Local Partners</p>
         </div>
       </div>
     </div>
@@ -119,160 +94,60 @@ const {
   const onceBtn = document.getElementById('calc-once');
   const presetBtns = document.querySelectorAll<HTMLElement>('.calc-preset-btn');
   const customInput = document.getElementById('calc-custom-input') as HTMLInputElement | null;
-  const valMsg = document.getElementById('calc-val-msg');
   const metricNum = document.getElementById('calc-metric-num');
   const metricUnit = document.getElementById('calc-metric-unit');
   const outputText = document.getElementById('calc-text');
-  const freqLabel = document.getElementById('calc-freq-label');
-  const annualImpact = document.getElementById('calc-annual-impact');
   const ctaBtn = document.getElementById('calc-cta-btn');
 
   let isMonthly = true;
   let currentAmt = 50;
 
-  interface ImpactRecord {
-    monthlyNum: string;
-    monthlyUnit: string;
-    monthlyDesc: string;
-    onceNum: string;
-    onceUnit: string;
-    onceDesc: string;
+  function getDynamicImpact(amount: number) {
+    const fams = Math.max(1, Math.floor(amount / 25));
+    const kids = Math.max(1, Math.floor(amount / 50));
+    const waterMeters = Math.max(2, Math.floor(amount * 0.2));
+    return {
+      num: `$${amount}${isMonthly ? ' / mo' : ' one-time'}`,
+      unit: `Supplies <strong>${fams} ${fams > 1 ? 'families' : 'family'}</strong> with emergency food & clean water kits.`,
+      desc: `Keeps <strong>${kids} ${kids > 1 ? 'children' : 'child'}</strong> enrolled in school & funds <strong>${waterMeters}m</strong> water piping.`
+    };
   }
-
-  const impactData: Record<number, ImpactRecord> = {
-    25: {
-      monthlyNum: '50',
-      monthlyUnit: 'Days of Drinking Water',
-      monthlyDesc: 'Provides <strong>50 days of clean drinking water</strong> for 1 rural household plus essential school supplies.',
-      onceNum: '1 Kit',
-      onceUnit: 'Water Filtration Set',
-      onceDesc: 'Provides <strong>water filtration kits</strong> for 1 family affected by localized flooding.'
-    },
-    50: {
-      monthlyNum: '100',
-      monthlyUnit: 'Days of Clean Water',
-      monthlyDesc: 'Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.',
-      onceNum: '1 Solar',
-      onceUnit: 'Classroom Lighting Kit',
-      onceDesc: 'Constructs <strong>1 solar-powered classroom lighting kit</strong> for nighttime study.'
-    },
-    100: {
-      monthlyNum: '365',
-      monthlyUnit: 'Days of Water (4 Families)',
-      monthlyDesc: 'Funds <strong>clean water for 4 families for 1 full year</strong> + quarterly school supplies for 10 students.',
-      onceNum: '2 Homes',
-      onceUnit: 'Roofing Materials',
-      onceDesc: 'Supplies <strong>corrugated iron roofing sheets for 2 storm-damaged homes</strong>.'
-    },
-    250: {
-      monthlyNum: '1 Team',
-      monthlyUnit: 'Borehole Maintenance',
-      monthlyDesc: 'Co-sponsors <strong>1 community solar borehole well maintenance team</strong> year-round.',
-      onceNum: '1 Well',
-      onceUnit: 'Clean Water Pump System',
-      onceDesc: 'Installs <strong>1 deep-borehole clean water pump system</strong> providing permanent drinking water for a village.'
-    },
-    500: {
-      monthlyNum: '1 Clinic',
-      monthlyUnit: 'Village Supply Chain',
-      monthlyDesc: 'Fully funds <strong>1 village medical clinic supply chain</strong> and emergency transport fund.',
-      onceNum: '1 Tank',
-      onceUnit: 'Rainwater Storage (400 People)',
-      onceDesc: 'Finances <strong>1 entire rainwater harvest storage tank</strong> serving 400 community members.'
-    }
-  };
-
-  const getCustomImpact = (amt: number, monthly: boolean) => {
-    if (impactData[amt]) {
-      const d = impactData[amt];
-      return {
-        num: monthly ? d.monthlyNum : d.onceNum,
-        unit: monthly ? d.monthlyUnit : d.onceUnit,
-        desc: monthly ? d.monthlyDesc : d.onceDesc
-      };
-    }
-    
-    if (amt < 25) {
-      return {
-        num: `$${amt}`,
-        unit: 'Direct Water Purification',
-        desc: `Delivers <strong>$${amt} worth of clean water purification tablets</strong> & essential sanitation items for children.`
-      };
-    } else if (amt < 100) {
-      const waterDays = Math.round(amt * 2);
-      return {
-        num: `${waterDays}`,
-        unit: 'Days of Clean Water',
-        desc: `Provides approximately <strong>${waterDays} days of clean drinking water</strong> & school learning materials for local children.`
-      };
-    } else if (amt < 300) {
-      const families = Math.round(amt / 25);
-      return {
-        num: `${families}`,
-        unit: 'Families Supported',
-        desc: `Co-sponsors emergency shelter repairs & sustainable clean water access across <strong>${families} family households</strong>.`
-      };
-    } else {
-      return {
-        num: `$${amt.toLocaleString()}`,
-        unit: 'Audited Direct Supplies',
-        desc: `Delivers <strong>$${amt.toLocaleString()} in direct, audited field supplies</strong> including community solar wells, clinic medicine, or local farming kits.`
-      };
-    }
-  };
 
   const updateOutput = () => {
     if (!outputText || !metricNum || !metricUnit) return;
 
-    outputText.style.opacity = '0';
-    metricNum.style.opacity = '0';
-    metricUnit.style.opacity = '0';
+    const { num, unit, desc } = getDynamicImpact(currentAmt);
+    metricNum.textContent = num;
+    metricUnit.innerHTML = unit;
+    outputText.innerHTML = desc;
 
-    setTimeout(() => {
-      const { num, unit, desc } = getCustomImpact(currentAmt, isMonthly);
-      metricNum.textContent = num;
-      metricUnit.textContent = unit;
-      outputText.innerHTML = desc;
-
-      metricNum.style.opacity = '1';
-      metricUnit.style.opacity = '1';
-      outputText.style.opacity = '1';
-
-      if (freqLabel) {
-        freqLabel.textContent = isMonthly ? 'Renews Monthly' : 'One-Time Contribution';
-      }
-
-      if (annualImpact) {
-        if (isMonthly) {
-          const annualTotal = currentAmt * 12;
-          annualImpact.textContent = `~ $${annualTotal.toLocaleString()} / year total`;
-          annualImpact.style.visibility = 'visible';
-        } else {
-          annualImpact.style.visibility = 'hidden';
-        }
-      }
-
-      if (ctaBtn) {
-        ctaBtn.setAttribute('href', `#donate?amount=${currentAmt}&type=${isMonthly ? 'monthly' : 'once'}`);
-      }
-    }, 120);
+    if (ctaBtn) {
+      const arrowSpan = document.createElement('span');
+      arrowSpan.className = 'btn__arrow';
+      arrowSpan.setAttribute('aria-hidden', 'true');
+      arrowSpan.textContent = '→';
+      
+      ctaBtn.textContent = `Commit $${currentAmt}${isMonthly ? ' / month' : ' one-time'} `;
+      ctaBtn.appendChild(arrowSpan);
+      ctaBtn.setAttribute('href', `/#donate?amount=${currentAmt}&type=${isMonthly ? 'monthly' : 'once'}`);
+    }
   };
 
   monthlyBtn?.addEventListener('click', () => {
     isMonthly = true;
     monthlyBtn.classList.add('is-active');
-    monthlyBtn.setAttribute('aria-checked', 'true');
+    monthlyBtn.setAttribute('aria-pressed', 'true');
     onceBtn?.classList.remove('is-active');
-    onceBtn?.setAttribute('aria-checked', 'false');
+    onceBtn?.setAttribute('aria-pressed', 'false');
     updateOutput();
   });
 
   onceBtn?.addEventListener('click', () => {
     isMonthly = false;
     onceBtn.classList.add('is-active');
-    onceBtn.setAttribute('aria-checked', 'true');
+    onceBtn.setAttribute('aria-pressed', 'true');
     monthlyBtn?.classList.remove('is-active');
-    monthlyBtn?.setAttribute('aria-checked', 'false');
+    monthlyBtn?.setAttribute('aria-pressed', 'false');
     updateOutput();
   });
 
@@ -280,18 +155,12 @@ const {
     btn.addEventListener('click', (e) => {
       presetBtns.forEach((b) => {
         b.classList.remove('is-active');
-        b.setAttribute('aria-checked', 'false');
       });
       if (customInput) customInput.value = '';
-      if (valMsg) {
-        valMsg.textContent = '';
-        valMsg.classList.remove('is-visible');
-      }
 
       const target = e.currentTarget as HTMLElement | null;
       if (target) {
         target.classList.add('is-active');
-        target.setAttribute('aria-checked', 'true');
         currentAmt = parseInt(target.getAttribute('data-amt') || '50', 10);
         updateOutput();
       }
@@ -302,57 +171,13 @@ const {
     const rawVal = customInput.value.trim();
     const val = parseInt(rawVal, 10);
 
-    if (rawVal === '') {
-      if (valMsg) {
-        valMsg.textContent = '';
-        valMsg.classList.remove('is-visible');
-      }
-      customInput.classList.remove('is-invalid');
-      const activePreset = document.querySelector('.calc-preset-btn.is-active') as HTMLElement | null;
-      currentAmt = activePreset ? parseInt(activePreset.getAttribute('data-amt') || '50', 10) : 50;
+    if (!isNaN(val) && val >= 5) {
+      presetBtns.forEach((b) => {
+        b.classList.remove('is-active');
+      });
+      currentAmt = val;
       updateOutput();
-      return;
     }
-
-    if (isNaN(val) || val <= 0) {
-      if (valMsg) {
-        valMsg.textContent = 'Please enter a valid amount (minimum $5)';
-        valMsg.classList.add('is-visible');
-      }
-      customInput.classList.add('is-invalid');
-      return;
-    }
-
-    if (val < 5) {
-      if (valMsg) {
-        valMsg.textContent = 'Minimum contribution amount is $5 USD.';
-        valMsg.classList.add('is-visible');
-      }
-      customInput.classList.add('is-invalid');
-      return;
-    }
-
-    if (val > 50000) {
-      if (valMsg) {
-        valMsg.textContent = 'For major gifts over $50,000, please contact our partner team directly.';
-        valMsg.classList.add('is-visible');
-      }
-      customInput.classList.add('is-invalid');
-      return;
-    }
-
-    // Valid Custom Input
-    if (valMsg) {
-      valMsg.textContent = '';
-      valMsg.classList.remove('is-visible');
-    }
-    customInput.classList.remove('is-invalid');
-    presetBtns.forEach((b) => {
-      b.classList.remove('is-active');
-      b.setAttribute('aria-checked', 'false');
-    });
-    currentAmt = val;
-    updateOutput();
   });
 </script>
 

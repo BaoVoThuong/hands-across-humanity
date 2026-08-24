@@ -1,6 +1,5 @@
 ---
 import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Panel from '../components/Panel.astro';
 
@@ -56,7 +55,7 @@ const firstSection = onThisPage[0];
             <nav class="reveal page-hero__subnav" style="--i:4;" aria-label="On this page navigation">
               <p class="page-hero__subnav-title">On this page</p>
               <div class="page-hero__subnav-items">
-                {onThisPage.map((section, i) => (
+                {onThisPage.map((section: RailItem, i: number) => (
                   <a href={`#${section.id}`} class="page-hero__nav-link">
                     <span class="page-hero__nav-num">0{i + 2}</span> {section.label}
                   </a>
@@ -111,11 +110,11 @@ const firstSection = onThisPage[0];
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const links = document.querySelectorAll('.page-hero__nav-link');
+    function setupSubnavObserver() {
+      const links = document.querySelectorAll<HTMLAnchorElement>('.page-hero__nav-link');
       if (!links.length) return;
 
-      const sectionMap = new Map();
+      const sectionMap = new Map<Element, HTMLAnchorElement>();
       links.forEach(link => {
         const hash = link.getAttribute('href');
         if (hash && hash.startsWith('#')) {
@@ -126,7 +125,19 @@ const firstSection = onThisPage[0];
 
       if (!sectionMap.size) return;
 
+      // Remove any initial active class if we are near the top of the page
+      function checkActive() {
+        if (window.scrollY < 200) {
+          links.forEach(l => l.classList.remove('is-active'));
+        }
+      }
+      checkActive();
+
       const observer = new IntersectionObserver((entries) => {
+        if (window.scrollY < 200) {
+          links.forEach(l => l.classList.remove('is-active'));
+          return;
+        }
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             links.forEach(l => l.classList.remove('is-active'));
@@ -135,11 +146,19 @@ const firstSection = onThisPage[0];
           }
         });
       }, {
-        rootMargin: '-20% 0px -60% 0px',
+        rootMargin: '-30% 0px -50% 0px',
         threshold: 0
       });
 
       sectionMap.forEach((_, section) => observer.observe(section));
-    });
+      window.addEventListener('scroll', checkActive, { passive: true });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupSubnavObserver);
+    } else {
+      setupSubnavObserver();
+    }
+    document.addEventListener('astro:page-load', setupSubnavObserver);
   </script>
 </SiteLayout>
