@@ -1,0 +1,212 @@
+---
+interface Props {
+  title?: string;
+  lead?: string;
+}
+
+const {
+  title = "See How Far Your Gift Goes",
+  lead = "Select your contribution to see the tangible, ground-level change created in real communities."
+} = Astro.props;
+---
+
+<section class="section section--paper" id="calculator">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <h2>{title}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+
+    <div class="calculator-card reveal" style="--i:2">
+      <div class="calc-input-col">
+        <div class="calc-toggle" role="radiogroup" aria-label="Donation frequency">
+          <button type="button" class="calc-toggle__btn is-active" id="calc-monthly" role="radio" aria-checked="true">Monthly Partner</button>
+          <button type="button" class="calc-toggle__btn" id="calc-once" role="radio" aria-checked="false">One-Time Gift</button>
+        </div>
+
+        <div class="calc-amount-header">
+          <label for="calc-custom-input" class="calc-amount-label">Select or Enter Amount ($USD):</label>
+          <span class="calc-frequency-badge" id="calc-freq-label">Renews Monthly</span>
+        </div>
+
+        <div class="calc-presets" role="radiogroup" aria-label="Donation preset amounts">
+          <button type="button" class="calc-preset-btn" data-amt="25" aria-label="$25">$25</button>
+          <button type="button" class="calc-preset-btn is-active" data-amt="50" aria-label="$50">$50</button>
+          <button type="button" class="calc-preset-btn" data-amt="100" aria-label="$100">$100</button>
+          <button type="button" class="calc-preset-btn" data-amt="250" aria-label="$250">$250</button>
+          <button type="button" class="calc-preset-btn" data-amt="500" aria-label="$500">$500</button>
+        </div>
+
+        <div class="calc-custom-wrapper">
+          <span class="calc-custom-symbol" aria-hidden="true">$</span>
+          <input 
+            type="number" 
+            id="calc-custom-input" 
+            class="calc-custom-input" 
+            placeholder="Or enter custom amount" 
+            min="5" 
+            max="50000" 
+            step="5"
+            aria-label="Custom donation amount in US Dollars"
+          />
+          <span class="calc-custom-currency">USD</span>
+        </div>
+        
+        <p class="calc-disclaimer">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          94% directly funds ground materials & local workers. Fully tax deductible.
+        </p>
+      </div>
+
+      <div class="calc-output">
+        <div class="calc-output__header">
+          <span class="calc-output__tag"><span class="badge__dot"></span> Estimated Direct Impact</span>
+          <span class="calc-output__multiplier" id="calc-annual-impact">~ $600 / year impact</span>
+        </div>
+        <div class="calc-output__highlight" id="calc-text">
+          Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.
+        </div>
+        <a class="btn btn--emerald-bright" id="calc-cta-btn" href="#donate">
+          Support This Impact <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Interactive Impact Calculator Script
+  const monthlyBtn = document.getElementById('calc-monthly');
+  const onceBtn = document.getElementById('calc-once');
+  const presetBtns = document.querySelectorAll<HTMLElement>('.calc-preset-btn');
+  const customInput = document.getElementById('calc-custom-input') as HTMLInputElement | null;
+  const outputText = document.getElementById('calc-text');
+  const freqLabel = document.getElementById('calc-freq-label');
+  const annualImpact = document.getElementById('calc-annual-impact');
+  const ctaBtn = document.getElementById('calc-cta-btn');
+
+  let isMonthly = true;
+  let currentAmt = 50;
+
+  const impactData: Record<number, { monthly: string; once: string }> = {
+    25: {
+      monthly: 'Provides <strong>50 days of clean drinking water</strong> for 1 rural household plus essential school supplies.',
+      once: 'Provides <strong>water filtration kits</strong> for 1 family affected by localized flooding.'
+    },
+    50: {
+      monthly: 'Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.',
+      once: 'Constructs <strong>1 solar-powered classroom lighting kit</strong> for nighttime study.'
+    },
+    100: {
+      monthly: 'Funds <strong>clean water for 4 families for 1 full year</strong> + quarterly school supplies for 10 students.',
+      once: 'Supplies <strong>corrugated iron roofing sheets for 2 storm-damaged homes</strong>.'
+    },
+    250: {
+      monthly: 'Co-sponsors <strong>1 community solar borehole well maintenance team</strong> year-round.',
+      once: 'Provides <strong>complete agricultural seed & tool packages</strong> for a 15-woman farming cooperative.'
+    },
+    500: {
+      monthly: 'Fully funds <strong>1 village medical clinic supply chain</strong> and emergency transport fund.',
+      once: 'Finances <strong>1 entire rainwater harvest storage tank</strong> serving 400 community members.'
+    }
+  };
+
+  const getCustomImpact = (amt: number, monthly: boolean): string => {
+    if (impactData[amt]) return impactData[amt][monthly ? 'monthly' : 'once'];
+    
+    const waterDays = Math.max(1, Math.round(amt * 2));
+    const families = Math.max(1, Math.round(amt / 25));
+    if (monthly) {
+      return `Provides approximately <strong>${waterDays} days of clean drinking water</strong> & critical community resources across <strong>${families} family households</strong> every month.`;
+    } else {
+      return `Delivers <strong>$${amt.toLocaleString()} in direct, audited field supplies</strong> including clean water purification, shelter repair, or local agricultural tools.`;
+    }
+  };
+
+  const updateOutput = () => {
+    if (!outputText) return;
+    outputText.style.opacity = '0';
+    outputText.style.transform = 'translateY(6px)';
+
+    setTimeout(() => {
+      const textHtml = getCustomImpact(currentAmt, isMonthly);
+      outputText.innerHTML = textHtml;
+      outputText.style.opacity = '1';
+      outputText.style.transform = 'translateY(0)';
+
+      if (freqLabel) {
+        freqLabel.textContent = isMonthly ? 'Renews Monthly' : 'One-Time Contribution';
+      }
+
+      if (annualImpact) {
+        if (isMonthly) {
+          const annualTotal = currentAmt * 12;
+          annualImpact.textContent = `~ $${annualTotal.toLocaleString()} / year impact`;
+          annualImpact.style.display = 'inline-block';
+        } else {
+          annualImpact.style.display = 'none';
+        }
+      }
+
+      if (ctaBtn) {
+        ctaBtn.setAttribute('href', `#donate?amount=${currentAmt}&type=${isMonthly ? 'monthly' : 'once'}`);
+      }
+    }, 150);
+  };
+
+  monthlyBtn?.addEventListener('click', () => {
+    isMonthly = true;
+    monthlyBtn.classList.add('is-active');
+    monthlyBtn.setAttribute('aria-checked', 'true');
+    onceBtn?.classList.remove('is-active');
+    onceBtn?.setAttribute('aria-checked', 'false');
+    updateOutput();
+  });
+
+  onceBtn?.addEventListener('click', () => {
+    isMonthly = false;
+    onceBtn.classList.add('is-active');
+    onceBtn.setAttribute('aria-checked', 'true');
+    monthlyBtn?.classList.remove('is-active');
+    monthlyBtn?.setAttribute('aria-checked', 'false');
+    updateOutput();
+  });
+
+  presetBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      presetBtns.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-checked', 'false');
+      });
+      if (customInput) customInput.value = '';
+
+      const target = e.currentTarget as HTMLElement | null;
+      if (target) {
+        target.classList.add('is-active');
+        target.setAttribute('aria-checked', 'true');
+        currentAmt = parseInt(target.getAttribute('data-amt') || '50', 10);
+        updateOutput();
+      }
+    });
+  });
+
+  customInput?.addEventListener('input', () => {
+    const val = parseInt(customInput.value, 10);
+    if (!isNaN(val) && val > 0) {
+      presetBtns.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-checked', 'false');
+      });
+      currentAmt = val;
+      updateOutput();
+    } else if (customInput.value === '') {
+      const activePreset = document.querySelector('.calc-preset-btn.is-active') as HTMLElement | null;
+      if (activePreset) {
+        currentAmt = parseInt(activePreset.getAttribute('data-amt') || '50', 10);
+      } else {
+        currentAmt = 50;
+      }
+      updateOutput();
+    }
+  });
+</script>

@@ -1,0 +1,274 @@
+---
+import ProjectCard, { type ProjectData } from './ProjectCard.astro';
+import ProjectModal from './ProjectModal.astro';
+
+interface Props {
+  projects: ProjectData[];
+  title?: string;
+  kicker?: string;
+  lead?: string;
+}
+
+const {
+  projects,
+  title = "Current Projects Seeking Support",
+  kicker = "Direct Field Investments",
+  lead = "Ground-verified projects led by local communities across clean water, education, emergency relief, and local food security."
+} = Astro.props;
+
+const categories = ['All Projects', 'Clean Water', 'Education', 'Emergency Relief', 'Cooperatives'];
+---
+
+<section class="section section--sand" id="projects">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="section-kicker">{kicker}</span>
+      <h2>{title}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+
+    <div class="filter-tabs-wrapper reveal" style="--i:2">
+      <div class="filter-tabs" role="tablist" aria-label="Filter projects by category">
+        {categories.map((cat, idx) => (
+          <button
+            class={`tab-btn ${idx === 0 ? 'is-active' : ''}`}
+            data-category={cat === 'All Projects' ? 'all' : cat}
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="projects-slider-wrapper reveal" style="--i:3">
+      <button type="button" class="grid-nav-btn grid-nav-btn--prev" id="projects-page-prev" aria-label="Previous project page" disabled>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+
+      <div class="projects-grid" id="projects-grid">
+        {projects.map((item, i) => (
+          <ProjectCard project={item} index={i} />
+        ))}
+      </div>
+
+      <button type="button" class="grid-nav-btn grid-nav-btn--next" id="projects-page-next" aria-label="Next project page">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="projects-pagination-meta">
+      <div class="projects-page-dots" id="projects-page-dots" role="tablist" aria-label="Project pagination pages"></div>
+      <span class="pagination-counter" id="projects-page-counter" aria-live="polite">Page 1 of 2</span>
+    </div>
+  </div>
+</section>
+
+<!-- Project Detail Modal Dialog -->
+<ProjectModal />
+
+<script>
+  // Filter Tabs & Section Grid Pagination Script
+  const tabBtns = document.querySelectorAll<HTMLElement>('.tab-btn');
+  const allProjectCards = Array.from(document.querySelectorAll<HTMLElement>('.projects-grid .project-card'));
+  const pagePrevBtn = document.getElementById('projects-page-prev') as HTMLButtonElement | null;
+  const pageNextBtn = document.getElementById('projects-page-next') as HTMLButtonElement | null;
+  const pageCounter = document.getElementById('projects-page-counter');
+  const pageDotsContainer = document.getElementById('projects-page-dots');
+
+  const CARDS_PER_PAGE = 3;
+  let currentCategory = 'all';
+  let currentPage = 0;
+
+  const renderDots = (totalPages: number) => {
+    if (!pageDotsContainer) return;
+    pageDotsContainer.innerHTML = '';
+    
+    if (totalPages <= 1) {
+      pageDotsContainer.style.display = 'none';
+      return;
+    }
+    
+    pageDotsContainer.style.display = 'flex';
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `page-dot-btn ${i === currentPage ? 'is-active' : ''}`;
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.setAttribute('aria-selected', i === currentPage ? 'true' : 'false');
+      dot.role = 'tab';
+      dot.addEventListener('click', () => {
+        if (currentPage !== i) {
+          currentPage = i;
+          updatePagination();
+        }
+      });
+      pageDotsContainer.appendChild(dot);
+    }
+  };
+
+  const updatePagination = () => {
+    const matchingCards = allProjectCards.filter((card) => {
+      const cardCategory = card.getAttribute('data-category') || '';
+      return (
+        currentCategory === 'all' ||
+        currentCategory === 'All Projects' ||
+        cardCategory.toLowerCase() === currentCategory.toLowerCase()
+      );
+    });
+
+    const totalPages = Math.max(1, Math.ceil(matchingCards.length / CARDS_PER_PAGE));
+    if (currentPage >= totalPages) currentPage = totalPages - 1;
+    if (currentPage < 0) currentPage = 0;
+
+    const startIndex = currentPage * CARDS_PER_PAGE;
+    const endIndex = startIndex + CARDS_PER_PAGE;
+
+    const prevWasFocused = document.activeElement === pagePrevBtn;
+    const nextWasFocused = document.activeElement === pageNextBtn;
+
+    // 1. Synchronously update layout display to eliminate grid-row overflow jitter
+    allProjectCards.forEach((card) => {
+      const matchingIndex = matchingCards.indexOf(card);
+      const isVisibleOnPage = matchingIndex >= startIndex && matchingIndex < endIndex;
+
+      if (isVisibleOnPage) {
+        card.style.display = 'grid';
+      } else {
+        card.style.display = 'none';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(8px) scale(0.98)';
+      }
+    });
+
+    // 2. Trigger micro-frame smooth cascading fade-in for visible items
+    requestAnimationFrame(() => {
+      let visibleCount = 0;
+      allProjectCards.forEach((card) => {
+        const matchingIndex = matchingCards.indexOf(card);
+        const isVisibleOnPage = matchingIndex >= startIndex && matchingIndex < endIndex;
+        if (isVisibleOnPage) {
+          card.style.transitionDelay = `${visibleCount * 50}ms`;
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0) scale(1)';
+          visibleCount++;
+        } else {
+          card.style.transitionDelay = '0ms';
+        }
+      });
+    });
+
+    // 3. Update navigation state & accessibility
+    if (pagePrevBtn) pagePrevBtn.disabled = currentPage === 0;
+    if (pageNextBtn) pageNextBtn.disabled = currentPage >= totalPages - 1;
+
+    if (prevWasFocused && pagePrevBtn?.disabled) {
+      pageNextBtn?.focus();
+    } else if (nextWasFocused && pageNextBtn?.disabled) {
+      pagePrevBtn?.focus();
+    }
+
+    if (pageCounter) {
+      pageCounter.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    }
+
+    renderDots(totalPages);
+  };
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentCategory = btn.getAttribute('data-category') || btn.textContent?.trim() || 'all';
+      currentPage = 0;
+
+      tabBtns.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+
+      updatePagination();
+    });
+  });
+
+  pagePrevBtn?.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      updatePagination();
+    }
+  });
+
+  pageNextBtn?.addEventListener('click', () => {
+    currentPage++;
+    updatePagination();
+  });
+
+  updatePagination();
+
+  // Progress Bar Scroll Fill Animation
+  const progressBars = document.querySelectorAll<HTMLElement>('.project-card__progress-bar');
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const bar = entry.target as HTMLElement;
+      progressObserver.unobserve(bar);
+      const targetWidth = bar.getAttribute('data-target-width') || bar.style.width;
+      bar.style.width = '0%';
+      requestAnimationFrame(() => {
+        bar.style.transition = 'width 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        bar.style.width = targetWidth;
+      });
+    });
+  }, { threshold: 0.3 });
+
+  progressBars.forEach((bar) => {
+    bar.setAttribute('data-target-width', bar.style.width);
+    progressObserver.observe(bar);
+  });
+
+  // Project Card Carousel Script
+  const carousels = document.querySelectorAll<HTMLElement>('[data-carousel]');
+
+  carousels.forEach((carousel) => {
+    const slides = carousel.querySelectorAll<HTMLElement>('.carousel__slide');
+    const dots = carousel.querySelectorAll<HTMLElement>('.carousel__dot');
+    const prevBtn = carousel.querySelector<HTMLElement>('.carousel__arrow--prev');
+    const nextBtn = carousel.querySelector<HTMLElement>('.carousel__arrow--next');
+
+    if (slides.length <= 1) return;
+
+    let currentIndex = 0;
+
+    const setActiveSlide = (index: number) => {
+      currentIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('is-active', idx === currentIndex);
+      });
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('is-active', idx === currentIndex);
+      });
+    };
+
+    prevBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      setActiveSlide(currentIndex - 1);
+    });
+
+    nextBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      setActiveSlide(currentIndex + 1);
+    });
+
+    dots.forEach((dot) => {
+      const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setActiveSlide(idx);
+      });
+    });
+  });
+</script>

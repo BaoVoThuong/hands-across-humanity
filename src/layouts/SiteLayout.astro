@@ -223,6 +223,47 @@ const donateHref = '/#donate';
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Precision Smooth Anchor Scrolling Handler
+      document.addEventListener('click', (e) => {
+        const link = (e.target as HTMLElement).closest('a[href*="#"]');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Parse link destination
+        let targetId = '';
+        if (href.startsWith('#')) {
+          targetId = href;
+        } else if (href.includes('#')) {
+          const parts = href.split('#');
+          if (parts[0] === '' || parts[0] === '/' || parts[0] === window.location.pathname) {
+            targetId = '#' + parts[1];
+          }
+        }
+
+        if (!targetId || targetId === '#') return;
+
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          closeMenu();
+
+          const headerEl = document.querySelector('[data-header]');
+          const headerH = headerEl ? headerEl.getBoundingClientRect().height : 76;
+          const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - headerH - 8;
+
+          window.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: 'smooth'
+          });
+
+          if (history.pushState) {
+            history.pushState(null, '', targetId);
+          }
+        }
+      });
     </script>
   </body>
 </html>

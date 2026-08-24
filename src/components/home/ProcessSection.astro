@@ -1,0 +1,38 @@
+---
+export interface ProcessStep {
+  num: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  lead?: string;
+  steps: ProcessStep[];
+}
+
+const {
+  title = "Our Direct Funding Model",
+  lead = "We route capital directly to vetted local community partners, ensuring zero middleman friction and complete financial transparency.",
+  steps
+} = Astro.props;
+---
+
+<section class="section section--paper" id="process">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <h2>{title}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+
+    <div class="process-grid">
+      {steps.map((step, i) => (
+        <div class="process-step reveal" style={`--i:${i + 1}`}>
+          <div class="process-step__num">{step.num}</div>
+          <h3>{step.title}</h3>
+          <p style="font-size: 0.875rem; color: var(--slate-600);">{step.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
