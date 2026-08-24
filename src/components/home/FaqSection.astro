@@ -2,34 +2,171 @@
 export interface FaqItem {
   q: string;
   a: string;
+  category?: string;
 }
 
 interface Props {
   title?: string;
+  subtitle?: string;
   faqs: FaqItem[];
 }
 
 const {
-  title = "Everything You Need to Know",
+  title = "Financial Transparency & Donor Governance",
+  subtitle = "Direct answers regarding capital allocation, independent auditing standards, 501(c)(3) tax deductions, and verified field execution.",
   faqs
 } = Astro.props;
 ---
 
-<section class="section section--paper" id="faq">
+<section class="section section--paper faq-section" id="faq">
   <div class="container">
-    <div class="section-head section-head--center reveal">
-      <h2>{title}</h2>
-    </div>
-
-    <div class="faq-list reveal" style="--i:2">
-      {faqs.map((faq) => (
-        <details class="faq-item">
-          <summary class="faq-summary">{faq.q}</summary>
-          <div class="faq-content">
-            <p>{faq.a}</p>
+    <div class="faq-grid">
+      <!-- Cột trái: Header & Trust Support Card -->
+      <div class="faq-sidebar reveal">
+        <div class="faq-header-block">
+          <div class="faq-trust-line">
+            <span class="faq-trust-dot"></span>
+            <span class="faq-trust-label">Audited Governance & Compliance</span>
           </div>
-        </details>
-      ))}
+          <h2 class="faq-title">{title}</h2>
+          <p class="faq-subtitle">{subtitle}</p>
+        </div>
+
+        <div class="faq-support-card">
+          <div class="faq-support-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <path d="M8 10h8"/>
+              <path d="M8 14h4"/>
+            </svg>
+          </div>
+          <div class="faq-support-body">
+            <h3 class="faq-support-heading">Require custom audit documentation or foundation co-sponsorship?</h3>
+            <p class="faq-support-text">Our financial compliance officers provide verified wire receipts, tax exemption certificates, and custom field impact logs upon request.</p>
+            <a href="mailto:compliance@handsacrosshumanity.org" class="faq-support-link">
+              Contact Compliance Officers
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột phải: Accordion List -->
+      <div class="faq-list reveal" style="--i:2">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span class="faq-question-group">
+                {faq.category && <span class="faq-category-tag">{faq.category}</span>}
+                <span class="faq-question-text">{faq.q}</span>
+              </span>
+              <span class="faq-icon-wrapper" aria-hidden="true">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </span>
+            </summary>
+            <div class="faq-content">
+              <div class="faq-content-inner">
+                <p>{faq.a}</p>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  // Smooth Accordion Animation Controller (WAAPI)
+  class Accordion {
+    el: HTMLDetailsElement;
+    summary: HTMLElement;
+    content: HTMLElement;
+    animation: Animation | null;
+    isClosing: boolean;
+    isExpanding: boolean;
+
+    constructor(el: HTMLDetailsElement) {
+      this.el = el;
+      this.summary = el.querySelector('.faq-summary') as HTMLElement;
+      this.content = el.querySelector('.faq-content') as HTMLElement;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.summary.addEventListener('click', (e) => this.onClick(e));
+    }
+
+    onClick(e: Event) {
+      e.preventDefault();
+      this.el.style.overflow = 'hidden';
+      if (this.isClosing || !this.el.open) {
+        this.open();
+      } else if (this.isExpanding || this.el.open) {
+        this.shrink();
+      }
+    }
+
+    shrink() {
+      this.isClosing = true;
+      const startHeight = `${this.el.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight}px`;
+
+      if (this.animation) this.animation.cancel();
+
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 260,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+      });
+
+      this.animation.onfinish = () => this.onAnimationFinish(false);
+      this.animation.oncancel = () => this.isClosing = false;
+    }
+
+    open() {
+      this.el.style.height = `${this.el.offsetHeight}px`;
+      this.el.open = true;
+      window.requestAnimationFrame(() => this.expand());
+    }
+
+    expand() {
+      this.isExpanding = true;
+      const startHeight = `${this.el.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+
+      if (this.animation) this.animation.cancel();
+
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 320,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+      });
+
+      this.animation.onfinish = () => this.onAnimationFinish(true);
+      this.animation.oncancel = () => this.isExpanding = false;
+    }
+
+    onAnimationFinish(open: boolean) {
+      this.el.open = open;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.el.style.height = '';
+      this.el.style.overflow = '';
+    }
+  }
+
+  document.querySelectorAll<HTMLDetailsElement>('#faq .faq-item').forEach((el) => {
+    new Accordion(el);
+  });
+</script>
+
+

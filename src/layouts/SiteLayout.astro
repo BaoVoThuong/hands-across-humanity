@@ -2,6 +2,7 @@
 import '@fontsource-variable/newsreader';
 import '@fontsource-variable/public-sans';
 import '../styles/global.css';
+import BackToTop from '../components/ui/BackToTop.astro';
 
 interface Props {
   title: string;
@@ -123,6 +124,9 @@ const donateHref = '/#donate';
 
     <!-- Main Content Slot -->
     <slot />
+
+    <!-- Return to Top Button -->
+    <BackToTop />
 
     <!-- Site Footer -->
     <footer class="site-footer" id="footer">

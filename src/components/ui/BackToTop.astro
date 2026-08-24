@@ -1,0 +1,111 @@
+---
+/* Reusable Back to Top Component */
+---
+
+<button
+  type="button"
+  class="back-to-top"
+  id="back-to-top"
+  aria-label="Back to top of page"
+  title="Back to top"
+>
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: var(--space-6, 1.75rem);
+    right: var(--space-6, 1.75rem);
+    z-index: 90;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-full, 9999px);
+    background-color: var(--surface, #FFFFFF);
+    color: var(--slate-900, #0F172A);
+    border: 1.5px solid var(--border-warm, #D6CEC0);
+    box-shadow: var(--shadow-md, 0 4px 16px -2px rgba(15, 23, 42, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.92);
+    transition: opacity var(--dur-standard, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+                visibility var(--dur-standard, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+                transform var(--dur-standard, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+                background-color var(--dur-micro, 200ms) ease,
+                border-color var(--dur-micro, 200ms) ease,
+                color var(--dur-micro, 200ms) ease;
+  }
+
+  .back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .back-to-top:hover {
+    background-color: var(--slate-900, #0F172A);
+    color: var(--paper, #FAF8F5);
+    border-color: var(--slate-900, #0F172A);
+    box-shadow: var(--shadow-lg, 0 20px 40px -4px rgba(15, 23, 42, 0.12));
+  }
+
+  .back-to-top:focus-visible {
+    outline: 2px solid var(--primary, #C84B2C);
+    outline-offset: 2px;
+  }
+
+  /* Raise position on mobile screen so it doesn't overlap the mobile sticky donor bar */
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: calc(var(--header-h, 4.25rem) + 0.75rem);
+      right: 1.25rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+</style>
+
+<script>
+  function setupBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    const toggleVisibility = () => {
+      if (window.scrollY > 320) {
+        btn.classList.add('is-visible');
+      } else {
+        btn.classList.remove('is-visible');
+      }
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+  }
+
+  setupBackToTop();
+  document.addEventListener('astro:page-load', setupBackToTop);
+</script>
