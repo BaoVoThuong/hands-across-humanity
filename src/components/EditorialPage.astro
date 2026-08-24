@@ -39,7 +39,9 @@ const firstSection = onThisPage[0];
     <Panel id="top" ground="paper" index={1} total={total} label={eyebrow} labelledby="page-title" nextId={firstSection?.id} nextLabel={firstSection?.label}>
       <div class="page-hero__grid">
         <div class="page-hero__copy">
-          <span class="badge badge--primary reveal">{eyebrow}</span>
+          <div>
+            <span class="badge badge--primary reveal">{eyebrow}</span>
+          </div>
           <h1 class="reveal" style="--i:1; margin-top: 0.5rem;" id="page-title">{title}</h1>
           <p class="lead reveal" style="--i:2">{lead}</p>
 
@@ -86,9 +88,9 @@ const firstSection = onThisPage[0];
     <slot />
 
     <!-- Bottom Page Navigation -->
-    <section class="section section--dark" style="text-align: center;">
+    <section class="section section--dark" style="text-align: center; border-top: 1px solid var(--border-warm); background: linear-gradient(180deg, var(--slate-900) 0%, #090D16 100%);">
       <div class="container-narrow">
-        <span class="badge badge--dark">Next Chapter</span>
+        <span class="badge badge--dark" style="border-color: rgba(255, 255, 255, 0.25);">Next Chapter</span>
         <h2 style="color: #FFFFFF; margin-block: 0.75rem 1.5rem;">Continue Reading</h2>
         <a class="btn btn--primary" href={nextHref} style="font-size: 1.125rem; padding-inline: 2rem;">
           {nextLabel}<span class="btn__arrow" aria-hidden="true">→</span>

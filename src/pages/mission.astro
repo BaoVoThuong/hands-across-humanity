@@ -33,9 +33,40 @@ const sections = [
       </div>
       <p class="lead reveal" style="--i:2">A crisis does not arrive in neat categories. Hunger affects school. A damaged roof affects health. Displacement turns every ordinary task into a negotiation.</p>
     </div>
-    <div class="columns prose">
-      <p class="reveal" style="--i:3">Our first responsibility is to make the immediate days safer: food in the kitchen, clean water, a roof that holds, a clinic with supplies and a child able to keep learning.</p>
-      <p class="reveal" style="--i:4">Our second is to avoid making people dependent on an outside organisation. We work through people who already know the place, and support plans that continue when we are no longer needed.</p>
+    
+    <div class="columns reveal" style="--i:3; margin-top: var(--space-6);">
+      <article class="approach-card">
+        <div class="approach-card__badge">
+          <svg class="approach-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+          </svg>
+          <span>Immediate Relief</span>
+        </div>
+        <h3 class="approach-card__title">Making the immediate days safer</h3>
+        <p class="approach-card__body">Our first responsibility is immediate stability: food in the kitchen, clean water, a roof that holds, a clinic with supplies, and a child able to keep learning.</p>
+        <div class="approach-card__stat">
+          <span class="approach-card__stat-val">24-48h</span>
+          <span class="approach-card__stat-label">Average emergency response dispatch window</span>
+        </div>
+      </article>
+
+      <article class="approach-card">
+        <div class="approach-card__badge approach-card__badge--emerald">
+          <svg class="approach-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Long-Term Autonomy</span>
+        </div>
+        <h3 class="approach-card__title">Rooted in local leadership</h3>
+        <p class="approach-card__body">Our second responsibility is avoiding external dependency. We partner exclusively with local community leaders, supporting self-sustaining plans that endure long after we depart.</p>
+        <div class="approach-card__stat">
+          <span class="approach-card__stat-val">100%</span>
+          <span class="approach-card__stat-label">Field programs led by local community partners</span>
+        </div>
+      </article>
     </div>
   </Panel>
 
@@ -46,22 +77,34 @@ const sections = [
       <h2 class="reveal" style="--i:1" id="rules-title">Three rules we hold to.</h2>
     </div>
     <div class="principles">
-      <article class="principle reveal" style="--i:2">
-        <span class="principle__number">01</span>
-        <h3>Useful over impressive</h3>
-        <p>We choose the practical response a family can use, not the project that photographs best.</p>
+      <article class="rule-card reveal" style="--i:2">
+        <div class="rule-card__head">
+          <span class="rule-card__number">01</span>
+          <span class="badge badge--primary">Practicality</span>
+        </div>
+        <h3 class="rule-card__title">Useful over impressive</h3>
+        <p class="rule-card__body">We choose the practical response a family can use, not the project that photographs best.</p>
       </article>
-      <article class="principle reveal" style="--i:3">
-        <span class="principle__number">02</span>
-        <h3>Local judgement first</h3>
-        <p>People closest to the work know what is safe, possible and still needed.</p>
+
+      <article class="rule-card reveal" style="--i:3">
+        <div class="rule-card__head">
+          <span class="rule-card__number">02</span>
+          <span class="badge badge--emerald">Autonomy</span>
+        </div>
+        <h3 class="rule-card__title">Local judgement first</h3>
+        <p class="rule-card__body">People closest to the work know what is safe, possible and still needed.</p>
       </article>
-      <article class="principle reveal" style="--i:4">
-        <span class="principle__number">03</span>
-        <h3>Recovery is part of relief</h3>
-        <p>We do not leave when the headline changes. Repair and recovery take time.</p>
+
+      <article class="rule-card reveal" style="--i:4">
+        <div class="rule-card__head">
+          <span class="rule-card__number">03</span>
+          <span class="badge badge--dark" style="background: var(--surface-alt); color: var(--slate-800); border-color: var(--border);">Commitment</span>
+        </div>
+        <h3 class="rule-card__title">Recovery is part of relief</h3>
+        <p class="rule-card__body">We do not leave when the headline changes. Repair and recovery take time.</p>
       </article>
     </div>
+
     <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top:var(--space-8)">
       “The people affected decide what happens next.”
     </blockquote>

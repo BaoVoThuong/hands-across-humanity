@@ -10,6 +10,7 @@ import heroImage from '../assets/images/hero-connection.png';
 const sections = [
   { id: 'top', label: 'What we do' },
   { id: 'areas', label: 'Four areas' },
+  { id: 'calculator', label: 'Impact calculator' },
   { id: 'connect', label: 'How they connect' }
 ];
 
@@ -18,6 +19,8 @@ const workAreas = [
     number: '01',
     title: 'Food, water and essentials',
     body: 'Emergency food, clean water, cooking equipment, blankets and hygiene supplies. We buy locally wherever we can.',
+    stat: '142,000+ People Served',
+    location: 'East Africa & Southeast Asia',
     image: waterImage,
     alt: 'A hand tests water flowing from a community standpipe into a clean container.'
   },
@@ -25,6 +28,8 @@ const workAreas = [
     number: '02',
     title: 'Schools and learning',
     body: 'School fees, books, uniforms and safe places to study, so a crisis at home does not end a child’s education.',
+    stat: '48 Partner Schools',
+    location: 'Rift Valley & Rural Districts',
     image: learningImage,
     alt: 'A teacher leans toward children around a table as they work in a bright classroom.'
   },
@@ -32,6 +37,8 @@ const workAreas = [
     number: '03',
     title: 'Emergency response',
     body: 'When people are forced to leave home, we move quickly with shelter, water, food and medical supplies through partners already there.',
+    stat: '<48h Deployment Time',
+    location: 'Active Crisis Zones',
     image: heroImage,
     alt: 'Three community members pass a sack from a small truck while working together.'
   },
@@ -39,6 +46,8 @@ const workAreas = [
     number: '04',
     title: 'Long-term recovery',
     body: 'The quiet work after the news moves on: repairing homes, restarting small businesses and helping groups run services themselves.',
+    stat: '85 Cooperative Networks',
+    location: 'Sub-Saharan & Pacific Region',
     image: roofingImage,
     alt: 'Two adults carry corrugated roofing sheets along a repaired road with a child walking nearby.'
   }
@@ -57,10 +66,10 @@ const workAreas = [
   nextHref="/vision/"
   nextLabel="Read our vision"
   sections={sections}
-  total={3}
+  total={4}
 >
   <!-- 02 — Four areas -->
-  <Panel id="areas" ground="sand" index={2} total={3} label="Four areas" labelledby="areas-title" width="wide" nextId="connect" nextLabel="How they connect">
+  <Panel id="areas" ground="sand" index={2} total={4} label="Four areas" labelledby="areas-title" width="wide" nextId="calculator" nextLabel="Calculate impact">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">The work in practice</p>
@@ -68,34 +77,123 @@ const workAreas = [
       </div>
       <p class="lead reveal" style="--i:2">The categories help us explain the work. On the ground they overlap, because real lives do too.</p>
     </div>
-    <div class="work-grid">
-      {workAreas.map((area, index) => (
-        <article class="work-card reveal" style={`--i:${index + 1}`}>
-          <div class="work-card__media">
-            <Picture
-              src={area.image}
-              widths={[400, 600, 900]}
-              sizes="(min-width: 1180px) 22vw, (min-width: 700px) 44vw, 30vw"
-              formats={['avif', 'webp']}
-          fallbackFormat="jpeg"
-          quality={62}
-              alt={area.alt}
-              loading="lazy"
-              decoding="async"
-            />
+    <div class="work-showcase">
+      <!-- Primary Priority Hero Feature: Emergency Response & Essentials -->
+      <article class="work-card work-card--featured reveal" style="--i:1">
+        <div class="work-card__media">
+          <span class="badge badge--primary work-card__badge-tag">
+            <span class="badge__dot badge__dot--pulse"></span> Urgent Priority
+          </span>
+          <Picture
+            src={heroImage}
+            widths={[600, 900, 1200]}
+            sizes="(min-width: 1100px) 45vw, 92vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="jpeg"
+            quality={75}
+            alt="Three community members pass a sack from a small truck while working together."
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="work-card__body">
+          <div class="work-card__header-row">
+            <span class="work-card__number">01</span>
+            <span class="work-card__meta-pill">Rapid Response & Essentials</span>
           </div>
-          <div class="work-card__body">
-            <span class="work-card__number">{area.number}</span>
-            <h3>{area.title}</h3>
-            <p>{area.body}</p>
+          <h3 class="work-card__title">Emergency Response & Essentials</h3>
+          <p class="work-card__desc">When crisis or displacement strikes, we deploy within hours: providing emergency shelter, clean water, hot meals, and emergency medical kits alongside local ground partners.</p>
+          <div class="work-card__footer">
+            <span class="badge badge--emerald">Direct Local Sourcing</span>
+            <a href="/#donate" class="btn btn--primary btn--header" style="font-size: 0.8125rem;">
+              Fund Relief <span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-        </article>
-      ))}
+        </div>
+      </article>
+
+      <!-- Secondary Pillars Column -->
+      <div class="work-grid work-grid--secondary">
+        {workAreas.filter(a => a.number !== '03').map((area, index) => (
+          <article class="work-card reveal" style={`--i:${index + 2}`}>
+            <div class="work-card__body">
+              <div class="work-card__header-row">
+                <span class="work-card__number">{area.number}</span>
+                <span class="work-card__meta-pill">📍 {area.location}</span>
+              </div>
+              <h3 class="work-card__title">{area.title}</h3>
+              <p class="work-card__desc">{area.body}</p>
+              <div class="work-card__footer">
+                <span class="badge badge--emerald" style="font-size: 0.75rem;">{area.stat}</span>
+                <a href="/vision/" style="font-size: 0.8125rem; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; gap: 0.25rem;">
+                  Learn more <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </Panel>
 
-  <!-- 03 — How they connect -->
-  <Panel id="connect" ground="paper" index={3} total={3} label="How they connect" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
+  <!-- Interactive Impact Allocation Calculator Section -->
+  <Panel id="calculator" ground="sand" index={3} total={4} label="Impact Allocation" labelledby="calc-title" width="wide" nextId="connect" nextLabel="How they connect">
+    <div class="calculator-card">
+      <div class="calc-input-col">
+        <span class="badge badge--primary" style="align-self: start; margin-bottom: 0.5rem;">
+          <span class="badge__dot badge__dot--pulse"></span> Interactive Allocation
+        </span>
+        <h2 id="calc-title" style="font-size: var(--fs-h2); margin-bottom: 0.5rem;">Calculate your impact across our four pillars</h2>
+        <p class="lead" style="font-size: 0.95rem; margin-bottom: 1.25rem;">See exactly how your contribution converts into clean water, school supplies, emergency food, and shelter on the ground.</p>
+        
+        <div class="calc-toggle" role="group" aria-label="Donation frequency">
+          <button type="button" class="calc-toggle__btn is-active" data-freq="monthly" aria-pressed="true">Monthly Partner</button>
+          <button type="button" class="calc-toggle__btn" data-freq="once" aria-pressed="false">One-Time Gift</button>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;" role="group" aria-label="Select donation amount">
+          <button type="button" class="calc-preset-btn" data-amount="25">$25</button>
+          <button type="button" class="calc-preset-btn is-active" data-amount="50">$50</button>
+          <button type="button" class="calc-preset-btn" data-amount="100">$100</button>
+          <button type="button" class="calc-preset-btn" data-amount="250">$250</button>
+          <button type="button" class="calc-preset-btn" data-amount="500">$500</button>
+        </div>
+
+        <p style="font-size: 0.8125rem; color: var(--slate-500); font-weight: 500;">
+          🔒 <span style="color: var(--emerald); font-weight: 600;">94%</span> directly reaches verified local field initiatives.
+        </p>
+      </div>
+
+      <div class="calc-result-col" style="background: var(--slate-900); color: var(--fg-on-dark); padding: 1.75rem; border-radius: var(--radius-lg); border: 1px solid var(--slate-800); display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--slate-800); padding-bottom: 0.75rem;">
+          <span style="font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--emerald-border);">Your Monthly Impact</span>
+          <span id="calc-summary-amount" style="font-family: 'Newsreader Variable', serif; font-size: 1.75rem; font-weight: 700; color: #FFFFFF;">$50 / mo</span>
+        </div>
+
+        <ul style="display: grid; gap: 0.75rem; font-size: 0.875rem;">
+          <li style="display: flex; align-items: start; gap: 0.5rem;">
+            <span style="color: var(--emerald); font-weight: 700;">✓</span>
+            <span id="calc-impact-1">Supplies <strong>2 families</strong> with emergency food & clean water kits monthly.</span>
+          </li>
+          <li style="display: flex; align-items: start; gap: 0.5rem;">
+            <span style="color: var(--emerald); font-weight: 700;">✓</span>
+            <span id="calc-impact-2">Keeps <strong>1 child</strong> enrolled in primary school with full supplies.</span>
+          </li>
+          <li style="display: flex; align-items: start; gap: 0.5rem;">
+            <span style="color: var(--emerald); font-weight: 700;">✓</span>
+            <span id="calc-impact-3">Funds rapid-deployment emergency medical kits for displacement camps.</span>
+          </li>
+        </ul>
+
+        <a id="calc-donate-link" href="/#donate" class="btn btn--primary" style="margin-top: 0.5rem; text-align: center; justify-content: center;">
+          Commit $50 / month <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </Panel>
+
+  <!-- 04 — How they connect -->
+  <Panel id="connect" ground="paper" index={4} total={4} label="How they connect" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head">
       <p class="eyebrow reveal">How the areas connect</p>
       <h2 class="reveal" style="--i:1" id="connect-title">We fund the combination that makes a plan hold together.</h2>
@@ -109,3 +207,85 @@ const workAreas = [
     </blockquote>
   </Panel>
 </EditorialPage>
+
+<script>
+  function initCalculator() {
+    const card = document.querySelector('#calculator');
+    if (!card) return;
+
+    const freqBtns = card.querySelectorAll<HTMLButtonElement>('.calc-toggle__btn');
+    const amountBtns = card.querySelectorAll<HTMLButtonElement>('.calc-preset-btn');
+    const summaryAmount = card.querySelector('#calc-summary-amount');
+    const donateLink = card.querySelector<HTMLAnchorElement>('#calc-donate-link');
+    const impact1 = card.querySelector('#calc-impact-1');
+    const impact2 = card.querySelector('#calc-impact-2');
+    const impact3 = card.querySelector('#calc-impact-3');
+
+    let currentFreq = 'monthly';
+    let currentAmount = 50;
+
+    const impactData: Record<number, { f1: string; f2: string; f3: string }> = {
+      25: {
+        f1: 'Supplies <strong>1 family</strong> with emergency food & clean water kits monthly.',
+        f2: 'Provides essential textbooks & uniforms for <strong>1 student</strong>.',
+        f3: 'Funds emergency hygiene supplies for refugee support centers.'
+      },
+      50: {
+        f1: 'Supplies <strong>2 families</strong> with emergency food & clean water kits monthly.',
+        f2: 'Keeps <strong>1 child</strong> enrolled in primary school with full supplies.',
+        f3: 'Funds rapid-deployment emergency medical kits for displacement camps.'
+      },
+      100: {
+        f1: 'Provides <strong>4 families</strong> with clean water filtration units & emergency food.',
+        f2: 'Funds full annual tuition & meals for <strong>2 students</strong>.',
+        f3: 'Builds <strong>10 meters</strong> of clean solar water distribution piping.'
+      },
+      250: {
+        f1: 'Deploys <strong>10 emergency shelter kits</strong> with galvanized roofing sheets.',
+        f2: 'Outfits a full primary classroom with wooden desks & learning materials.',
+        f3: 'Provides seed & tool grants to <strong>5 women-led farming cooperatives</strong>.'
+      },
+      500: {
+        f1: 'Constructs a community solar water pump distribution station.',
+        f2: 'Funds teacher stipends and microgrid solar power for a rural school.',
+        f3: 'Sponsors rapid emergency deployment for an entire displaced village.'
+      }
+    };
+
+    function update() {
+      const data = impactData[currentAmount] || impactData[50];
+      const freqSuffix = currentFreq === 'monthly' ? ' / mo' : ' one-time';
+      
+      if (summaryAmount) summaryAmount.textContent = `$${currentAmount}${freqSuffix}`;
+      if (donateLink) {
+        donateLink.textContent = `Commit $${currentAmount}${freqSuffix}`;
+        donateLink.href = `/#donate?amount=${currentAmount}&freq=${currentFreq}`;
+      }
+      if (impact1) impact1.innerHTML = data.f1;
+      if (impact2) impact2.innerHTML = data.f2;
+      if (impact3) impact3.innerHTML = data.f3;
+    }
+
+    freqBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        freqBtns.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
+        currentFreq = btn.dataset.freq || 'monthly';
+        update();
+      });
+    });
+
+    amountBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        amountBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        currentAmount = parseInt(btn.dataset.amount || '50', 10);
+        update();
+      });
+    });
+  }
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>
