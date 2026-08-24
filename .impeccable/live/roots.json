@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "appRoot": "/home/thanh/BDCHub---Frontend",
+  "repoRoot": "/home/thanh/BDCHub---Frontend",
+  "contextRoot": "/home/thanh/BDCHub---Frontend",
+  "sessionRoot": "/home/thanh/BDCHub---Frontend/.impeccable/live",
+  "productPath": "/home/thanh/BDCHub---Frontend/PRODUCT.md",
+  "designPath": "/home/thanh/BDCHub---Frontend/DESIGN.md",
+  "resolvedFrom": "cwd"
+}
