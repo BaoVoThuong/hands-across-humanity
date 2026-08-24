@@ -1,12 +1,49 @@
 ---
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
+import { Picture } from 'astro:assets';
 import heroImage from '../assets/images/hero-connection.png';
+import waterImage from '../assets/images/essay-03-water-tank.png';
+import roofImage from '../assets/images/essay-04-roofing-sheets.png';
+import coopImage from '../assets/images/essay-07-cooperative.png';
+import handsImage from '../assets/images/essay-06-hands.png';
+import schoolImage from '../assets/images/work-schools-learning.png';
+import portraitImage from '../assets/images/who-we-are-portrait.png';
 
 const sections = [
   { id: 'top', label: 'Mission' },
   { id: 'approach', label: 'Approach' },
   { id: 'rules', label: 'Three rules' }
+];
+
+const ruleCards = [
+  {
+    num: '01',
+    category: 'Practicality',
+    title: 'Useful over impressive',
+    body: 'We choose the practical response a family can use, not the project that photographs best.',
+    image: roofImage,
+    alt: 'Galvanized roofing sheets delivered for emergency school shelter repairs.',
+    caption: 'Kitui Emergency Roof Repair · 150 families sheltered'
+  },
+  {
+    num: '02',
+    category: 'Autonomy',
+    title: 'Local judgement first',
+    body: 'People closest to the work know what is safe, possible and still needed.',
+    image: coopImage,
+    alt: 'Women farmers inspecting yield in cooperative agricultural field.',
+    caption: 'Kigali Women’s Cooperative · 85 farming families'
+  },
+  {
+    num: '03',
+    category: 'Commitment',
+    title: 'Recovery is part of relief',
+    body: 'We do not leave when the headline changes. Repair and recovery take time.',
+    image: waterImage,
+    alt: 'Solar powered water tank providing clean water filtration in village.',
+    caption: 'Turkana Solar Micro-Dam · 2,100 residents served'
+  }
 ];
 ---
 
@@ -28,43 +65,136 @@ const sections = [
   <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three rules">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">What we mean by help</p>
+        <p class="eyebrow reveal"><span class="eyebrow__dot"></span>What we mean by help</p>
         <h2 class="reveal" style="--i:1" id="approach-title">Move at the speed of need. Stay for the work after.</h2>
       </div>
       <p class="lead reveal" style="--i:2">A crisis does not arrive in neat categories. Hunger affects school. A damaged roof affects health. Displacement turns every ordinary task into a negotiation.</p>
     </div>
     
-    <div class="columns reveal" style="--i:3; margin-top: var(--space-6);">
+    <div class="columns approach-columns reveal" style="--i:3;">
       <article class="approach-card">
-        <div class="approach-card__badge">
-          <svg class="approach-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-          </svg>
-          <span>Immediate Relief</span>
+        <div class="photo-manga-grid">
+          <div class="photo-manga-grid__main">
+            <Picture
+              src={roofImage}
+              widths={[300, 500]}
+              sizes="(min-width: 768px) 30vw, 60vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={80}
+              alt="Emergency galvanized roofing sheets dispatched to cyclone relief shelters."
+              loading="lazy"
+            />
+          </div>
+          <div class="photo-manga-grid__sub">
+            <div class="photo-manga-grid__cell">
+              <Picture
+                src={handsImage}
+                widths={[200, 350]}
+                sizes="(min-width: 768px) 15vw, 30vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={80}
+                alt="Community hands passing essential supplies"
+                loading="lazy"
+              />
+            </div>
+            <div class="photo-manga-grid__cell">
+              <Picture
+                src={schoolImage}
+                widths={[200, 350]}
+                sizes="(min-width: 768px) 15vw, 30vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={80}
+                alt="Emergency school classroom"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
-        <h3 class="approach-card__title">Making the immediate days safer</h3>
-        <p class="approach-card__body">Our first responsibility is immediate stability: food in the kitchen, clean water, a roof that holds, a clinic with supplies, and a child able to keep learning.</p>
-        <div class="approach-card__stat">
-          <span class="approach-card__stat-val">24-48h</span>
-          <span class="approach-card__stat-label">Average emergency response dispatch window</span>
+        <figcaption class="approach-photo-caption">
+          <span class="approach-photo-caption__num">FIG 02.1</span>
+          <span class="approach-photo-caption__text">Emergency logistics & shelter dispatch · Audited field record</span>
+        </figcaption>
+        <div class="approach-card__content">
+          <div class="approach-card__meta">
+            <span class="approach-card__tag">Immediate Relief</span>
+          </div>
+          <h3 class="approach-card__title">Making immediate days safe</h3>
+          <p class="approach-card__body">Our first response is immediate stability: clean water, hot food, shelter repair, medical supplies, and safe learning spaces for children.</p>
+          <div class="approach-card__stat">
+            <span class="approach-card__stat-val">24-48h</span>
+            <span class="approach-card__stat-label">Average emergency relief dispatch time to active crisis zones</span>
+          </div>
+          <div class="approach-card__action">
+            <a href="/what-we-do/#emergency" class="approach-card__link">
+              Explore Emergency Relief Work <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </article>
 
       <article class="approach-card">
-        <div class="approach-card__badge approach-card__badge--emerald">
-          <svg class="approach-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          <span>Long-Term Autonomy</span>
+        <div class="photo-manga-grid">
+          <div class="photo-manga-grid__main">
+            <Picture
+              src={coopImage}
+              widths={[300, 500]}
+              sizes="(min-width: 768px) 30vw, 60vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={80}
+              alt="Women farmers inspecting agricultural yield in Kigali cooperative."
+              loading="lazy"
+            />
+          </div>
+          <div class="photo-manga-grid__sub">
+            <div class="photo-manga-grid__cell">
+              <Picture
+                src={waterImage}
+                widths={[200, 350]}
+                sizes="(min-width: 768px) 15vw, 30vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={80}
+                alt="Solar powered water micro-dam"
+                loading="lazy"
+              />
+            </div>
+            <div class="photo-manga-grid__cell">
+              <Picture
+                src={portraitImage}
+                widths={[200, 350]}
+                sizes="(min-width: 768px) 15vw, 30vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={80}
+                alt="Verified local community partner"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
-        <h3 class="approach-card__title">Rooted in local leadership</h3>
-        <p class="approach-card__body">Our second responsibility is avoiding external dependency. We partner exclusively with local community leaders, supporting self-sustaining plans that endure long after we depart.</p>
-        <div class="approach-card__stat">
-          <span class="approach-card__stat-val">100%</span>
-          <span class="approach-card__stat-label">Field programs led by local community partners</span>
+        <figcaption class="approach-photo-caption">
+          <span class="approach-photo-caption__num">FIG 02.2</span>
+          <span class="approach-photo-caption__text">Local cooperative leadership & micro-dam · Verified field partner</span>
+        </figcaption>
+        <div class="approach-card__content">
+          <div class="approach-card__meta">
+            <span class="approach-card__tag approach-card__tag--emerald">Long-Term Autonomy</span>
+          </div>
+          <h3 class="approach-card__title">Built on local leadership</h3>
+          <p class="approach-card__body">Our long-term commitment is preventing dependency. We back local community leaders with self-sustaining projects that endure.</p>
+          <div class="approach-card__stat">
+            <span class="approach-card__stat-val">100%</span>
+            <span class="approach-card__stat-label">Field projects designed & operated by verified local partners</span>
+          </div>
+          <div class="approach-card__action">
+            <a href="/what-we-do/#cooperatives" class="approach-card__link">
+              Explore Partner Initiatives <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </article>
     </div>
@@ -73,36 +203,41 @@ const sections = [
   <!-- 03 — Rules -->
   <Panel id="rules" ground="paper" index={3} total={3} label="Rules" labelledby="rules-title" ctaHref="/what-we-do/" ctaLabel="See what we do">
     <div class="panel-head">
-      <p class="eyebrow reveal">How we choose</p>
+      <p class="eyebrow reveal"><span class="eyebrow__dot"></span>How we decide</p>
       <h2 class="reveal" style="--i:1" id="rules-title">Three rules we hold to.</h2>
     </div>
+    
     <div class="principles">
-      <article class="rule-card reveal" style="--i:2">
-        <div class="rule-card__head">
-          <span class="rule-card__number">01</span>
-          <span class="badge badge--primary">Practicality</span>
-        </div>
-        <h3 class="rule-card__title">Useful over impressive</h3>
-        <p class="rule-card__body">We choose the practical response a family can use, not the project that photographs best.</p>
-      </article>
-
-      <article class="rule-card reveal" style="--i:3">
-        <div class="rule-card__head">
-          <span class="rule-card__number">02</span>
-          <span class="badge badge--emerald">Autonomy</span>
-        </div>
-        <h3 class="rule-card__title">Local judgement first</h3>
-        <p class="rule-card__body">People closest to the work know what is safe, possible and still needed.</p>
-      </article>
-
-      <article class="rule-card reveal" style="--i:4">
-        <div class="rule-card__head">
-          <span class="rule-card__number">03</span>
-          <span class="badge badge--dark" style="background: var(--surface-alt); color: var(--slate-800); border-color: var(--border);">Commitment</span>
-        </div>
-        <h3 class="rule-card__title">Recovery is part of relief</h3>
-        <p class="rule-card__body">We do not leave when the headline changes. Repair and recovery take time.</p>
-      </article>
+      {ruleCards.map((rule, idx) => (
+        <article class="rule-card reveal" style={`--i:${idx + 2}`}>
+          <div class="rule-card__media">
+            <Picture
+              src={rule.image}
+              widths={[400, 700]}
+              sizes="(min-width: 768px) 33vw, 90vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={80}
+              alt={rule.alt}
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="rule-card__doc-caption">{rule.caption}</figcaption>
+          <div class="rule-card__content">
+            <div class="rule-card__head">
+              <span class="rule-card__number">{rule.num}</span>
+              <span class="rule-card__category">{rule.category}</span>
+            </div>
+            <h3 class="rule-card__title">{rule.title}</h3>
+            <p class="rule-card__body">{rule.body}</p>
+            <div class="rule-card__action">
+              <a href="/what-we-do/" class="rule-card__link">
+                View Related Field Work <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
     </div>
 
     <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top:var(--space-8)">
@@ -110,3 +245,5 @@ const sections = [
     </blockquote>
   </Panel>
 </EditorialPage>
+
+
