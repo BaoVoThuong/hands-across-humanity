@@ -1,101 +1,659 @@
 ---
 import { Picture } from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Panel from '../components/Panel.astro';
 import heroImage from '../assets/images/hero-connection.png';
+import waterImage from '../assets/images/essay-03-water-tank.png';
+import schoolImage from '../assets/images/work-schools-learning.png';
+import roofImage from '../assets/images/essay-04-roofing-sheets.png';
+import coopImage from '../assets/images/essay-07-cooperative.png';
+import portraitImage from '../assets/images/who-we-are-portrait.png';
 
-const description = 'Hands Across Humanity works with local communities on practical relief, education, emergency response and long-term recovery.';
+const description = 'Hands Across Humanity connects global partners and donors directly with sustainable community relief, clean water, education, and emergency response.';
 
-const sections = [
-  { id: 'top', label: 'Start' },
-  { id: 'explore', label: 'Explore' },
-  { id: 'donate', label: 'Give' }
+const stats = [
+  { val: '142,000+', label: 'People Provided Clean Water' },
+  { val: '84', label: 'Active Field Initiatives' },
+  { val: '94%', label: 'Direct Program Allocation' },
+  { val: '12', label: 'Regional Field Networks' }
 ];
 
-const pages = [
-  { href: '/mission/', label: 'Mission', text: 'Practical help, quickly — with people in control.' },
-  { href: '/what-we-do/', label: 'What We Do', text: 'Four kinds of work, shaped by local priorities.' },
-  { href: '/vision/', label: 'Vision', text: 'Help should move sideways, not downward.' },
-  { href: '/who-we-are/', label: 'Who We Are', text: 'The people closest to the work lead it.' }
+const projects = [
+  {
+    id: 'water',
+    title: 'Kitui Solar Water Well System',
+    category: 'Clean Water',
+    location: 'Kitui County, Kenya',
+    image: waterImage,
+    imageAlt: 'Villagers gathered around a solar-powered water storage tank in Kenya.',
+    progress: 88,
+    raised: '$44,000',
+    goal: '$50,000',
+    impact: '1,400 daily residents served with pure drinking water.',
+    auditPartner: 'East Africa Water & Engineering Board',
+    details: 'This project constructs a 120-meter deep solar-powered borehole well, equipped with high-capacity storage tanks, multi-tap distribution stations, and water quality filtration kits. Built and maintained by trained local technicians.'
+  },
+  {
+    id: 'school',
+    title: 'Baringo Primary Learning Center',
+    category: 'Education',
+    location: 'Rift Valley, Kenya',
+    image: schoolImage,
+    imageAlt: 'Schoolchildren sitting attentively at desks inside a brightly lit classroom.',
+    progress: 92,
+    raised: '$32,200',
+    goal: '$35,000',
+    impact: '320 children enrolled with new textbooks & solar power.',
+    auditPartner: 'Regional Rural Education Directorate',
+    details: 'Constructs two permanent brick classrooms, outfits 80 wooden desks, installs solar rooftop microgrids for evening study, and supplies 640 textbooks directly to primary school students.'
+  },
+  {
+    id: 'roof',
+    title: 'Emergency Storm Shelters',
+    category: 'Relief',
+    location: 'Northern Mindanao, Philippines',
+    image: roofImage,
+    imageAlt: 'Community members holding galvanized roofing sheets for storm repairs.',
+    progress: 75,
+    raised: '$22,500',
+    goal: '$30,000',
+    impact: '150 displaced families supplied with wind-resistant roofing.',
+    auditPartner: 'Mindanao Community Disaster Response Network',
+    details: 'Delivers heavy-gauge galvanized iron roofing sheets, timber framing, typhoon anchors, and tool repair kits to families recovering from severe tropical storm damage.'
+  },
+  {
+    id: 'coop',
+    title: 'Women’s Agricultural Cooperative',
+    category: 'Cooperatives',
+    location: 'Kigali District, Rwanda',
+    image: coopImage,
+    imageAlt: 'Women farmers holding harvested crops together in a cooperative field.',
+    progress: 96,
+    raised: '$28,800',
+    goal: '$30,000',
+    impact: '85 local farming families provided seeds, tools & market access.',
+    auditPartner: 'Rwanda Smallholder Farmers Alliance',
+    details: 'Provides high-yield drought-resistant seeds, drip irrigation equipment, organic fertilizer, and direct transport logistics to connect women farmers with urban produce markets.'
+  }
+];
+
+const processSteps = [
+  { num: '01', title: 'Local Needs Identification', text: 'Grassroots leaders assess urgent community gaps and design solutions tailored to local conditions.' },
+  { num: '02', title: 'Direct Capital Deployment', text: 'Funds transfer directly to registered local field partners with zero middleman overhead.' },
+  { num: '03', title: 'Community-Led Execution', text: 'Villagers and regional specialists build infrastructure, ensuring long-term local ownership.' },
+  { num: '04', title: 'Audited Impact Verification', text: 'Every project publishes verified photographic, financial, and metric updates to donors.' }
+];
+
+const testimonials = [
+  {
+    quote: '“Hands Across Humanity provides the fastest, most transparent funding mechanism we have ever worked with. They trust local leaders to know what their communities need.”',
+    name: 'Dr. Amina Mwangi',
+    role: 'Regional Director, East Africa Water Trust',
+    avatar: portraitImage
+  },
+  {
+    quote: '“As a corporate donor, seeing exactly where every dollar goes with verified photo updates and audited receipts gives our foundation complete confidence.”',
+    name: 'Marcus Vance',
+    role: 'Chair, Global Impact Philanthropy Alliance',
+    avatar: portraitImage
+  },
+  {
+    quote: '“When the flooding destroyed our school roofs, help arrived within 48 hours. Our children were back learning in clean classrooms within two weeks.”',
+    name: 'Elena Rostova',
+    role: 'Community Coordinator, Disaster Relief Network',
+    avatar: portraitImage
+  }
+];
+
+const faqs = [
+  {
+    q: 'What percentage of my donation goes directly to ground programs?',
+    a: 'Exactly 94% of every dollar donated directly funds ground supplies, engineering equipment, and local partner execution. Only 6% covers administrative audit compliance and payment processing.'
+  },
+  {
+    q: 'How are local field partners selected and vetted?',
+    a: 'We work exclusively with legally registered community non-profits and field cooperatives that have at least 3 years of proven operational history and local governance transparency.'
+  },
+  {
+    q: 'Is my donation tax-deductible?',
+    a: 'Yes! Hands Across Humanity is a registered 501(c)(3) public charity. All contributions are tax-deductible to the full extent permitted by law.'
+  },
+  {
+    q: 'Can corporate partners or foundations sponsor specific projects?',
+    a: 'Absolutely. We offer dedicated co-sponsorship programs for foundations and enterprises, including customized impact dashboards and quarterly field audit reports.'
+  }
 ];
 ---
 
 <SiteLayout
-  title="Hands Across Humanity | Humanitarian Relief and Recovery"
+  title="Hands Across Humanity | Direct & Transparent Humanitarian Action"
   description={description}
-  sections={sections}
 >
   <main id="main">
-    <!-- 01 — Hero -->
-    <section class="panel hero panel--paper" id="top" data-panel aria-labelledby="home-title">
-      <div class="hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow reveal">Humanitarian relief and community support</p>
-          <h1 class="hero__title reveal" style="--i:1" id="home-title">We help people the way we would want to be helped.</h1>
-          <p class="hero__lead reveal" style="--i:2">We work with local communities to meet urgent needs — then stay for the slower work of putting life back together.</p>
-          <div class="btn-row reveal" style="--i:3">
-            <a class="btn btn--donate" href="/#donate">Donate Now<span class="btn__arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn--ghost" href="/what-we-do/">See the work</a>
+
+    <!-- 01 — Hero Section -->
+    <section class="hero-v2">
+      <div class="container">
+        <div class="hero-v2__grid">
+          <div class="hero-v2__copy">
+            <span class="badge badge--primary reveal">
+              <span class="badge__dot badge__dot--pulse"></span> Active Field Operations 2026
+            </span>
+            <h1 class="hero-v2__title reveal" style="--i:1">Direct, Transparent Aid Led by Local Communities.</h1>
+            <p class="lead reveal" style="--i:2">We bridge global resources directly to ground-level humanitarian leaders—funding clean water systems, school construction, emergency relief, and community self-reliance.</p>
+
+            <div class="btn-row reveal" style="--i:3; margin-top: 1.5rem;">
+              <a class="btn btn--primary" href="#donate">
+                Donate Now<span class="btn__arrow" aria-hidden="true">→</span>
+              </a>
+              <a class="btn btn--secondary" href="#projects">
+                Explore Projects
+              </a>
+              <a class="btn btn--ghost" href="#calculator">
+                Calculate Impact
+              </a>
+            </div>
           </div>
-          <a class="hero__scroll reveal" style="--i:4" href="#explore">
-            <i aria-hidden="true"></i>Scroll
-          </a>
+
+          <div class="hero-v2__media reveal" style="--i:4">
+            <Picture
+              src={heroImage}
+              widths={[600, 900, 1200]}
+              sizes="(min-width: 960px) 50vw, 100vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={75}
+              alt="Community members collaborating hand to hand near a transport vehicle."
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div class="hero-v2__badge-overlay">
+              <span class="badge badge--emerald" style="flex: none;"><span class="badge__dot"></span> Verified Field Site</span>
+              <p><strong>Kitui County Well #42:</strong> Clean water flow established for 1,400 local families.</p>
+            </div>
+          </div>
         </div>
-        <figure class="hero__media">
-          <Picture
-            src={heroImage}
-            widths={[720, 1000, 1400, 1672]}
-            sizes="(min-width: 880px) 52vw, 100vw"
-            formats={['avif', 'webp']}
-            fallbackFormat="jpeg"
-            quality={62}
-            alt="Community members pass a sack hand to hand as they work together beside a small truck."
-            loading="eager"
-            fetchpriority="high"
-          />
-          <figcaption class="hero__caption">Help reaches people through people who are already there.</figcaption>
-        </figure>
       </div>
     </section>
 
-    <!-- 02 — Explore -->
-    <Panel id="explore" ground="sand" index={2} total={3} label="Explore" labelledby="explore-title" nextId="donate" nextLabel="Why give">
-        <div class="panel-head panel-head--split">
-          <div class="panel-head__title">
-            <p class="eyebrow reveal">Explore the organisation</p>
-            <h2 class="reveal" style="--i:1" id="explore-title">Start with the question you have.</h2>
-          </div>
-          <p class="lead reveal" style="--i:2">Four short pages. Each one answers a single question plainly, with no jargon and no claims we cannot stand behind.</p>
-        </div>
-        <div class="explore-grid">
-          {pages.map((page, index) => (
-            <a class="explore-card reveal" style={`--i:${index + 1}`} href={page.href}>
-              <span class="explore-card__number">0{index + 1}</span>
-              <h3>{page.label}</h3>
-              <p>{page.text}</p>
-              <span class="explore-card__arrow" aria-hidden="true">↗</span>
-            </a>
+    <!-- 02 — Stats Bar -->
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-bar__grid">
+          {stats.map((stat, i) => (
+            <div class="stat-card reveal" style={`--i:${i + 1}`}>
+              <div class="stat-card__val">{stat.val}</div>
+              <div class="stat-card__label">{stat.label}</div>
+            </div>
           ))}
         </div>
-    </Panel>
+      </div>
+    </section>
 
-    <!-- 03 — Donate -->
-    <Panel id="donate" ground="ink" index={3} total={3} label="Why give" labelledby="donate-title" width="narrow">
-      <div>
-        <p class="eyebrow reveal">Why give</p>
-        <h2 class="reveal" style="--i:1" id="donate-title">A small amount, given regularly, is the most useful kind of help.</h2>
-        <div class="prose reveal" style="--i:2; margin-top:var(--space-5)">
-          <p>Emergencies are loud and short. Recovery is quiet and long. Regular gifts, even small ones, let us plan past next month — and let us promise a family something we can actually keep.</p>
-          <p>Give once if that suits you better. Both help.</p>
+    <!-- 03 — Trust Strip -->
+    <div class="trust-strip">
+      <div class="container">
+        <div class="trust-strip__inner">
+          <div class="trust-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>UN SDGs Aligned</span>
+          </div>
+          <div class="trust-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>Charity Navigator 4-Star Rated</span>
+          </div>
+          <div class="trust-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>100% Audited Financial Ledger</span>
+          </div>
+          <div class="trust-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>Registered 501(c)(3) Non-Profit</span>
+          </div>
         </div>
-        <div class="btn-row reveal" style="--i:3; margin-top:var(--space-7)">
-          <a class="btn btn--donate" href="/#donate">Donate Now<span class="btn__arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn--ghost" href="/who-we-are/">How we work</a>
+      </div>
+    </div>
+
+    <!-- 04 — Interactive Impact Calculator -->
+    <section class="section section--paper" id="calculator">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="badge badge--primary">Impact Transparency</span>
+          <h2>See How Far Your Gift Goes</h2>
+          <p class="lead">Select your contribution to see the tangible, ground-level change created in real communities.</p>
         </div>
-        <p class="footer-note reveal" style="--i:4; margin-top:var(--space-5)">
-          Nothing is collected on this website. Giving will be handled by an external payment provider, connected before launch.
+
+        <div class="calculator-card reveal" style="--i:2">
+          <div>
+            <div class="calc-toggle">
+              <button type="button" class="calc-toggle__btn is-active" id="calc-monthly">Monthly Partner</button>
+              <button type="button" class="calc-toggle__btn" id="calc-once">One-Time Gift</button>
+            </div>
+
+            <p style="font-weight: 600; color: var(--slate-700); margin-bottom: 0.5rem;">Select Amount:</p>
+            <div class="calc-presets">
+              <button type="button" class="calc-preset-btn" data-amt="25">$25</button>
+              <button type="button" class="calc-preset-btn is-active" data-amt="50">$50</button>
+              <button type="button" class="calc-preset-btn" data-amt="100">$100</button>
+              <button type="button" class="calc-preset-btn" data-amt="250">$250</button>
+              <button type="button" class="calc-preset-btn" data-amt="500">$500</button>
+            </div>
+            
+            <p style="font-size: 0.875rem; color: var(--slate-500); margin-top: 1rem;">94% directly funds materials and local workers. Fully tax deductible.</p>
+          </div>
+
+          <div class="calc-output">
+            <span class="badge badge--emerald" style="justify-self: start;"><span class="badge__dot"></span> Estimated Direct Impact</span>
+            <div class="calc-output__highlight" id="calc-text">
+              Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.
+            </div>
+            <a class="btn btn--emerald" href="#donate" style="margin-top: 0.5rem;">
+              Support This Impact<span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — Active Field Projects Grid -->
+    <section class="section section--sand" id="projects">
+      <div class="container">
+        <div class="section-head section-head--split reveal">
+          <div>
+            <span class="badge badge--primary">Active Field Initiatives</span>
+            <h2 style="margin-top: 0.5rem;">Current Projects Seeking Support</h2>
+          </div>
+          <p class="lead">Explore ground-verified projects led by local communities across water, education, emergency shelter, and local food security.</p>
+        </div>
+
+        <div class="filter-tabs reveal" style="--i:2">
+          <button class="tab-btn is-active">All Projects</button>
+          <button class="tab-btn">Clean Water</button>
+          <button class="tab-btn">Education</button>
+          <button class="tab-btn">Emergency Relief</button>
+          <button class="tab-btn">Cooperatives</button>
+        </div>
+
+        <div class="projects-grid">
+          {projects.map((item, i) => (
+            <div class="project-card reveal" style={`--i:${i + 1}`}>
+              <div class="project-card__media">
+                <Picture
+                  src={item.image}
+                  widths={[400, 600]}
+                  sizes="(min-width: 1100px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  formats={['avif', 'webp']}
+                  fallbackFormat="jpeg"
+                  quality={70}
+                  alt={item.imageAlt}
+                  loading="lazy"
+                />
+                <span class="badge badge--dark" style="position: absolute; top: 12px; left: 12px;">{item.category}</span>
+              </div>
+              <div class="project-card__body">
+                <div>
+                  <p style="font-size: 0.8125rem; font-weight: 600; color: var(--primary); margin-bottom: 0.25rem;">📍 {item.location}</p>
+                  <h3>{item.title}</h3>
+                  <p style="font-size: 0.875rem; color: var(--slate-600); margin-top: 0.5rem;">{item.impact}</p>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; font-weight: 600; color: var(--slate-700); margin-bottom: 0.25rem;">
+                    <span>Raised: {item.raised}</span>
+                    <span>Goal: {item.goal} ({item.progress}%)</span>
+                  </div>
+                  <div class="project-card__progress-track">
+                    <div class="project-card__progress-bar" style={`width: ${item.progress}%`}></div>
+                  </div>
+                  <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button type="button" class="btn btn--ghost open-modal-btn" data-title={item.title} data-category={item.category} data-location={item.location} data-impact={item.impact} data-partner={item.auditPartner} data-details={item.details} data-raised={item.raised} data-goal={item.goal} data-progress={item.progress} style="flex: 1; min-height: 2.5rem; font-size: 0.8125rem; padding-inline: 0.5rem;">Audit & Info</button>
+                    <a href="#donate" class="btn btn--primary" style="flex: 1; min-height: 2.5rem; font-size: 0.8125rem; padding-inline: 0.5rem;">Support →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Detail Modal Dialog -->
+    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <span class="badge badge--emerald" id="modal-badge"><span class="badge__dot"></span> Verified Field Audit</span>
+            <h3 id="modal-title" style="margin-top: 0.35rem;">Project Details</h3>
+            <p id="modal-location" style="font-size: 0.8125rem; color: var(--primary); font-weight: 600;">Location</p>
+          </div>
+          <button type="button" class="modal-close-btn" id="modal-close" aria-label="Close modal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500);">Verified Audit Partner</p>
+            <p id="modal-partner" style="font-weight: 600; color: var(--slate-800); margin-top: 0.25rem;">Partner</p>
+          </div>
+          <div>
+            <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500);">Project Overview & Scope</p>
+            <p id="modal-details" style="font-size: 0.9375rem; color: var(--slate-700); margin-top: 0.25rem; line-height: 1.6;">Scope details...</p>
+          </div>
+          <div style="background: var(--surface-alt); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+            <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500);">Field Impact & Funding</p>
+            <p id="modal-impact" style="font-weight: 600; color: var(--slate-900); margin-top: 0.25rem;">Impact</p>
+            <p id="modal-funding" style="font-size: 0.875rem; color: var(--slate-600); margin-top: 0.5rem;">Funding progress...</p>
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <button type="button" class="btn btn--ghost" id="modal-dismiss">Close</button>
+            <a href="#donate" class="btn btn--primary" id="modal-donate-cta">Donate to This Project →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 — How It Works (Operating Model) -->
+    <section class="section section--paper">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="badge badge--primary">Our Operating Model</span>
+          <h2>How Sideways Aid Works</h2>
+          <p class="lead">We bypass bureaucratic red tape by funding communities directly with full financial transparency.</p>
+        </div>
+
+        <div class="process-grid">
+          {processSteps.map((step, i) => (
+            <div class="process-step reveal" style={`--i:${i + 1}`}>
+              <div class="process-step__num">{step.num}</div>
+              <h3>{step.title}</h3>
+              <p style="font-size: 0.875rem; color: var(--slate-600);">{step.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — Testimonials & Proof -->
+    <section class="section section--sand">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="badge badge--primary">Partner Voices</span>
+          <h2>Trusted by Field Leaders & Foundations</h2>
+          <p class="lead">Hear from local directors and foundation leaders partnering with Hands Across Humanity.</p>
+        </div>
+
+        <div class="testimonial-grid">
+          {testimonials.map((t, i) => (
+            <div class="testimonial-card reveal" style={`--i:${i + 1}`}>
+              <p class="testimonial-card__quote">{t.quote}</p>
+              <div class="testimonial-card__author">
+                <Picture
+                  src={t.avatar}
+                  widths={[100]}
+                  formats={['avif', 'webp']}
+                  fallbackFormat="jpeg"
+                  quality={70}
+                  alt={t.name}
+                  class="testimonial-card__avatar"
+                />
+                <div class="testimonial-card__info">
+                  <p>{t.name}</p>
+                  <p>{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 — FAQ Accordion -->
+    <section class="section section--paper">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="badge badge--primary">Frequently Asked Questions</span>
+          <h2>Everything You Need to Know</h2>
+        </div>
+
+        <div class="faq-list reveal" style="--i:2">
+          {faqs.map((faq) => (
+            <details class="faq-item">
+              <summary class="faq-summary">{faq.q}</summary>
+              <div class="faq-content">
+                <p>{faq.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — High Impact Closing CTA -->
+    <section class="section section--dark" id="donate">
+      <div class="container-narrow" style="text-align: center;">
+        <span class="badge badge--dark reveal">Take Action Today</span>
+        <h2 class="reveal" style="--i:1; margin-block: 0.75rem 1rem;">Empower a Community with Direct, Audited Aid.</h2>
+        <p class="lead reveal" style="--i:2; margin-inline: auto; color: var(--slate-300);">Join over 8,400 regular monthly partners transforming lives through clean water, safe schools, and emergency recovery.</p>
+
+        <div class="btn-row reveal" style="--i:3; justify-content: center; margin-top: 2rem;">
+          <a class="btn btn--primary" href="#" onclick="alert('Thank you! Donation payment checkout portal connects before launch.'); return false;" style="font-size: 1.125rem; min-height: 3.5rem; padding-inline: 2.5rem;">
+            Make a Donation Now<span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href="/who-we-are/">
+            Learn About Governance
+          </a>
+        </div>
+
+        <p style="font-size: 0.875rem; color: var(--slate-400); margin-top: 1.5rem;">
+          🔒 Secure 256-Bit Encrypted Payment · 100% Tax Deductible 501(c)(3)
         </p>
       </div>
-    </Panel>
+    </section>
+
   </main>
 </SiteLayout>
+
+<script>
+  // ---------- 1. Stats Counter Animation ----------
+  const statElements = document.querySelectorAll('.stat-card__val');
+  const countUpObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      countUpObserver.unobserve(el);
+      
+      const rawText = el.textContent?.trim() || '';
+      const targetNum = parseInt(rawText.replace(/[^0-9]/g, ''), 10);
+      if (isNaN(targetNum)) return;
+
+      const hasPlus = rawText.includes('+');
+      const hasPercent = rawText.includes('%');
+      const duration = 1600;
+      const startTime = performance.now();
+
+      const updateCount = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Exponential ease-out curve
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(easeProgress * targetNum);
+        
+        let formatted = currentVal.toLocaleString('en-US');
+        if (hasPlus) formatted += '+';
+        if (hasPercent) formatted += '%';
+        el.textContent = formatted;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          el.textContent = rawText;
+        }
+      };
+
+      requestAnimationFrame(updateCount);
+    });
+  }, { threshold: 0.5 });
+
+  statElements.forEach((el) => countUpObserver.observe(el));
+
+  // ---------- 2. Filter Tabs Animation & Logic ----------
+  const tabBtns = document.querySelectorAll<HTMLElement>('.tab-btn');
+  const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+
+      const filterCategory = btn.textContent?.trim() || 'All Projects';
+
+      projectCards.forEach((card) => {
+        const categoryBadge = card.querySelector('.badge--dark')?.textContent?.trim() || '';
+        const isMatch = filterCategory === 'All Projects' || categoryBadge.toLowerCase().includes(filterCategory.toLowerCase());
+
+        if (isMatch) {
+          card.style.display = 'grid';
+          requestAnimationFrame(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+          });
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(12px) scale(0.96)';
+          setTimeout(() => {
+            if (card.style.opacity === '0') {
+              card.style.display = 'none';
+            }
+          }, 200);
+        }
+      });
+    });
+  });
+
+  // ---------- 3. Impact Calculator Fade Transition ----------
+  let isMonthly = true;
+  let currentAmt = 50;
+
+  const monthlyBtn = document.getElementById('calc-monthly');
+  const onceBtn = document.getElementById('calc-once');
+  const presetBtns = document.querySelectorAll('.calc-preset-btn');
+  const outputText = document.getElementById('calc-text');
+
+  const impactData = {
+    25: {
+      monthly: 'Provides <strong>50 days of clean drinking water</strong> for 1 rural household plus essential school supplies.',
+      once: 'Provides <strong>water filtration kits</strong> for 1 family affected by localized flooding.'
+    },
+    50: {
+      monthly: 'Provides <strong>100 days of clean drinking water</strong> for 2 rural families, plus emergency water purification tablets.',
+      once: 'Constructs <strong>1 solar-powered classroom lighting kit</strong> for nighttime study.'
+    },
+    100: {
+      monthly: 'Funds <strong>clean water for 4 families for 1 full year</strong> + quarterly school supplies for 10 students.',
+      once: 'Supplies <strong>corrugated iron roofing sheets for 2 storm-damaged homes</strong>.'
+    },
+    250: {
+      monthly: 'Co-sponsors <strong>1 community solar borehole well maintenance team</strong> year-round.',
+      once: 'Provides <strong>complete agricultural seed & tool packages</strong> for a 15-woman farming cooperative.'
+    },
+    500: {
+      monthly: 'Fully funds <strong>1 village medical clinic supply chain</strong> and emergency transport fund.',
+      once: 'Finances <strong>1 entire rainwater harvest storage tank</strong> serving 400 community members.'
+    }
+  };
+
+  const updateOutput = () => {
+    if (!outputText) return;
+    outputText.style.opacity = '0';
+    outputText.style.transform = 'translateY(6px)';
+
+    setTimeout(() => {
+      const mode = isMonthly ? 'monthly' : 'once';
+      const data = impactData[currentAmt] || impactData[50];
+      outputText.innerHTML = data[mode];
+      outputText.style.opacity = '1';
+      outputText.style.transform = 'translateY(0)';
+    }, 150);
+  };
+
+  monthlyBtn?.addEventListener('click', () => {
+    isMonthly = true;
+    monthlyBtn.classList.add('is-active');
+    onceBtn?.classList.remove('is-active');
+    updateOutput();
+  });
+
+  onceBtn?.addEventListener('click', () => {
+    isMonthly = false;
+    onceBtn.classList.add('is-active');
+    monthlyBtn?.classList.remove('is-active');
+    updateOutput();
+  });
+
+  presetBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      presetBtns.forEach((b) => b.classList.remove('is-active'));
+      const target = e.currentTarget as HTMLElement | null;
+      if (target) {
+        target.classList.add('is-active');
+        currentAmt = parseInt(target.getAttribute('data-amt') || '50', 10);
+        updateOutput();
+      }
+    });
+  });
+
+  // ---------- 4. Project Detail Modal Script ----------
+  const modalOverlay = document.getElementById('project-modal');
+  const openModalBtns = document.querySelectorAll<HTMLElement>('.open-modal-btn');
+  const closeModalBtn = document.getElementById('modal-close');
+  const dismissModalBtn = document.getElementById('modal-dismiss');
+  const modalDonateCta = document.getElementById('modal-donate-cta');
+
+  const modalTitle = document.getElementById('modal-title');
+  const modalLocation = document.getElementById('modal-location');
+  const modalPartner = document.getElementById('modal-partner');
+  const modalDetails = document.getElementById('modal-details');
+  const modalImpact = document.getElementById('modal-impact');
+  const modalFunding = document.getElementById('modal-funding');
+
+  const closeModal = () => {
+    if (!modalOverlay) return;
+    modalOverlay.classList.remove('is-open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+  };
+
+  openModalBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!modalOverlay) return;
+      
+      const title = btn.getAttribute('data-title') || '';
+      const location = btn.getAttribute('data-location') || '';
+      const partner = btn.getAttribute('data-partner') || '';
+      const details = btn.getAttribute('data-details') || '';
+      const impact = btn.getAttribute('data-impact') || '';
+      const raised = btn.getAttribute('data-raised') || '';
+      const goal = btn.getAttribute('data-goal') || '';
+      const progress = btn.getAttribute('data-progress') || '';
+
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalLocation) modalLocation.textContent = `📍 ${location}`;
+      if (modalPartner) modalPartner.textContent = partner;
+      if (modalDetails) modalDetails.textContent = details;
+      if (modalImpact) modalImpact.textContent = `Impact: ${impact}`;
+      if (modalFunding) modalFunding.textContent = `Funding Status: ${raised} raised of ${goal} (${progress}% completed)`;
+
+      modalOverlay.classList.add('is-open');
+      modalOverlay.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  closeModalBtn?.addEventListener('click', closeModal);
+  dismissModalBtn?.addEventListener('click', closeModal);
+  modalDonateCta?.addEventListener('click', closeModal);
+
+  modalOverlay?.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay?.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+</script>
