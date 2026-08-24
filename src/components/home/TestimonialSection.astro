@@ -5,40 +5,100 @@ export interface TestimonialItem {
   quote: string;
   name: string;
   role: string;
+  organization?: string;
+  location?: string;
+  category?: string;
+  verified?: boolean;
+  verifiedText?: string;
+  projectId?: string;
+  projectTitle?: string;
   initials?: string;
   accentColor?: string;
   avatar?: ImageMetadata;
 }
 
+export interface PartnerLogo {
+  name: string;
+  category: string;
+}
+
 interface Props {
+  kicker?: string;
   title?: string;
   lead?: string;
+  partnerLogos?: PartnerLogo[];
   testimonials: TestimonialItem[];
 }
 
 const {
+  kicker = "Institutional Trust & Co-Signers",
   title = "Trusted by Field Leaders & Foundations",
-  lead = "Hear from local directors and foundation leaders partnering with Hands Across Humanity.",
+  lead = "Hear from local directors and foundation chairs co-signing our direct relief model.",
+  partnerLogos = [
+    { name: "East Africa Water Trust", category: "Water" },
+    { name: "Global Philanthropy Alliance", category: "Grant" },
+    { name: "Disaster Relief Network", category: "Relief" }
+  ],
   testimonials
 } = Astro.props;
+
+const fieldCount = testimonials.filter(t => t.category === 'field-leaders').length;
+const foundationCount = testimonials.filter(t => t.category === 'foundations').length;
 ---
 
-<section class="section section--sand" id="proof">
+<section class="section section--sand section--testimonials" id="proof">
   <div class="container">
     <div class="section-head section-head--center reveal">
+      <span class="section-kicker">{kicker}</span>
       <h2>{title}</h2>
-      <p class="lead">{lead}</p>
+      <p class="partner-cosigners">
+        Field & Audit Partners: {partnerLogos.map((p, idx) => (
+          <span>{p.name}{idx < partnerLogos.length - 1 ? ' · ' : ''}</span>
+        ))}
+      </p>
     </div>
 
-    <div class="testimonial-grid">
+    <!-- Standardized Category Filter Tabs -->
+    <div class="filter-tabs-wrapper reveal" style="--i:2">
+      <div class="filter-tabs" role="tablist" id="testimonial-filters" aria-label="Filter testimonials by category">
+        <button type="button" class="tab-btn is-active" data-filter="all" role="tab" aria-selected="true">
+          All ({testimonials.length})
+        </button>
+        <button type="button" class="tab-btn" data-filter="field-leaders" role="tab" aria-selected="false">
+          Field Directors ({fieldCount})
+        </button>
+        <button type="button" class="tab-btn" data-filter="foundations" role="tab" aria-selected="false">
+          Foundations ({foundationCount})
+        </button>
+      </div>
+    </div>
+
+    <!-- Testimonial Cards Grid -->
+    <div class="testimonial-grid" id="testimonial-grid">
       {testimonials.map((t, i) => (
-        <div class="testimonial-card reveal" style={`--i:${i + 1}`}>
-          <p class="testimonial-card__quote">{t.quote}</p>
+        <div class="testimonial-card reveal" data-category={t.category || 'field-leaders'} style={`--i:${i + 1}`}>
+          <!-- Organic Inline Meta Header -->
+          <div class="testimonial-card__org-row">
+            {t.organization && <span class="testimonial-card__org-name">{t.organization}</span>}
+            {t.verified && <span class="testimonial-card__verified-tag">✓ {t.verifiedText || "Verified"}</span>}
+          </div>
+
+          <p class="testimonial-card__quote">“{t.quote.replace(/^“|”$/g, '')}”</p>
+
+          {t.projectTitle && (
+            <a href="#projects" class="testimonial-card__proof-link">
+              <span>Audited: {t.projectTitle}</span>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="12" height="12">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          )}
+
           <div class="testimonial-card__author">
             {t.avatar ? (
               <Picture
                 src={t.avatar}
-                widths={[100]}
+                widths={[80]}
                 formats={['avif', 'webp']}
                 fallbackFormat="jpeg"
                 quality={70}
@@ -46,13 +106,13 @@ const {
                 class="testimonial-card__avatar"
               />
             ) : (
-              <div class="testimonial-card__monogram" style={`background: ${t.accentColor};`}>
+              <div class="testimonial-card__monogram" style={`background: ${t.accentColor || 'var(--primary)'};`}>
                 {t.initials}
               </div>
             )}
             <div class="testimonial-card__info">
-              <p>{t.name}</p>
-              <p>{t.role}</p>
+              <p class="testimonial-card__name">{t.name}</p>
+              <p class="testimonial-card__role">{t.role}{t.location ? ` · ${t.location}` : ''}</p>
             </div>
           </div>
         </div>
@@ -60,3 +120,40 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  function setupTestimonialFilters() {
+    const filterBtns = document.querySelectorAll('#testimonial-filters .tab-btn');
+    const cards = document.querySelectorAll('.testimonial-card');
+
+    if (!filterBtns.length || !cards.length) return;
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        filterBtns.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          if (filter === 'all' || cat === filter) {
+            (card as HTMLElement).style.display = 'flex';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  setupTestimonialFilters();
+  document.addEventListener('astro:page-load', setupTestimonialFilters);
+</script>
+
+
+

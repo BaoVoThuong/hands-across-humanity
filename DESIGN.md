@@ -19,9 +19,11 @@ colors:
   emerald-hover: "#047857"
   emerald-light: "#ECFDF5"
   emerald-border: "#A7F3D0"
-  border: "#E2E8F0"
-  border-warm: "#E6DFD5"
-  border-strong: "#CBD5E1"
+  border: "#CBD5E1"
+  border-warm: "#D6CEC0"
+  border-strong: "#94A3B8"
+  divider-color: "#D1C7B7"
+  divider-strong: "#B5A896"
 typography:
   display:
     fontFamily: "'Newsreader Variable', 'Newsreader', Georgia, serif"
@@ -149,6 +151,9 @@ The system uses a flexible 12-column grid within a max-width container (`72rem` 
 - **Card Grid Rhythm:** 3-column desktop layout (`repeat(3, 1fr)`) with `1.75rem` gap, switching to 2 columns on tablet (`768px`) and single column on mobile (`<640px`).
 - **Interactive Pagination:** Smooth JavaScript page batching (3 cards per page view) with synchronous CSS grid transition handling to eliminate layout reflow jitter.
 
+### Named Rules
+**The Full Viewport Fill Rule.** Top-level feature sections intended to frame standalone steps or core campaign models must use `min-height: calc(100vh - var(--header-h, 4.75rem))` (and `100dvh` fallbacks). Using arbitrary pixel clamps (e.g. `clamp(640px, 82vh, 850px)`) is strictly forbidden, as it leaves un-filled viewport gaps on high-resolution displays that expose neighboring section backgrounds.
+
 ## Elevation & Depth
 
 Surfaces use subtle, layered shadow depth paired with crisp border definitions to maintain high contrast and tactile clarity.
@@ -160,6 +165,19 @@ Surfaces use subtle, layered shadow depth paired with crisp border definitions t
 
 ### Named Rules
 **The Responsive Lift Rule.** Elevation shadows intensify only on interactive cards and elevated modals upon hover or focus state. Static containers remain flat with warm hairline borders.
+
+## Separators & Structural Hairlines
+
+The design system enforces high-contrast, non-gradient, non-glowing structural separators that anchor visual hierarchy and create clean editorial rhythm.
+
+### Separator Vocabulary
+- **Section Boundary Hairlines** (`1px solid var(--border-warm)`): Crisp horizontal lines pinned to section tops and bottoms, clearly delineating content transitions.
+- **Section Header Accent Stroke** (`36px x 2px background: var(--primary)`): Solid terracotta pill accent rule centered under section titles.
+- **Card Inner Divider** (`1px solid var(--border-warm)`): Horizontal divider separating card headers (numerals, nodes, or tags) from primary title/body copy.
+- **Vertical Pill Dividers** (`1px x 14px solid var(--border-strong)`): Crisp vertical hairlines separating inline metadata items in trust bars and pill tags.
+
+### Named Rules
+**The Solid Hairline Rule.** All separators and dividers must be crisp, solid, high-contrast hairlines. Decorative gradients, glowing box-shadow halos, and animated light pulses on divider lines are strictly forbidden across the platform.
 
 ## Shapes
 
