@@ -24,7 +24,10 @@ const ruleCards = [
     body: 'We choose the practical response a family can use, not the project that photographs best.',
     image: roofImage,
     alt: 'Galvanized roofing sheets delivered for emergency school shelter repairs.',
-    caption: 'Kitui Emergency Roof Repair · 150 families sheltered'
+    captionTitle: 'Kitui Emergency Roof Repair',
+    captionStat: '150 families sheltered',
+    href: '/what-we-do/#shelter',
+    linkText: 'View Emergency Relief'
   },
   {
     num: '02',
@@ -33,7 +36,10 @@ const ruleCards = [
     body: 'People closest to the work know what is safe, possible and still needed.',
     image: coopImage,
     alt: 'Women farmers inspecting yield in cooperative agricultural field.',
-    caption: 'Kigali Women’s Cooperative · 85 farming families'
+    captionTitle: 'Kigali Women’s Cooperative',
+    captionStat: '85 farming families',
+    href: '/what-we-do/#cooperatives',
+    linkText: 'View Local Initiatives'
   },
   {
     num: '03',
@@ -42,7 +48,10 @@ const ruleCards = [
     body: 'We do not leave when the headline changes. Repair and recovery take time.',
     image: waterImage,
     alt: 'Solar powered water tank providing clean water filtration in village.',
-    caption: 'Turkana Solar Micro-Dam · 2,100 residents served'
+    captionTitle: 'Turkana Solar Micro-Dam',
+    captionStat: '2,100 residents served',
+    href: '/what-we-do/#water',
+    linkText: 'View Recovery Work'
   }
 ];
 ---
@@ -115,12 +124,12 @@ const ruleCards = [
         </div>
         <figcaption class="approach-photo-caption">
           <span class="approach-photo-caption__num">FIG 02.1</span>
-          <span class="approach-photo-caption__text">Emergency logistics & shelter dispatch · Audited field record</span>
+          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+          <span class="approach-card__tag">Immediate Relief</span>
+          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+          <span class="approach-photo-caption__text">Emergency logistics & shelter dispatch</span>
         </figcaption>
         <div class="approach-card__content">
-          <div class="approach-card__meta">
-            <span class="approach-card__tag">Immediate Relief</span>
-          </div>
           <h3 class="approach-card__title">Making immediate days safe</h3>
           <p class="approach-card__body">Our first response is immediate stability: clean water, hot food, shelter repair, medical supplies, and safe learning spaces for children.</p>
           <div class="approach-card__stat">
@@ -178,12 +187,12 @@ const ruleCards = [
         </div>
         <figcaption class="approach-photo-caption">
           <span class="approach-photo-caption__num">FIG 02.2</span>
-          <span class="approach-photo-caption__text">Local cooperative leadership & micro-dam · Verified field partner</span>
+          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+          <span class="approach-card__tag approach-card__tag--emerald">Long-Term Autonomy</span>
+          <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
+          <span class="approach-photo-caption__text">Local cooperative leadership & micro-dam</span>
         </figcaption>
         <div class="approach-card__content">
-          <div class="approach-card__meta">
-            <span class="approach-card__tag approach-card__tag--emerald">Long-Term Autonomy</span>
-          </div>
           <h3 class="approach-card__title">Built on local leadership</h3>
           <p class="approach-card__body">Our long-term commitment is preventing dependency. We back local community leaders with self-sustaining projects that endure.</p>
           <div class="approach-card__stat">
@@ -222,7 +231,11 @@ const ruleCards = [
               loading="lazy"
             />
           </div>
-          <figcaption class="rule-card__doc-caption">{rule.caption}</figcaption>
+          <figcaption class="rule-card__doc-caption">
+            <span>{rule.captionTitle}</span>
+            <span class="rule-card__sep" aria-hidden="true">|</span>
+            <span class="rule-card__stat-badge">{rule.captionStat}</span>
+          </figcaption>
           <div class="rule-card__content">
             <div class="rule-card__head">
               <span class="rule-card__number">{rule.num}</span>
@@ -231,8 +244,8 @@ const ruleCards = [
             <h3 class="rule-card__title">{rule.title}</h3>
             <p class="rule-card__body">{rule.body}</p>
             <div class="rule-card__action">
-              <a href="/what-we-do/" class="rule-card__link">
-                View Related Field Work <span aria-hidden="true">→</span>
+              <a href={rule.href} class="rule-card__link">
+                {rule.linkText} <span aria-hidden="true">→</span>
               </a>
             </div>
           </div>
@@ -240,7 +253,7 @@ const ruleCards = [
       ))}
     </div>
 
-    <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top:var(--space-8)">
+    <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top: clamp(0.75rem, 2vh, 1.75rem);">
       “The people affected decide what happens next.”
     </blockquote>
   </Panel>
