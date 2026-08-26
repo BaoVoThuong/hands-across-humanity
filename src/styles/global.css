@@ -3,16 +3,16 @@
    Modern, High-Trust, Clean & Commercial Non-Profit Interface
    ============================================================ */
 
-:root {
+:root,
+html[data-theme="warm-ember"] {
   color-scheme: light;
 
-  /* Color Palette — High contrast, professional, warm & commercial */
+  /* Theme 1: Warm Ember & Earth (Default) */
   --paper: #FAF8F5;
   --surface: #FFFFFF;
   --surface-alt: #F4EFE6;
   --surface-hover: #EFE8DD;
 
-  /* Closing transitions — a warm paper bridge into the footer */
   --transition-warm: var(--surface-alt);
   --transition-ink-muted: #7A402D;
   --transition-border: #D99A7D;
@@ -22,16 +22,15 @@
   --slate-700: #334155;
   --slate-600: #475569;
   --slate-500: #64748B;
+  --slate-400: #94A3B8;
   --slate-100: #F1F5F9;
 
-  /* Ink & Typography Colors */
   --fg: #1E293B;
   --fg-muted: #475569;
   --fg-light: #64748B;
   --fg-on-dark: #F8FAFC;
   --fg-muted-on-dark: #94A3B8;
 
-  /* Brand Colors */
   --primary: #C84B2C;          /* Warm Terracotta / Ember */
   --primary-hover: #B03E22;
   --primary-light: #FDF4F0;
@@ -41,13 +40,11 @@
   --emerald-light: #ECFDF5;
   --emerald-border: #A7F3D0;
 
-  /* Action CTAs */
   --cta: #C84B2C;
   --cta-hover: #B03E22;
   --cta-active: #963219;
   --on-cta: #FFFFFF;
 
-  /* Borders & High-Contrast Dividers */
   --border: #CBD5E1;
   --border-warm: #D6CEC0;
   --border-strong: #94A3B8;
@@ -55,7 +52,114 @@
   --divider-strong: #B5A896;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
   --focus-ring: #0F172A;
+}
 
+/* Theme 2: Ocean Trust & Hope */
+html[data-theme="ocean-trust"] {
+  color-scheme: light;
+
+  --paper: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-alt: #E2E8F0;
+  --surface-hover: #CBD5E1;
+
+  --transition-warm: #E2E8F0;
+  --transition-ink-muted: #1E3A8A;
+  --transition-border: #93C5FD;
+
+  --slate-900: #0B192C;        /* Deep Ocean Midnight Blue */
+  --slate-800: #1E293B;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748B;
+  --slate-400: #94A3B8;
+  --slate-100: #F1F5F9;
+
+  --fg: #0F172A;
+  --fg-muted: #334155;
+  --fg-light: #64748B;
+  --fg-on-dark: #F8FAFC;
+  --fg-muted-on-dark: #94A3B8;
+
+  --primary: #1E40AF;          /* Royal Azure Blue */
+  --primary-hover: #1D4ED8;
+  --primary-light: #EFF6FF;
+
+  --emerald: #06B6D4;          /* Cyan Breeze Accent */
+  --emerald-hover: #0891B2;
+  --emerald-light: #ECFEFF;
+  --emerald-border: #A5F3FC;
+
+  --cta: #1E40AF;
+  --cta-hover: #1D4ED8;
+  --cta-active: #1E3A8A;
+  --on-cta: #FFFFFF;
+
+  --border: #CBD5E1;
+  --border-warm: #CBD5E1;
+  --border-strong: #64748B;
+  --divider-color: #CBD5E1;
+  --divider-strong: #94A3B8;
+  --hairline-on-dark: rgba(255, 255, 255, 0.2);
+  --focus-ring: #1E40AF;
+}
+
+/* Theme 3: Forest Life & Eco-Sustainability */
+html[data-theme="forest-life"] {
+  color-scheme: light;
+
+  --paper: #F5F5F4;
+  --surface: #FFFFFF;
+  --surface-alt: #E7E5E4;
+  --surface-hover: #D6D3D1;
+
+  --transition-warm: #E7E5E4;
+  --transition-ink-muted: #14532D;
+  --transition-border: #86EFAC;
+
+  --slate-900: #062C1B;        /* Deep Forest Emerald Night */
+  --slate-800: #143827;
+  --slate-700: #264A38;
+  --slate-600: #3E6350;
+  --slate-500: #577C68;
+  --slate-400: #93B5A2;
+  --slate-100: #F0FDF4;
+
+  --fg: #1C1917;
+  --fg-muted: #44403C;
+  --fg-light: #78716C;
+  --fg-on-dark: #F7FEE7;
+  --fg-muted-on-dark: #A3E635;
+
+  --primary: #166534;          /* Deep Forest Green */
+  --primary-hover: #15803D;
+  --primary-light: #F0FDF4;
+
+  --emerald: #65A30D;          /* Flora Accent */
+  --emerald-hover: #4D7C0F;
+  --emerald-light: #F7FEE7;
+  --emerald-border: #D9F99D;
+
+  --cta: #166534;
+  --cta-hover: #15803D;
+  --cta-active: #14532D;
+  --on-cta: #FFFFFF;
+
+  --border: #D6D3D1;
+  --border-warm: #D6D3D1;
+  --border-strong: #78716C;
+  --divider-color: #E7E5E4;
+  --divider-strong: #A8A29E;
+  --hairline-on-dark: rgba(255, 255, 255, 0.2);
+  --focus-ring: #166534;
+}
+
+/* Smooth Theme Switching Transitions */
+body, .site-header, .site-footer, .card, .btn, section, article, .panel, .header-actions {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root {
   /* Responsive Type Scale */
   --fs-display: clamp(2.15rem, 1.5rem + 2.2vw, 3.75rem);
   --fs-h1: clamp(1.85rem, 1.35rem + 1.8vw, 3.15rem);
@@ -330,26 +434,24 @@ html:has(body.site-body--editorial) .section {
   scroll-snap-stop: normal;
 }
 .site-body--editorial .site-header {
-  background: rgba(250, 248, 245, 0.98);
+  background: var(--paper);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   box-shadow: none;
 }
 .site-body--editorial .site-header.is-scrolled {
-  background: rgba(250, 248, 245, 0.98);
-  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.08);
+  background: var(--paper);
+  box-shadow: 0 2px 0 var(--border);
 }
 .site-body--editorial .panel {
   border-bottom: 1px solid var(--border-warm);
 }
 .site-body--editorial .panel--hero {
   background: var(--surface-alt);
-}
-.site-body--editorial .panel--hero {
   border-bottom: 0;
 }
 .site-body--editorial .panel--sand {
-  background: #eee7dc;
+  background: var(--surface-alt);
 }
 .site-body--editorial .page-hero__copy {
   position: relative;

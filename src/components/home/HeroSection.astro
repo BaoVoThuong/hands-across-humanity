@@ -1,10 +1,10 @@
 ---
 import { Picture } from 'astro:assets';
-import h1 from '../../assets/images/h1.jpg';
 import h10 from '../../assets/images/h10.jpg';
-import h12 from '../../assets/images/h12.jpg';
 import h13 from '../../assets/images/h13.jpg';
 import h14 from '../../assets/images/h14.jpg';
+import workSchools from '../../assets/images/work-schools-learning.png';
+import roofImage from '../../assets/images/public-construction-roof.jpg';
 
 interface Props {
   kicker?: string;
@@ -24,14 +24,14 @@ const {
 
 const slides = [
   {
-    image: h12,
-    alt: "Dedicated volunteers standing together behind community outreach table.",
+    image: h14,
+    alt: "Dedicated logistics volunteers transporting emergency supplies from transport fleet.",
     lead: "Logistics & Volunteer Capacity",
     title: "Dedicated Volunteer Network: Mobilizing teams and fleet capacity for rapid response."
   },
   {
-    image: h1,
-    alt: "Volunteers presenting essential supplies to community members.",
+    image: workSchools,
+    alt: "Children and families participating in community disaster preparedness education.",
     lead: "Disaster Preparedness",
     title: "Preparedness & Education: Helping families, veterans, older adults, and children prepare."
   },
@@ -42,8 +42,8 @@ const slides = [
     title: "Rapid Relief Delivery: Collecting donated products and distributing essential supplies efficiently."
   },
   {
-    image: h14,
-    alt: "Three volunteers transport boxes of relief products.",
+    image: roofImage,
+    alt: "Volunteers and workers repairing and rebuilding roofing for disaster recovery.",
     lead: "Recovery Support",
     title: "Rebuilding Communities: Assisting individuals and partner organizations with targeted goods."
   },

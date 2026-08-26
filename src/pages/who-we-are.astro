@@ -4,6 +4,8 @@ import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
 import h12 from '../assets/images/h12.jpg';
 import h15 from '../assets/images/h15.jpg';
+import whoWeArePortrait from '../assets/images/who-we-are-portrait.png';
+import publicFood from '../assets/images/public-volunteer-food.jpg';
 
 const sections = [
   { id: 'top', label: 'Who we are' },
@@ -18,8 +20,8 @@ const sections = [
   title="Why Hands Across Humanity Matters."
   lead="When disaster strikes, the difference between recovery and prolonged hardship often comes down to speed, coordination, and the right supplies in the right hands. Hands Across Humanity exists to close that gap."
   description="We focus on the practical work of collecting, staging, and distributing products that keep people safe, healthy, and able to rebuild—while partnering with businesses that want their resources to reach those who need them most."
-  image={h12}
-  imageAlt="Dedicated community volunteers standing together behind support center table."
+  image={whoWeArePortrait}
+  imageAlt="Hands Across Humanity team and leadership dedicated to direct humanitarian relief."
   caption="Closing the gap between crisis and recovery through rapid logistics."
   nextHref="/mission/"
   nextLabel="Read our mission"
@@ -61,13 +63,13 @@ const sections = [
       <figure class="model-showcase__media reveal" style="--i:4">
         <div class="model-showcase__image-frame">
           <Picture
-            src={h15}
+            src={publicFood}
             widths={[600, 900, 1200]}
             sizes="(min-width: 940px) 46vw, 92vw"
             formats={['avif', 'webp']}
             fallbackFormat="jpeg"
-            quality={75}
-            alt="Dedicated community health volunteers smiling outside the venue."
+            quality={85}
+            alt="Logistics team staging and preparing emergency food and relief supplies."
             loading="lazy"
             decoding="async"
           />

@@ -3,6 +3,7 @@ import '@fontsource-variable/newsreader';
 import '@fontsource-variable/public-sans';
 import '../styles/global.css';
 import BackToTop from '../components/ui/BackToTop.astro';
+import ThemeSwitcher from '../components/ui/ThemeSwitcher.astro';
 import logoImage from '../assets/images/Logo.svg';
 
 interface Props {
@@ -35,7 +36,17 @@ const navItems = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <title>{title}</title>
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      (function() {
+        document.documentElement.classList.add('js');
+        try {
+          var saved = localStorage.getItem('theme-palette');
+          if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': ['NGO', 'Organization'],
@@ -77,6 +88,7 @@ const navItems = [
         </nav>
 
         <div class="header-actions">
+          <ThemeSwitcher />
           <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false" aria-label="Open main menu">
             <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
           </button>
@@ -116,9 +128,9 @@ const navItems = [
               <div class="brand__logo-container">
                 <img src={logoImage.src} alt="" width="36" height="32" class="brand__logo-img" />
               </div>
-              <span class="brand__name" style="color: #FFFFFF;">Hands Across <span style="color: #E09B78;">Humanity</span></span>
+              <span class="brand__name" style="color: var(--fg-on-dark, #FFFFFF);">Hands Across <span style="color: var(--emerald-border, #A7F3D0);">Humanity</span></span>
             </a>
-            <p style="color: #94A3B8; font-size: 0.9375rem;">Direct, transparent humanitarian action empowering local leaders in clean water access, education infrastructure, and community resilience.</p>
+            <p style="color: var(--fg-muted-on-dark, #94A3B8); font-size: 0.9375rem;">Direct, transparent humanitarian action empowering local leaders in clean water access, education infrastructure, and community resilience.</p>
           </div>
 
           <div class="footer-col">
@@ -140,7 +152,7 @@ const navItems = [
 
           <div class="footer-col">
             <h4>Stay Connected</h4>
-            <p style="color: #94A3B8; font-size: 0.875rem;">Receive quarterly audited field updates and verified financial reports.</p>
+            <p style="color: var(--fg-muted-on-dark, #94A3B8); font-size: 0.875rem;">Receive quarterly audited field updates and verified financial reports.</p>
             <form class="footer-newsletter" onsubmit="event.preventDefault(); alert('Thank you for subscribing to quarterly field audit reports!');">
               <input type="email" placeholder="Enter your email address" required aria-label="Email address for field updates" />
               <button type="submit" class="btn btn--primary" style="min-height: auto; padding: 0.6rem 1.25rem;">Subscribe</button>

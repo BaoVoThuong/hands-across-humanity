@@ -1,0 +1,365 @@
+---
+/* ThemeSwitcher.astro - High-craft palette switcher for Hands Across Humanity */
+---
+
+<div class="theme-switcher" data-theme-switcher>
+  <button
+    type="button"
+    class="theme-switcher__toggle"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-label="Change color theme"
+    title="Change color theme"
+    data-theme-toggle
+  >
+    <svg class="theme-switcher__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.7-.71 1.7-1.63 0-.44-.18-.85-.46-1.16-.3-.32-.46-.74-.46-1.21 0-.92.78-1.67 1.7-1.67h2.52c3.04 0 5.5-2.46 5.5-5.5C22 6.5 17.5 2 12 2z"/>
+    </svg>
+    <span class="theme-switcher__active-indicator" data-active-dot></span>
+    <span class="theme-switcher__label">Theme</span>
+  </button>
+
+  <div class="theme-switcher__dropdown" id="theme-dropdown" hidden data-theme-dropdown>
+    <div class="theme-switcher__header">
+      <span class="theme-switcher__title">Color Palette</span>
+      <span class="theme-switcher__subtitle">Select site appearance</span>
+    </div>
+
+    <div class="theme-switcher__options" role="radiogroup" aria-label="Color themes">
+      <!-- Option 1: Warm Ember -->
+      <button
+        type="button"
+        class="theme-option"
+        data-theme-option="warm-ember"
+        role="radio"
+        aria-checked="true"
+      >
+        <div class="theme-option__swatches">
+          <span class="swatch swatch--primary" style="background-color: #C84B2C;"></span>
+          <span class="swatch swatch--accent" style="background-color: #059669;"></span>
+          <span class="swatch swatch--paper" style="background-color: #FAF8F5;"></span>
+        </div>
+        <div class="theme-option__info">
+          <span class="theme-option__name">Warm Ember</span>
+          <span class="theme-option__desc">Terracotta & Warm Earth</span>
+        </div>
+        <svg class="theme-option__check" viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Option 2: Ocean Trust -->
+      <button
+        type="button"
+        class="theme-option"
+        data-theme-option="ocean-trust"
+        role="radio"
+        aria-checked="false"
+      >
+        <div class="theme-option__swatches">
+          <span class="swatch swatch--primary" style="background-color: #1E40AF;"></span>
+          <span class="swatch swatch--accent" style="background-color: #06B6D4;"></span>
+          <span class="swatch swatch--paper" style="background-color: #F8FAFC;"></span>
+        </div>
+        <div class="theme-option__info">
+          <span class="theme-option__name">Ocean Trust</span>
+          <span class="theme-option__desc">Royal Azure & Crisp Slate</span>
+        </div>
+        <svg class="theme-option__check" viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Option 3: Forest Life -->
+      <button
+        type="button"
+        class="theme-option"
+        data-theme-option="forest-life"
+        role="radio"
+        aria-checked="false"
+      >
+        <div class="theme-option__swatches">
+          <span class="swatch swatch--primary" style="background-color: #166534;"></span>
+          <span class="swatch swatch--accent" style="background-color: #84CC16;"></span>
+          <span class="swatch swatch--paper" style="background-color: #F5F5F4;"></span>
+        </div>
+        <div class="theme-option__info">
+          <span class="theme-option__name">Forest Life</span>
+          <span class="theme-option__desc">Deep Forest & Warm Stone</span>
+        </div>
+        <svg class="theme-option__check" viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .theme-switcher {
+    position: relative;
+    display: inline-block;
+  }
+
+  .theme-switcher__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #cbd5e1);
+    color: var(--fg, #1e293b);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  }
+
+  .theme-switcher__toggle:hover {
+    border-color: var(--primary, #c84b2c);
+    color: var(--primary, #c84b2c);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+
+  .theme-switcher__icon {
+    flex-shrink: 0;
+    color: var(--primary, #c84b2c);
+    transition: color 0.2s ease;
+  }
+
+  .theme-switcher__active-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--primary, #c84b2c);
+    transition: background-color 0.3s ease;
+  }
+
+  .theme-switcher__label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .theme-switcher__label {
+      display: inline;
+    }
+  }
+
+  /* Dropdown panel */
+  .theme-switcher__dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 250px;
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #cbd5e1);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.15), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+    padding: 0.75rem;
+    z-index: 1000;
+    animation: themeFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top right;
+  }
+
+  @keyframes themeFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .theme-switcher__header {
+    padding: 0.25rem 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--border, #cbd5e1);
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-switcher__title {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--fg, #1e293b);
+  }
+
+  .theme-switcher__subtitle {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--fg-muted, #64748b);
+  }
+
+  .theme-switcher__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm, 6px);
+    background: transparent;
+    color: var(--fg, #1e293b);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+  }
+
+  .theme-option:hover {
+    background: var(--surface-alt, #f4efe6);
+    border-color: var(--border, #cbd5e1);
+  }
+
+  .theme-option[aria-checked="true"] {
+    background: var(--primary-light, #fdf4f0);
+    border-color: var(--primary, #c84b2c);
+  }
+
+  .theme-option__swatches {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 999px;
+  }
+
+  .swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-option__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .theme-option__name {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--fg, #1e293b);
+  }
+
+  .theme-option__desc {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--fg-muted, #64748b);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .theme-option__check {
+    color: var(--primary, #c84b2c);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.15s ease;
+  }
+
+  .theme-option[aria-checked="true"] .theme-option__check {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  function initThemeSwitcher() {
+    const container = document.querySelector('[data-theme-switcher]');
+    if (!container) return;
+
+    const toggleBtn = container.querySelector('[data-theme-toggle]');
+    const dropdown = container.querySelector('[data-theme-dropdown]');
+    const options = container.querySelectorAll('[data-theme-option]');
+    const activeDot = container.querySelector('[data-active-dot]');
+
+    const PALETTE_DOT_COLORS: Record<string, string> = {
+      'warm-ember': '#C84B2C',
+      'ocean-trust': '#1E40AF',
+      'forest-life': '#166534'
+    };
+
+    // Get current theme from localStorage or default
+    const savedTheme = localStorage.getItem('theme-palette') || 'warm-ember';
+    applyTheme(savedTheme);
+
+    function applyTheme(themeName: string) {
+      document.documentElement.setAttribute('data-theme', themeName);
+      localStorage.setItem('theme-palette', themeName);
+
+      if (activeDot && PALETTE_DOT_COLORS[themeName]) {
+        (activeDot as HTMLElement).style.backgroundColor = PALETTE_DOT_COLORS[themeName];
+      }
+
+      options.forEach((opt) => {
+        const optionTheme = opt.getAttribute('data-theme-option');
+        const isSelected = optionTheme === themeName;
+        opt.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+      });
+    }
+
+    function toggleDropdown(show?: boolean) {
+      const isVisible = show !== undefined ? show : dropdown?.hasAttribute('hidden');
+      if (isVisible) {
+        dropdown?.removeAttribute('hidden');
+        toggleBtn?.setAttribute('aria-expanded', 'true');
+      } else {
+        dropdown?.setAttribute('hidden', '');
+        toggleBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    toggleBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    options.forEach((opt) => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const themeName = opt.getAttribute('data-theme-option');
+        if (themeName) {
+          applyTheme(themeName);
+        }
+        toggleDropdown(false);
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (dropdown && !container.contains(e.target as Node)) {
+        toggleDropdown(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dropdown && !dropdown.hasAttribute('hidden')) {
+        toggleDropdown(false);
+        (toggleBtn as HTMLElement)?.focus();
+      }
+    });
+  }
+
+  // Initialize on page load
+  initThemeSwitcher();
+  document.addEventListener('astro:page-load', initThemeSwitcher);
+</script>
