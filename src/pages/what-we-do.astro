@@ -20,7 +20,6 @@ const sections = [
 const workAreas = [
   {
     num: '01',
-    fig: 'FIG 02.1',
     category: 'Preparedness & Education',
     title: 'Disaster Preparedness',
     body: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
@@ -34,7 +33,6 @@ const workAreas = [
   },
   {
     num: '02',
-    fig: 'FIG 02.2',
     category: 'Emergency Response',
     title: 'Rapid Response & Distribution',
     body: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
@@ -48,7 +46,6 @@ const workAreas = [
   },
   {
     num: '03',
-    fig: 'FIG 02.3',
     category: 'Rebuilding & Relief',
     title: 'Recovery Support',
     body: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
@@ -62,7 +59,6 @@ const workAreas = [
   },
   {
     num: '04',
-    fig: 'FIG 02.4',
     category: 'Business Alliances',
     title: 'Partnership Development',
     body: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
@@ -76,7 +72,6 @@ const workAreas = [
   },
   {
     num: '05',
-    fig: 'FIG 02.5',
     category: 'Community & Faith',
     title: 'Community & Faith Partnerships',
     body: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
@@ -106,7 +101,7 @@ const workAreas = [
   total={3}
 >
   <!-- 02 — Core Focus Areas Grid -->
-  <Panel id="areas" ground="sand" index={2} total={3} label="Core focus" labelledby="areas-title" width="wide" nextId="connect" nextLabel="Ecosystem">
+  <Panel id="areas" ground="sand" index={2} total={3} label="Core focus" labelledby="areas-title" nextId="connect" nextLabel="Ecosystem">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">Core Focus Areas</p>
@@ -140,7 +135,6 @@ const workAreas = [
                 <h3 class="bento-area-card__title">{area.title}</h3>
               </div>
               <span class="bento-area-card__fig">
-                {area.fig} • 
                 <span class="bento-area-card__location">
                   <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                   {area.location}
@@ -231,8 +225,6 @@ const workAreas = [
             />
           </div>
           <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
-            <span class="approach-photo-caption__num">FIG 04.1</span>
-            <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
             <span class="approach-card__tag">Core Focus Matrix</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
             <span class="approach-photo-caption__text">Disaster Response & Partnership Network</span>

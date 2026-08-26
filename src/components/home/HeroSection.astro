@@ -132,16 +132,6 @@ const slides = [
               ></button>
             ))}
           </div>
-
-          {/* Dynamic Caption */}
-          <div class="hero-v2__caption">
-            <div class="hero-v2__caption-header">
-              <span class="hero-v2__caption-dot" aria-hidden="true"></span>
-              <span class="hero-v2__caption-lead" id="hero-carousel-lead">{slides[0].lead}</span>
-              <span class="hero-carousel__counter" id="hero-carousel-counter">1 / {slides.length}</span>
-            </div>
-            <p class="hero-v2__caption-text" id="hero-carousel-text">{slides[0].title}</p>
-          </div>
         </div>
       </div>
     </div>
@@ -157,32 +147,6 @@ const slides = [
     const prevBtn = document.getElementById('hero-carousel-prev');
     const nextBtn = document.getElementById('hero-carousel-next');
     const dots = carousel.querySelectorAll('.hero-carousel__dot');
-    const leadEl = document.getElementById('hero-carousel-lead');
-    const textEl = document.getElementById('hero-carousel-text');
-    const counterEl = document.getElementById('hero-carousel-counter');
-
-    const slideData = [
-      {
-        lead: "Kitui County, Kenya · Clean Water",
-        text: "Solar Water Well #42: Pure drinking water flow established for 1,400 families."
-      },
-      {
-        lead: "Turkana District · Solar Filtration",
-        text: "Solar-Powered Station: Delivering 5,000 liters of safe water daily."
-      },
-      {
-        lead: "Kibera, Nairobi · School Infrastructure",
-        text: "Classroom Reconstruction: Weatherproof roofing completed for 6 primary classrooms."
-      },
-      {
-        lead: "Rift Valley, Kenya · Agricultural Cooperative",
-        text: "Women's Farming Collective: Empowering 320 local families with irrigation & tools."
-      },
-      {
-        lead: "Baringo Region · Education Grant",
-        text: "Primary Learning Grant: Distributing textbooks & solar power to 500 students."
-      }
-    ];
 
     let currentIndex = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -209,10 +173,6 @@ const slides = [
       slides[currentIndex]?.classList.add('is-active');
       slides[currentIndex]?.setAttribute('aria-hidden', 'false');
       dots[currentIndex]?.classList.add('is-active');
-
-      if (leadEl && slideData[currentIndex]) leadEl.textContent = slideData[currentIndex].lead;
-      if (textEl && slideData[currentIndex]) textEl.textContent = slideData[currentIndex].text;
-      if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${slides.length}`;
 
       restartTimer();
     }

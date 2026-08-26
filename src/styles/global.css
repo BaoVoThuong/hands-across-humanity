@@ -1086,9 +1086,9 @@ p {
    of leaving the whole page as a small centered island. */
 @media (min-width: 1600px) {
   :root {
-    --container: min(88vw, 140rem);
-    --container-narrow: min(68vw, 88rem);
-    --container-wide: min(94vw, 150rem);
+    --container: 80rem;
+    --container-narrow: 56rem;
+    --container-wide: 90rem;
     --fs-display: clamp(2.5rem, 2.2vw, 5rem);
     --fs-h1: clamp(2.5rem, 2.7vw, 5rem);
     --fs-h2: clamp(1.9rem, 1.8vw, 3.4rem);
@@ -3625,8 +3625,8 @@ p {
    APPROACH PANEL SPECIFIC FIT (Perfect Centered Focal Point)
    ============================================================ */
 #approach.panel {
-  padding-top: calc(var(--header-h) + clamp(0.5rem, 1.5vh, 1.25rem));
-  padding-bottom: clamp(0.75rem, 2vh, 1.5rem);
+  padding-top: calc(var(--header-h) + clamp(0.35rem, 1vh, 0.75rem));
+  padding-bottom: clamp(0.35rem, 1vh, 0.75rem);
   box-sizing: border-box;
 }
 @media (min-width: 940px) {
@@ -3645,7 +3645,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: clamp(1.25rem, 2.8vh, 2rem);
+    gap: clamp(0.75rem, 1.8vh, 1.25rem);
     flex-grow: 1;
   }
 }
@@ -3666,7 +3666,7 @@ p {
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  padding: clamp(0.25rem, 0.6vh, 0.5rem) 0 0 0;
+  padding: clamp(0.15rem, 0.4vh, 0.35rem) 0 0 0;
   overflow: hidden;
   transition: opacity var(--dur-micro) var(--ease-out);
 }
@@ -3674,7 +3674,7 @@ p {
 .approach-card__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 21 / 9;
   overflow: hidden;
   border: 1px solid var(--border-warm);
   border-radius: var(--radius-xs, 2px);
@@ -3816,10 +3816,10 @@ img.img-pos-lower-middle,
   border: 1px solid var(--emerald-border);
 }
 .approach-card__content {
-  padding: clamp(0.35rem, 0.7vh, 0.6rem) 0 0 0;
+  padding: clamp(0.25rem, 0.5vh, 0.45rem) 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.2rem, 0.45vh, 0.4rem);
+  gap: clamp(0.15rem, 0.35vh, 0.3rem);
 }
 .approach-card__tag {
   display: inline-block;
@@ -3839,7 +3839,7 @@ img.img-pos-lower-middle,
 .approach-card__title {
   font-family: 'Newsreader Variable', Georgia, serif;
   font-variation-settings: 'opsz' 28, 'wght' 600;
-  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   line-height: 1.2;
   letter-spacing: -0.018em;
   text-wrap: balance;
@@ -3848,26 +3848,26 @@ img.img-pos-lower-middle,
   font-feature-settings: "cv02" 1, "cv03" 1;
 }
 .approach-card__body {
-  font-size: clamp(0.8125rem, 0.95vw, 0.875rem);
-  line-height: 1.48;
+  font-size: clamp(0.775rem, 0.88vw, 0.825rem);
+  line-height: 1.42;
   letter-spacing: -0.005em;
   text-wrap: pretty;
   color: var(--slate-600);
   margin: 0;
 }
 .approach-card__stat {
-  margin-top: clamp(0.25rem, 0.5vh, 0.45rem);
-  padding-top: clamp(0.25rem, 0.5vh, 0.45rem);
+  margin-top: clamp(0.15rem, 0.35vh, 0.3rem);
+  padding-top: clamp(0.15rem, 0.35vh, 0.3rem);
   border-top: 1px dashed var(--border-warm);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 .approach-card__stat-val {
   font-family: 'Newsreader Variable', Georgia, serif;
   font-variation-settings: 'opsz' 32, 'wght' 700;
   font-feature-settings: "tnum" 1, "lnum" 1;
-  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.1rem, 1.35vw, 1.3rem);
   letter-spacing: -0.02em;
   color: var(--primary);
   line-height: 1;
@@ -3938,7 +3938,7 @@ img.img-pos-lower-middle,
 }
 #rules .panel__meta { margin-bottom: clamp(0.35rem, 0.8vh, 0.6rem); }
 #rules .principles { margin-top: 0; gap: clamp(0.75rem, 1.5vw, 1.25rem); }
-#rules .rule-card__media { aspect-ratio: 16 / 7.4; }
+#rules .rule-card__media { aspect-ratio: 16 / 10; max-height: 260px; }
 #rules .rule-card { padding-top: clamp(0.35rem, 0.7vh, 0.6rem); }
 #rules .rule-card__content {
   padding-block: clamp(0.35rem, 0.8vh, 0.6rem) 0;
@@ -3984,7 +3984,7 @@ img.img-pos-lower-middle,
 .rule-card__media {
   position: relative;
   aspect-ratio: 16 / 10;
-  max-height: 220px;
+  max-height: 240px;
   overflow: hidden;
   background: var(--surface-alt);
   border-radius: 0;
@@ -3994,7 +3994,7 @@ img.img-pos-lower-middle,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   transition: transform var(--dur-standard) var(--ease-out);
 }
 .rule-card:hover .rule-card__media img {
@@ -4391,8 +4391,8 @@ img.img-pos-lower-middle,
 @media (min-width: 768px) {
   .bento-area-card {
     flex-direction: row;
-    align-items: flex-start;
-    gap: clamp(1.25rem, 2.5vw, 2.25rem);
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
   }
   .bento-area-card:nth-child(even) {
     flex-direction: row-reverse;
@@ -4407,7 +4407,7 @@ img.img-pos-lower-middle,
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  max-height: 175px;
+  max-height: 200px;
   overflow: hidden;
   border: 1px solid var(--border-warm);
   background: var(--surface-alt);
@@ -4416,10 +4416,10 @@ img.img-pos-lower-middle,
 
 @media (min-width: 768px) {
   .bento-area-card__media {
-    width: 30%;
-    max-width: 300px;
+    width: 38%;
+    max-width: 380px;
     aspect-ratio: 16 / 10;
-    max-height: 175px;
+    max-height: 220px;
   }
 }
 
