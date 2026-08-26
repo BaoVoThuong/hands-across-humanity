@@ -1,133 +1,138 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import TrustStrip from '../components/ui/TrustStrip.astro';
 import HeroSection from '../components/home/HeroSection.astro';
-import StatsBar from '../components/home/StatsBar.astro';
-import ProjectsGrid from '../components/projects/ProjectsGrid.astro';
 import ProcessSection from '../components/home/ProcessSection.astro';
 import TestimonialSection from '../components/home/TestimonialSection.astro';
 import FaqSection from '../components/home/FaqSection.astro';
 import ClosingCTA from '../components/home/ClosingCTA.astro';
 
-import heroImage from '../assets/images/hero-connection.png';
-import waterImage from '../assets/images/essay-03-water-tank.png';
-import schoolImage from '../assets/images/work-schools-learning.png';
-import roofImage from '../assets/images/essay-04-roofing-sheets.png';
-import coopImage from '../assets/images/essay-07-cooperative.png';
-import portraitImage from '../assets/images/who-we-are-portrait.png';
-import handsImage from '../assets/images/essay-06-hands.png';
+import h1 from '../assets/images/h1.jpg';
+import h2 from '../assets/images/h2.jpg';
+import h3 from '../assets/images/h3.jpg';
+import h4 from '../assets/images/h4.jpg';
+import h5 from '../assets/images/h5.jpg';
+import h6 from '../assets/images/h6.jpg';
+import h7 from '../assets/images/h7.jpg';
+import h8 from '../assets/images/h8.jpg';
+import h9 from '../assets/images/h9.jpg';
+import h10 from '../assets/images/h10.jpg';
+import h11 from '../assets/images/h11.jpg';
+import h12 from '../assets/images/h12.jpg';
+import h13 from '../assets/images/h13.jpg';
+import h14 from '../assets/images/h14.jpg';
+import h15 from '../assets/images/h15.jpg';
 
-const description = 'Hands Across Humanity connects global partners and donors directly with sustainable community relief, clean water, education, and emergency response.';
+const description = 'Hands Across Humanity connects global partners and donors directly with community relief, youth education, health care stations, and fresh food distribution.';
 
 const stats = [
-  { val: '142,000+', label: 'People Provided Clean Water' },
-  { val: '84', label: 'Active Field Initiatives' },
-  { val: '94%', label: 'Direct Program Allocation' },
-  { val: '12', label: 'Regional Field Networks' }
+  { val: '15,000+', label: 'Families & Children Assisted' },
+  { val: '15', label: 'Field Relief Initiatives' },
+  { val: '98%', label: 'Direct Program Allocation' },
+  { val: '100%', label: 'Volunteer Driven Impact' }
 ];
 
 const projects = [
   {
-    id: 'water',
-    title: 'Kitui Solar Water Well System',
-    category: 'Clean Water',
-    location: 'Kitui County, Kenya',
+    id: 'school',
+    title: 'Youth Education Backpack & Supply Drive',
+    category: 'Education',
+    location: 'Community Schools District',
     images: [
-      { src: waterImage, alt: 'Villagers gathered around a solar-powered water storage tank in Kenya.' },
-      { src: heroImage, alt: 'Community leaders coordinating water tap construction.' },
-      { src: handsImage, alt: 'Hands receiving clean running water from new field tap.' }
+      { src: h1, alt: 'Volunteers handing out Backpack Booster learning kits to primary school students.' },
+      { src: h2, alt: 'Volunteers smiling alongside young students with new school supplies.' },
+      { src: h13, alt: 'Group photo of volunteers and children celebrating gift distribution.' }
+    ],
+    progress: 95,
+    raised: '$38,000',
+    goal: '$40,000',
+    impact: '320 primary students equipped with complete school supply kits.',
+    auditPartner: 'Regional School District & Youth Board',
+    details: 'Delivers full Backpack Booster supply packages—containing notebooks, pens, colored pencils, and learning kits—directly to primary school students to ensure every child has the tools needed to succeed.'
+  },
+  {
+    id: 'health',
+    title: 'Community Health & Medical Care Station',
+    category: 'Emergency Relief',
+    location: 'Regional Outreach Fair',
+    images: [
+      { src: h10, alt: 'Table filled with health supplements, OTC medications, and wellness kits.' },
+      { src: h9, alt: 'Outdoor hygiene products, grooming sets, and vitamins distribution booth.' },
+      { src: h7, alt: 'Volunteers helping seniors select health and medical care items.' }
+    ],
+    progress: 90,
+    raised: '$45,000',
+    goal: '$50,000',
+    impact: '1,200 local residents provided with essential health supplements & care kits.',
+    auditPartner: 'Community Health Choice & Regional Medical Network',
+    details: 'Establishes outreach stations stocked with vitamins, first aid items, eye care, pain relief, and immune support supplements, providing free wellness resources to under-served community members.'
+  },
+  {
+    id: 'food',
+    title: 'Fresh Produce & Emergency Food Relief',
+    category: 'Emergency Relief',
+    location: 'Community Distribution Center',
+    images: [
+      { src: h14, alt: 'Volunteers wheeling a cart loaded with heavy boxes of fresh produce.' },
+      { src: h4, alt: 'Hands passing gift and nutrition boxes at community station.' },
+      { src: h8, alt: 'Trained volunteers consulting elderly visitors at food relief station.' }
     ],
     progress: 88,
-    raised: '$44,000',
-    goal: '$50,000',
-    impact: '1,400 daily residents served with pure drinking water.',
-    auditPartner: 'East Africa Water & Engineering Board',
-    details: 'This project constructs a 120-meter deep solar-powered borehole well, equipped with high-capacity storage tanks, multi-tap distribution stations, and water quality filtration kits. Built and maintained by trained local technicians.'
+    raised: '$31,500',
+    goal: '$35,000',
+    impact: '450 families provided with fresh fruit boxes and direct produce relief.',
+    auditPartner: 'Local Food Bank & Community Relief Network',
+    details: 'Mobilizes volunteer teams and transport carts to deliver heavy boxes of fresh fruit and nutritious produce to local families facing food insecurity.'
   },
   {
-    id: 'school',
-    title: 'Baringo Primary Learning Center',
-    category: 'Education',
-    location: 'Rift Valley, Kenya',
+    id: 'fair',
+    title: 'Grassroots Community Resource Fair',
+    category: 'Cooperatives',
+    location: 'Civic Event Center',
     images: [
-      { src: schoolImage, alt: 'Schoolchildren sitting attentively at desks inside a brightly lit classroom.' },
-      { src: portraitImage, alt: 'Local student smiling with new textbook learning materials.' },
-      { src: heroImage, alt: 'Community volunteers completing roof construction on rural school.' }
+      { src: h12, alt: 'Team of volunteers showing heart gestures behind Excel Planning Solutions banner table.' },
+      { src: h3, alt: 'Overview of packed indoor community hall with information and relief booths.' },
+      { src: h15, alt: 'Community Health Choice volunteers smiling outside the event venue.' }
     ],
     progress: 92,
-    raised: '$32,200',
-    goal: '$35,000',
-    impact: '320 children enrolled with new textbooks & solar power.',
-    auditPartner: 'Regional Rural Education Directorate',
-    details: 'Constructs two permanent brick classrooms, outfits 80 wooden desks, installs solar rooftop microgrids for evening study, and supplies 640 textbooks directly to primary school students.'
-  },
-  {
-    id: 'roof',
-    title: 'Emergency Storm Shelters',
-    category: 'Emergency Relief',
-    location: 'Northern Mindanao, Philippines',
-    images: [
-      { src: roofImage, alt: 'Community members holding galvanized roofing sheets for storm repairs.' },
-      { src: handsImage, alt: 'Relief workers distributing emergency shelter toolkits.' },
-      { src: coopImage, alt: 'Reconstructed community center shelter following typhoon recovery.' }
-    ],
-    progress: 75,
-    raised: '$22,500',
+    raised: '$27,600',
     goal: '$30,000',
-    impact: '150 displaced families supplied with wind-resistant roofing.',
-    auditPartner: 'Mindanao Community Disaster Response Network',
-    details: 'Delivers heavy-gauge galvanized iron roofing sheets, timber framing, typhoon anchors, and tool repair kits to families recovering from severe tropical storm damage.'
+    impact: '2,500 community members connected with vital healthcare & resource guidance.',
+    auditPartner: 'Excel Planning Solutions & Local Civic Association',
+    details: 'Brings together hundreds of volunteers and partner organizations to provide one-stop community support, offering health consultations, financial planning guidance, and direct aid.'
   },
   {
-    id: 'coop',
-    title: 'Women’s Agricultural Cooperative',
-    category: 'Cooperatives',
-    location: 'Kigali District, Rwanda',
+    id: 'senior',
+    title: 'Senior & Household Care Initiative',
+    category: 'Clean Water',
+    location: 'Community Outreach Centers',
     images: [
-      { src: coopImage, alt: 'Women farmers holding harvested crops together in a cooperative field.' },
-      { src: portraitImage, alt: 'Cooperative leader inspecting organic produce yield.' },
-      { src: waterImage, alt: 'Solar drip irrigation system supplying cooperative crops.' }
+      { src: h7, alt: 'Elderly community members and monks browsing essential home appliances and wellness supplies.' },
+      { src: h11, alt: 'Volunteers assisting senior citizens under outdoor shade canopy.' },
+      { src: h6, alt: 'Volunteers explaining household support materials to family members.' }
+    ],
+    progress: 85,
+    raised: '$25,500',
+    goal: '$30,000',
+    impact: '380 seniors & vulnerable residents equipped with home essentials.',
+    auditPartner: 'Senior Community Services & Monastic Support Network',
+    details: 'Provides tailored home comfort goods—including dehumidifiers, heating pads, mobility items, and dietary supplements—to senior citizens and local community elders.'
+  },
+  {
+    id: 'holiday',
+    title: 'Holiday Family Gift & Support Drive',
+    category: 'Education',
+    location: 'Metropolitan Community Center',
+    images: [
+      { src: h13, alt: 'Large group of volunteers, children, and families with bright holiday gift packages.' },
+      { src: h5, alt: 'Volunteers organizing gift packages and community guidance materials.' },
+      { src: h15, alt: 'Volunteer team members celebrating successful holiday distribution.' }
     ],
     progress: 96,
-    raised: '$28,800',
-    goal: '$30,000',
-    impact: '85 local farming families provided seeds, tools & market access.',
-    auditPartner: 'Rwanda Smallholder Farmers Alliance',
-    details: 'Provides high-yield drought-resistant seeds, drip irrigation equipment, organic fertilizer, and direct transport logistics to connect women farmers with urban produce markets.'
-  },
-  {
-    id: 'turkana',
-    title: 'Turkana Drought Micro-Dam',
-    category: 'Clean Water',
-    location: 'Turkana County, Kenya',
-    images: [
-      { src: waterImage, alt: 'Construction of rainwater harvesting dam in arid Turkana.' },
-      { src: handsImage, alt: 'Local engineers measuring water table filtration levels.' },
-      { src: heroImage, alt: 'Community gathering at newly completed water reservoir.' }
-    ],
-    progress: 81,
-    raised: '$36,500',
-    goal: '$45,000',
-    impact: '2,100 pastoralists provided reliable water during dry seasons.',
-    auditPartner: 'East Africa Water & Engineering Board',
-    details: 'Constructs a 45,000-liter masonry sand dam and sand-filter retention wall, capturing seasonal flash rain floods to recharge local aquifers and provide livestock/community water access.'
-  },
-  {
-    id: 'clinic',
-    title: 'Mindanao Disaster Health Clinic',
-    category: 'Emergency Relief',
-    location: 'Surigao del Sur, Philippines',
-    images: [
-      { src: roofImage, alt: 'Mobile emergency health clinic equipped for tropical storm recovery.' },
-      { src: portraitImage, alt: 'Nurse providing pediatric care at field clinic station.' },
-      { src: handsImage, alt: 'Medical supplies dispatched directly to island communities.' }
-    ],
-    progress: 89,
-    raised: '$26,700',
-    goal: '$30,000',
-    impact: '650 emergency patients treated monthly with cold-chain vaccines.',
-    auditPartner: 'Mindanao Community Disaster Response Network',
-    details: 'Equips a modular solar-powered primary health station with vaccine cold-chain refrigeration, clean birthing kits, and emergency trauma supply kits for typhoon-prone coastal communities.'
+    raised: '$33,600',
+    goal: '$35,000',
+    impact: '600 children and families receiving holiday care packages & gifts.',
+    auditPartner: 'Metropolitan Youth & Family Services Alliance',
+    details: 'Mobilizes volunteer groups to assemble, wrap, and distribute colorful holiday gift packages, toys, and winter essentials to low-income children and families.'
   }
 ];
 
@@ -178,7 +183,7 @@ const testimonials = [
     verifiedText: 'Verified Field Partner',
     projectId: 'roof',
     projectTitle: 'Emergency Storm Shelters',
-    avatar: portraitImage
+    avatar: h15
   }
 ];
 
@@ -213,10 +218,7 @@ const faqs = [
   <main id="main">
     <div class="hero-fold-group">
       <HeroSection />
-      <StatsBar stats={stats} />
-      <TrustStrip />
     </div>
-    <ProjectsGrid projects={projects} />
     <ProcessSection steps={processSteps} />
     <TestimonialSection testimonials={testimonials} />
     <FaqSection faqs={faqs} />

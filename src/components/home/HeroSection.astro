@@ -1,10 +1,10 @@
 ---
 import { Picture } from 'astro:assets';
-import heroImage from '../../assets/images/hero-connection.png';
-import waterTankImage from '../../assets/images/essay-03-water-tank.png';
-import roofingImage from '../../assets/images/essay-04-roofing-sheets.png';
-import cooperativeImage from '../../assets/images/essay-07-cooperative.png';
-import schoolsImage from '../../assets/images/work-schools-learning.png';
+import h1 from '../../assets/images/h1.jpg';
+import h10 from '../../assets/images/h10.jpg';
+import h12 from '../../assets/images/h12.jpg';
+import h13 from '../../assets/images/h13.jpg';
+import h14 from '../../assets/images/h14.jpg';
 
 interface Props {
   kicker?: string;
@@ -17,41 +17,41 @@ interface Props {
 const {
   kicker = "Grassroots Relief Network",
   title = "Direct, Transparent Aid Led by Local Communities.",
-  lead = "We bridge global resources directly to ground-level humanitarian leaders - funding clean water systems, school construction, emergency relief, and community self-reliance.",
+  lead = "We bridge global resources directly to ground-level humanitarian leaders - funding school supplies, community medical care, emergency food relief, and family support.",
   donateUrl = "#donate",
   exploreUrl = "#projects"
 } = Astro.props;
 
 const slides = [
   {
-    image: heroImage,
-    alt: "Community members collaborating hand to hand near a transport vehicle.",
-    lead: "Kitui County, Kenya · Clean Water",
-    title: "Solar Water Well #42: Pure drinking water flow established for 1,400 families."
+    image: h12,
+    alt: "Dedicated volunteers standing together behind community outreach table showing heart hand gestures.",
+    lead: "Community Outreach · Local Volunteers",
+    title: "Community Connection Center: Dedicated volunteer teams connecting families directly with essential care."
   },
   {
-    image: waterTankImage,
-    alt: "Clean water tank system installation in dry village landscape.",
-    lead: "Turkana District · Solar Filtration",
-    title: "Solar-Powered Station: Delivering 5,000 liters of safe water daily."
+    image: h1,
+    alt: "Volunteers presenting Backpack Booster school supply kits to young students in school uniforms.",
+    lead: "Youth Education · School Supply Drive",
+    title: "School Backpack Project: Equipping primary students with essential learning supplies and backpacks."
   },
   {
-    image: roofingImage,
-    alt: "Workers installing durable metal roofing sheets for community school.",
-    lead: "Kibera, Nairobi · School Infrastructure",
-    title: "Classroom Reconstruction: Weatherproof roofing completed for 6 primary classrooms."
+    image: h10,
+    alt: "Table arranged with health supplements, vitamins, first aid, and wellness care packages.",
+    lead: "Health & Wellness · Medical Support",
+    title: "Community Health Station: Distributing essential vitamins, first aid supplies, and wellness care items."
   },
   {
-    image: cooperativeImage,
-    alt: "Women farmers collaborating in agricultural cooperative field.",
-    lead: "Rift Valley, Kenya · Agricultural Cooperative",
-    title: "Women's Farming Collective: Empowering 320 local families with irrigation & tools."
+    image: h14,
+    alt: "Three volunteers wheeling a heavy cart loaded with boxes of fresh pears and food items.",
+    lead: "Food Security · Direct Relief",
+    title: "Fresh Produce Distribution: Delivering fresh fruit boxes and food packages directly to families in need."
   },
   {
-    image: schoolsImage,
-    alt: "Children receiving books and learning tablets in bright classroom.",
-    lead: "Baringo Region · Education Grant",
-    title: "Primary Learning Grant: Distributing textbooks & solar power to 500 students."
+    image: h13,
+    alt: "Large community group of volunteers and families holding holiday gift bags and packages.",
+    lead: "Family Care · Holiday Gift Drive",
+    title: "Community Gift Initiative: Spreading hope and holiday cheer through thousands of family care packages."
   }
 ];
 ---
@@ -76,22 +76,7 @@ const slides = [
           </a>
         </div>
 
-        <div class="hero-v2__metrics reveal" style="--i:5">
-          <div class="hero-metric">
-            <span class="hero-metric__val hero-metric__val--primary">$2.4M+</span>
-            <span class="hero-metric__label">Direct Aid Deployed</span>
-          </div>
-          <div class="hero-metric__divider" aria-hidden="true"></div>
-          <div class="hero-metric">
-            <span class="hero-metric__val hero-metric__val--emerald">100%</span>
-            <span class="hero-metric__label">Transparent Audits</span>
-          </div>
-          <div class="hero-metric__divider" aria-hidden="true"></div>
-          <div class="hero-metric">
-            <span class="hero-metric__val">42</span>
-            <span class="hero-metric__label">Active Field Wells & Schools</span>
-          </div>
-        </div>
+
       </div>
 
       <div class="hero-v2__media-col reveal" style="--i:3">

@@ -1,102 +1,102 @@
 ---
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import visionImage from '../assets/images/vision-horizon.png';
+import h13 from '../assets/images/h13.jpg';
 
 const sections = [
   { id: 'top', label: 'Vision' },
-  { id: 'principles', label: 'Principles' },
-  { id: 'belief', label: 'A modest role' }
+  { id: 'principles', label: 'Coalition' },
+  { id: 'belief', label: 'Reach' }
 ];
 ---
 
 <EditorialPage
   activePage="vision"
   eyebrow="Our vision"
-  title="Help should move sideways."
-  lead="A world where help reaches people from neighbour to neighbour, across borders — instead of falling on them from above."
-  description="Our vision is a more equal way of helping, where local people lead decisions and outside support makes their work possible."
-  image={visionImage}
-  imageAlt="People walk along a quiet road toward open fields in the early morning."
-  caption="A fairer future is built one local decision at a time."
+  title="A Nation Where No One Faces Crisis Alone."
+  lead="A nation where no one faces crisis alone—where coordinated, rapid-response aid reaches those in need before despair takes hold."
+  description="We envision strong, scalable partnerships between businesses of every size, houses of worship, nonprofits, and local stakeholders that turn surplus into lifelines and logistics into hope."
+  image={h13}
+  imageAlt="Volunteers and children gathered together holding festive gift packages."
+  caption="Turning surplus into lifelines and logistics into hope across communities."
   nextHref="/who-we-are/"
   nextLabel="Meet the people behind the work"
   sections={sections}
   total={3}
 >
-  <!-- 02 — Principles -->
-  <Panel id="principles" ground="sand" index={2} total={3} label="Principles" labelledby="vision-principles-title" nextId="belief" nextLabel="A modest role">
+  <!-- 02 — Coalition & Principles -->
+  <Panel id="principles" ground="sand" index={2} total={3} label="Coalition" labelledby="vision-principles-title" nextId="belief" nextLabel="Reach">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">The world we want to help build</p>
-        <h2 class="reveal" style="--i:1" id="vision-principles-title">Support should add power to people’s choices, not replace them.</h2>
+        <p class="eyebrow reveal">Scalable Partner Ecosystem</p>
+        <h2 class="reveal" style="--i:1" id="vision-principles-title">Turning surplus into lifelines & logistics into hope.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">The distance between a person who wants to help and a person who needs help should not erase the knowledge, agency or dignity of either.</p>
+      <p class="lead reveal" style="--i:2">We build strong, scalable alliances that bridge the gap between resources and urgent community needs when crisis strikes.</p>
     </div>
     <div class="principles principles--editorial">
       <article class="principle-item reveal" style="--i:3">
         <header class="principle-item__head">
           <span class="principle-item__num">01</span>
-          <span class="principle-item__kicker">Core Mandate</span>
+          <span class="principle-item__kicker">Broad Coalition</span>
         </header>
-        <h3 class="principle-item__title">Local leadership</h3>
-        <p class="principle-item__body">The best decisions are usually made by people who understand the place, the relationships and the consequences.</p>
+        <h3 class="principle-item__title">Scalable Partnerships</h3>
+        <p class="principle-item__body">Uniting businesses of every size, houses of worship, nonprofits, and local stakeholders into a cohesive relief network.</p>
       </article>
 
       <article class="principle-item reveal" style="--i:4">
         <header class="principle-item__head">
           <span class="principle-item__num">02</span>
-          <span class="principle-item__kicker">Approach</span>
+          <span class="principle-item__kicker">Efficiency</span>
         </header>
-        <h3 class="principle-item__title">Dignity in the details</h3>
-        <p class="principle-item__body">Good help is practical and respectful. It gives people room to choose, ask questions and say no.</p>
+        <h3 class="principle-item__title">Surplus to Lifelines</h3>
+        <p class="principle-item__body">Transforming excess inventory and fleet logistics into rapid, direct aid before despair can take hold.</p>
       </article>
 
       <article class="principle-item reveal" style="--i:5">
         <header class="principle-item__head">
           <span class="principle-item__num">03</span>
-          <span class="principle-item__kicker">Goal</span>
+          <span class="principle-item__kicker">Impact</span>
         </header>
-        <h3 class="principle-item__title">Needed a little less</h3>
-        <p class="principle-item__body">Success is not making an organisation permanent. It is strengthening the systems a community already owns.</p>
+        <h3 class="principle-item__title">Multiplied Reach</h3>
+        <p class="principle-item__body">Demonstrating that efficient, non-discriminatory action can multiply impact far beyond any single organization.</p>
       </article>
     </div>
   </Panel>
 
-  <!-- 03 — Belief -->
-  <Panel id="belief" ground="paper" index={3} total={3} label="Belief" labelledby="belief-title" ctaHref="/who-we-are/" ctaLabel="Meet the people">
+  <!-- 03 — Nationwide Reach & Bridges -->
+  <Panel id="belief" ground="paper" index={3} total={3} label="Reach" labelledby="belief-title" ctaHref="/who-we-are/" ctaLabel="Meet the people">
     <div class="panel-head">
-      <p class="eyebrow reveal">A modest role</p>
-      <h2 class="reveal" style="--i:1" id="belief-title">Bring resources. Remove obstacles. Then make space.</h2>
+      <p class="eyebrow reveal">Bridges of Support</p>
+      <h2 class="reveal" style="--i:1" id="belief-title">From Houston outward: protecting the vulnerable & strengthening communities.</h2>
     </div>
 
     <!-- 3-Step Modest Action Flow -->
     <div class="modest-flow reveal" style="--i:2">
       <div class="modest-step">
         <span class="modest-step__num">01</span>
-        <h3 class="modest-step__title">Bring Resources</h3>
-        <p class="modest-step__desc">Deliver grants, clean water equipment, and medical supplies directly into the hands of local organizers.</p>
+        <h3 class="modest-step__title">Protect the Vulnerable</h3>
+        <p class="modest-step__desc">Delivering coordinated, rapid-response aid to children, families, veterans, and older adults immediately.</p>
       </div>
       <div class="modest-step">
         <span class="modest-step__num">02</span>
-        <h3 class="modest-step__title">Remove Obstacles</h3>
-        <p class="modest-step__desc">Handle transport, border permits, and legal paperwork so local teams focus entirely on field execution.</p>
+        <h3 class="modest-step__title">Coordinated Action</h3>
+        <p class="modest-step__desc">Mobilizing local stakeholders, faith communities, and businesses in unified response efforts.</p>
       </div>
       <div class="modest-step">
         <span class="modest-step__num">03</span>
-        <h3 class="modest-step__title">Make Space</h3>
-        <p class="modest-step__desc">Transfer project governance, sign off audits, and step aside as community management takes full control.</p>
+        <h3 class="modest-step__title">Multiply Impact</h3>
+        <p class="modest-step__desc">Building bridges of practical support that scale from Houston to disaster-affected areas nationwide.</p>
       </div>
     </div>
 
     <div class="columns columns--wide prose reveal" style="--i:3; margin-top: var(--space-6);">
-      <p>The most useful role for an outside organisation is a modest one: bring resources, remove obstacles, share responsibility and then step back. That means giving up the need to be the hero of every story.</p>
-      <p>Our vision is ambitious, but the work is ordinary. It is a conversation with a teacher, a repaired roof, a stocked clinic, a community meeting where the right person is finally heard.</p>
+      <p>From Houston outward, Hands Across Humanity builds bridges of practical support that protect the vulnerable and strengthen communities across the nation.</p>
+      <p>We demonstrate that efficient, non-discriminatory action can unite diverse partners and multiply relief impact far beyond what any single organization could achieve alone.</p>
     </div>
 
     <blockquote class="editorial-quote reveal" style="--i:4; margin-top: var(--space-7);">
-      <p class="editorial-quote__text">“We would like to be a small part of that future, and then to be needed a little less each year.”</p>
-      <cite class="editorial-quote__cite">— Field Journal Reflection, 2026</cite>
+      <p class="editorial-quote__text">“Demonstrating that efficient, non-discriminatory action can multiply impact far beyond any single organization.”</p>
+      <cite class="editorial-quote__cite">— Hands Across Humanity Vision Statement</cite>
     </blockquote>
   </Panel>
 </EditorialPage>

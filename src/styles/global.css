@@ -703,18 +703,23 @@ p {
   text-decoration: none;
   flex: none;
 }
-.brand__mark {
-  width: 2.25rem;
-  height: 2.25rem;
-  flex: none;
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform var(--dur-micro) var(--ease-out);
+.brand__logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: auto;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
-.brand:hover .brand__mark { transform: rotate(-8deg) scale(1.05); }
+.brand__logo-img {
+  height: 100%;
+  width: auto;
+  max-height: 2.5rem;
+  object-fit: contain;
+  display: block;
+  border-radius: var(--radius-sm);
+}
 .brand__name {
   font-family: 'Newsreader Variable', Georgia, serif;
   font-weight: 600;
@@ -1170,8 +1175,8 @@ p {
 }
 .page-hero__media img {
   width: 100%;
-  aspect-ratio: 16 / 10.5;
-  max-height: clamp(280px, 42vh, 440px);
+  aspect-ratio: 16 / 10;
+  max-height: clamp(200px, 30vh, 310px);
   object-fit: cover;
   transition: transform var(--dur-standard) var(--ease-out);
 }
@@ -2787,6 +2792,8 @@ p {
   overflow: hidden;
   border: 1px solid var(--border-warm);
   background: var(--surface);
+  aspect-ratio: 16 / 10;
+  max-height: 290px;
 }
 
 .model-showcase__image-frame:hover {
@@ -2795,9 +2802,10 @@ p {
 
 .model-showcase__image-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center 20%;
 }
 
 /* Step 04 Audit Accent Card & Trigger Button */
@@ -3662,13 +3670,33 @@ p {
   overflow: hidden;
   transition: opacity var(--dur-micro) var(--ease-out);
 }
-/* ============================================================
-   PHOTO MANGA GRID — Multi-Panel Comic Editorial Photo Layout
-   ============================================================ */
+/* High-Resolution Aspect-Ratio Preserved Media Container */
+.approach-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-xs, 2px);
+  background: var(--surface-alt);
+}
+
+.approach-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform var(--dur-standard) var(--ease-out);
+}
+
+.approach-card:hover .approach-card__media img {
+  transform: scale(1.03);
+}
+
 .photo-manga-grid {
   position: relative;
   width: 100%;
-  height: clamp(180px, 27vh, 300px);
+  aspect-ratio: 16 / 10;
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 2px;
@@ -3687,6 +3715,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   transition: transform var(--dur-standard) var(--ease-out);
 }
 .photo-manga-grid__sub {
@@ -3706,7 +3735,29 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   transition: transform var(--dur-standard) var(--ease-out);
+}
+
+/* Image Object Positioning Utility Classes for Precise Subject Framing */
+img.img-pos-bottom,
+.img-pos-bottom img {
+  object-position: center bottom !important;
+}
+
+img.img-pos-top,
+.img-pos-top img {
+  object-position: center top !important;
+}
+
+img.img-pos-center,
+.img-pos-center img {
+  object-position: center center !important;
+}
+
+img.img-pos-lower-middle,
+.img-pos-lower-middle img {
+  object-position: center 75% !important;
 }
 
 .approach-card:hover .photo-manga-grid__main img,
@@ -3932,7 +3983,8 @@ p {
 }
 .rule-card__media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
+  max-height: 220px;
   overflow: hidden;
   background: var(--surface-alt);
   border-radius: 0;
@@ -3942,6 +3994,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transition: transform var(--dur-standard) var(--ease-out);
 }
 .rule-card:hover .rule-card__media img {
@@ -4338,8 +4391,8 @@ p {
 @media (min-width: 768px) {
   .bento-area-card {
     flex-direction: row;
-    align-items: stretch;
-    gap: clamp(1.25rem, 2vw, 2rem);
+    align-items: flex-start;
+    gap: clamp(1.25rem, 2.5vw, 2.25rem);
   }
   .bento-area-card:nth-child(even) {
     flex-direction: row-reverse;
@@ -4353,8 +4406,8 @@ p {
 .bento-area-card__media {
   position: relative;
   width: 100%;
-  height: clamp(170px, 22vh, 210px);
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
+  max-height: 175px;
   overflow: hidden;
   border: 1px solid var(--border-warm);
   background: var(--surface-alt);
@@ -4363,7 +4416,10 @@ p {
 
 @media (min-width: 768px) {
   .bento-area-card__media {
-    width: 40%;
+    width: 30%;
+    max-width: 300px;
+    aspect-ratio: 16 / 10;
+    max-height: 175px;
   }
 }
 
@@ -4371,6 +4427,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transition: transform var(--dur-standard) var(--ease-out);
 }
 
@@ -4621,7 +4678,7 @@ p {
 .connect-feature__media-box {
   width: 100%;
   aspect-ratio: 16 / 10;
-  min-height: 220px;
+  max-height: 250px;
   overflow: hidden;
   border: 1px solid var(--border-warm);
   border-radius: var(--radius-sm);

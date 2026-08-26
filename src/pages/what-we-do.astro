@@ -2,74 +2,91 @@
 import { Picture } from 'astro:assets';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import publicEducationChildren from '../assets/images/public-education-children.jpg';
-import publicVolunteerFood from '../assets/images/public-volunteer-food.jpg';
-import publicLongtermCommunity from '../assets/images/public-longterm-community.jpg';
-import waterImage from '../assets/images/essay-03-water-tank.png';
-import handsImage from '../assets/images/essay-06-hands.png';
+import h1 from '../assets/images/h1.jpg';
+import h4 from '../assets/images/h4.jpg';
+import h5 from '../assets/images/h5.jpg';
+import h8 from '../assets/images/h8.jpg';
+import h9 from '../assets/images/h9.jpg';
+import h10 from '../assets/images/h10.jpg';
+import h12 from '../assets/images/h12.jpg';
+import h14 from '../assets/images/h14.jpg';
 
 const sections = [
   { id: 'top', label: 'What we do' },
-  { id: 'areas', label: 'Four areas' },
-  { id: 'connect', label: 'How they connect' }
+  { id: 'areas', label: 'Core focus' },
+  { id: 'connect', label: 'Ecosystem' }
 ];
 
 const workAreas = [
   {
     num: '01',
     fig: 'FIG 02.1',
-    category: 'Essentials & Water',
-    title: 'Food, water and essentials',
-    body: 'Emergency food supplies, clean drinking water systems, warm blankets and hygiene kits. We source from local vendors to strengthen regional economies and ensure culturally familiar aid.',
-    stat: '142,000+',
-    statLabel: 'People reached with direct local procurement',
-    location: 'East Africa & SE Asia',
-    image: waterImage,
-    alt: 'A community member tests clean water flowing from a local filtration standpipe.',
+    category: 'Preparedness & Education',
+    title: 'Disaster Preparedness',
+    body: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
+    stat: 'All-Hazards',
+    statLabel: 'Community preparedness education & outreach',
+    location: 'Regional Community Centers',
+    image: h1,
+    alt: 'Volunteers conducting disaster preparedness training and education.',
     href: '/#donate',
-    linkText: 'Fund Direct Relief'
+    linkText: 'Support Preparedness'
   },
   {
     num: '02',
     fig: 'FIG 02.2',
-    category: 'Education & Schools',
-    title: 'Schools and learning',
-    body: 'Coverage for school tuition, books, uniforms and safe classroom facilities, ensuring household crisis or displacement never interrupts a child’s education.',
-    stat: '48 Schools',
-    statLabel: 'Community learning centers kept fully operational',
-    location: 'Rift Valley & Rural Districts',
-    image: publicEducationChildren,
-    alt: 'Young students smiling and learning together in a bright community classroom.',
-    href: '/vision/',
-    linkText: 'Explore Education Impact'
-  },
-  {
-    num: '03',
-    fig: 'FIG 02.3',
-    category: 'Rapid Relief',
-    title: 'Emergency response',
-    body: 'Rapid crisis mobilization delivering temporary shelter kits, clean water purification, food rations and medical supplies through trusted local ground partners.',
-    stat: '<48 Hours',
-    statLabel: 'Average dispatch time to active field units',
-    location: 'Active Crisis Zones',
-    image: publicVolunteerFood,
-    alt: 'Local community volunteers organizing emergency food packages.',
+    category: 'Emergency Response',
+    title: 'Rapid Response & Distribution',
+    body: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
+    stat: '24-48h',
+    statLabel: 'Rapid emergency fleet distribution dispatch',
+    location: 'Disaster Impact Zones',
+    image: h14,
+    alt: 'Volunteers loading emergency supply boxes onto distribution transport.',
     href: '/#donate',
     linkText: 'Fund Emergency Response'
   },
   {
+    num: '03',
+    fig: 'FIG 02.3',
+    category: 'Rebuilding & Relief',
+    title: 'Recovery Support',
+    body: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
+    stat: 'Targeted Aid',
+    statLabel: 'Direct rebuilding supplies & recovery services',
+    location: 'Rebuilding Communities',
+    image: h10,
+    alt: 'Volunteers and community members working together on recovery support.',
+    href: '/vision/',
+    linkText: 'View Recovery Work'
+  },
+  {
     num: '04',
     fig: 'FIG 02.4',
-    category: 'Long-term Autonomy',
-    title: 'Long-term recovery & community rebuild',
-    body: 'Sustained post-crisis empowerment: supporting local leaders as they restore housing, restart agricultural cooperatives, and strengthen community resilience.',
-    stat: '85 Networks',
-    statLabel: 'Autonomous local community partner networks active',
-    location: 'Sub-Saharan & Pacific',
-    image: publicLongtermCommunity,
-    alt: 'Local community members standing together during a successful village restoration initiative.',
+    category: 'Business Alliances',
+    title: 'Partnership Development',
+    body: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
+    stat: 'Scalable',
+    statLabel: 'Corporate & enterprise resource partnerships',
+    location: 'Corporate Partner Network',
+    image: h12,
+    alt: 'Business leaders and logistics teams collaborating on relief deployment.',
     href: '/vision/',
-    linkText: 'Learn About Recovery'
+    linkText: 'Partner With Us'
+  },
+  {
+    num: '05',
+    fig: 'FIG 02.5',
+    category: 'Community & Faith',
+    title: 'Community & Faith Partnerships',
+    body: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
+    stat: 'Non-Discriminatory',
+    statLabel: 'Grassroots faith and community stakeholder alliances',
+    location: 'Houses of Worship & Civic Hubs',
+    image: h5,
+    alt: 'Volunteers at a community faith center handing out relief supplies.',
+    href: '/vision/',
+    linkText: 'Explore Faith Alliances'
   }
 ];
 ---
@@ -77,25 +94,25 @@ const workAreas = [
 <EditorialPage
   activePage="what-we-do"
   eyebrow="What we do"
-  title="Four kinds of work, shaped by local priorities."
-  lead="A family in an emergency may need food this week and a school place next term. Our work is designed to meet both."
-  description="Hands Across Humanity works with local communities on essentials, education, emergency response and long-term recovery."
-  image={publicEducationChildren}
-  imageAlt="Children raising hands happily in an active community classroom."
-  caption="Urgent support and long-term opportunity belong together."
+  title="Five Core Focus Areas of Practical Action."
+  lead="From proactive disaster preparedness to rapid response, recovery support, and scalable business and faith partnerships."
+  description="Hands Across Humanity delivers essential relief, rebuilds stability, and builds lasting public-private and community alliances."
+  image={h1}
+  imageAlt="Volunteers handing out supply kits to smiling community members."
+  caption="Preparedness, response, recovery, and strategic alliances."
   nextHref="/vision/"
   nextLabel="Read our vision"
   sections={sections}
   total={3}
 >
-  <!-- 02 — Four areas (Alternating Editorial Rows) -->
-  <Panel id="areas" ground="sand" index={2} total={3} label="Four areas" labelledby="areas-title" width="wide" nextId="connect" nextLabel="How they connect">
+  <!-- 02 — Core Focus Areas Grid -->
+  <Panel id="areas" ground="sand" index={2} total={3} label="Core focus" labelledby="areas-title" width="wide" nextId="connect" nextLabel="Ecosystem">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">The work in practice</p>
-        <h2 class="reveal" style="--i:1" id="areas-title">Four areas. One principle: start with what people say they need.</h2>
+        <p class="eyebrow reveal">Core Focus Areas</p>
+        <h2 class="reveal" style="--i:1" id="areas-title">Five pillar areas delivering impact at scale.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">The categories help us explain the work. On the ground they overlap, because real lives do too.</p>
+      <p class="lead reveal" style="--i:2">Our work connects education, emergency response, recovery, and strategic alliances to protect communities before, during, and after crisis.</p>
     </div>
     
     <div class="bento-areas-grid reveal" style="--i:3;">
@@ -148,83 +165,83 @@ const workAreas = [
     </div>
   </Panel>
 
-  <!-- 03 — How they connect (Pure Editorial Journal Narrative) -->
-  <Panel id="connect" ground="paper" index={3} total={3} label="How they connect" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
+  <!-- 03 — Collaborative Ecosystem -->
+  <Panel id="connect" ground="paper" index={3} total={3} label="Ecosystem" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head panel-head--split" style="margin-bottom: clamp(0.4rem, 1vh, 0.75rem);">
       <div class="panel-head__title">
         <p class="eyebrow reveal">The Interconnected Ecosystem</p>
-        <h2 class="reveal" style="--i:1" id="connect-title">We fund the combination that makes a plan hold together.</h2>
+        <h2 class="reveal" style="--i:1" id="connect-title">Connecting preparedness, rapid response, recovery & alliances.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">A crisis does not arrive in separate silos. Food at home keeps a child in school. A repaired roof protects family health. We treat needs as connected rather than isolated transactions.</p>
+      <p class="lead reveal" style="--i:2">Real crisis response requires a complete ecosystem. Education prepares families, rapid logistics deliver relief, recovery restores stability, and partnerships scale our reach nationwide.</p>
     </div>
     
     <div class="connect-journal-grid reveal" style="--i:3;">
-      <!-- Left Column: Flat Hairline Typographic Connections Flow -->
+      <!-- Left Column -->
       <div class="connect-stories">
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">01</span>
-            <span class="connect-story__title">Essentials → Education</span>
-            <span class="connect-story__stat">94% Retention</span>
+            <span class="connect-story__title">Preparedness → Education</span>
+            <span class="connect-story__stat">All-Hazards</span>
           </div>
-          <p class="connect-story__body">Emergency food & clean water delivered directly to families in Kitui prevents student dropout during seasonal droughts.</p>
+          <p class="connect-story__body">Outreach and training help children, families, veterans, and older adults prepare before catastrophic events strike.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">02</span>
-            <span class="connect-story__title">Shelter → Health</span>
+            <span class="connect-story__title">Response → Fleet Distribution</span>
             <span class="connect-story__stat">&lt;48h Response</span>
           </div>
-          <p class="connect-story__body">Roofing kits and medical supplies dispatched within 48 hours stabilize displaced families before disease outbreaks can start.</p>
+          <p class="connect-story__body">Efficient fleet logistics transport donated products directly to communities struggling after disasters.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">03</span>
-            <span class="connect-story__title">Relief → Cooperatives</span>
-            <span class="connect-story__stat">85 Co-ops</span>
+            <span class="connect-story__title">Recovery → Rebuilding</span>
+            <span class="connect-story__stat">Targeted Aid</span>
           </div>
-          <p class="connect-story__body">Once immediate grain is secured, seed micro-grants help displaced farmers build autonomous, self-sustaining agricultural cooperatives.</p>
+          <p class="connect-story__body">Targeted goods and services assist individuals and partner organizations throughout long-term recovery.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">04</span>
-            <span class="connect-story__title">Autonomy → Future</span>
-            <span class="connect-story__stat">100% Local Led</span>
+            <span class="connect-story__title">Business & Faith Alliances</span>
+            <span class="connect-story__stat">Non-Discriminatory</span>
           </div>
-          <p class="connect-story__body">Decisions remain entirely with local community councils. By combining short-term relief with long-term capital, projects endure.</p>
+          <p class="connect-story__body">Collaborating with businesses of all sizes, houses of worship, and stakeholders on a non-discriminatory basis to extend reach and trust.</p>
         </article>
       </div>
 
-      <!-- Right Column: Editorial Media Feature & Pull Quote -->
+      <!-- Right Column -->
       <div class="connect-feature">
         <figure class="connect-feature__media" style="margin: 0;">
           <div class="connect-feature__media-box">
             <Picture
-              src={handsImage}
+              src={h4}
               widths={[400, 750]}
               sizes="(min-width: 940px) 40vw, 90vw"
               formats={['avif', 'webp']}
               fallbackFormat="jpeg"
               quality={82}
-              alt="Community members passing essential supplies hand to hand."
+              alt="Hands passing relief and gift items directly at community station."
               loading="lazy"
             />
           </div>
           <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
             <span class="approach-photo-caption__num">FIG 04.1</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-card__tag">Integrated Support Matrix</span>
+            <span class="approach-card__tag">Core Focus Matrix</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-photo-caption__text">Turkana & Kitui Field Operations</span>
+            <span class="approach-photo-caption__text">Disaster Response & Partnership Network</span>
           </figcaption>
         </figure>
 
         <blockquote class="editorial-quote" style="margin-top: clamp(0.5rem, 1vh, 0.85rem);">
-          <p class="editorial-quote__text">“Start with what people say they need.”</p>
-          <cite class="editorial-quote__cite">— Field Operating Principle</cite>
+          <p class="editorial-quote__text">“Collaborating on a non-discriminatory basis to extend reach, trust, and practical relief.”</p>
+          <cite class="editorial-quote__cite">— Hands Across Humanity Core Focus Principle</cite>
         </blockquote>
       </div>
     </div>
