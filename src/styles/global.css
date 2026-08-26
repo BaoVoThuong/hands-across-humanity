@@ -1815,9 +1815,10 @@ p {
 .hero-carousel__progress-bar {
   height: 100%;
   width: 0%;
-  background: #E05A36;
+  background: var(--primary);
   box-shadow: none;
   will-change: width;
+  transition: background-color 0.3s ease;
 }
 
 .hero-carousel__slides {
@@ -1825,7 +1826,7 @@ p {
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #0f172a;
+  background: var(--slate-900);
 }
 
 .hero-carousel__slide {
@@ -1885,11 +1886,11 @@ p {
 }
 
 .hero-carousel__arrow:hover {
-  background: #C84B2C;
-  border-color: rgba(224, 90, 54, 0.8);
+  background: var(--primary);
+  border-color: var(--primary-hover, var(--primary));
   color: #ffffff;
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 14px rgba(200, 75, 44, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 .hero-carousel__arrow--prev {
@@ -1968,8 +1969,9 @@ p {
 .hero-carousel__dot.is-active {
   width: 20px;
   border-radius: 4px;
-  background: #E05A36;
+  background: var(--primary);
   box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 .hero-carousel__counter {
