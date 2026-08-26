@@ -1,26 +1,24 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import HeroSection from '../components/home/HeroSection.astro';
-import ProcessSection from '../components/home/ProcessSection.astro';
-import TestimonialSection from '../components/home/TestimonialSection.astro';
+import ImpactBand from '../components/home/ImpactBand.astro';
+import AboutFieldNotes from '../components/home/AboutFieldNotes.astro';
 import FaqSection from '../components/home/FaqSection.astro';
 import ClosingCTA from '../components/home/ClosingCTA.astro';
 
-import h1 from '../assets/images/h1.jpg';
-import h2 from '../assets/images/h2.jpg';
-import h3 from '../assets/images/h3.jpg';
-import h4 from '../assets/images/h4.jpg';
-import h5 from '../assets/images/h5.jpg';
-import h6 from '../assets/images/h6.jpg';
-import h7 from '../assets/images/h7.jpg';
-import h8 from '../assets/images/h8.jpg';
-import h9 from '../assets/images/h9.jpg';
-import h10 from '../assets/images/h10.jpg';
-import h11 from '../assets/images/h11.jpg';
-import h12 from '../assets/images/h12.jpg';
-import h13 from '../assets/images/h13.jpg';
-import h14 from '../assets/images/h14.jpg';
-import h15 from '../assets/images/h15.jpg';
+import {
+  communityDistribution,
+  partnerCommunity,
+  childrenOutreach,
+  fleetDelivery,
+  communityDistributionWide,
+  educationRelief,
+  reliefStation,
+  partnerTeam,
+  healthSupplies,
+  supplyStaging,
+  partnerShowcase,
+} from '../assets/images/eps';
 
 const description = 'Hands Across Humanity is dedicated to rapidly collecting and distributing essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters.';
 
@@ -31,8 +29,8 @@ const coreFocusCards = [
     category: 'Preparedness',
     location: 'Community & Outreach Centers',
     images: [
-      { src: h1, alt: 'Volunteers leading community disaster preparedness and family education sessions.' },
-      { src: h2, alt: 'Volunteers sharing outreach materials with community members.' }
+      { src: educationRelief, alt: 'Children holding prepared school and relief kits with community volunteers.' },
+      { src: childrenOutreach, alt: 'Volunteers sharing educational kits with children and families.' }
     ],
     tag: 'Education & Outreach',
     impact: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
@@ -45,9 +43,9 @@ const coreFocusCards = [
     category: 'Rapid Aid',
     location: 'Disaster Impact Zones',
     images: [
-      { src: h14, alt: 'Volunteers deploying essential supplies via transport fleet.' },
-      { src: h10, alt: 'Staging health, wellness, and essential goods for distribution.' },
-      { src: h9, alt: 'Outreach booth distributing critical supplies to residents.' }
+      { src: fleetDelivery, alt: 'Volunteers moving boxed essential supplies on a transport cart.' },
+      { src: healthSupplies, alt: 'Health, wellness, and essential goods staged for distribution.' },
+      { src: supplyStaging, alt: 'Volunteers organizing donated goods at a relief staging table.' }
     ],
     tag: 'Fleet & Volunteer Logistics',
     impact: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
@@ -60,8 +58,8 @@ const coreFocusCards = [
     category: 'Rebuilding',
     location: 'Affected Communities',
     images: [
-      { src: h7, alt: 'Volunteers and community elders reviewing essential goods for rebuilding.' },
-      { src: h11, alt: 'Volunteers assisting community members with targeted recovery supplies.' }
+      { src: communityDistribution, alt: 'Volunteers coordinating essential goods with community members.' },
+      { src: reliefStation, alt: 'Community members receiving targeted goods at a relief station.' }
     ],
     tag: 'Targeted Goods & Services',
     impact: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
@@ -74,8 +72,8 @@ const coreFocusCards = [
     category: 'Public-Private',
     location: 'Corporate & Industry Network',
     images: [
-      { src: h12, alt: 'Corporate partners and volunteers collaborating at relief staging area.' },
-      { src: h15, alt: 'Partner organization teams supporting distribution logistics.' }
+      { src: partnerShowcase, alt: 'Corporate partners and volunteers gathered behind a relief supply table.' },
+      { src: partnerTeam, alt: 'Partner representatives supporting a community relief event.' }
     ],
     tag: 'Scalable Corporate Alliances',
     impact: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
@@ -88,64 +86,13 @@ const coreFocusCards = [
     category: 'Faith & Civic',
     location: 'Houses of Worship & Civic Hubs',
     images: [
-      { src: h5, alt: 'Volunteers and faith leaders coordinating community relief items.' },
-      { src: h13, alt: 'Community group gathered together for direct non-discriminatory distribution.' }
+      { src: communityDistributionWide, alt: 'Volunteers coordinating direct distribution with community members.' },
+      { src: partnerCommunity, alt: 'Community partners gathered with prepared goods and family support.' }
     ],
     tag: 'Non-Discriminatory Action',
     impact: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
     partner: 'Houses of Worship & Civic Organizations',
     details: 'Works closely with local faith centers and community leaders to build trust, deepen engagement, and ensure non-discriminatory aid delivery across every neighborhood.'
-  }
-];
-
-const processSteps = [
-  { num: '01', title: 'Strategic Collection & Staging', text: 'Collecting donated products and partnering with businesses of every size to turn surplus into lifelines.' },
-  { num: '02', title: 'Rapid Fleet & Volunteer Logistics', text: 'Mobilizing our dedicated transport fleet and volunteer network for swift, efficient disaster response.' },
-  { num: '03', title: 'Non-Discriminatory Aid Distribution', text: 'Collaborating with houses of worship and local stakeholders to deliver supplies directly to children, families, seniors & veterans.' },
-  { num: '04', title: 'Targeted Recovery Support', text: 'Assisting individuals and partner organizations in long-term rebuilding, reducing long-term costs of recovery.' }
-];
-
-const testimonials = [
-  {
-    quote: '“Partnering with Hands Across Humanity ensures our surplus products and supplies directly reach children, families, veterans, and older adults struggling after catastrophic events.”',
-    name: 'Corporate Resource Partner',
-    role: 'Public-Private Alliance Representative',
-    organization: 'Business & Enterprise Network',
-    location: 'Houston & Nationwide',
-    category: 'foundations',
-    verified: true,
-    verifiedText: 'Corporate Alliance',
-    projectId: 'business',
-    projectTitle: 'Partnership Development',
-    initials: 'CP',
-    accentColor: 'var(--primary)'
-  },
-  {
-    quote: '“Collaborating on a non-discriminatory basis allows houses of worship and community stakeholders to extend reach, build trust, and deliver direct relief where needed most.”',
-    name: 'Community Faith Stakeholder',
-    role: 'Faith & Civic Coordinator',
-    organization: 'Community & Faith Network',
-    location: 'Regional Hubs',
-    category: 'field-leaders',
-    verified: true,
-    verifiedText: 'Faith Partner',
-    projectId: 'faith',
-    projectTitle: 'Community & Faith Partnerships',
-    initials: 'FP',
-    accentColor: 'var(--emerald)'
-  },
-  {
-    quote: '“When disaster strikes, speed, coordination, and the right supplies in the right hands make the difference between recovery and prolonged hardship.”',
-    name: 'Disaster Relief Logistics Lead',
-    role: 'Fleet & Dispatch Coordinator',
-    organization: 'Volunteer & Fleet Network',
-    location: 'Disaster Impact Zones',
-    category: 'field-leaders',
-    verified: true,
-    verifiedText: 'Logistics Partner',
-    projectId: 'response',
-    projectTitle: 'Rapid Response Operations',
-    avatar: h15
   }
 ];
 
@@ -180,9 +127,9 @@ const faqs = [
   <main id="main">
     <div class="hero-fold-group">
       <HeroSection />
+      <ImpactBand />
     </div>
-    <ProcessSection steps={processSteps} />
-    <TestimonialSection testimonials={testimonials} />
+    <AboutFieldNotes />
     <FaqSection faqs={faqs} />
     <ClosingCTA />
   </main>

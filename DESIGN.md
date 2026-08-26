@@ -211,7 +211,7 @@ The design system enforces high-contrast, non-gradient, non-glowing structural s
 - **Header:** Sticky modal bar with project title, audit partner verification badge, and circular close button.
 
 ### Hero Section Field Dispatch Carousel
-- **Structure:** 5-slide interactive showcase (`hero-connection.png`, `essay-03-water-tank.png`, `essay-04-roofing-sheets.png`, `essay-07-cooperative.png`, `work-schools-learning.png`).
+- **Structure:** 5-slide interactive showcase using documentary field photography from `src/assets/images/eps/`.
 - **Progress Track:** Clean 3px Terracotta Ember progress bar (`#E05A36`) animating smoothly from 0% to 100% over 5 seconds (`5000ms`) without artificial neon glow box-shadows.
 - **Hover Arrow Controls:** Glassmorphism circle buttons (`rgba(15, 23, 42, 0.75)` with `backdrop-filter: blur(8px)`) that transition in on container hover with Terracotta Ember hover state (`#C84B2C`).
 - **Pagination & Counter:** Floating translucent dot pill indicator with active Terracotta indicator (`#E05A36`) paired with monospaced counter badge (`1 / 5`).

@@ -1,0 +1,102 @@
+---
+import { Picture } from 'astro:assets';
+import {
+  partnerCommunity,
+  communityDistribution,
+  healthSupplies,
+  childrenOutreach,
+  fleetDelivery,
+} from '../../assets/images/eps';
+
+const anchorStory = {
+  image: partnerCommunity,
+  alt: 'Community partners gathered with prepared goods and family support.',
+  label: 'Built with community partners',
+  caption: 'A shared table makes room for more people to contribute.',
+};
+
+const fieldNotes = [
+  {
+    image: communityDistribution,
+    alt: 'Volunteers coordinating essential goods with community members at a relief event.',
+    title: 'Listen before we load',
+    text: 'The most useful response begins with local knowledge: what is needed, what is safe, and what can move today.',
+  },
+  {
+    image: healthSupplies,
+    alt: 'Health, wellness, and essential supplies arranged for community distribution.',
+    title: 'Make essentials feel tangible',
+    text: 'We focus on practical goods that can be sorted, shared, and put to work by people navigating a difficult moment.',
+  },
+  {
+    image: childrenOutreach,
+    alt: 'Volunteers sharing educational kits with children and families.',
+    title: 'Keep readiness human',
+    text: 'Preparedness is easier to carry when it is connected to families, learning, and the everyday lives of children.',
+  },
+  {
+    image: fleetDelivery,
+    alt: 'Volunteers moving boxed supplies on a cart for direct distribution.',
+    title: 'Make the handoff count',
+    text: 'Volunteers, partners, and fleet capacity turn a donated item into a timely, dignified delivery.',
+  },
+];
+---
+
+<section class="about-field-notes section section--sand" id="field-notes" aria-labelledby="field-notes-title">
+  <div class="container">
+    <div class="about-field-notes__intro reveal">
+      <h2 id="field-notes-title">The people and places behind the work.</h2>
+      <p class="lead">Hands Across Humanity is a connected network of neighbors, volunteers, businesses, and local leaders. Our role is to help good intentions become useful support.</p>
+    </div>
+
+    <div class="about-field-notes__anchor">
+      <figure class="about-field-notes__anchor-media reveal" style="--i:1;">
+        <Picture
+          src={anchorStory.image}
+          widths={[700, 1000, 1400]}
+          sizes="(min-width: 960px) 58vw, 100vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="jpeg"
+          quality={85}
+          alt={anchorStory.alt}
+          loading="lazy"
+        />
+        <figcaption>
+          <span>{anchorStory.label}</span>
+          <span>{anchorStory.caption}</span>
+        </figcaption>
+      </figure>
+
+      <div class="about-field-notes__anchor-copy reveal" style="--i:2;">
+        <span class="about-field-notes__mark" aria-hidden="true">A</span>
+        <h3>Relief is a relationship, not a transaction.</h3>
+        <p>We bring together the people closest to a need with the people able to help. That shared responsibility keeps the work grounded, responsive, and personal.</p>
+        <a class="about-field-notes__link" href="/who-we-are/">Get to know our network <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="about-field-notes__grid" aria-label="How our work shows up">
+      {fieldNotes.map((note, index) => (
+        <article class="about-field-notes__note reveal" style={`--i:${index + 3}`}>
+          <div class="about-field-notes__note-media">
+            <Picture
+              src={note.image}
+              widths={[400, 700]}
+              sizes="(min-width: 960px) 22vw, 50vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpeg"
+              quality={82}
+              alt={note.alt}
+              loading="lazy"
+            />
+          </div>
+          <div class="about-field-notes__note-copy">
+            <h3>{note.title}</h3>
+            <p>{note.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

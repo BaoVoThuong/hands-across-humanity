@@ -1,18 +1,23 @@
 # Image register
 
-The image files in this folder are illustrative, AI-generated placeholder images created for the first website build. They are not documentary evidence of Hands Across Humanity's work, and no person or place shown should be treated as real or identifiable.
+The `eps/` folder contains the documentary photography supplied for this site. The images show real community distribution, prepared supplies, volunteers, children, and partner activity. Each photo is used with descriptive alt text matched to the surrounding content.
 
-Before launch, replace each slot with a consent-cleared photograph of the organisation's work. Re-write the matching alt text and caption to describe the final image. Keep the image ethics rule from `context/03-image-system.md`: work at eye level, local people as the subjects, no distress framing, and no undisclosed synthetic imagery.
+Current documentary set:
 
-Current placeholder slots:
+- `eps/eps-partner-showcase.jpg` — partners and volunteers behind a relief supply table
+- `eps/eps-education-relief.jpg` — children holding prepared school and relief kits
+- `eps/eps-health-supplies.jpg` — health, wellness, and essential supplies
+- `eps/eps-fleet-delivery.jpg` — volunteers moving boxed supplies for delivery
+- `eps/eps-community-support-wide.jpg` — volunteers coordinating a distribution event
+- `eps/eps-relief-distribution-wide.jpg` — large public-hall distribution
+- `eps/eps-community-distribution-wide.jpg` — indoor community aid activity
+- `eps/eps-community-distribution.jpg` — direct community distribution
+- `eps/eps-children-outreach.jpg` — children and volunteers at an outreach event
+- `eps/eps-relief-station.jpg` — community relief station with prepared goods
+- `eps/eps-partner-team.jpg` — partner representatives at a relief event
+- `eps/eps-community-supplies.jpg` — essential goods at a relief station
+- `eps/eps-supply-staging.jpg` — donated goods being staged for distribution
+- `eps/eps-indoor-relief.jpg` — volunteers coordinating relief in a public hall
+- `eps/eps-partner-community.jpg` — community partners and families with support packages
 
-- `hero-connection.png` — hero and emergency-work visual
-- `who-we-are-portrait.png` — Who We Are portrait
-- `vision-horizon.png` — Mission & Vision horizon
-- `work-schools-learning.png` — Schools and learning card
-- `essay-03-water-tank.png` — water infrastructure / gallery
-- `essay-04-roofing-sheets.png` — long-term recovery / gallery
-- `essay-06-hands.png` — partnership / gallery
-- `essay-07-cooperative.png` — local enterprise / gallery
-
-The Astro image pipeline emits optimized AVIF/WebP derivatives at build time. The current PNG masters are intentionally kept separate from the final launch photography handoff.
+The duplicate source photo in `eps_pic` was not copied into the app because it is byte-for-byte identical to its original. The `h*.jpg` files are retained as legacy documentary assets; logos are retained separately. The Astro image pipeline emits optimized AVIF/WebP derivatives at build time.

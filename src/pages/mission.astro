@@ -2,15 +2,14 @@
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
 import { Picture } from 'astro:assets';
-import h1 from '../assets/images/h1.jpg';
-import h3 from '../assets/images/h3.jpg';
-import h7 from '../assets/images/h7.jpg';
-import h9 from '../assets/images/h9.jpg';
-import h10 from '../assets/images/h10.jpg';
-import h12 from '../assets/images/h12.jpg';
-import h13 from '../assets/images/h13.jpg';
-import h14 from '../assets/images/h14.jpg';
-import h15 from '../assets/images/h15.jpg';
+import {
+  communityDistribution,
+  reliefDistributionWide,
+  communityDistributionWide,
+  fleetDelivery,
+  partnerShowcase,
+  healthSupplies,
+} from '../assets/images/eps';
 
 const sections = [
   { id: 'top', label: 'Mission' },
@@ -24,8 +23,8 @@ const ruleCards = [
     category: 'Vulnerable Groups',
     title: 'Children, Families & Veterans',
     body: 'We prioritize rapid assistance for children, families, veterans, older adults, and communities facing catastrophic events and all-hazards disasters.',
-    image: h14,
-    alt: 'Volunteers delivering heavy boxes of fresh produce directly to community families.',
+    image: communityDistribution,
+    alt: 'Volunteers coordinating essential goods with community members at a relief event.',
     captionTitle: 'Direct Relief Dispatch',
     captionStat: '450 families served',
     href: '/what-we-do/#shelter',
@@ -36,8 +35,8 @@ const ruleCards = [
     category: 'Logistics Fleet',
     title: 'Rapid Supply Logistics',
     body: 'Through an efficient logistics network supported by our fleet, we transport critical aid quickly and reliably to ground zero.',
-    image: h12,
-    alt: 'Volunteers standing together behind community support center table.',
+    image: fleetDelivery,
+    alt: 'Volunteers moving boxed supplies on a cart for direct distribution.',
     captionTitle: 'Fleet Distribution Network',
     captionStat: '100% direct delivery',
     href: '/what-we-do/#cooperatives',
@@ -48,8 +47,8 @@ const ruleCards = [
     category: 'Partnerships',
     title: 'Public-Private Ecosystem',
     body: 'Strategic public-private partnerships combined with a dedicated volunteer network empower communities to prepare, respond, and recover with dignity.',
-    image: h10,
-    alt: 'Community health station table stocked with vitamins and health care items.',
+    image: partnerShowcase,
+    alt: 'Corporate partners and volunteers gathered behind a relief supply table.',
     captionTitle: 'Community Support Network',
     captionStat: '1,200 residents served',
     href: '/what-we-do/#water',
@@ -64,8 +63,8 @@ const ruleCards = [
   title="Saving lives & restoring hope — one delivery at a time."
   lead="Hands Across Humanity is dedicated to rapidly collecting and distributing essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations."
   description="Through strategic public-private partnerships, a dedicated volunteer network, and efficient logistics supported by our fleet, we empower communities to prepare, respond, and recover with dignity and resilience."
-  image={h3}
-  imageAlt="Large community fair hall filled with local residents and volunteers."
+  image={reliefDistributionWide}
+  imageAlt="Volunteers and community members coordinating relief distribution in a large public hall."
   caption="Saving lives and restoring hope — one delivery at a time."
   nextHref="/what-we-do/"
   nextLabel="See what we do"
@@ -86,13 +85,13 @@ const ruleCards = [
       <article class="approach-card">
         <div class="approach-card__media">
           <Picture
-            src={h10}
+            src={healthSupplies}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
             formats={['avif', 'webp']}
             fallbackFormat="jpeg"
             quality={90}
-            alt="Community health station table stocked with vitamins and medical supplies."
+            alt="Health, wellness, and essential supplies arranged for community distribution."
             loading="lazy"
           />
         </div>
@@ -119,13 +118,13 @@ const ruleCards = [
       <article class="approach-card">
         <div class="approach-card__media">
           <Picture
-            src={h12}
+            src={communityDistributionWide}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
             formats={['avif', 'webp']}
             fallbackFormat="jpeg"
             quality={90}
-            alt="Dedicated volunteer team showing heart hand gestures behind support center table."
+            alt="Volunteers distributing essential goods to community members at a public support event."
             loading="lazy"
           />
         </div>
@@ -200,5 +199,4 @@ const ruleCards = [
     </blockquote>
   </Panel>
 </EditorialPage>
-
 

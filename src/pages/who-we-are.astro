@@ -2,8 +2,7 @@
 import { Picture } from 'astro:assets';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import h12 from '../assets/images/h12.jpg';
-import h15 from '../assets/images/h15.jpg';
+import { communitySupportWide, indoorRelief } from '../assets/images/eps';
 
 const sections = [
   { id: 'top', label: 'Who we are' },
@@ -18,8 +17,8 @@ const sections = [
   title="Why Hands Across Humanity Matters."
   lead="When disaster strikes, the difference between recovery and prolonged hardship often comes down to speed, coordination, and the right supplies in the right hands. Hands Across Humanity exists to close that gap."
   description="We focus on the practical work of collecting, staging, and distributing products that keep people safe, healthy, and able to rebuild—while partnering with businesses that want their resources to reach those who need them most."
-  image={h12}
-  imageAlt="Dedicated community volunteers standing together behind support center table."
+  image={communitySupportWide}
+  imageAlt="Volunteers and community members coordinating support at a distribution event."
   caption="Closing the gap between crisis and recovery through rapid logistics."
   nextHref="/mission/"
   nextLabel="Read our mission"
@@ -61,13 +60,13 @@ const sections = [
       <figure class="model-showcase__media reveal" style="--i:4">
         <div class="model-showcase__image-frame">
           <Picture
-            src={h15}
+            src={indoorRelief}
             widths={[600, 900, 1200]}
             sizes="(min-width: 940px) 46vw, 92vw"
             formats={['avif', 'webp']}
             fallbackFormat="jpeg"
             quality={75}
-            alt="Dedicated community health volunteers smiling outside the venue."
+            alt="Volunteers coordinating direct relief with community members in a public hall."
             loading="lazy"
             decoding="async"
           />
@@ -79,7 +78,7 @@ const sections = [
     <!-- Trust & Verification Bar -->
     <div class="process-guarantee-bar reveal" style="--i:5; margin-top:var(--space-7);">
       <div class="process-guarantee-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1 -5.93 -9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         <span>100% Non-Discriminatory Service</span>
       </div>
       <div class="process-guarantee-divider" aria-hidden="true"></div>

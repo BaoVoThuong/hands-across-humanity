@@ -2,14 +2,15 @@
 import { Picture } from 'astro:assets';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import h1 from '../assets/images/h1.jpg';
-import h4 from '../assets/images/h4.jpg';
-import h5 from '../assets/images/h5.jpg';
-import h8 from '../assets/images/h8.jpg';
-import h9 from '../assets/images/h9.jpg';
-import h10 from '../assets/images/h10.jpg';
-import h12 from '../assets/images/h12.jpg';
-import h14 from '../assets/images/h14.jpg';
+import {
+  childrenOutreach,
+  fleetDelivery,
+  supplyStaging,
+  partnerTeam,
+  reliefStation,
+  communitySupplies,
+  educationRelief,
+} from '../assets/images/eps';
 
 const sections = [
   { id: 'top', label: 'What we do' },
@@ -26,8 +27,8 @@ const workAreas = [
     stat: 'All-Hazards',
     statLabel: 'Community preparedness education & outreach',
     location: 'Regional Community Centers',
-    image: h1,
-    alt: 'Volunteers conducting disaster preparedness training and education.',
+    image: childrenOutreach,
+    alt: 'Volunteers sharing educational kits with children and families.',
     href: '/#donate',
     linkText: 'Support Preparedness'
   },
@@ -39,8 +40,8 @@ const workAreas = [
     stat: '24-48h',
     statLabel: 'Rapid emergency fleet distribution dispatch',
     location: 'Disaster Impact Zones',
-    image: h14,
-    alt: 'Volunteers loading emergency supply boxes onto distribution transport.',
+    image: fleetDelivery,
+    alt: 'Volunteers moving boxed emergency supplies on a transport cart.',
     href: '/#donate',
     linkText: 'Fund Emergency Response'
   },
@@ -52,8 +53,8 @@ const workAreas = [
     stat: 'Targeted Aid',
     statLabel: 'Direct rebuilding supplies & recovery services',
     location: 'Rebuilding Communities',
-    image: h10,
-    alt: 'Volunteers and community members working together on recovery support.',
+    image: supplyStaging,
+    alt: 'Volunteers organizing donated goods at a relief staging table.',
     href: '/vision/',
     linkText: 'View Recovery Work'
   },
@@ -65,8 +66,8 @@ const workAreas = [
     stat: 'Scalable',
     statLabel: 'Corporate & enterprise resource partnerships',
     location: 'Corporate Partner Network',
-    image: h12,
-    alt: 'Business leaders and logistics teams collaborating on relief deployment.',
+    image: partnerTeam,
+    alt: 'Partner representatives supporting a community relief event.',
     href: '/vision/',
     linkText: 'Partner With Us'
   },
@@ -78,8 +79,8 @@ const workAreas = [
     stat: 'Non-Discriminatory',
     statLabel: 'Grassroots faith and community stakeholder alliances',
     location: 'Houses of Worship & Civic Hubs',
-    image: h5,
-    alt: 'Volunteers at a community faith center handing out relief supplies.',
+    image: reliefStation,
+    alt: 'Community members receiving essential goods at a relief station.',
     href: '/vision/',
     linkText: 'Explore Faith Alliances'
   }
@@ -92,8 +93,8 @@ const workAreas = [
   title="Five Core Focus Areas of Practical Action."
   lead="From proactive disaster preparedness to rapid response, recovery support, and scalable business and faith partnerships."
   description="Hands Across Humanity delivers essential relief, rebuilds stability, and builds lasting public-private and community alliances."
-  image={h1}
-  imageAlt="Volunteers handing out supply kits to smiling community members."
+  image={educationRelief}
+  imageAlt="Children holding prepared school and relief kits with community volunteers."
   caption="Preparedness, response, recovery, and strategic alliances."
   nextHref="/vision/"
   nextLabel="Read our vision"
@@ -214,13 +215,13 @@ const workAreas = [
         <figure class="connect-feature__media" style="margin: 0;">
           <div class="connect-feature__media-box">
             <Picture
-              src={h4}
+              src={communitySupplies}
               widths={[400, 750]}
               sizes="(min-width: 940px) 40vw, 90vw"
               formats={['avif', 'webp']}
               fallbackFormat="jpeg"
               quality={82}
-              alt="Hands passing relief and gift items directly at community station."
+              alt="Volunteers and community members coordinating essential goods at a relief station."
               loading="lazy"
             />
           </div>

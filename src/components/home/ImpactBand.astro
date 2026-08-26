@@ -1,0 +1,34 @@
+---
+const operatingPrinciples = [
+  {
+    title: 'Collect',
+    text: 'Coordinate donated products and stage them for action.'
+  },
+  {
+    title: 'Deliver',
+    text: 'Move essential supplies through volunteers and fleet logistics.'
+  },
+  {
+    title: 'Rebuild',
+    text: 'Support local partners beyond the first response.'
+  }
+];
+---
+
+<section class="impact-band" id="impact" aria-labelledby="impact-band-title">
+  <div class="container impact-band__inner">
+    <div class="impact-band__intro reveal">
+      <h2 id="impact-band-title">From donation to delivery.</h2>
+      <p>A clear operating model keeps essential resources moving from partners to communities.</p>
+    </div>
+
+    <div class="impact-band__principles" role="list">
+      {operatingPrinciples.map((principle, i) => (
+        <div class="impact-band__principle reveal" role="listitem" style={`--i:${i + 1}`}>
+          <strong>{principle.title}</strong>
+          <span>{principle.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

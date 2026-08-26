@@ -51,7 +51,7 @@ const heroSignals = [
   <main id="main">
     <!-- Page Hero -->
     <Panel id="top" ground="paper" index={1} total={total} label={eyebrow} labelledby="page-title" nextId={firstSection?.id} nextLabel={firstSection?.label} hero={true}>
-      <div class="page-hero__grid">
+      <div class="page-hero__grid page-hero__grid--field">
         <div class="page-hero__copy">
           <p class="page-hero__kicker reveal" style="--i:1;">{eyebrow}</p>
           <h1 class="reveal page-hero__title" style="--i:2;" id="page-title">{title}</h1>
@@ -66,21 +66,9 @@ const heroSignals = [
             <a class="btn btn--secondary" href="/#donate">Support Our Mission</a>
           </div>
 
-          {onThisPage.length > 0 && (
-            <nav class="reveal page-hero__subnav" style="--i:5;" aria-label="On this page navigation">
-              <p class="page-hero__subnav-title">On this page</p>
-              <div class="page-hero__subnav-items">
-                {onThisPage.map((section: RailItem) => (
-                  <a href={`#${section.id}`} class="page-hero__nav-link">
-                    {section.label}
-                  </a>
-                ))}
-              </div>
-            </nav>
-          )}
         </div>
 
-        <figure class="page-hero__figure reveal" style="--i:5;">
+        <figure class="page-hero__figure page-hero__figure--field reveal" style="--i:5;">
           <div class="page-hero__media">
             <Picture
               src={image}
@@ -131,56 +119,4 @@ const heroSignals = [
 
   </main>
 
-  <script>
-    function setupSubnavObserver() {
-      const links = document.querySelectorAll<HTMLAnchorElement>('.page-hero__nav-link');
-      if (!links.length) return;
-
-      const sectionMap = new Map<Element, HTMLAnchorElement>();
-      links.forEach(link => {
-        const hash = link.getAttribute('href');
-        if (hash && hash.startsWith('#')) {
-          const target = document.querySelector(hash);
-          if (target) sectionMap.set(target, link);
-        }
-      });
-
-      if (!sectionMap.size) return;
-
-      // Remove any initial active class if we are near the top of the page
-      function checkActive() {
-        if (window.scrollY < 200) {
-          links.forEach(l => l.classList.remove('is-active'));
-        }
-      }
-      checkActive();
-
-      const observer = new IntersectionObserver((entries) => {
-        if (window.scrollY < 200) {
-          links.forEach(l => l.classList.remove('is-active'));
-          return;
-        }
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            links.forEach(l => l.classList.remove('is-active'));
-            const activeLink = sectionMap.get(entry.target);
-            if (activeLink) activeLink.classList.add('is-active');
-          }
-        });
-      }, {
-        rootMargin: '-30% 0px -50% 0px',
-        threshold: 0
-      });
-
-      sectionMap.forEach((_, section) => observer.observe(section));
-      window.addEventListener('scroll', checkActive, { passive: true });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupSubnavObserver);
-    } else {
-      setupSubnavObserver();
-    }
-    document.addEventListener('astro:page-load', setupSubnavObserver);
-  </script>
 </SiteLayout>

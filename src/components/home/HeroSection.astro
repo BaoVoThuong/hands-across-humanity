@@ -1,13 +1,14 @@
 ---
 import { Picture } from 'astro:assets';
-import h1 from '../../assets/images/h1.jpg';
-import h10 from '../../assets/images/h10.jpg';
-import h12 from '../../assets/images/h12.jpg';
-import h13 from '../../assets/images/h13.jpg';
-import h14 from '../../assets/images/h14.jpg';
+import {
+  educationRelief,
+  healthSupplies,
+  fleetDelivery,
+  communitySupportWide,
+  partnerShowcase,
+} from '../../assets/images/eps';
 
 interface Props {
-  kicker?: string;
   title?: string;
   lead?: string;
   donateUrl?: string;
@@ -15,43 +16,42 @@ interface Props {
 }
 
 const {
-  kicker = "Rapid Disaster Relief & Logistics",
-  title = "Saving Lives & Restoring Hope — One Delivery at a Time.",
-  lead = "Rapidly collecting and distributing essential supplies to children, families, veterans, older adults, and communities affected by disasters through public-private partnerships, a volunteer network, and fleet logistics.",
+  title = "From generous hands to communities in need.",
+  lead = "We move donated essentials through trusted local partners, volunteers, and fleet logistics so practical support reaches people when it matters most.",
   donateUrl = "/what-we-do/",
-  exploreUrl = "/who-we-are/"
+  exploreUrl = "/mission/"
 } = Astro.props;
 
 const slides = [
   {
-    image: h12,
-    alt: "Dedicated volunteers standing together behind community outreach table.",
-    lead: "Logistics & Volunteer Capacity",
-    title: "Dedicated Volunteer Network: Mobilizing teams and fleet capacity for rapid response."
+    image: partnerShowcase,
+    alt: "Volunteers and partners gathered behind a table of essential supplies.",
+    lead: "Community-powered relief",
+    title: "Turning generosity into practical support for communities under pressure."
   },
   {
-    image: h1,
-    alt: "Volunteers presenting essential supplies to community members.",
-    lead: "Disaster Preparedness",
-    title: "Preparedness & Education: Helping families, veterans, older adults, and children prepare."
+    image: educationRelief,
+    alt: "Children holding prepared school and relief kits with community volunteers.",
+    lead: "Preparedness & education",
+    title: "Equipping children and families with resources that make readiness possible."
   },
   {
-    image: h10,
-    alt: "Table arranged with health, wellness, and essential emergency supplies.",
-    lead: "Rapid Response & Distribution",
-    title: "Rapid Relief Delivery: Collecting donated products and distributing essential supplies efficiently."
+    image: healthSupplies,
+    alt: "Health, wellness, and essential supplies arranged for community distribution.",
+    lead: "Essential supplies",
+    title: "Collecting the everyday essentials that help people stay safe and well."
   },
   {
-    image: h14,
-    alt: "Three volunteers transport boxes of relief products.",
-    lead: "Recovery Support",
-    title: "Rebuilding Communities: Assisting individuals and partner organizations with targeted goods."
+    image: fleetDelivery,
+    alt: "Volunteers moving boxed supplies on a cart for direct delivery.",
+    lead: "Fleet & volunteer logistics",
+    title: "Moving support from staging tables to the people and places that need it."
   },
   {
-    image: h13,
-    alt: "Large community group of volunteers and families gathered together.",
-    lead: "Community & Faith Partnerships",
-    title: "Non-Discriminatory Action: Partnering with houses of worship and businesses to restore hope."
+    image: communitySupportWide,
+    alt: "Volunteers and community members coordinating support at a distribution event.",
+    lead: "Partnerships that reach further",
+    title: "Working across communities so relief is coordinated, welcoming, and direct."
   }
 ];
 ---
@@ -61,22 +61,25 @@ const slides = [
     <div class="hero-v2__grid">
       <div class="hero-v2__copy">
         <div class="hero-v2__kicker reveal" style="--i:1">
-          <span class="hero-v2__kicker-text">{kicker}</span>
+          <span class="hero-v2__kicker-text">Community-powered relief</span>
         </div>
-
         <h1 class="hero-v2__title reveal" style="--i:2">{title}</h1>
         <p class="hero-v2__lead reveal" style="--i:3">{lead}</p>
 
         <div class="btn-row reveal" style="--i:4">
           <a class="btn btn--primary btn--lg" href={donateUrl}>
-            Fund Direct Field Relief<span class="btn__arrow" aria-hidden="true">→</span>
+            Support Field Relief<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
           <a class="btn btn--ghost btn--lg" href={exploreUrl}>
-            Explore Active Field Projects
+            How We Work
           </a>
         </div>
 
-
+        <div class="hero-v2__proof reveal" style="--i:5" aria-label="How support moves">
+          <span class="hero-v2__proof-item">Local partners</span>
+          <span class="hero-v2__proof-item">Volunteer-powered</span>
+          <span class="hero-v2__proof-item">Fleet logistics</span>
+        </div>
       </div>
 
       <div class="hero-v2__media-col reveal" style="--i:3">
@@ -265,5 +268,3 @@ const slides = [
     startTimer();
   }
 </script>
-
-
