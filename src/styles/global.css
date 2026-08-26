@@ -52,6 +52,8 @@ html[data-theme="warm-ember"] {
   --divider-strong: #B5A896;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
   --focus-ring: #0F172A;
+
+  --logo-filter: none;
 }
 
 /* Theme 2: Ocean Trust & Hope */
@@ -102,6 +104,8 @@ html[data-theme="ocean-trust"] {
   --divider-strong: #94A3B8;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
   --focus-ring: #1E40AF;
+
+  --logo-filter: hue-rotate(205deg) saturate(1.3) brightness(0.95);
 }
 
 /* Theme 3: Forest Life & Eco-Sustainability */
@@ -152,6 +156,8 @@ html[data-theme="forest-life"] {
   --divider-strong: #A8A29E;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
   --focus-ring: #166534;
+
+  --logo-filter: hue-rotate(115deg) saturate(1.2) brightness(0.9);
 }
 
 /* Smooth Theme Switching Transitions */
@@ -821,6 +827,8 @@ p {
   object-fit: contain;
   display: block;
   border-radius: var(--radius-sm);
+  filter: var(--logo-filter, none);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 .brand__name {
   font-family: 'Newsreader Variable', Georgia, serif;
@@ -828,9 +836,13 @@ p {
   font-size: 1.25rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--slate-900);
+  color: var(--fg);
+  transition: color 0.3s ease;
 }
-.brand__name span { color: var(--primary); }
+.brand__name span {
+  color: var(--primary);
+  transition: color 0.3s ease;
+}
 
 /* Desktop Navigation */
 .desktop-nav { display: none; }
