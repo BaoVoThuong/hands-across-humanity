@@ -22,191 +22,153 @@ import h13 from '../assets/images/h13.jpg';
 import h14 from '../assets/images/h14.jpg';
 import h15 from '../assets/images/h15.jpg';
 
-const description = 'Hands Across Humanity connects global partners and donors directly with community relief, youth education, health care stations, and fresh food distribution.';
+const description = 'Hands Across Humanity is dedicated to rapidly collecting and distributing essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters.';
 
-const stats = [
-  { val: '15,000+', label: 'Families & Children Assisted' },
-  { val: '15', label: 'Field Relief Initiatives' },
-  { val: '98%', label: 'Direct Program Allocation' },
-  { val: '100%', label: 'Volunteer Driven Impact' }
-];
-
-const projects = [
+const coreFocusCards = [
   {
-    id: 'school',
-    title: 'Youth Education Backpack & Supply Drive',
-    category: 'Education',
-    location: 'Community Schools District',
+    id: 'preparedness',
+    title: 'Disaster Preparedness',
+    category: 'Preparedness',
+    location: 'Community & Outreach Centers',
     images: [
-      { src: h1, alt: 'Volunteers handing out Backpack Booster learning kits to primary school students.' },
-      { src: h2, alt: 'Volunteers smiling alongside young students with new school supplies.' },
-      { src: h13, alt: 'Group photo of volunteers and children celebrating gift distribution.' }
+      { src: h1, alt: 'Volunteers leading community disaster preparedness and family education sessions.' },
+      { src: h2, alt: 'Volunteers sharing outreach materials with community members.' }
     ],
-    progress: 95,
-    raised: '$38,000',
-    goal: '$40,000',
-    impact: '320 primary students equipped with complete school supply kits.',
-    auditPartner: 'Regional School District & Youth Board',
-    details: 'Delivers full Backpack Booster supply packages—containing notebooks, pens, colored pencils, and learning kits—directly to primary school students to ensure every child has the tools needed to succeed.'
+    tag: 'Education & Outreach',
+    impact: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
+    partner: 'Local Community Stakeholders',
+    details: 'Equips vulnerable populations with critical knowledge, preparedness guidance, and resources to navigate catastrophic events and all-hazards situations before crisis strikes.'
   },
   {
-    id: 'health',
-    title: 'Community Health & Medical Care Station',
-    category: 'Emergency Relief',
-    location: 'Regional Outreach Fair',
+    id: 'response',
+    title: 'Rapid Response & Distribution',
+    category: 'Rapid Aid',
+    location: 'Disaster Impact Zones',
     images: [
-      { src: h10, alt: 'Table filled with health supplements, OTC medications, and wellness kits.' },
-      { src: h9, alt: 'Outdoor hygiene products, grooming sets, and vitamins distribution booth.' },
-      { src: h7, alt: 'Volunteers helping seniors select health and medical care items.' }
+      { src: h14, alt: 'Volunteers deploying essential supplies via transport fleet.' },
+      { src: h10, alt: 'Staging health, wellness, and essential goods for distribution.' },
+      { src: h9, alt: 'Outreach booth distributing critical supplies to residents.' }
     ],
-    progress: 90,
-    raised: '$45,000',
-    goal: '$50,000',
-    impact: '1,200 local residents provided with essential health supplements & care kits.',
-    auditPartner: 'Community Health Choice & Regional Medical Network',
-    details: 'Establishes outreach stations stocked with vitamins, first aid items, eye care, pain relief, and immune support supplements, providing free wellness resources to under-served community members.'
+    tag: 'Fleet & Volunteer Logistics',
+    impact: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
+    partner: 'Dedicated Volunteer Network & Logistics Fleet',
+    details: 'Mobilizes our transport fleet and volunteer network to stage and deliver donated supplies directly to children, families, veterans, and older adults in disaster-stricken areas.'
   },
   {
-    id: 'food',
-    title: 'Fresh Produce & Emergency Food Relief',
-    category: 'Emergency Relief',
-    location: 'Community Distribution Center',
+    id: 'recovery',
+    title: 'Recovery Support',
+    category: 'Rebuilding',
+    location: 'Affected Communities',
     images: [
-      { src: h14, alt: 'Volunteers wheeling a cart loaded with heavy boxes of fresh produce.' },
-      { src: h4, alt: 'Hands passing gift and nutrition boxes at community station.' },
-      { src: h8, alt: 'Trained volunteers consulting elderly visitors at food relief station.' }
+      { src: h7, alt: 'Volunteers and community elders reviewing essential goods for rebuilding.' },
+      { src: h11, alt: 'Volunteers assisting community members with targeted recovery supplies.' }
     ],
-    progress: 88,
-    raised: '$31,500',
-    goal: '$35,000',
-    impact: '450 families provided with fresh fruit boxes and direct produce relief.',
-    auditPartner: 'Local Food Bank & Community Relief Network',
-    details: 'Mobilizes volunteer teams and transport carts to deliver heavy boxes of fresh fruit and nutritious produce to local families facing food insecurity.'
+    tag: 'Targeted Goods & Services',
+    impact: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
+    partner: 'Local Stakeholders & Community Alliances',
+    details: 'Focuses on long-term stability by providing targeted products, emergency goods, and rebuilding services to help individuals and partner organizations restore their lives.'
   },
   {
-    id: 'fair',
-    title: 'Grassroots Community Resource Fair',
-    category: 'Cooperatives',
-    location: 'Civic Event Center',
+    id: 'business',
+    title: 'Partnership Development',
+    category: 'Public-Private',
+    location: 'Corporate & Industry Network',
     images: [
-      { src: h12, alt: 'Team of volunteers showing heart gestures behind Excel Planning Solutions banner table.' },
-      { src: h3, alt: 'Overview of packed indoor community hall with information and relief booths.' },
-      { src: h15, alt: 'Community Health Choice volunteers smiling outside the event venue.' }
+      { src: h12, alt: 'Corporate partners and volunteers collaborating at relief staging area.' },
+      { src: h15, alt: 'Partner organization teams supporting distribution logistics.' }
     ],
-    progress: 92,
-    raised: '$27,600',
-    goal: '$30,000',
-    impact: '2,500 community members connected with vital healthcare & resource guidance.',
-    auditPartner: 'Excel Planning Solutions & Local Civic Association',
-    details: 'Brings together hundreds of volunteers and partner organizations to provide one-stop community support, offering health consultations, financial planning guidance, and direct aid.'
+    tag: 'Scalable Corporate Alliances',
+    impact: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
+    partner: 'Small, Mid-Size & Large Businesses',
+    details: 'Turns corporate surplus into vital lifelines by establishing transparent, scalable partnerships with businesses committed to placing resources into the right hands.'
   },
   {
-    id: 'senior',
-    title: 'Senior & Household Care Initiative',
-    category: 'Clean Water',
-    location: 'Community Outreach Centers',
+    id: 'faith',
+    title: 'Community & Faith Partnerships',
+    category: 'Faith & Civic',
+    location: 'Houses of Worship & Civic Hubs',
     images: [
-      { src: h7, alt: 'Elderly community members and monks browsing essential home appliances and wellness supplies.' },
-      { src: h11, alt: 'Volunteers assisting senior citizens under outdoor shade canopy.' },
-      { src: h6, alt: 'Volunteers explaining household support materials to family members.' }
+      { src: h5, alt: 'Volunteers and faith leaders coordinating community relief items.' },
+      { src: h13, alt: 'Community group gathered together for direct non-discriminatory distribution.' }
     ],
-    progress: 85,
-    raised: '$25,500',
-    goal: '$30,000',
-    impact: '380 seniors & vulnerable residents equipped with home essentials.',
-    auditPartner: 'Senior Community Services & Monastic Support Network',
-    details: 'Provides tailored home comfort goods—including dehumidifiers, heating pads, mobility items, and dietary supplements—to senior citizens and local community elders.'
-  },
-  {
-    id: 'holiday',
-    title: 'Holiday Family Gift & Support Drive',
-    category: 'Education',
-    location: 'Metropolitan Community Center',
-    images: [
-      { src: h13, alt: 'Large group of volunteers, children, and families with bright holiday gift packages.' },
-      { src: h5, alt: 'Volunteers organizing gift packages and community guidance materials.' },
-      { src: h15, alt: 'Volunteer team members celebrating successful holiday distribution.' }
-    ],
-    progress: 96,
-    raised: '$33,600',
-    goal: '$35,000',
-    impact: '600 children and families receiving holiday care packages & gifts.',
-    auditPartner: 'Metropolitan Youth & Family Services Alliance',
-    details: 'Mobilizes volunteer groups to assemble, wrap, and distribute colorful holiday gift packages, toys, and winter essentials to low-income children and families.'
+    tag: 'Non-Discriminatory Action',
+    impact: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
+    partner: 'Houses of Worship & Civic Organizations',
+    details: 'Works closely with local faith centers and community leaders to build trust, deepen engagement, and ensure non-discriminatory aid delivery across every neighborhood.'
   }
 ];
 
 const processSteps = [
-  { num: '01', title: 'Strategic Collection & Staging', text: 'Collecting donated products and partnering with corporate suppliers to stage essential resources.' },
-  { num: '02', title: 'Rapid Fleet Deployment', text: 'Mobilizing our transport fleet and logistics network for swift, coordinated disaster response.' },
-  { num: '03', title: 'Non-Discriminatory Aid Distribution', text: 'Collaborating with faith & local stakeholders to deliver supplies directly to children, families, seniors & veterans.' },
-  { num: '04', title: 'Transparent Recovery Support', text: 'Assisting in long-term rebuilding with targeted goods, creating measurable value and transparent accountability.' }
+  { num: '01', title: 'Strategic Collection & Staging', text: 'Collecting donated products and partnering with businesses of every size to turn surplus into lifelines.' },
+  { num: '02', title: 'Rapid Fleet & Volunteer Logistics', text: 'Mobilizing our dedicated transport fleet and volunteer network for swift, efficient disaster response.' },
+  { num: '03', title: 'Non-Discriminatory Aid Distribution', text: 'Collaborating with houses of worship and local stakeholders to deliver supplies directly to children, families, seniors & veterans.' },
+  { num: '04', title: 'Targeted Recovery Support', text: 'Assisting individuals and partner organizations in long-term rebuilding, reducing long-term costs of recovery.' }
 ];
 
 const testimonials = [
   {
-    quote: '“Partnering with Hands Across Humanity ensures our corporate surplus products and supplies directly reach children and families struggling after catastrophic events.”',
-    name: 'Sarah Jenkins',
-    role: 'VP of Corporate Responsibility',
-    organization: 'Enterprise Supply Alliance',
-    location: 'Houston, TX',
+    quote: '“Partnering with Hands Across Humanity ensures our surplus products and supplies directly reach children, families, veterans, and older adults struggling after catastrophic events.”',
+    name: 'Corporate Resource Partner',
+    role: 'Public-Private Alliance Representative',
+    organization: 'Business & Enterprise Network',
+    location: 'Houston & Nationwide',
     category: 'foundations',
     verified: true,
-    verifiedText: 'Corporate Partner',
-    projectId: 'food',
-    projectTitle: 'Emergency Supply Distribution',
-    initials: 'SJ',
+    verifiedText: 'Corporate Alliance',
+    projectId: 'business',
+    projectTitle: 'Partnership Development',
+    initials: 'CP',
     accentColor: 'var(--primary)'
   },
   {
     quote: '“Collaborating on a non-discriminatory basis allows houses of worship and community stakeholders to extend reach, build trust, and deliver direct relief where needed most.”',
-    name: 'Pastor David Miller',
-    role: 'Community Faith Coordinator',
-    organization: 'Houston Faith & Civic Coalition',
-    location: 'Regional Network',
+    name: 'Community Faith Stakeholder',
+    role: 'Faith & Civic Coordinator',
+    organization: 'Community & Faith Network',
+    location: 'Regional Hubs',
     category: 'field-leaders',
     verified: true,
     verifiedText: 'Faith Partner',
-    projectId: 'fair',
-    projectTitle: 'Community Resource Fair',
-    initials: 'DM',
+    projectId: 'faith',
+    projectTitle: 'Community & Faith Partnerships',
+    initials: 'FP',
     accentColor: 'var(--emerald)'
   },
   {
-    quote: '“Speed and clear logistics make all the difference. Their fleet capacity and volunteer network get critical emergency supplies into the right hands before despair takes hold.”',
-    name: 'Elena Rostova',
-    role: 'Disaster Relief Coordinator',
-    organization: 'Rapid Fleet Response Network',
+    quote: '“When disaster strikes, speed, coordination, and the right supplies in the right hands make the difference between recovery and prolonged hardship.”',
+    name: 'Disaster Relief Logistics Lead',
+    role: 'Fleet & Dispatch Coordinator',
+    organization: 'Volunteer & Fleet Network',
     location: 'Disaster Impact Zones',
     category: 'field-leaders',
     verified: true,
-    verifiedText: 'Fleet Logistics Partner',
-    projectId: 'health',
-    projectTitle: 'Rapid Distribution Operations',
+    verifiedText: 'Logistics Partner',
+    projectId: 'response',
+    projectTitle: 'Rapid Response Operations',
     avatar: h15
   }
 ];
 
 const faqs = [
   {
-    category: 'Financials',
-    q: 'What percentage of my donation goes directly to ground programs?',
-    a: 'Exactly 94% of every dollar donated directly funds ground supplies, engineering equipment, and local partner execution. Only 6% covers administrative audit compliance and payment processing.'
+    category: 'Mission & Focus',
+    q: 'Who does Hands Across Humanity serve?',
+    a: 'We rapidly collect and distribute essential supplies to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations.'
   },
   {
-    category: 'Field Vetting',
-    q: 'How are local field partners selected and vetted?',
-    a: 'We work exclusively with legally registered community non-profits and field cooperatives that have at least 3 years of proven operational history and local governance transparency.'
+    category: 'Logistics & Fleet',
+    q: 'How does Hands Across Humanity ensure rapid aid distribution?',
+    a: 'Through efficient logistics supported by our dedicated transport fleet and volunteer network, we swiftly stage and deliver donated supplies directly to those in need.'
   },
   {
-    category: 'Tax & Compliance',
-    q: 'Is my donation tax-deductible and how do I receive receipts?',
-    a: 'Yes! Hands Across Humanity is a registered 501(c)(3) public charity. An official tax-deductible receipt with detailed audit serial numbers is emailed instantly upon donation.'
+    category: 'Partnerships',
+    q: 'How do businesses and houses of worship collaborate with Hands Across Humanity?',
+    a: 'We build lasting alliances with small, mid-size, and large businesses to deploy goods at scale, while collaborating with houses of worship and community stakeholders on a non-discriminatory basis.'
   },
   {
-    category: 'Enterprise & Foundations',
-    q: 'Can corporate partners or foundations sponsor specific projects?',
-    a: 'Absolutely. We offer dedicated co-sponsorship programs for foundations and enterprises, including customized impact dashboards and quarterly field audit reports.'
+    category: 'Accountability',
+    q: 'What principles guide your humanitarian operations?',
+    a: 'Our model is built on scalability, transparency, clear logistics, volunteer and fleet capacity, and an unwavering commitment to serving every community without discrimination.'
   }
 ];
 ---
