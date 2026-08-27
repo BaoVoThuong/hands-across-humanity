@@ -9,17 +9,36 @@ const sections = [
   { id: 'model', label: 'Why it matters' },
   { id: 'practice', label: 'Our model' }
 ];
+
+const heroSignals = [
+  {
+    title: 'People who care',
+    text: 'Neighbors, volunteers, businesses, and local leaders working together.',
+  },
+  {
+    title: 'Practical work',
+    text: 'Collecting, preparing, and sharing goods people can use.',
+  },
+  {
+    title: 'Local knowledge',
+    text: 'Community relationships guide where support goes next.',
+  },
+];
 ---
 
 <EditorialPage
   activePage="who-we-are"
   eyebrow="Who we are"
-  title="Why Hands Across Humanity Matters."
-  lead="When disaster strikes, the difference between recovery and prolonged hardship often comes down to speed, coordination, and the right supplies in the right hands. Hands Across Humanity exists to close that gap."
-  description="We collect, prepare, and share products that help people stay safe, healthy, and able to rebuild, while partnering with businesses that want their resources to reach those who need them most."
+  title="A network built around useful support."
+  lead="Hands Across Humanity connects neighbors, volunteers, businesses, and local leaders around practical work that helps communities prepare, respond, and recover."
+  description="The network brings together people who have goods to share, time to give, and local knowledge to guide the work."
   image={communitySupportWide}
   imageAlt="Volunteers and community members coordinating support at a distribution event."
   caption="Donated goods prepared for a community distribution event."
+  secondaryHref="/what-we-do/"
+  secondaryLabel="See the work"
+  heroSignals={heroSignals}
+  quote="“Good support begins with local knowledge and shared responsibility.”"
   nextHref="/mission/"
   nextLabel="Read our mission"
   sections={sections}
@@ -32,7 +51,7 @@ const sections = [
         <p class="eyebrow reveal">A clear path to support</p>
         <h2 class="reveal" style="--i:1" id="model-title">Good intentions need a clear path to people.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">We make it easier to give useful goods, prepare them well, and share them through trusted community relationships.</p>
+        <p class="lead reveal" style="--i:2">The work follows a simple path: understand the need, prepare useful goods, and share them through trusted relationships.</p>
     </div>
 
     <!-- Editorial Showcase Layout -->
@@ -49,10 +68,10 @@ const sections = [
             <span class="model-editorial-block__tag">Community accountability</span>
           </div>
           <p class="model-editorial-block__lead">
-            Our model is designed for scale and accountability: practical donations, dedicated volunteers, transparent partnerships, and a commitment to serving every community without discrimination.
+            Our model brings together practical goods, dedicated volunteers, trusted partnerships, and a commitment to serving every community without discrimination.
           </p>
           <p class="model-editorial-block__body">
-            This approach creates meaningful value for donors, corporate partners, and the public by helping useful resources reach people with care and purpose.
+            It gives people, businesses, and community groups a clear way to turn available resources into care.
           </p>
         </div>
       </div>
@@ -98,7 +117,7 @@ const sections = [
   <Panel id="practice" ground="paper" index={3} total={3} label="Our model" labelledby="practice-title" ctaHref="/mission/" ctaLabel="Read our mission">
     <div class="panel-head">
       <p class="eyebrow reveal">How we make giving useful</p>
-      <h2 class="reveal" style="--i:1" id="practice-title">Three habits behind the work.</h2>
+      <h2 class="reveal" style="--i:1" id="practice-title">Three habits shape the work.</h2>
     </div>
     
     <div class="modest-flow reveal" style="--i:2">

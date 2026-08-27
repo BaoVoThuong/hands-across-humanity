@@ -4,6 +4,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import Panel from '../components/Panel.astro';
 
 interface RailItem { id: string; label: string; }
+interface SignalItem { title: string; text: string; }
 interface Props {
   title: string;
   description: string;
@@ -15,6 +16,9 @@ interface Props {
   caption: string;
   nextHref: string;
   nextLabel: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  heroSignals?: SignalItem[];
   quote?: string;
   sections: RailItem[];
   total: number;
@@ -22,25 +26,28 @@ interface Props {
 
 const {
   title, description, activePage, eyebrow, lead,
-  image, imageAlt, caption, nextHref, nextLabel, quote, sections, total
+  image, imageAlt, caption, nextHref, nextLabel,
+  secondaryHref = '/what-we-do/',
+  secondaryLabel = 'See the work',
+  heroSignals = [
+    {
+      title: 'Local leadership',
+      text: 'People closest to the work help decide what is safe, possible and still needed.',
+    },
+    {
+      title: 'Practical support',
+      text: 'Health, hygiene, household, and education essentials make a difficult day more manageable.',
+    },
+    {
+      title: 'Staying power',
+      text: 'Local relationships keep support grounded after the urgent moment has passed.',
+    },
+  ],
+  quote, sections, total
 } = Astro.props;
 
 const onThisPage = sections.slice(1);
 const firstSection = onThisPage[0];
-const heroSignals = [
-  {
-    title: 'Local leadership',
-    text: 'People closest to the work help decide what is safe, possible and still needed.',
-  },
-  {
-    title: 'Practical support',
-    text: 'Health, hygiene, household, and education essentials make a difficult day more manageable.',
-  },
-  {
-    title: 'Staying power',
-    text: 'Local relationships keep support grounded after the urgent moment has passed.',
-  },
-];
 ---
 
 <SiteLayout
@@ -63,7 +70,7 @@ const heroSignals = [
                 {firstSection.label}<span class="btn__arrow" aria-hidden="true">↓</span>
               </a>
             )}
-            <a class="btn btn--secondary" href="/#donate">Support Our Mission</a>
+            <a class="btn btn--secondary" href={secondaryHref}>{secondaryLabel}</a>
           </div>
 
         </div>

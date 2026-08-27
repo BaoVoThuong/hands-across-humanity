@@ -17,6 +17,21 @@ const sections = [
   { id: 'rules', label: 'Three pillars' }
 ];
 
+const heroSignals = [
+  {
+    title: 'Who we serve',
+    text: 'Children, families, veterans, older adults, and communities facing urgent need.',
+  },
+  {
+    title: 'How support moves',
+    text: 'Collected, prepared, and shared through local partners and volunteers.',
+  },
+  {
+    title: 'Why it matters',
+    text: 'Faster, more dignified support when everyday life is disrupted.',
+  },
+];
+
 const ruleCards = [
   {
     num: '01',
@@ -66,6 +81,10 @@ const ruleCards = [
   image={reliefDistributionWide}
   imageAlt="Volunteers and community members coordinating relief distribution in a large public hall."
   caption="Saving lives and restoring hope, one delivery at a time."
+  secondaryHref="/what-we-do/"
+  secondaryLabel="See the work"
+  heroSignals={heroSignals}
+  quote="“A clear mission turns good intentions into practical support.”"
   nextHref="/what-we-do/"
   nextLabel="See what we do"
   sections={sections}
@@ -76,9 +95,9 @@ const ruleCards = [
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">How we operate</p>
-        <h2 class="reveal" style="--i:1" id="approach-title">From generosity to a response people can feel.</h2>
+        <h2 class="reveal" style="--i:1" id="approach-title">From available goods to useful support.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Through strategic partnerships, dedicated volunteers, and reliable transport support, we help communities prepare, respond, and recover with dignity.</p>
+      <p class="lead reveal" style="--i:2">Partnerships, volunteers, and reliable transport help communities prepare, respond, and recover with dignity.</p>
     </div>
     
     <div class="columns approach-columns reveal" style="--i:3;">
@@ -101,8 +120,8 @@ const ruleCards = [
           <span class="approach-photo-caption__text">Collecting essential goods for community support</span>
         </figcaption>
         <div class="approach-card__content">
-          <h3 class="approach-card__title">Collect what communities can use</h3>
-          <p class="approach-card__body">We turn useful donations into practical support for children, families, veterans, and older adults when needs become urgent.</p>
+          <h3 class="approach-card__title">Collect what people can use</h3>
+          <p class="approach-card__body">Useful goods become practical support for children, families, veterans, and older adults when needs become urgent.</p>
           <div class="approach-card__stat">
             <span class="approach-card__stat-val">Essential goods</span>
             <span class="approach-card__stat-label">Health, hygiene, household, and education supplies</span>
@@ -135,7 +154,7 @@ const ruleCards = [
         </figcaption>
         <div class="approach-card__content">
           <h3 class="approach-card__title">Share through trusted relationships</h3>
-          <p class="approach-card__body">Local partners and volunteers help support reach people in a way that is welcoming, non-discriminatory, and grounded in dignity.</p>
+          <p class="approach-card__body">Local partners and volunteers help useful support reach people in a welcoming, non-discriminatory, and dignified way.</p>
           <div class="approach-card__stat">
             <span class="approach-card__stat-val">Collaborative</span>
             <span class="approach-card__stat-label">Uniting businesses, volunteers, and local leadership</span>

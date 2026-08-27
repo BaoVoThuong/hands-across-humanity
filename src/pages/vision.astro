@@ -8,6 +8,21 @@ const sections = [
   { id: 'principles', label: 'Coalition' },
   { id: 'belief', label: 'Reach' }
 ];
+
+const heroSignals = [
+  {
+    title: 'Connected communities',
+    text: 'People and partners ready to respond before hardship grows.',
+  },
+  {
+    title: 'Shared resources',
+    text: 'Surplus goods become practical support for a real need.',
+  },
+  {
+    title: 'Local reach',
+    text: 'A wider network grows from Houston outward.',
+  },
+];
 ---
 
 <EditorialPage
@@ -15,10 +30,14 @@ const sections = [
   eyebrow="Our vision"
   title="A nation where no one faces crisis alone."
   lead="We believe coordinated support should reach people in need before a difficult moment becomes prolonged hardship."
-  description="We envision strong, scalable partnerships between businesses of every size, houses of worship, nonprofits, and local stakeholders that turn surplus resources into practical support."
+  description="We envision strong partnerships between businesses, houses of worship, nonprofits, and local stakeholders that turn surplus into lifelines and coordinated logistics into dependable support."
   image={partnerCommunity}
   imageAlt="Community partners and families gathered with prepared support packages."
   caption="Partners sharing prepared goods with families and communities."
+  secondaryHref="/who-we-are/"
+  secondaryLabel="Meet the network"
+  heroSignals={heroSignals}
+  quote="“Strong partnerships make practical support possible at a wider scale.”"
   nextHref="/who-we-are/"
   nextLabel="Meet the people behind the work"
   sections={sections}
@@ -29,7 +48,7 @@ const sections = [
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">A wider circle of care</p>
-        <h2 class="reveal" style="--i:1" id="vision-principles-title">Make every donation count.</h2>
+        <h2 class="reveal" style="--i:1" id="vision-principles-title">Build a wider circle of support.</h2>
       </div>
       <p class="lead reveal" style="--i:2">We build strong partnerships that bridge the gap between available resources and urgent community needs.</p>
     </div>
@@ -48,8 +67,8 @@ const sections = [
           <span class="principle-item__num">02</span>
           <span class="principle-item__kicker">Useful resources</span>
         </header>
-        <h3 class="principle-item__title">Turn surplus into support</h3>
-        <p class="principle-item__body">We help useful products move from businesses and donors to people who can use them when needs are urgent.</p>
+          <h3 class="principle-item__title">Turn availability into support</h3>
+        <p class="principle-item__body">We help useful products move from businesses and contributors to people who can use them when needs are urgent.</p>
       </article>
 
       <article class="principle-item reveal" style="--i:5">
@@ -57,8 +76,8 @@ const sections = [
           <span class="principle-item__num">03</span>
           <span class="principle-item__kicker">Shared impact</span>
         </header>
-        <h3 class="principle-item__title">Multiply care</h3>
-        <p class="principle-item__body">Non-discriminatory action helps many partners extend practical support further than any one organization could alone.</p>
+          <h3 class="principle-item__title">Grow local capacity</h3>
+          <p class="principle-item__body">Coordinated, non-discriminatory action helps partners reach further together.</p>
       </article>
     </div>
   </Panel>
@@ -84,18 +103,18 @@ const sections = [
       </div>
       <div class="modest-step">
         <span class="modest-step__num">03</span>
-        <h3 class="modest-step__title">Multiply impact</h3>
+        <h3 class="modest-step__title">Grow the network</h3>
         <p class="modest-step__desc">Build bridges of practical support that can grow from Houston to communities facing urgent need.</p>
       </div>
     </div>
 
     <div class="columns columns--wide prose reveal" style="--i:3; margin-top: var(--space-6);">
       <p>From Houston outward, Hands Across Humanity builds practical connections that protect vulnerable people and strengthen communities.</p>
-      <p>We show how efficient, non-discriminatory action can unite diverse partners and multiply impact far beyond what any single organization could achieve alone.</p>
+      <p>We show how coordinated, non-discriminatory action can unite diverse partners and extend practical support further together.</p>
     </div>
 
     <blockquote class="editorial-quote reveal" style="--i:4; margin-top: var(--space-7);">
-      <p class="editorial-quote__text">“Efficient, non-discriminatory action can multiply impact far beyond any single organization.”</p>
+      <p class="editorial-quote__text">“Strong partnerships make practical support possible at a wider scale.”</p>
       <cite class="editorial-quote__cite">Hands Across Humanity vision statement</cite>
     </blockquote>
   </Panel>

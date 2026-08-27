@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Questions about giving and support",
-  subtitle = "Clear answers about donating goods, volunteering, partnerships, and how support reaches the community.",
+  title = "Questions about the work",
+  subtitle = "A quick look at what we collect, who helps, and how support reaches communities.",
   faqs
 } = Astro.props;
 ---
@@ -38,10 +38,10 @@ const {
             </svg>
           </div>
           <div class="faq-support-body">
-            <h3 class="faq-support-heading">Want to make a donation useful?</h3>
-            <p class="faq-support-text">Businesses, community groups, and volunteers can help collect, prepare, or share practical goods with people who need them.</p>
-            <a href="/vision/" class="faq-support-link">
-              Find a way to help
+            <h3 class="faq-support-heading">Want to take part?</h3>
+            <p class="faq-support-text">People, businesses, and community groups can help make local support possible.</p>
+            <a href="/what-we-do/" class="faq-support-link">
+              Explore the work
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -165,4 +165,3 @@ const {
     new Accordion(el);
   });
 </script>
-

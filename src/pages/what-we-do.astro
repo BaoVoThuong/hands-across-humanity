@@ -17,71 +17,86 @@ const sections = [
   { id: 'connect', label: 'Ecosystem' }
 ];
 
+const heroSignals = [
+  {
+    title: 'Education and family',
+    text: 'School kits and child-focused goods support learning and readiness.',
+  },
+  {
+    title: 'Health and household',
+    text: 'Everyday essentials help make difficult moments more manageable.',
+  },
+  {
+    title: 'Community care',
+    text: 'Welcoming distribution brings useful goods closer to the people who need them.',
+  },
+];
+
 const workAreas = [
   {
     num: '01',
-    category: 'Education & family',
-    title: 'Support learning and readiness',
-    body: 'School kits and child-focused goods help children and families feel prepared, supported, and ready to keep learning.',
-    stat: 'Education essentials',
-    statLabel: 'School and family support',
+    category: 'Learning and readiness',
+    title: 'Help children keep learning',
+    body: 'School kits and child-focused goods help families stay ready when daily life is disrupted.',
+    stat: 'School essentials',
+    statLabel: 'Kits for learning and readiness',
     location: 'Schools & community events',
     image: childrenOutreach,
     alt: 'Volunteers sharing educational kits with children and families.',
-    href: '/#donate',
-    linkText: 'Support education'
+    href: '/what-we-do/#areas',
+    linkText: 'See this work'
   },
   {
     num: '02',
     category: 'Health & household',
-    title: 'Share practical essentials',
-    body: 'Health, hygiene, wellness, and household goods become immediate support when they are matched with a real need.',
+    title: 'Share everyday essentials',
+    body: 'Health, hygiene, wellness, and household goods meet practical needs when routines are disrupted.',
     stat: 'Everyday needs',
     statLabel: 'Health, hygiene, and household supplies',
     location: 'Community distribution events',
     image: healthSupplies,
     alt: 'Health, wellness, and essential supplies arranged for community distribution.',
-    href: '/#donate',
-    linkText: 'Give useful goods'
+    href: '/what-we-do/#areas',
+    linkText: 'See this work'
   },
   {
     num: '03',
     category: 'Community care',
-    title: 'Reach people with dignity',
-    body: 'Community distribution brings essential goods closer to children, families, veterans, older adults, and neighbors who need support.',
-    stat: 'Direct support',
-    statLabel: 'Welcoming, non-discriminatory distribution',
+    title: 'Make each handoff welcoming',
+    body: 'Local distribution brings useful goods closer to children, families, veterans, older adults, and neighbors.',
+    stat: 'Community support',
+    statLabel: 'Dignified, non-discriminatory distribution',
     location: 'Local community hubs',
     image: reliefStation,
     alt: 'Community members receiving essential goods at a relief station.',
-    href: '/#donate',
-    linkText: 'Support community care'
+    href: '/what-we-do/#areas',
+    linkText: 'See this work'
   },
   {
     num: '04',
-    category: 'Business giving',
-    title: 'Turn surplus into support',
-    body: 'Businesses of every size can help useful products reach people instead of sitting unused when communities are under pressure.',
+    category: 'Business partnership',
+    title: 'Put surplus to good use',
+    body: 'Businesses can help useful products reach people instead of sitting unused when communities are under pressure.',
     stat: 'Shared resources',
-    statLabel: 'Corporate and enterprise partnerships',
+    statLabel: 'Business and community contributions',
     location: 'Business partner network',
     image: partnerTeam,
     alt: 'Partner representatives supporting a community relief event.',
     href: '/vision/',
-    linkText: 'Partner with us'
+    linkText: 'Explore partnerships'
   },
   {
     num: '05',
-    category: 'Volunteers & partners',
-    title: 'Make support possible',
-    body: 'Volunteers, nonprofits, houses of worship, and local leaders help turn donations into care that is personal, practical, and trusted.',
-    stat: 'People-powered',
-    statLabel: 'Volunteer and community partnerships',
+    category: 'People-powered support',
+    title: 'Make the work possible',
+    body: 'Volunteers, nonprofits, houses of worship, and local leaders help turn goods into care people can trust.',
+    stat: 'Shared responsibility',
+    statLabel: 'Volunteer and partner support',
     location: 'Houses of worship & civic hubs',
     image: communitySupplies,
     alt: 'Volunteers and community members coordinating essential goods at a relief station.',
     href: '/vision/',
-    linkText: 'Join the network'
+    linkText: 'Meet the network'
   }
 ];
 ---
@@ -89,12 +104,16 @@ const workAreas = [
 <EditorialPage
   activePage="what-we-do"
   eyebrow="What we do"
-  title="How donations become community support."
+  title="Turning useful donations into community support."
   lead="We collect useful goods, prepare them with care, and share them with people and partners facing urgent need."
-  description="Hands Across Humanity brings together donors, volunteers, businesses, houses of worship, nonprofits, and local leaders to turn resources into practical support."
+  description="Hands Across Humanity brings together contributors, volunteers, businesses, houses of worship, nonprofits, and local leaders to turn useful goods into practical support."
   image={educationRelief}
   imageAlt="Children holding prepared school and relief kits with community volunteers."
   caption="Education essentials prepared for children and families."
+  secondaryHref="/mission/"
+  secondaryLabel="Read the mission"
+  heroSignals={heroSignals}
+  quote="“Useful goods become support when people prepare and share them together.”"
   nextHref="/vision/"
   nextLabel="Read our vision"
   sections={sections}
@@ -105,9 +124,9 @@ const workAreas = [
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">Where support goes</p>
-        <h2 class="reveal" style="--i:1" id="areas-title">Five ways your support can help.</h2>
+        <h2 class="reveal" style="--i:1" id="areas-title">Five ways support reaches people.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Each pathway starts with a clear community need and ends with practical goods reaching people with dignity.</p>
+      <p class="lead reveal" style="--i:2">Each activity starts with a local need and ends with practical support in the community.</p>
     </div>
     
     <div class="bento-areas-grid reveal" style="--i:3;">
@@ -164,9 +183,9 @@ const workAreas = [
     <div class="panel-head panel-head--split" style="margin-bottom: clamp(0.4rem, 1vh, 0.75rem);">
       <div class="panel-head__title">
         <p class="eyebrow reveal">People make the difference</p>
-        <h2 class="reveal" style="--i:1" id="connect-title">Giving works better when people work together.</h2>
+        <h2 class="reveal" style="--i:1" id="connect-title">People make the work possible.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Businesses, volunteers, nonprofits, houses of worship, and local leaders each bring something essential to the work of helping communities recover.</p>
+      <p class="lead reveal" style="--i:2">Businesses, volunteers, nonprofits, houses of worship, and local leaders each move support from availability to action.</p>
     </div>
     
     <div class="connect-journal-grid reveal" style="--i:3;">
@@ -175,37 +194,38 @@ const workAreas = [
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">01</span>
-          <span class="connect-story__title">Give useful goods</span>
-            <span class="connect-story__stat">Health & education</span>
+          <span class="connect-story__title">Bring useful goods</span>
+            <span class="connect-story__stat">Practical items</span>
           </div>
-          <p class="connect-story__body">Donated health, hygiene, household, and education supplies give communities something practical to work with.</p>
+          <p class="connect-story__body">Health, hygiene, household, and education supplies give communities something practical to work with.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">02</span>
-          <span class="connect-story__title">Prepare donations</span>
+          <span class="connect-story__title">Prepare for the need</span>
             <span class="connect-story__stat">Sort & organize</span>
           </div>
-          <p class="connect-story__body">Volunteers sort and organize goods so the right items are ready for the right community partner.</p>
+          <p class="connect-story__body">Volunteers sort and organize goods so useful items are ready for a community partner.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">03</span>
-          <span class="connect-story__title">Share with neighbors</span>
+          <span class="connect-story__title">Share locally</span>
             <span class="connect-story__stat">Community events</span>
           </div>
-          <p class="connect-story__body">Local distribution events help essential support reach children, families, older adults, veterans, and neighbors with dignity.</p>
+          <p class="connect-story__body">Local distribution events help essential support reach children, families, older adults, veterans, and neighbors.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">04</span>
-          <span class="connect-story__title">Partner for reach</span>
+          <span class="connect-story__title">Work together</span>
             <span class="connect-story__stat">Shared responsibility</span>
           </div>
-          <p class="connect-story__body">Businesses, nonprofits, houses of worship, and local stakeholders help extend reach and build trust without discrimination.</p>
+          <p class="connect-story__body">Businesses, nonprofits, houses of worship, and local stakeholders extend reach and build trust.
+          </p>
         </article>
       </div>
 
