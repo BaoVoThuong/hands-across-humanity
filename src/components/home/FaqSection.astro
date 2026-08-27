@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Governance & Humanitarian Operations",
-  subtitle = "Direct answers regarding our mission, rapid fleet logistics, public-private partnerships, and non-discriminatory service model.",
+  title = "Questions about giving and support",
+  subtitle = "Clear answers about donating goods, volunteering, partnerships, and how support reaches the community.",
   faqs
 } = Astro.props;
 ---
@@ -24,7 +24,7 @@ const {
       <!-- Cột trái: Header & Trust Support Card -->
       <div class="faq-sidebar reveal">
         <div class="faq-header-block">
-          <p class="eyebrow faq-trust-line">Audited Governance & Compliance</p>
+          <p class="eyebrow faq-trust-line">Giving with confidence</p>
           <h2 class="faq-title">{title}</h2>
           <p class="faq-subtitle">{subtitle}</p>
         </div>
@@ -38,10 +38,10 @@ const {
             </svg>
           </div>
           <div class="faq-support-body">
-            <h3 class="faq-support-heading">Interested in corporate or community partnerships?</h3>
-            <p class="faq-support-text">We build lasting alliances with businesses, houses of worship, and local stakeholders to turn surplus into lifelines and logistics into hope.</p>
+            <h3 class="faq-support-heading">Want to make a donation useful?</h3>
+            <p class="faq-support-text">Businesses, community groups, and volunteers can help collect, prepare, or share practical goods with people who need them.</p>
             <a href="/vision/" class="faq-support-link">
-              Explore Partnership Opportunities
+              Find a way to help
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -165,5 +165,4 @@ const {
     new Accordion(el);
   });
 </script>
-
 

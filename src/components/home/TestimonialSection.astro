@@ -31,13 +31,13 @@ interface Props {
 }
 
 const {
-  kicker = "Scalable Partner Ecosystem",
-  title = "Built on Strategic Public-Private Partnerships",
-  lead = "From Houston outward, we build lasting alliances with businesses, houses of worship, and community stakeholders to turn surplus into lifelines.",
+  kicker = "People-powered support",
+  title = "Built by people who choose to help",
+  lead = "Businesses, houses of worship, volunteers, and community partners make it possible for useful goods to reach people with dignity.",
   partnerLogos = [
     { name: "Corporate Supply Partners", category: "Business" },
     { name: "Houses of Worship & Faith Hubs", category: "Faith" },
-    { name: "Community Disaster Alliances", category: "Relief" }
+    { name: "Community Support Partners", category: "Relief" }
   ],
   testimonials
 } = Astro.props;
@@ -52,7 +52,7 @@ const foundationCount = testimonials.filter(t => t.category === 'foundations').l
       <span class="section-kicker">{kicker}</span>
       <h2>{title}</h2>
       <p class="partner-cosigners">
-        Field & Audit Partners: {partnerLogos.map((p, idx) => (
+        Community partners: {partnerLogos.map((p, idx) => (
           <span>{p.name}{idx < partnerLogos.length - 1 ? ' · ' : ''}</span>
         ))}
       </p>
@@ -87,7 +87,7 @@ const foundationCount = testimonials.filter(t => t.category === 'foundations').l
 
           {t.projectTitle && (
             <a href="#projects" class="testimonial-card__proof-link">
-              <span>Audited: {t.projectTitle}</span>
+              <span>Learn about: {t.projectTitle}</span>
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="12" height="12">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>

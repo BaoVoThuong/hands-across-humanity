@@ -8,11 +8,11 @@ interface Props {
 }
 
 const {
-  kicker = "Direct Humanitarian Action",
-  title = "See the work behind the mission.",
-  lead = "Explore the local partnerships, field projects and long-term work that turn practical support into lasting community resilience.",
+  kicker = "Practical ways to help",
+  title = "Help useful goods reach the people who need them.",
+  lead = "Give practical items, volunteer your time, or partner with us to make community support more direct and more dignified.",
   donateUrl = "/what-we-do/",
-  governanceUrl = "/who-we-are/"
+  governanceUrl = "/mission/"
 } = Astro.props;
 ---
 
@@ -24,15 +24,15 @@ const {
 
     <div class="btn-row closing-cta-actions reveal" style="--i:4">
       <a class="btn btn--primary closing-cta-btn-primary" href={donateUrl} id="closing-donate-btn">
-        Explore Field Work<span class="btn__arrow" aria-hidden="true">→</span>
+        See how to help<span class="btn__arrow" aria-hidden="true">→</span>
       </a>
       <a class="btn btn--ghost closing-cta-btn-secondary" href={governanceUrl}>
-        Learn About Governance
+        Read our mission
       </a>
     </div>
 
     <div class="closing-cta-trust reveal" style="--i:5">
-      <span>Local partners · Field updates · Audited reports</span>
+      <span>Useful goods · Local partners · Clear accountability</span>
     </div>
   </div>
 </section>

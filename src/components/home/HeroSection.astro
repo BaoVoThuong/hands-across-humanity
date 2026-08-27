@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import {
   educationRelief,
   healthSupplies,
-  fleetDelivery,
+  supplyStaging,
   communitySupportWide,
   partnerShowcase,
 } from '../../assets/images/eps';
@@ -16,9 +16,9 @@ interface Props {
 }
 
 const {
-  title = "From generous hands to communities in need.",
-  lead = "We move donated essentials through trusted local partners, volunteers, and fleet logistics so practical support reaches people when it matters most.",
-  donateUrl = "/what-we-do/",
+  title = "Useful donations. Shared with care.",
+  lead = "We collect essential goods and connect them with children, families, veterans, older adults, and communities facing urgent need.",
+  donateUrl = "#donate",
   exploreUrl = "/mission/"
 } = Astro.props;
 
@@ -26,32 +26,32 @@ const slides = [
   {
     image: partnerShowcase,
     alt: "Volunteers and partners gathered behind a table of essential supplies.",
-    lead: "Community-powered relief",
+    lead: "Community-powered giving",
     title: "Turning generosity into practical support for communities under pressure."
   },
   {
     image: educationRelief,
     alt: "Children holding prepared school and relief kits with community volunteers.",
-    lead: "Preparedness & education",
-    title: "Equipping children and families with resources that make readiness possible."
+    lead: "School & family support",
+    title: "Putting education essentials into the hands of children and families."
   },
   {
     image: healthSupplies,
     alt: "Health, wellness, and essential supplies arranged for community distribution.",
-    lead: "Essential supplies",
-    title: "Collecting the everyday essentials that help people stay safe and well."
+    lead: "Health & household essentials",
+    title: "Collecting practical goods that help people stay safe, healthy, and supported."
   },
   {
-    image: fleetDelivery,
-    alt: "Volunteers moving boxed supplies on a cart for direct delivery.",
-    lead: "Fleet & volunteer logistics",
-    title: "Moving support from staging tables to the people and places that need it."
+    image: supplyStaging,
+    alt: "Volunteers sorting donated goods at a community support table.",
+    lead: "Volunteers make giving useful",
+    title: "Preparing each donation so it is ready for a real community need."
   },
   {
     image: communitySupportWide,
     alt: "Volunteers and community members coordinating support at a distribution event.",
-    lead: "Partnerships that reach further",
-    title: "Working across communities so relief is coordinated, welcoming, and direct."
+    lead: "Community distribution",
+    title: "Sharing support through relationships built on dignity and trust."
   }
 ];
 ---
@@ -68,17 +68,17 @@ const slides = [
 
         <div class="btn-row reveal" style="--i:4">
           <a class="btn btn--primary btn--lg" href={donateUrl}>
-            Support Field Relief<span class="btn__arrow" aria-hidden="true">→</span>
+            Support the work<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
           <a class="btn btn--ghost btn--lg" href={exploreUrl}>
-            How We Work
+            See where help goes
           </a>
         </div>
 
         <div class="hero-v2__proof reveal" style="--i:5" aria-label="How support moves">
           <span class="hero-v2__proof-item">Local partners</span>
           <span class="hero-v2__proof-item">Volunteer-powered</span>
-          <span class="hero-v2__proof-item">Fleet logistics</span>
+          <span class="hero-v2__proof-item">Practical goods</span>
         </div>
       </div>
 

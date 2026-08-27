@@ -6,116 +6,28 @@ import AboutFieldNotes from '../components/home/AboutFieldNotes.astro';
 import FaqSection from '../components/home/FaqSection.astro';
 import ClosingCTA from '../components/home/ClosingCTA.astro';
 
-import {
-  communityDistribution,
-  partnerCommunity,
-  childrenOutreach,
-  fleetDelivery,
-  communityDistributionWide,
-  educationRelief,
-  reliefStation,
-  partnerTeam,
-  healthSupplies,
-  supplyStaging,
-  partnerShowcase,
-} from '../assets/images/eps';
-
-const description = 'Hands Across Humanity is dedicated to rapidly collecting and distributing essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters.';
-
-const coreFocusCards = [
-  {
-    id: 'preparedness',
-    title: 'Disaster Preparedness',
-    category: 'Preparedness',
-    location: 'Community & Outreach Centers',
-    images: [
-      { src: educationRelief, alt: 'Children holding prepared school and relief kits with community volunteers.' },
-      { src: childrenOutreach, alt: 'Volunteers sharing educational kits with children and families.' }
-    ],
-    tag: 'Education & Outreach',
-    impact: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
-    partner: 'Local Community Stakeholders',
-    details: 'Equips vulnerable populations with critical knowledge, preparedness guidance, and resources to navigate catastrophic events and all-hazards situations before crisis strikes.'
-  },
-  {
-    id: 'response',
-    title: 'Rapid Response & Distribution',
-    category: 'Rapid Aid',
-    location: 'Disaster Impact Zones',
-    images: [
-      { src: fleetDelivery, alt: 'Volunteers moving boxed essential supplies on a transport cart.' },
-      { src: healthSupplies, alt: 'Health, wellness, and essential goods staged for distribution.' },
-      { src: supplyStaging, alt: 'Volunteers organizing donated goods at a relief staging table.' }
-    ],
-    tag: 'Fleet & Volunteer Logistics',
-    impact: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
-    partner: 'Dedicated Volunteer Network & Logistics Fleet',
-    details: 'Mobilizes our transport fleet and volunteer network to stage and deliver donated supplies directly to children, families, veterans, and older adults in disaster-stricken areas.'
-  },
-  {
-    id: 'recovery',
-    title: 'Recovery Support',
-    category: 'Rebuilding',
-    location: 'Affected Communities',
-    images: [
-      { src: communityDistribution, alt: 'Volunteers coordinating essential goods with community members.' },
-      { src: reliefStation, alt: 'Community members receiving targeted goods at a relief station.' }
-    ],
-    tag: 'Targeted Goods & Services',
-    impact: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
-    partner: 'Local Stakeholders & Community Alliances',
-    details: 'Focuses on long-term stability by providing targeted products, emergency goods, and rebuilding services to help individuals and partner organizations restore their lives.'
-  },
-  {
-    id: 'business',
-    title: 'Partnership Development',
-    category: 'Public-Private',
-    location: 'Corporate & Industry Network',
-    images: [
-      { src: partnerShowcase, alt: 'Corporate partners and volunteers gathered behind a relief supply table.' },
-      { src: partnerTeam, alt: 'Partner representatives supporting a community relief event.' }
-    ],
-    tag: 'Scalable Corporate Alliances',
-    impact: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
-    partner: 'Small, Mid-Size & Large Businesses',
-    details: 'Turns corporate surplus into vital lifelines by establishing transparent, scalable partnerships with businesses committed to placing resources into the right hands.'
-  },
-  {
-    id: 'faith',
-    title: 'Community & Faith Partnerships',
-    category: 'Faith & Civic',
-    location: 'Houses of Worship & Civic Hubs',
-    images: [
-      { src: communityDistributionWide, alt: 'Volunteers coordinating direct distribution with community members.' },
-      { src: partnerCommunity, alt: 'Community partners gathered with prepared goods and family support.' }
-    ],
-    tag: 'Non-Discriminatory Action',
-    impact: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
-    partner: 'Houses of Worship & Civic Organizations',
-    details: 'Works closely with local faith centers and community leaders to build trust, deepen engagement, and ensure non-discriminatory aid delivery across every neighborhood.'
-  }
-];
+const description = 'Hands Across Humanity connects donors, volunteers, businesses, and community partners to collect and share essential goods with people facing urgent need.';
 
 const faqs = [
   {
-    category: 'Mission & Focus',
-    q: 'Who does Hands Across Humanity serve?',
-    a: 'We rapidly collect and distribute essential supplies to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations.'
+    category: 'Giving',
+    q: 'What kind of donations are useful?',
+    a: 'We focus on practical health, hygiene, household, and education supplies that can be prepared and shared through trusted community partners.'
   },
   {
-    category: 'Logistics & Fleet',
-    q: 'How does Hands Across Humanity ensure rapid aid distribution?',
-    a: 'Through efficient logistics supported by our dedicated transport fleet and volunteer network, we swiftly stage and deliver donated supplies directly to those in need.'
+    category: 'Community support',
+    q: 'Who receives the support?',
+    a: 'Children, families, veterans, older adults, and neighbors facing an urgent need. Local partners help us understand what will be useful and where it should go.'
   },
   {
-    category: 'Partnerships',
-    q: 'How do businesses and houses of worship collaborate with Hands Across Humanity?',
-    a: 'We build lasting alliances with small, mid-size, and large businesses to deploy goods at scale, while collaborating with houses of worship and community stakeholders on a non-discriminatory basis.'
+    category: 'Volunteering',
+    q: 'How can I help?',
+    a: 'Give useful goods, volunteer at a collection or distribution event, or connect us with a business, nonprofit, or community group that wants to contribute.'
   },
   {
     category: 'Accountability',
-    q: 'What principles guide your humanitarian operations?',
-    a: 'Our model is built on scalability, transparency, clear logistics, volunteer and fleet capacity, and an unwavering commitment to serving every community without discrimination.'
+    q: 'How do you keep donations accountable?',
+    a: 'We organize donated goods, work with community partners, and communicate where support is going so the process stays practical, transparent, and non-discriminatory.'
   }
 ];
 ---

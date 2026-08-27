@@ -6,7 +6,7 @@ import {
   communityDistribution,
   reliefDistributionWide,
   communityDistributionWide,
-  fleetDelivery,
+  supplyHandoff,
   partnerShowcase,
   healthSupplies,
 } from '../assets/images/eps';
@@ -20,39 +20,39 @@ const sections = [
 const ruleCards = [
   {
     num: '01',
-    category: 'Vulnerable Groups',
-    title: 'Children, Families & Veterans',
-    body: 'We prioritize rapid assistance for children, families, veterans, older adults, and communities facing catastrophic events and all-hazards disasters.',
+    category: 'Who we serve',
+    title: 'Support starts with people',
+    body: 'We collect and share essential supplies with children, families, veterans, older adults, and communities affected by disasters and other urgent situations.',
     image: communityDistribution,
     alt: 'Volunteers coordinating essential goods with community members at a relief event.',
-    captionTitle: 'Direct Relief Dispatch',
-    captionStat: '450 families served',
-    href: '/what-we-do/#shelter',
-    linkText: 'View Emergency Relief'
+    captionTitle: 'Direct community support',
+    captionStat: 'Essential goods',
+    href: '/what-we-do/#areas',
+    linkText: 'See where support goes'
   },
   {
     num: '02',
-    category: 'Logistics Fleet',
-    title: 'Rapid Supply Logistics',
-    body: 'Through an efficient logistics network supported by our fleet, we transport critical aid quickly and reliably to ground zero.',
-    image: fleetDelivery,
+    category: 'How we act',
+    title: 'Useful aid, ready when needed',
+    body: 'Strategic partnerships, dedicated volunteers, and efficient transport support help essential goods reach people quickly and reliably.',
+    image: supplyHandoff,
     alt: 'Volunteers moving boxed supplies on a cart for direct distribution.',
-    captionTitle: 'Fleet Distribution Network',
-    captionStat: '100% direct delivery',
-    href: '/what-we-do/#cooperatives',
-    linkText: 'View Fleet Operations'
+    captionTitle: 'Coordinated supply handoff',
+    captionStat: 'Practical response',
+    href: '/what-we-do/#connect',
+    linkText: 'See how it comes together'
   },
   {
     num: '03',
-    category: 'Partnerships',
-    title: 'Public-Private Ecosystem',
-    body: 'Strategic public-private partnerships combined with a dedicated volunteer network empower communities to prepare, respond, and recover with dignity.',
+    category: 'Who makes it possible',
+    title: 'Partnerships that multiply care',
+    body: 'Businesses, nonprofits, houses of worship, volunteers, and local leaders work together so communities can prepare, respond, and recover with dignity.',
     image: partnerShowcase,
     alt: 'Corporate partners and volunteers gathered behind a relief supply table.',
-    captionTitle: 'Community Support Network',
-    captionStat: '1,200 residents served',
-    href: '/what-we-do/#water',
-    linkText: 'View Partnership Work'
+    captionTitle: 'Community support network',
+    captionStat: 'Shared responsibility',
+    href: '/vision/',
+    linkText: 'Meet our partners'
   }
 ];
 ---
@@ -60,25 +60,25 @@ const ruleCards = [
 <EditorialPage
   activePage="mission"
   eyebrow="Our mission"
-  title="Saving lives & restoring hope — one delivery at a time."
-  lead="Hands Across Humanity is dedicated to rapidly collecting and distributing essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations."
-  description="Through strategic public-private partnerships, a dedicated volunteer network, and efficient logistics supported by our fleet, we empower communities to prepare, respond, and recover with dignity and resilience."
+  title="Saving lives and restoring hope, one delivery at a time."
+  lead="Hands Across Humanity rapidly collects and distributes essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations."
+  description="Through strategic public-private partnerships, a dedicated volunteer network, and efficient transport support, we empower communities to prepare, respond, and recover with dignity and resilience."
   image={reliefDistributionWide}
   imageAlt="Volunteers and community members coordinating relief distribution in a large public hall."
-  caption="Saving lives and restoring hope — one delivery at a time."
+  caption="Saving lives and restoring hope, one delivery at a time."
   nextHref="/what-we-do/"
   nextLabel="See what we do"
   sections={sections}
   total={3}
 >
-  <!-- 02 — Approach -->
+  <!-- 02: Approach -->
   <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three pillars">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow reveal">How we operate</p>
-        <h2 class="reveal" style="--i:1" id="approach-title">Public-Private Partnerships & Rapid Fleet Logistics.</h2>
+        <h2 class="reveal" style="--i:1" id="approach-title">From generosity to a response people can feel.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Through strategic partnerships, a dedicated volunteer network, and our fleet logistics, we enable communities to prepare, respond, and recover with dignity.</p>
+      <p class="lead reveal" style="--i:2">Through strategic partnerships, dedicated volunteers, and reliable transport support, we help communities prepare, respond, and recover with dignity.</p>
     </div>
     
     <div class="columns approach-columns reveal" style="--i:3;">
@@ -96,20 +96,20 @@ const ruleCards = [
           />
         </div>
         <figcaption class="approach-photo-caption">
-          <span class="approach-card__tag">Fleet Logistics</span>
+          <span class="approach-card__tag">Practical giving</span>
           <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-          <span class="approach-photo-caption__text">Rapid collection & essential supply distribution</span>
+          <span class="approach-photo-caption__text">Collecting essential goods for community support</span>
         </figcaption>
         <div class="approach-card__content">
-          <h3 class="approach-card__title">Rapid Collection & Distribution</h3>
-          <p class="approach-card__body">Collecting essential resources and delivering them directly to children, families, veterans, and older adults when catastrophe strikes.</p>
+          <h3 class="approach-card__title">Collect what communities can use</h3>
+          <p class="approach-card__body">We turn useful donations into practical support for children, families, veterans, and older adults when needs become urgent.</p>
           <div class="approach-card__stat">
-            <span class="approach-card__stat-val">Rapid Fleet</span>
-            <span class="approach-card__stat-label">Efficient distribution network for all-hazards and disaster events</span>
+            <span class="approach-card__stat-val">Essential goods</span>
+            <span class="approach-card__stat-label">Health, hygiene, household, and education supplies</span>
           </div>
           <div class="approach-card__action">
-            <a href="/what-we-do/#emergency" class="approach-card__link">
-              Explore Emergency Response <span aria-hidden="true">→</span>
+            <a href="/what-we-do/#areas" class="approach-card__link">
+              Explore practical support <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -129,20 +129,20 @@ const ruleCards = [
           />
         </div>
         <figcaption class="approach-photo-caption">
-          <span class="approach-card__tag approach-card__tag--emerald">Volunteer & Strategic Network</span>
+          <span class="approach-card__tag approach-card__tag--emerald">People-powered support</span>
           <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-          <span class="approach-photo-caption__text">Public-private partnerships & grassroots volunteers</span>
+          <span class="approach-photo-caption__text">Partners and volunteers sharing support locally</span>
         </figcaption>
         <div class="approach-card__content">
-          <h3 class="approach-card__title">Empowering Communities to Recover</h3>
-          <p class="approach-card__body">Combining public-private alliances with grassroots volunteer dedication to build lasting dignity, resilience, and hope.</p>
+          <h3 class="approach-card__title">Share through trusted relationships</h3>
+          <p class="approach-card__body">Local partners and volunteers help support reach people in a way that is welcoming, non-discriminatory, and grounded in dignity.</p>
           <div class="approach-card__stat">
             <span class="approach-card__stat-val">Collaborative</span>
-            <span class="approach-card__stat-label">Uniting corporate partners, volunteers, and local leadership</span>
+            <span class="approach-card__stat-label">Uniting businesses, volunteers, and local leadership</span>
           </div>
           <div class="approach-card__action">
-            <a href="/what-we-do/#cooperatives" class="approach-card__link">
-              Explore Volunteer Initiatives <span aria-hidden="true">→</span>
+            <a href="/what-we-do/#connect" class="approach-card__link">
+              Explore community support <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -150,11 +150,11 @@ const ruleCards = [
     </div>
   </Panel>
 
-  <!-- 03 — Rules / Pillars -->
+  <!-- 03: Rules / Pillars -->
   <Panel id="rules" ground="paper" index={3} total={3} label="Pillars" labelledby="rules-title" ctaHref="/what-we-do/" ctaLabel="See what we do">
     <div class="panel-head">
       <p class="eyebrow reveal">Core commitments</p>
-      <h2 class="reveal" style="--i:1" id="rules-title">Three pillars of our mission.</h2>
+      <h2 class="reveal" style="--i:1" id="rules-title">Three commitments behind the mission.</h2>
     </div>
     
     <div class="principles">
@@ -195,8 +195,7 @@ const ruleCards = [
     </div>
 
     <blockquote class="pull-quote pull-quote--rule reveal" style="--i:5; margin-top: clamp(0.75rem, 2vh, 1.75rem);">
-      “Empowering communities to prepare, respond, and recover with dignity and resilience — saving lives and restoring hope one delivery at a time.”
+      “We empower communities to prepare, respond, and recover with dignity and resilience. Every useful donation helps restore hope.”
     </blockquote>
   </Panel>
 </EditorialPage>
-

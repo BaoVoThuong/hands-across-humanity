@@ -4,8 +4,7 @@ import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
 import {
   childrenOutreach,
-  fleetDelivery,
-  supplyStaging,
+  healthSupplies,
   partnerTeam,
   reliefStation,
   communitySupplies,
@@ -21,68 +20,68 @@ const sections = [
 const workAreas = [
   {
     num: '01',
-    category: 'Preparedness & Education',
-    title: 'Disaster Preparedness',
-    body: 'Education and outreach to help families, veterans, older adults, and children prepare for all-hazards events.',
-    stat: 'All-Hazards',
-    statLabel: 'Community preparedness education & outreach',
-    location: 'Regional Community Centers',
+    category: 'Education & family',
+    title: 'Support learning and readiness',
+    body: 'School kits and child-focused goods help children and families feel prepared, supported, and ready to keep learning.',
+    stat: 'Education essentials',
+    statLabel: 'School and family support',
+    location: 'Schools & community events',
     image: childrenOutreach,
     alt: 'Volunteers sharing educational kits with children and families.',
     href: '/#donate',
-    linkText: 'Support Preparedness'
+    linkText: 'Support education'
   },
   {
     num: '02',
-    category: 'Emergency Response',
-    title: 'Rapid Response & Distribution',
-    body: 'Collecting donated products and supplies and delivering them efficiently to those struggling after disasters or catastrophic events.',
-    stat: '24-48h',
-    statLabel: 'Rapid emergency fleet distribution dispatch',
-    location: 'Disaster Impact Zones',
-    image: fleetDelivery,
-    alt: 'Volunteers moving boxed emergency supplies on a transport cart.',
+    category: 'Health & household',
+    title: 'Share practical essentials',
+    body: 'Health, hygiene, wellness, and household goods become immediate support when they are matched with a real need.',
+    stat: 'Everyday needs',
+    statLabel: 'Health, hygiene, and household supplies',
+    location: 'Community distribution events',
+    image: healthSupplies,
+    alt: 'Health, wellness, and essential supplies arranged for community distribution.',
     href: '/#donate',
-    linkText: 'Fund Emergency Response'
+    linkText: 'Give useful goods'
   },
   {
     num: '03',
-    category: 'Rebuilding & Relief',
-    title: 'Recovery Support',
-    body: 'Assisting individuals and partner organizations in the rebuilding process with targeted goods and services.',
-    stat: 'Targeted Aid',
-    statLabel: 'Direct rebuilding supplies & recovery services',
-    location: 'Rebuilding Communities',
-    image: supplyStaging,
-    alt: 'Volunteers organizing donated goods at a relief staging table.',
-    href: '/vision/',
-    linkText: 'View Recovery Work'
+    category: 'Community care',
+    title: 'Reach people with dignity',
+    body: 'Community distribution brings essential goods closer to children, families, veterans, older adults, and neighbors who need support.',
+    stat: 'Direct support',
+    statLabel: 'Welcoming, non-discriminatory distribution',
+    location: 'Local community hubs',
+    image: reliefStation,
+    alt: 'Community members receiving essential goods at a relief station.',
+    href: '/#donate',
+    linkText: 'Support community care'
   },
   {
     num: '04',
-    category: 'Business Alliances',
-    title: 'Partnership Development',
-    body: 'Building lasting alliances with small, mid-size, and large businesses to deploy goods and services at scale.',
-    stat: 'Scalable',
-    statLabel: 'Corporate & enterprise resource partnerships',
-    location: 'Corporate Partner Network',
+    category: 'Business giving',
+    title: 'Turn surplus into support',
+    body: 'Businesses of every size can help useful products reach people instead of sitting unused when communities are under pressure.',
+    stat: 'Shared resources',
+    statLabel: 'Corporate and enterprise partnerships',
+    location: 'Business partner network',
     image: partnerTeam,
     alt: 'Partner representatives supporting a community relief event.',
     href: '/vision/',
-    linkText: 'Partner With Us'
+    linkText: 'Partner with us'
   },
   {
     num: '05',
-    category: 'Community & Faith',
-    title: 'Community & Faith Partnerships',
-    body: 'Collaborating with houses of worship and community stakeholders on a non-discriminatory basis to extend reach and trust.',
-    stat: 'Non-Discriminatory',
-    statLabel: 'Grassroots faith and community stakeholder alliances',
-    location: 'Houses of Worship & Civic Hubs',
-    image: reliefStation,
-    alt: 'Community members receiving essential goods at a relief station.',
+    category: 'Volunteers & partners',
+    title: 'Make support possible',
+    body: 'Volunteers, nonprofits, houses of worship, and local leaders help turn donations into care that is personal, practical, and trusted.',
+    stat: 'People-powered',
+    statLabel: 'Volunteer and community partnerships',
+    location: 'Houses of worship & civic hubs',
+    image: communitySupplies,
+    alt: 'Volunteers and community members coordinating essential goods at a relief station.',
     href: '/vision/',
-    linkText: 'Explore Faith Alliances'
+    linkText: 'Join the network'
   }
 ];
 ---
@@ -90,25 +89,25 @@ const workAreas = [
 <EditorialPage
   activePage="what-we-do"
   eyebrow="What we do"
-  title="Five Core Focus Areas of Practical Action."
-  lead="From proactive disaster preparedness to rapid response, recovery support, and scalable business and faith partnerships."
-  description="Hands Across Humanity delivers essential relief, rebuilds stability, and builds lasting public-private and community alliances."
+  title="How donations become community support."
+  lead="We collect useful goods, prepare them with care, and share them with people and partners facing urgent need."
+  description="Hands Across Humanity brings together donors, volunteers, businesses, houses of worship, nonprofits, and local leaders to turn resources into practical support."
   image={educationRelief}
   imageAlt="Children holding prepared school and relief kits with community volunteers."
-  caption="Preparedness, response, recovery, and strategic alliances."
+  caption="Education essentials prepared for children and families."
   nextHref="/vision/"
   nextLabel="Read our vision"
   sections={sections}
   total={3}
 >
-  <!-- 02 — Core Focus Areas Grid -->
+  <!-- 02: Core Focus Areas Grid -->
   <Panel id="areas" ground="sand" index={2} total={3} label="Core focus" labelledby="areas-title" nextId="connect" nextLabel="Ecosystem">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">Core Focus Areas</p>
-        <h2 class="reveal" style="--i:1" id="areas-title">Five pillar areas delivering impact at scale.</h2>
+        <p class="eyebrow reveal">Where support goes</p>
+        <h2 class="reveal" style="--i:1" id="areas-title">Five ways your support can help.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Our work connects education, emergency response, recovery, and strategic alliances to protect communities before, during, and after crisis.</p>
+      <p class="lead reveal" style="--i:2">Each pathway starts with a clear community need and ends with practical goods reaching people with dignity.</p>
     </div>
     
     <div class="bento-areas-grid reveal" style="--i:3;">
@@ -160,14 +159,14 @@ const workAreas = [
     </div>
   </Panel>
 
-  <!-- 03 — Collaborative Ecosystem -->
+  <!-- 03: Collaborative Ecosystem -->
   <Panel id="connect" ground="paper" index={3} total={3} label="Ecosystem" labelledby="connect-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head panel-head--split" style="margin-bottom: clamp(0.4rem, 1vh, 0.75rem);">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">The Interconnected Ecosystem</p>
-        <h2 class="reveal" style="--i:1" id="connect-title">Connecting preparedness, rapid response, recovery & alliances.</h2>
+        <p class="eyebrow reveal">People make the difference</p>
+        <h2 class="reveal" style="--i:1" id="connect-title">Giving works better when people work together.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Real crisis response requires a complete ecosystem. Education prepares families, rapid logistics deliver relief, recovery restores stability, and partnerships scale our reach nationwide.</p>
+      <p class="lead reveal" style="--i:2">Businesses, volunteers, nonprofits, houses of worship, and local leaders each bring something essential to the work of helping communities recover.</p>
     </div>
     
     <div class="connect-journal-grid reveal" style="--i:3;">
@@ -176,37 +175,37 @@ const workAreas = [
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">01</span>
-            <span class="connect-story__title">Preparedness → Education</span>
-            <span class="connect-story__stat">All-Hazards</span>
+          <span class="connect-story__title">Give useful goods</span>
+            <span class="connect-story__stat">Health & education</span>
           </div>
-          <p class="connect-story__body">Outreach and training help children, families, veterans, and older adults prepare before catastrophic events strike.</p>
+          <p class="connect-story__body">Donated health, hygiene, household, and education supplies give communities something practical to work with.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">02</span>
-            <span class="connect-story__title">Response → Fleet Distribution</span>
-            <span class="connect-story__stat">&lt;48h Response</span>
+          <span class="connect-story__title">Prepare donations</span>
+            <span class="connect-story__stat">Sort & organize</span>
           </div>
-          <p class="connect-story__body">Efficient fleet logistics transport donated products directly to communities struggling after disasters.</p>
+          <p class="connect-story__body">Volunteers sort and organize goods so the right items are ready for the right community partner.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">03</span>
-            <span class="connect-story__title">Recovery → Rebuilding</span>
-            <span class="connect-story__stat">Targeted Aid</span>
+          <span class="connect-story__title">Share with neighbors</span>
+            <span class="connect-story__stat">Community events</span>
           </div>
-          <p class="connect-story__body">Targeted goods and services assist individuals and partner organizations throughout long-term recovery.</p>
+          <p class="connect-story__body">Local distribution events help essential support reach children, families, older adults, veterans, and neighbors with dignity.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">04</span>
-            <span class="connect-story__title">Business & Faith Alliances</span>
-            <span class="connect-story__stat">Non-Discriminatory</span>
+          <span class="connect-story__title">Partner for reach</span>
+            <span class="connect-story__stat">Shared responsibility</span>
           </div>
-          <p class="connect-story__body">Collaborating with businesses of all sizes, houses of worship, and stakeholders on a non-discriminatory basis to extend reach and trust.</p>
+          <p class="connect-story__body">Businesses, nonprofits, houses of worship, and local stakeholders help extend reach and build trust without discrimination.</p>
         </article>
       </div>
 
@@ -226,15 +225,15 @@ const workAreas = [
             />
           </div>
           <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
-            <span class="approach-card__tag">Core Focus Matrix</span>
+            <span class="approach-card__tag">People-powered support</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-photo-caption__text">Disaster Response & Partnership Network</span>
+            <span class="approach-photo-caption__text">Community distribution and shared care</span>
           </figcaption>
         </figure>
 
         <blockquote class="editorial-quote" style="margin-top: clamp(0.5rem, 1vh, 0.85rem);">
-          <p class="editorial-quote__text">“Collaborating on a non-discriminatory basis to extend reach, trust, and practical relief.”</p>
-          <cite class="editorial-quote__cite">— Hands Across Humanity Core Focus Principle</cite>
+          <p class="editorial-quote__text">“Useful support travels further when communities share responsibility for one another.”</p>
+          <cite class="editorial-quote__cite">Hands Across Humanity community principle</cite>
         </blockquote>
       </div>
     </div>

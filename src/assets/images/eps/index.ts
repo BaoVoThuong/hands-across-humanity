@@ -3,7 +3,7 @@ import reliefDistributionWide from './eps-relief-distribution-wide.jpg';
 import partnerCommunity from './eps-partner-community.jpg';
 import childrenOutreach from './eps-children-outreach.jpg';
 import communitySupportWide from './eps-community-support-wide.jpg';
-import fleetDelivery from './eps-fleet-delivery.jpg';
+import supplyHandoff from './eps-fleet-delivery.jpg';
 import communityDistributionWide from './eps-community-distribution-wide.jpg';
 import educationRelief from './eps-education-relief.jpg';
 import reliefStation from './eps-relief-station.jpg';
@@ -20,7 +20,7 @@ export {
   partnerCommunity,
   childrenOutreach,
   communitySupportWide,
-  fleetDelivery,
+  supplyHandoff,
   communityDistributionWide,
   educationRelief,
   reliefStation,
