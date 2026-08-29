@@ -5,6 +5,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   integrations: [],
   output: 'static',
+  // The site's entry page now lives at /about-us/; keep the root reachable.
+  redirects: {
+    '/': '/about-us/'
+  },
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' }
   }
