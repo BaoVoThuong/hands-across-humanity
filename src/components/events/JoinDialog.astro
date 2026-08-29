@@ -239,6 +239,7 @@ const contactEmail = 'info@handsacrosshumanity.org';
         if (done) done.hidden = true;
         if (errorEl) errorEl.hidden = true;
         openedAt = Date.now();
+        lockScroll();
         dialog.showModal();
       });
     });
@@ -246,6 +247,28 @@ const contactEmail = 'info@handsacrosshumanity.org';
     dialog.querySelectorAll('[data-join-cancel]').forEach((b) =>
       b.addEventListener('click', () => dialog.close())
     );
+
+    // showModal() does not stop the page behind from scrolling, so pin it.
+    // Position is held in a fixed body rather than overflow:hidden, which on
+    // its own still lets a trackpad scroll the document underneath.
+    let scrollY = 0;
+    function lockScroll() {
+      scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
+    function unlockScroll() {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
+    }
+    dialog.addEventListener('close', unlockScroll);
 
     form?.addEventListener('submit', async (ev) => {
       ev.preventDefault();

@@ -70,7 +70,9 @@ const firstSection = onThisPage[0];
                 {firstSection.label}<span class="btn__arrow" aria-hidden="true">↓</span>
               </a>
             )}
-            <a class="btn btn--secondary" href={secondaryHref}>{secondaryLabel}</a>
+            {secondaryLabel && (
+              <a class="btn btn--secondary" href={secondaryHref}>{secondaryLabel}</a>
+            )}
           </div>
 
         </div>

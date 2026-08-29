@@ -6120,3 +6120,6 @@ body {
 }
 .events-address:hover { border-bottom-color: currentColor; }
 .events-address__icon { flex: none; opacity: 0.65; align-self: center; }
+
+/* Keep a scroll gesture inside the dialog from reaching the page behind it. */
+.join-dialog { overscroll-behavior: contain; }
