@@ -3758,9 +3758,11 @@ p {
   border-radius: var(--radius-xs, 2px);
   background: var(--surface-alt);
 }
+/* The source photographs are 4:3. Displaying them at 4:3 crops nothing;
+   the previous 3:2 with a 152px ceiling was discarding 64% of each frame. */
 .approach-card__media--event {
-  aspect-ratio: 3 / 2;
-  max-height: clamp(8rem, 17vh, 9.5rem);
+  aspect-ratio: 4 / 3;
+  max-height: none;
 }
 
 .approach-card__media img {
@@ -4470,21 +4472,18 @@ img.img-pos-lower-middle,
 }
 
 .bento-area-card__category-tag {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
+  align-self: flex-start;
+  width: fit-content;
   font-family: 'Public Sans Variable', system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--slate-900);
-  background: rgba(250, 248, 245, 0.92);
-  backdrop-filter: blur(12px);
+  background: transparent;
   padding: 0.3rem 0.65rem;
   border: 1px solid var(--border-warm);
   border-radius: var(--radius-sm);
-  z-index: 2;
 }
 
 .bento-area-card__body {
@@ -5826,10 +5825,17 @@ body {
    ============================================================ */
 
 /* Event photographs are people-centred; 21:9 crops heads off. */
-.approach-card__media--event { aspect-ratio: 3 / 2; }
 
 .events-table-wrap { margin-top: var(--space-5); }
-.events-table { width: 100%; border-collapse: collapse; }
+/* The table is pulled left by the width of the hover gutter, so the date still
+   lines up with the section heading while the hover bar has room of its own. */
+.events-table {
+  width: calc(100% + var(--events-gutter));
+  margin-left: calc(var(--events-gutter) * -1);
+  border-collapse: collapse;
+}
+.events-table-wrap { --events-gutter: 1.15rem; }
+
 .events-table th {
   text-align: left;
   padding: 0 var(--space-5) var(--space-3) 0;
@@ -5849,6 +5855,7 @@ body {
 .events-table th:first-child, .events-table td:first-child {
   width: 1%;
   white-space: nowrap;
+  padding-left: var(--events-gutter);
   padding-right: var(--space-8);
   border-right: 1px solid var(--border-warm);
 }
@@ -5859,6 +5866,7 @@ body {
   .events-table tbody tr { transition: background-color var(--dur-micro) var(--ease-standard); }
   .events-table tbody tr:hover { background: var(--surface-hover); }
   .events-table tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
+  .events-table tbody tr:hover td:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
 }
 
 /* Month and day sit on one line. Fixed width so the Event column starts at
@@ -5906,7 +5914,9 @@ body {
 }
 .events-muted { color: var(--fg-light); font-style: italic; font-size: var(--fs-small); }
 
-.events-actions {
+/* A <td> must stay display:table-cell or its bottom border stops painting
+   across the full column. Lay the buttons out in a wrapper instead. */
+.events-actions__inner {
   display: flex; flex-wrap: wrap; gap: var(--space-3);
   align-items: center; justify-content: flex-end;
 }
@@ -5931,8 +5941,9 @@ body {
   }
   .events-table tr:last-child { border-bottom: 0; }
   .events-table td { border: 0; padding: 0 0 var(--space-3) 0; text-align: left; }
+  .events-table { width: 100%; margin-left: 0; }
   .events-table td:first-child {
-    width: auto; padding-right: 0; border-right: 0;
+    width: auto; padding-left: 0; padding-right: 0; border-right: 0;
   }
   .events-table td:nth-child(2) { padding-left: 0; }
   .events-table td:empty { display: none; }
@@ -5940,7 +5951,7 @@ body {
     justify-items: start; justify-content: start; min-width: 0; }
   .events-date__month { padding-inline-start: 0; }
   .events-time { display: inline; margin: 0 0 0 0.6rem; text-align: left; }
-  .events-actions { justify-content: flex-start; padding-top: var(--space-1); }
+  .events-actions__inner { justify-content: flex-start; padding-top: var(--space-1); }
 }
 
 /* ---------- sign-up dialog ---------- */

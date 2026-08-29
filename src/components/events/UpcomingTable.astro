@@ -52,10 +52,12 @@ const { events } = Astro.props;
               )}
             </td>
             <td data-label="" class="events-actions">
-              <button class="btn btn--primary btn--sm" type="button"
-                data-join-event={e.title} data-join-date={e.date}>
-                Join us
-              </button>
+              <div class="events-actions__inner">
+                <button class="btn btn--primary btn--sm" type="button"
+                  data-join-event={e.title} data-join-date={e.date}>
+                  Join us
+                </button>
+              </div>
             </td>
           </tr>
         );
