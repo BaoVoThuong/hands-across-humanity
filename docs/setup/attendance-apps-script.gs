@@ -16,7 +16,8 @@ const MIN_FILL_MS = 3000;
 
 const HEADERS = [
   'timestamp', 'event_date', 'event_title',
-  'name', 'email', 'phone', 'people', 'help', 'notes'
+  'name', 'organization', 'org_type',
+  'email', 'phone', 'people', 'help', 'notes'
 ];
 
 function doPost(e) {
@@ -51,6 +52,8 @@ function doPost(e) {
       date,
       title,
       name,
+      str(data.organization, 160),
+      orgType(data.org_type),
       email,
       str(data.phone, 40),
       clampInt(data.people, 1, 50),
@@ -107,6 +110,13 @@ function str(v, max) {
 
 function isEmail(v) {
   return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+}
+
+/** Only accept a value the form actually offers; anything else becomes 'other'. */
+function orgType(v) {
+  const allowed = ['individual', 'business', 'faith organisation', 'nonprofit', 'school', 'other'];
+  const t = String(v == null ? '' : v).trim().toLowerCase();
+  return allowed.indexOf(t) >= 0 ? t : (t ? 'other' : '');
 }
 
 function clampInt(v, lo, hi) {

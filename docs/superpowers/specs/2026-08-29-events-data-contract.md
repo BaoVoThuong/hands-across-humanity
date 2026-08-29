@@ -19,9 +19,21 @@ cannot.
 | `city` | no | `Houston` | Shown in the Location column |
 | `state` | no | `TX` | Shown beside city |
 | `map_query` | no | `17355 Groeschke Rd, Houston, TX 77084` | Full street address. Drives the map link. Empty means no map link on that row |
-| `register_url` | no | `https://forms.gle/…` | Empty means no button on that row |
-| `role` | no | `attending` or `hosting` | See section 3 |
 | `summary` | no | One sentence | Optional; not shown in the table |
+
+**Columns deliberately not in the sheet.** The live sheet carries the seven
+columns above and nothing else, which is correct. Two columns from an earlier
+draft were dropped and should stay dropped:
+
+- `register_url` is unnecessary. Sign-ups go to the site's own form, not to a
+  per-event external link, so there is nothing to store.
+- `role` is unnecessary while every event is one Hands Across Humanity attends.
+  If the organisation ever hosts its own event, add the column then; a build
+  that finds no `role` column treats every row as `attending`, so adding it
+  later changes nothing that already works.
+
+A missing optional column is never an error. The build reads by column name and
+substitutes a default when a name is absent.
 
 **Publishing:** File → Share → Publish to web → select the sheet → CSV. Copy
 that URL into the build config. Publishing to web is separate from sharing
@@ -75,17 +87,27 @@ Writing "Register" implies we control admission to someone else's event.
 
 ### Fields written to the `attendance` tab
 
-| Column | Source | Required |
+| Column | Field on the form | Required |
 |---|---|---|
-| `timestamp` | server-side, `new Date()` in Apps Script | auto |
-| `event_date` | hidden field, the row's ISO date | yes |
-| `event_title` | hidden field | yes |
-| `name` | text input | yes |
-| `email` | email input | yes |
-| `phone` | tel input | no |
-| `people` | number input, default 1 | no |
-| `help` | checkboxes: contribute goods / volunteer / just attending | no |
-| `notes` | textarea | no |
+| `timestamp` | none — set server-side | auto |
+| `event_date` | hidden, the row's ISO date | yes |
+| `event_title` | hidden, the row's title | yes |
+| `name` | Your name | yes |
+| `organization` | Organisation you are coming from | no |
+| `org_type` | Dropdown: individual · business · faith organisation · nonprofit · school · other | no |
+| `email` | Email | yes |
+| `phone` | Phone | no |
+| `people` | How many people | no |
+| `help` | Checkboxes: contribute goods · volunteer on the day · just attending | no |
+| `notes` | Anything we should know | no |
+
+`organization` is free text because names vary and a dropdown would be wrong
+within a month. `org_type` is a fixed list so the sheet can be grouped and
+counted — Apps Script rejects any value outside the list and stores `other`,
+so a tampered request cannot invent categories.
+
+Leave `organization` blank and the row still saves; most people attending come
+as themselves, not on behalf of anyone.
 
 `timestamp` is set inside Apps Script, never sent by the browser. A client
 supplied timestamp can be forged and is not evidence of anything.
@@ -149,20 +171,24 @@ of care a spreadsheet cannot meet.
    endpoint; treat it as replaceable and rotate it if abused.
 4. Create the `attendance` header row exactly as the table above, in order.
 
-## 3. Hosting versus attending
+## 3. What each row offers a visitor
 
-The supplied list is headed "Attendance", and the events are run by other
-organisations — medical associations and temples — with Hands Across Humanity
-taking part. That distinction changes the page:
+Every event in the sheet is one Hands Across Humanity attends, hosted by a
+medical association or a temple. Two actions follow from that, and a row can
+offer both:
 
-- `role = attending` → the row shows **Get directions**. Registration belongs
-  to the host organisation, not to us, and offering our own sign-up would be
-  misleading.
-- `role = hosting` → the row shows **Register**, pointing at `register_url`.
+**Get directions** — shown when `map_query` has an address. Links out to a map
+search. Absent address, absent link; the row still renders.
 
-A single table can hold both. If `role` is left empty the build treats the row
-as `attending`, which is the safer default: it never invites someone to
-register for an event we do not run.
+**Join us at this event** — opens the sign-up form described in section 5.
+Shown on every upcoming event.
+
+These are not alternatives. A visitor may want the address, the sign-up, or
+both. What the row must never say is *Register*, because admission to these
+events is the host organisation's to grant, not ours. The sign-up tells us
+someone is coming along with us; it does not enrol them in the event itself.
+
+Past events show neither action.
 
 ## 4. Verified venue addresses
 
