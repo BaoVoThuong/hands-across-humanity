@@ -16,6 +16,7 @@
   --transition-warm: var(--surface-alt);
   --transition-ink-muted: #0060AE;
   --transition-border: #9CC3E4;
+  --transition-padding: clamp(2rem, 4vh, 3rem);
   
   --slate-900: #0B1B33;
   --slate-800: #12284C;
@@ -3764,6 +3765,10 @@ p {
   border-radius: var(--radius-xs, 2px);
   background: var(--surface-alt);
 }
+.approach-card__media--event {
+  aspect-ratio: 3 / 2;
+  max-height: clamp(8rem, 17vh, 9.5rem);
+}
 
 .approach-card__media img {
   width: 100%;
@@ -4347,7 +4352,7 @@ img.img-pos-lower-middle,
    EDITORIAL CHAPTER TRANSITION (Anti-Slop Authentic Journal Style)
    ============================================================ */
 .chapter-transition {
-  padding-block: clamp(2rem, 4vh, 3rem);
+  padding-block: var(--transition-padding);
   background: var(--transition-warm);
   color: var(--slate-900);
   border-top: 1px solid var(--transition-border);
@@ -4727,6 +4732,10 @@ img.img-pos-lower-middle,
   font-size: 1rem;
   color: var(--primary);
   line-height: 1;
+}
+.connect-story__num--date {
+  min-width: 4.5rem;
+  flex: 0 0 auto;
 }
 .connect-story__title {
   font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
@@ -5883,7 +5892,7 @@ body {
   }
 
   .chapter-transition {
-    padding-block: 1.5rem;
+    padding-block: var(--transition-padding);
   }
 
   .chapter-transition__quote {

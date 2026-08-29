@@ -2,23 +2,18 @@
 import { Picture } from 'astro:assets';
 import {
   volunteerGroup,
-  field02,
   field05,
   field06,
 } from '../../assets/images/eps';
 
 const networkSlides = [
   {
+    image: field05,
+    alt: 'Community partners standing together with donated goods ready to share.',
+  },
+  {
     image: volunteerGroup,
     alt: 'Volunteers and community members gathered with prepared support packages.',
-  },
-  {
-    image: field02,
-    alt: 'Families and community partners gathered with prepared support kits.',
-  },
-  {
-    image: field05,
-    alt: 'A volunteer team gathered with donated goods ready to share.',
   },
   {
     image: field06,
@@ -68,6 +63,10 @@ const contributors = [
         aria-roledescription="carousel"
         aria-label="Community network photos"
       >
+        <div class="about-network-carousel__progress-track" aria-hidden="true">
+          <div class="about-network-carousel__progress-bar" id="about-network-carousel-progress"></div>
+        </div>
+
         <div class="about-network-carousel__slides">
           {networkSlides.map((slide, index) => (
             <div
@@ -104,10 +103,14 @@ const contributors = [
 
         <div class="about-network-carousel__navigation">
           <button class="about-network-carousel__arrow" data-direction="previous" aria-label="View previous community photo" type="button">
-            <span aria-hidden="true">←</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
           </button>
           <button class="about-network-carousel__arrow" data-direction="next" aria-label="View next community photo" type="button">
-            <span aria-hidden="true">→</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
           </button>
         </div>
       </div>
@@ -191,6 +194,22 @@ const contributors = [
     overflow: hidden;
   }
 
+  .about-network-carousel__progress-track {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 3;
+    height: 3px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .about-network-carousel__progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #E05A36;
+    will-change: width;
+  }
+
   .about-network-carousel__slide {
     position: absolute;
     inset: 0;
@@ -219,69 +238,100 @@ const contributors = [
 
   .about-network-carousel__indicators {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2;
+    top: 14px;
+    right: 14px;
+    z-index: 4;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 0.65rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.66);
+    gap: 6px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(15, 23, 42, 0.65);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .about-network-carousel__dot {
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 8px;
+    height: 8px;
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.55);
-    transform-origin: center;
-    transition: transform var(--dur-micro) var(--ease-standard), background var(--dur-micro) var(--ease-standard);
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .about-network-carousel__dot:hover {
+    background: rgba(255, 255, 255, 0.8);
   }
 
   .about-network-carousel__dot.is-active {
-    transform: scaleX(2.5);
-    border-radius: 999px;
-    background: var(--gold);
+    width: 20px;
+    border-radius: 4px;
+    background: #E05A36;
   }
 
   .about-network-carousel__arrow {
+    position: relative;
     display: grid;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 42px;
+    height: 42px;
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 50%;
     color: var(--fg-on-dark);
-    background: rgba(15, 23, 42, 0.72);
+    background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(8px);
-    font-size: 1.25rem;
-    transition: background var(--dur-micro) var(--ease-standard), transform var(--dur-micro) var(--ease-standard);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.85);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .about-network-carousel:hover .about-network-carousel__arrow,
+  .about-network-carousel:focus-within .about-network-carousel__arrow {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
   }
 
   .about-network-carousel__arrow:hover,
   .about-network-carousel__arrow:focus-visible {
     background: var(--primary);
-    transform: translateY(-2px);
+    border-color: rgba(0, 96, 174, 0.8);
+    transform: scale(1.1);
+    box-shadow: 0 4px 14px rgba(0, 96, 174, 0.4);
   }
 
   .about-network-carousel__navigation {
     position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    z-index: 2;
+    top: 50%;
+    right: 14px;
+    left: 14px;
+    z-index: 4;
     display: flex;
     justify-content: space-between;
+    transform: translateY(-50%);
     pointer-events: none;
   }
 
   .about-network-carousel__navigation .about-network-carousel__arrow {
     pointer-events: auto;
+  }
+
+  @media (pointer: coarse), (hover: none) {
+    .about-network-carousel__arrow {
+      opacity: 0.85;
+      visibility: visible;
+      transform: scale(1);
+      min-width: 44px;
+      min-height: 44px;
+    }
   }
 
   @media (min-width: 960px) {
@@ -309,6 +359,12 @@ const contributors = [
       aspect-ratio: 16 / 9;
     }
 
+    .about-network-carousel__indicators {
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+    }
+
     .about-network-section__contributor {
       padding-block: 0.55rem;
     }
@@ -316,19 +372,29 @@ const contributors = [
 </style>
 
 <script>
-    const carousel = document.getElementById('about-network-carousel');
+  const carousel = document.getElementById('about-network-carousel');
 
   if (carousel) {
     const slides = Array.from(carousel.querySelectorAll<HTMLElement>('.about-network-carousel__slide'));
     const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('.about-network-carousel__dot'));
     const previous = carousel.querySelector<HTMLButtonElement>('[data-direction="previous"]');
     const next = carousel.querySelector<HTMLButtonElement>('[data-direction="next"]');
+    const progressBar = carousel.querySelector<HTMLElement>('#about-network-carousel-progress');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const duration = 5500;
+    const duration = 5000;
     let currentIndex = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
 
-    function showSlide(index: number) {
+    function startProgressBar() {
+      if (!progressBar || reduceMotion.matches) return;
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      void progressBar.offsetWidth;
+      progressBar.style.transition = `width ${duration}ms linear`;
+      progressBar.style.width = '100%';
+    }
+
+    function showSlide(index: number, restart = true) {
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, slideIndex) => {
@@ -344,6 +410,8 @@ const contributors = [
         else dot.removeAttribute('aria-current');
       });
 
+      if (restart) startTimer();
+      else startProgressBar();
     }
 
     function stopTimer() {
@@ -356,35 +424,33 @@ const contributors = [
     function startTimer() {
       stopTimer();
       if (reduceMotion.matches) return;
-      timer = setInterval(() => showSlide(currentIndex + 1), duration);
+      startProgressBar();
+      timer = setInterval(() => showSlide(currentIndex + 1, false), duration);
     }
 
     previous?.addEventListener('click', () => {
       showSlide(currentIndex - 1);
-      startTimer();
     });
 
     next?.addEventListener('click', () => {
       showSlide(currentIndex + 1);
-      startTimer();
     });
 
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
         showSlide(index);
-        startTimer();
       });
     });
 
-    carousel.addEventListener('mouseenter', stopTimer);
-    carousel.addEventListener('mouseleave', startTimer);
-    carousel.addEventListener('focusin', stopTimer);
-    carousel.addEventListener('focusout', (event) => {
-      if (!carousel.contains(event.relatedTarget as Node | null)) startTimer();
+    reduceMotion.addEventListener('change', () => {
+      if (reduceMotion.matches && progressBar) {
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+      }
+      startTimer();
     });
-    reduceMotion.addEventListener('change', startTimer);
 
-    showSlide(0);
+    showSlide(0, false);
     startTimer();
   }
 </script>

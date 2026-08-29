@@ -2,9 +2,8 @@
 import { Picture } from 'astro:assets';
 import {
   educationRelief,
-  healthSupplies,
-  supplyStaging,
   communityDistributionWide,
+  field02,
   partnerShowcase,
 } from '../../assets/images/eps';
 
@@ -24,28 +23,22 @@ const {
 
 const slides = [
   {
-    image: partnerShowcase,
-    alt: "Volunteers and partners gathered behind a table of essential supplies.",
-    lead: "Community-powered giving",
-    title: "Turning generosity into practical support for communities under pressure."
-  },
-  {
     image: educationRelief,
     alt: "Children holding prepared school and relief kits with community volunteers.",
     lead: "School & family support",
     title: "Putting education essentials into the hands of children and families."
   },
   {
-    image: healthSupplies,
-    alt: "Health, wellness, and essential supplies arranged for community distribution.",
-    lead: "Health & household essentials",
-    title: "Collecting practical goods that help people stay safe, healthy, and supported."
+    image: partnerShowcase,
+    alt: "Volunteers and partners gathered behind a table of essential supplies.",
+    lead: "Community-powered giving",
+    title: "Turning generosity into practical support for communities under pressure."
   },
   {
-    image: supplyStaging,
-    alt: "Volunteers sorting donated goods at a community support table.",
-    lead: "Volunteers make giving useful",
-    title: "Preparing each donation so it is ready for a community need."
+    image: field02,
+    alt: "Volunteers and community members gathered with prepared backpacks for distribution.",
+    lead: "People-powered support",
+    title: "A community network turns shared resources into practical care."
   },
   {
     image: communityDistributionWide,
@@ -150,7 +143,6 @@ const slides = [
 
     let currentIndex = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
-    let isHovered = false;
 
     function startProgressBar() {
       if (!progressBar) return;
@@ -188,11 +180,7 @@ const slides = [
     function startTimer() {
       stopTimer();
       startProgressBar();
-      timer = setInterval(() => {
-        if (!isHovered) {
-          nextSlide();
-        }
-      }, DURATION);
+      timer = setInterval(nextSlide, DURATION);
     }
 
     function stopTimer() {
@@ -222,14 +210,6 @@ const slides = [
         e.preventDefault();
         goToSlide(idx);
       });
-    });
-
-    carousel.addEventListener('mouseenter', () => {
-      isHovered = true;
-    });
-
-    carousel.addEventListener('mouseleave', () => {
-      isHovered = false;
     });
 
     carousel.addEventListener('keydown', (e) => {

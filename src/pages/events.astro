@@ -1,0 +1,112 @@
+---
+import { Picture } from 'astro:assets';
+import EditorialPage from '../components/EditorialPage.astro';
+import Panel from '../components/Panel.astro';
+import {
+  eventsPageContent,
+  pastEvents,
+  upcomingEvents,
+} from '../data/events';
+
+const hasUpcomingEvents = upcomingEvents.length > 0;
+---
+
+<EditorialPage
+  activePage="events"
+  eyebrow={eventsPageContent.eyebrow}
+  title={eventsPageContent.title}
+  lead={eventsPageContent.lead}
+  description={eventsPageContent.description}
+  image={eventsPageContent.image}
+  imageAlt={eventsPageContent.imageAlt}
+  caption={eventsPageContent.caption}
+  secondaryHref={eventsPageContent.secondaryHref}
+  secondaryLabel={eventsPageContent.secondaryLabel}
+  heroSignals={eventsPageContent.heroSignals}
+  quote={eventsPageContent.quote}
+  nextHref={eventsPageContent.nextHref}
+  nextLabel={eventsPageContent.nextLabel}
+  sections={eventsPageContent.sections}
+  total={3}
+>
+  <Panel id="upcoming" ground="sand" index={2} total={3} label={eventsPageContent.upcoming.eyebrow} labelledby="upcoming-title" nextId="recent" nextLabel={eventsPageContent.sections[2].label}>
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <p class="eyebrow">{eventsPageContent.upcoming.eyebrow}</p>
+        <h2 class="reveal" style="--i:1" id="upcoming-title">{eventsPageContent.upcoming.title}</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">{eventsPageContent.upcoming.lead}</p>
+    </div>
+
+    {hasUpcomingEvents ? (
+      <div class="connect-stories reveal" style="--i:3;">
+        {upcomingEvents.map((event) => (
+          <article class="connect-story">
+            <div class="connect-story__head">
+              <span class="connect-story__num connect-story__num--date">{event.date}</span>
+              <span class="connect-story__title">{event.title}</span>
+              <span class="connect-story__stat">{event.location}</span>
+            </div>
+            <p class="connect-story__body">{event.summary}</p>
+            <a class="approach-card__link" href="/who-we-are/">{eventsPageContent.upcoming.actionLabel} <span aria-hidden="true">→</span></a>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="modest-flow reveal" style="--i:3;">
+        {eventsPageContent.takePartOptions.map((option, index) => (
+          <div class="modest-step">
+            <span class="modest-step__num">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="modest-step__title">{option.title}</h3>
+            <p class="modest-step__desc">{option.body}</p>
+            <a class="approach-card__link" href={option.href}>
+              {option.linkText} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        ))}
+      </div>
+    )}
+  </Panel>
+
+  <Panel id="recent" ground="paper" index={3} total={3} label={eventsPageContent.recent.eyebrow} labelledby="recent-title" ctaHref={eventsPageContent.nextHref} ctaLabel={eventsPageContent.nextLabel}>
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <p class="eyebrow">{eventsPageContent.recent.eyebrow}</p>
+        <h2 class="reveal" style="--i:1" id="recent-title">{eventsPageContent.recent.title}</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">{eventsPageContent.recent.lead}</p>
+    </div>
+
+    <div class="columns reveal" style="--i:3;">
+      {pastEvents.map((event) => {
+        const meta = [event.date, event.location].filter(Boolean).join(' · ');
+
+        return (
+          <article class="approach-card">
+            <div class="approach-card__media approach-card__media--event">
+              <Picture
+                src={event.image}
+                widths={[500, 800, 1100]}
+                sizes="(min-width: 860px) 42vw, 92vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={85}
+                alt={event.alt}
+                loading="lazy"
+              />
+            </div>
+            <div class="approach-card__content">
+              <h3 class="approach-card__title">{event.title}</h3>
+              {meta && (
+                <p class="approach-card__stat">
+                  <span class="approach-card__stat-label">{meta}</span>
+                </p>
+              )}
+              <p class="approach-card__body">{event.summary}</p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </Panel>
+</EditorialPage>
