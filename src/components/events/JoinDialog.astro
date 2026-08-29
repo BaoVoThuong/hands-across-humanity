@@ -19,8 +19,7 @@ const contactEmail = 'info@handsacrosshumanity.org';
   <h2 class="join-dialog__title" id="join-title">Join us at this event</h2>
   <p class="join-dialog__event" data-join-summary></p>
   <p class="join-dialog__note">
-    This event is hosted by another organisation. Telling us you are coming
-    helps us plan what to bring — you are not registering with the host.
+    Hosted by another organisation — telling us you are coming helps us plan.
   </p>
 
   {endpoint ? (
@@ -33,7 +32,7 @@ const contactEmail = 'info@handsacrosshumanity.org';
         <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
       </div>
 
-      <div class="join-form__row">
+      <div class="join-form__row join-form__row--3">
         <label class="join-field">
           <span>Your name <b aria-hidden="true">*</b></span>
           <input type="text" name="name" required autocomplete="name" />
@@ -42,13 +41,17 @@ const contactEmail = 'info@handsacrosshumanity.org';
           <span>Email <b aria-hidden="true">*</b></span>
           <input type="email" name="email" required autocomplete="email" />
         </label>
+        <label class="join-field">
+          <span>Phone</span>
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
       </div>
 
-      <div class="join-form__row">
+      <div class="join-form__row join-form__row--3">
         <label class="join-field">
           <span>Organisation</span>
           <input type="text" name="organization" autocomplete="organization"
-            placeholder="Leave blank if you are coming as yourself" />
+            placeholder="Optional" />
         </label>
         <label class="join-field">
           <span>Coming as</span>
@@ -61,13 +64,6 @@ const contactEmail = 'info@handsacrosshumanity.org';
             <option value="other">Other</option>
           </select>
         </label>
-      </div>
-
-      <div class="join-form__row">
-        <label class="join-field">
-          <span>Phone</span>
-          <input type="tel" name="phone" autocomplete="tel" />
-        </label>
         <label class="join-field">
           <span>How many people</span>
           <input type="number" name="people" min="1" max="50" value="1" />
@@ -76,14 +72,16 @@ const contactEmail = 'info@handsacrosshumanity.org';
 
       <fieldset class="join-field join-field--checks">
         <legend>How would you like to help?</legend>
-        <label><input type="checkbox" name="help" value="contribute goods" /> Contribute goods</label>
-        <label><input type="checkbox" name="help" value="volunteer on the day" /> Volunteer on the day</label>
-        <label><input type="checkbox" name="help" value="just attending" /> Just attending</label>
+        <div>
+          <label><input type="checkbox" name="help" value="contribute goods" /> Contribute goods</label>
+          <label><input type="checkbox" name="help" value="volunteer on the day" /> Volunteer on the day</label>
+          <label><input type="checkbox" name="help" value="just attending" /> Just attending</label>
+        </div>
       </fieldset>
 
       <label class="join-field">
         <span>Anything we should know</span>
-        <textarea name="notes" rows="2"></textarea>
+        <textarea name="notes" rows="1"></textarea>
       </label>
 
       <p class="join-form__privacy">

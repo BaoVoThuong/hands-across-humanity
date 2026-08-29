@@ -350,9 +350,6 @@ html:has(body.site-body--editorial) .section {
 .site-body--editorial .panel--hero {
   border-bottom: 0;
 }
-.site-body--editorial .panel--sand {
-  background: var(--primary-light);
-}
 .site-body--editorial .page-hero__copy {
   position: relative;
   padding-left: clamp(1rem, 2vw, 1.75rem);
@@ -5938,9 +5935,9 @@ body {
 
 /* ---------- sign-up dialog ---------- */
 .join-dialog {
-  width: min(100% - 2rem, 46rem);
-  max-height: min(88vh, 46rem);
-  padding: clamp(1.25rem, 3vw, 2rem);
+  width: min(100% - 2rem, 54rem);
+  max-height: min(92vh, 50rem);
+  padding: clamp(1rem, 2.2vw, 1.6rem);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   background: var(--surface);
@@ -5960,9 +5957,12 @@ body {
 .join-dialog__done { display: grid; gap: var(--space-3); justify-items: start; padding-top: var(--space-4); }
 .join-dialog__done-title { font-weight: 700; }
 
-.join-form { display: grid; gap: var(--space-4); margin-top: var(--space-5); }
-.join-form__row { display: grid; gap: var(--space-4); }
-@media (min-width: 640px) { .join-form__row { grid-template-columns: 1fr 1fr; } }
+.join-form { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+.join-form__row { display: grid; gap: var(--space-3); }
+@media (min-width: 640px) {
+  .join-form__row { grid-template-columns: 1fr 1fr; }
+  .join-form__row--3 { grid-template-columns: 1.2fr 1.4fr 0.7fr; }
+}
 .join-form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .join-field { display: grid; gap: 0.35rem; font-size: var(--fs-small); }
@@ -5970,17 +5970,18 @@ body {
 .join-field b { color: var(--primary); }
 .join-field input, .join-field select, .join-field textarea {
   font: inherit; font-size: var(--fs-body);
-  padding: 0.6rem 0.7rem;
+  padding: 0.5rem 0.65rem;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   background: var(--paper); color: var(--fg);
-  min-height: 2.75rem;
+  min-height: 2.5rem;
 }
-.join-field textarea { min-height: 4rem; resize: vertical; }
-.join-field--checks { border: 0; padding: 0; margin: 0; gap: 0.4rem; }
+.join-field textarea { min-height: 2.5rem; resize: vertical; }
+.join-field--checks { border: 0; padding: 0; margin: 0; gap: 0.35rem; }
+.join-field--checks > div { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; }
 .join-field--checks label {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-weight: 400; color: var(--fg-muted); min-height: 2.25rem;
+  display: flex; align-items: center; gap: 0.45rem;
+  font-weight: 400; color: var(--fg-muted); min-height: 2rem;
 }
 .join-field--checks input { min-height: auto; }
 

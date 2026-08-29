@@ -94,14 +94,27 @@ function eventExists(date, title) {
   const di = head.indexOf('date');
   const ti = head.indexOf('title');
   if (di < 0 || ti < 0) return true;
+  const wanted = String(title).trim().toLowerCase();
   return rows.some(function (r) {
-    return String(r[ti]).trim() === title && asIso(r[di]) === date;
+    return String(r[ti]).trim().toLowerCase() === wanted && asIso(r[di]) === date;
   });
 }
 
+/**
+ * Normalise a sheet cell to YYYY-MM-DD.
+ *
+ * Sheets hands back a Date object for a date-formatted cell, created at
+ * midnight in the *spreadsheet's* timezone. Formatting that as UTC shifts the
+ * day backwards for any timezone ahead of UTC, so a sheet set to Asia or
+ * Europe silently reports the wrong date and every lookup fails. Format in the
+ * spreadsheet's own zone instead.
+ */
 function asIso(v) {
-  if (v instanceof Date) return Utilities.formatDate(v, 'UTC', 'yyyy-MM-dd');
-  return String(v).trim();
+  if (v instanceof Date) {
+    const tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone() || 'UTC';
+    return Utilities.formatDate(v, tz, 'yyyy-MM-dd');
+  }
+  return String(v).trim().slice(0, 10);
 }
 
 function str(v, max) {
