@@ -1933,10 +1933,13 @@ p {
   background: rgba(255, 255, 255, 0.8);
 }
 
+/* --cta is Deep Indigo, which on the navy scrim measured 1.06:1 — darker than
+   the inactive dots at 3.69:1, so the current slide was the hardest one to
+   pick out. The gold accent reads 9.78:1 against the same scrim. */
 .hero-carousel__dot.is-active {
   width: 20px;
   border-radius: 4px;
-  background: var(--cta);
+  background: var(--gold);
   box-shadow: none;
 }
 
@@ -5728,13 +5731,24 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--slate-80
   .rule-card__link { font-size: 0.75rem; }
 }
 
-/* Carousel dots stay small to look at but need a finger-sized hit area, so
-   the padding does the work and the visible dot keeps its size. */
+/* The dots are 8px because that is what reads well over a photograph. Padding
+   was the wrong way to give them a finger-sized target: content-box padding
+   inflated each dot to 47x35 and the indicator pill to 234px, so a control
+   meant to sit quietly in a corner covered a third of the image. A transparent
+   pseudo-element extends the target without touching layout. Vertical only —
+   the dots sit 6px apart, so extending sideways would overlap the neighbour
+   and steal its clicks. The 42px arrows carry a full-size target for the same
+   action, and the carousel advances on its own besides. */
 .hero-carousel__dot,
 .about-network-carousel__dot {
-  padding: 0.85rem;
-  background-clip: content-box;
-  box-sizing: content-box;
+  position: relative;
+  padding: 0;
+}
+.hero-carousel__dot::after,
+.about-network-carousel__dot::after {
+  content: '';
+  position: absolute;
+  inset: -8px -2px;
 }
 
 .faq-support-link { padding-block: 0.6rem; min-height: 2.75rem; }
