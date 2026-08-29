@@ -5824,6 +5824,72 @@ body {
    Reuses .approach-card, .columns, .modest-flow per the spec.
    ============================================================ */
 
+/* ============================================================
+   MISSION METHOD — COMPACT EDITORIAL LAYOUT
+   Keep the final mission section sized by its content. The previous
+   flex/viewport treatment left a large empty band between the showcase
+   and the section footer, especially when the image was taller than the
+   short editorial copy.
+   ============================================================ */
+#method.panel {
+  min-height: auto;
+  height: auto;
+  max-height: none;
+  padding-block: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+#method.panel > :is(.container, .container-narrow, .container-wide) {
+  flex-grow: 0;
+  padding-block: 0;
+  justify-content: flex-start;
+}
+
+#method .model-showcase {
+  margin-top: clamp(1.25rem, 2.2vw, 2rem);
+  align-items: center;
+}
+
+#method .model-showcase__content {
+  align-self: center;
+}
+
+#method .model-editorial-block {
+  padding-top: clamp(0.75rem, 1.25vw, 1rem);
+}
+
+#method .model-showcase__image-frame {
+  aspect-ratio: 16 / 9;
+  max-height: clamp(220px, 30vw, 300px);
+}
+
+#method .model-showcase__media figcaption {
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  line-height: 1.4;
+}
+
+#method .process-guarantee-bar {
+  margin-top: clamp(1.25rem, 2.4vw, 2rem) !important;
+}
+
+#method > .panel__foot {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 939px) {
+  #method.panel {
+    padding-top: clamp(1.5rem, 6vw, 2.5rem);
+    padding-bottom: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  #method .model-showcase {
+    margin-top: 1.25rem;
+  }
+
+  #method .model-showcase__image-frame {
+    max-height: none;
+  }
+}
+
 /* Event photographs are people-centred; 21:9 crops heads off. */
 
 .events-table-wrap { margin-top: var(--space-5); }
@@ -6123,3 +6189,29 @@ body {
 
 /* Keep a scroll gesture inside the dialog from reaching the page behind it. */
 .join-dialog { overscroll-behavior: contain; }
+
+/* ============================================================
+   SECTION DIVIDERS
+   A hairline between adjacent sections, matching the rule that frames the
+   chapter-transition quote. Adjacent-sibling selectors do not work here:
+   Astro emits a <script> between some sections, which breaks the chain.
+   Position in the parent is used instead.
+   ============================================================ */
+main > .panel + .panel,
+main > section:not(:first-child),
+main > .hero-fold-group > section:not(:first-child),
+main > section.about-network-section:not(:first-child) {
+  border-top: 1px solid var(--transition-border);
+}
+
+/* The dark bands already read as boundaries, and a pale rule against ink
+   would sit oddly bright. The impact strip keeps the border it defines. */
+.panel--ink,
+.panel--ink + .panel,
+.section--ink,
+.impact-band,
+main > section.section--ink:not(:first-child) {
+  border-top-color: transparent;
+}
+main > .hero-fold-group > section.impact-band { border-top-color: var(--slate-800); }
+.chapter-transition { border-top: 1px solid var(--transition-border); }
