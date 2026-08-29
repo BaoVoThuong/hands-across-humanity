@@ -34,8 +34,6 @@ const heroSignals = [
 
 const ruleCards = [
   {
-    num: '01',
-    category: 'Who we serve',
     title: 'Support starts with people',
     body: 'We collect and share essential supplies with children, families, veterans, older adults, and communities affected by disasters and other urgent situations.',
     image: communityDistribution,
@@ -46,8 +44,6 @@ const ruleCards = [
     linkText: 'See where support goes'
   },
   {
-    num: '02',
-    category: 'How we act',
     title: 'Useful aid, ready when needed',
     body: 'Strategic partnerships, dedicated volunteers, and efficient transport support help essential goods reach people quickly and reliably.',
     image: supplyHandoff,
@@ -58,8 +54,6 @@ const ruleCards = [
     linkText: 'See how it comes together'
   },
   {
-    num: '03',
-    category: 'Who makes it possible',
     title: 'Partnerships that multiply care',
     body: 'Businesses, nonprofits, houses of worship, volunteers, and local leaders work together so communities can prepare, respond, and recover with dignity.',
     image: partnerShowcase,
@@ -94,6 +88,7 @@ const ruleCards = [
   <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three pillars">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
+        <p class="eyebrow">Approach</p>
         <h2 class="reveal" style="--i:1" id="approach-title">From available goods to useful support.</h2>
       </div>
       <p class="lead reveal" style="--i:2">Partnerships, volunteers, and reliable transport help communities prepare, respond, and recover with dignity.</p>
@@ -143,7 +138,10 @@ const ruleCards = [
   <!-- 03: Rules / Pillars -->
   <Panel id="rules" ground="paper" index={3} total={3} label="Pillars" labelledby="rules-title">
     <div class="panel-head">
-      <h2 class="reveal" style="--i:1" id="rules-title">Three commitments behind the mission.</h2>
+      <div class="panel-head__title">
+        <p class="eyebrow">Pillars</p>
+        <h2 class="reveal" style="--i:1" id="rules-title">Three commitments behind the mission.</h2>
+      </div>
     </div>
     
     <div class="principles">
@@ -165,10 +163,6 @@ const ruleCards = [
             <span>{rule.captionTitle}</span>
           </figcaption>
           <div class="rule-card__content">
-            <div class="rule-card__head">
-              <span class="rule-card__number">{rule.num}</span>
-              <span class="rule-card__category">{rule.category}</span>
-            </div>
             <h3 class="rule-card__title">{rule.title}</h3>
             <p class="rule-card__body">{rule.body}</p>
             <div class="rule-card__action">

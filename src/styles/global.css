@@ -3659,6 +3659,15 @@ p {
   flex-direction: column;
   gap: var(--space-2);
 }
+.panel-head .eyebrow {
+  margin: 0 0 clamp(0.2rem, 0.5vh, 0.4rem);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
 @media (min-width: 860px) {
   .panel-head--split {
     display: flex;
@@ -4032,7 +4041,6 @@ img.img-pos-lower-middle,
   padding-block: clamp(0.35rem, 0.8vh, 0.6rem) 0;
   gap: clamp(0.25rem, 0.6vh, 0.45rem);
 }
-#rules .rule-card__head { padding-bottom: 0.35rem; }
 #rules .rule-card__body { line-height: 1.45; }
 #rules .pull-quote--rule {
   margin-top: clamp(0.5rem, 1vh, 0.75rem) !important;
@@ -4135,27 +4143,6 @@ img.img-pos-lower-middle,
   flex-direction: column;
   gap: clamp(0.35rem, 1vh, 0.75rem);
   flex-grow: 1;
-}
-.rule-card__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--border-warm);
-}
-.rule-card__number {
-  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--slate-900);
-}
-.rule-card__category {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--slate-700);
 }
 .rule-card__title {
   font-size: var(--fs-h3);
@@ -5714,22 +5701,6 @@ body {
     grid-area: content;
     padding: 0;
     gap: 0.35rem;
-  }
-
-  #rules .rule-card__head {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.2rem;
-    padding-bottom: 0.35rem;
-  }
-
-  #rules .rule-card__number {
-    font-size: 1rem;
-  }
-
-  #rules .rule-card__category {
-    font-size: 0.6rem;
-    line-height: 1.2;
   }
 
   #rules .rule-card__title {
