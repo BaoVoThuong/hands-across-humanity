@@ -28,7 +28,7 @@
   /* Ink & Typography Colors */
   --fg: #12284C;
   --fg-muted: #475867;
-  --fg-light: #5C6C7E;
+  --fg-light: #556172;      /* darkened for the warm sand band: 5.12:1 there */
   --fg-on-dark: #F8FAFC;
   --fg-muted-on-dark: #A9BBD0;
 
@@ -36,6 +36,7 @@
   --primary: #0060AE;          /* Signal Blue */
   --primary-hover: #004E8C;
   --primary-light: #EAF3FB;
+  --sand-warm: #EEE7DC;      /* feature band on editorial pages */
   --gold: #F8B33D;             /* Accent — highlights, never a text colour on white */
   --gold-soft: #F6DCAE;
   
@@ -351,7 +352,10 @@ html:has(body.site-body--editorial) .section {
   border-bottom: 0;
 }
 .site-body--editorial .panel--sand {
-  background: var(--primary-light);
+  /* Warm sand, deliberately outside the blue family. The hero band is
+     #F4F7FA and the feature panel sits directly under it; another pale blue
+     there was indistinguishable from it. */
+  background: var(--sand-warm);
 }
 
 .site-body--editorial .page-hero__copy {
