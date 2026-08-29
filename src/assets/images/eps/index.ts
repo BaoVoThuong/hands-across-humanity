@@ -11,7 +11,6 @@ import partnerTeam from './eps-partner-team.jpg';
 import healthSupplies from './eps-health-supplies.jpg';
 import communitySupplies from './eps-community-supplies.jpg';
 import supplyStaging from './eps-supply-staging.jpg';
-import indoorRelief from './eps-indoor-relief.jpg';
 import partnerShowcase from './eps-partner-showcase.jpg';
 import volunteerGroup from './eps-field-01.jpg';
 import field02 from './eps-field-02.jpg';
@@ -35,7 +34,6 @@ export {
   healthSupplies,
   communitySupplies,
   supplyStaging,
-  indoorRelief,
   partnerShowcase,
   volunteerGroup,
   field02,
