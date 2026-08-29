@@ -86,6 +86,66 @@ Four cards, 2x2 at desktop, one column on mobile.
 Card anatomy: image (3:2) → title → optional meta line (date · location) →
 one or two sentences of description.
 
+## UI vocabulary — reuse, do not invent
+
+The page must be indistinguishable in style from the four sibling pages. The
+existing system was audited before this section was written; every pattern
+below already exists and is already styled.
+
+### The house style, stated so it is not broken by accident
+
+- **Cards are flat.** Transparent background, no bounding border, no shadow,
+  no radius on the card itself. A card is delimited by a single hairline
+  `border-top: 1px solid var(--border-warm)` and nothing else.
+- **Only media gets a border.** Images sit in a 1px `--border-warm` frame with
+  a 2px radius.
+- **Hover is limited to the image**, `transform: scale(1.03)`. Cards do not
+  lift, glow, or change background.
+- **Numbers (01/02/03) appear only where the content is genuinely a sequence.**
+  Parallel items are not numbered.
+
+### Class mapping
+
+| Element | Reuse | Notes |
+|---|---|---|
+| Page shell | `EditorialPage` | Full prop contract below |
+| Each panel | `Panel` | `index` / `total` / `label` / `ground` |
+| Panel headers | `.panel-head` `.panel-head--split` | eyebrow + h2 on the left, lead on the right |
+| Recent event cards | `.approach-card` with `__media` / `__content` / `__title` / `__body` | Already an image card, already flat, already has the hover |
+| Recent events grid | `.columns` | Two columns from 860px, so four cards land as 2x2 with no new CSS |
+| Upcoming rows | `.connect-story` with `__head` / `__num` / `__title` / `__stat` / `__body` | Maps exactly: date to `__num`, title to `__title`, location to `__stat` |
+| Take-part row (state B) | `.modest-flow` / `.modest-step` | Three parallel ways in |
+| Eyebrows, leads, quotes | `.eyebrow`, `.lead`, `.pull-quote` | Unchanged |
+
+### EditorialPage props for this page
+
+```
+activePage="events"
+eyebrow="Events"
+title="Where the work actually happens."
+lead=<see Content>
+image={communitySupportWide}
+heroSignals=[3 items]
+sections=[top, upcoming, recent]
+total={3}
+nextHref="/vision/"   nextLabel="Read our vision"
+```
+
+### New CSS permitted
+
+Only two additions, and both are modifiers on existing blocks rather than new
+components:
+
+1. A date treatment for `.connect-story__num`, which currently holds a
+   two-digit numeral and must hold a short date instead. Widen it; do not
+   restyle it.
+2. `.approach-card__media` on this page uses 3:2 rather than 21:9, because
+   event photographs are people-centred and 21:9 crops heads. Add a modifier
+   class; do not change the base.
+
+Anything beyond these two is a signal the design has drifted and should be
+raised before writing it.
+
 ## Data model
 
 All content lives in `src/data/events.ts`. A non-engineer edits that file and
@@ -153,3 +213,7 @@ capture backend, no CMS. The site remains a static build with no backend, and
 - [ ] `npm run prelaunch` exits 0
 - [ ] One h1, no console errors, no horizontal overflow at 1440 and 390
 - [ ] Every image carries alt text and intrinsic dimensions
+- [ ] No new card component: recent events use `.approach-card`, upcoming rows
+      use `.connect-story`
+- [ ] No card has a background fill, bounding border, or shadow
+- [ ] New CSS is limited to the two modifiers named in UI vocabulary
