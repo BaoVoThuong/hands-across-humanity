@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 import {
+  partnerCommunity,
   educationRelief,
   communityDistributionWide,
   field02,
@@ -22,6 +23,12 @@ const {
 } = Astro.props;
 
 const slides = [
+  {
+    image: partnerCommunity,
+    alt: "Community partners and families gathered with prepared support packages.",
+    lead: "Community partnership",
+    title: "Support arrives through the people a community already trusts."
+  },
   {
     image: educationRelief,
     alt: "Children holding prepared school and relief kits with community volunteers.",
