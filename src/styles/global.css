@@ -39,6 +39,7 @@
   --sand-warm: #EEE7DC;      /* feature band on editorial pages */
   --sand-warm-hover: #E6DDCE; /* row hover on that band — same family, one step down */
   --gold: #F8B33D;             /* Accent — highlights, never a text colour on white */
+  --brand-accent: #C84B2C;     /* "Humanity" in the wordmark on light grounds */
   --gold-soft: #F6DCAE;
   
   --emerald: #059669;          /* Trust & Impact Emerald */
@@ -737,7 +738,7 @@ p {
   letter-spacing: -0.02em;
   color: var(--slate-900);
 }
-.brand__name span { color: var(--primary); }
+.brand__name span { color: var(--brand-accent); }
 
 /* Desktop Navigation */
 .desktop-nav { display: none; }
