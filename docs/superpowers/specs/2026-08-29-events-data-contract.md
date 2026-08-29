@@ -57,6 +57,98 @@ and a spreadsheet are not equipped to meet.
 **Say on the form** what the data is used for and who sees it. One sentence is
 enough: used only to plan this event, not shared with anyone else.
 
+## 5. Registration — custom form posting to Apps Script
+
+Chosen over an embedded Google Form so the form matches the site's styling
+and stays on the page. This section records what that costs, because the
+cost is real and lands on whoever maintains the sheet.
+
+### What people are signing up for
+
+These events are run by other organisations; Hands Across Humanity attends.
+So the form is **not** registration for the event itself — that belongs to the
+host. It is people telling Hands Across Humanity they would like to come along
+or help on the day.
+
+The button copy must say so. **"Join us at this event"**, not "Register".
+Writing "Register" implies we control admission to someone else's event.
+
+### Fields written to the `attendance` tab
+
+| Column | Source | Required |
+|---|---|---|
+| `timestamp` | server-side, `new Date()` in Apps Script | auto |
+| `event_date` | hidden field, the row's ISO date | yes |
+| `event_title` | hidden field | yes |
+| `name` | text input | yes |
+| `email` | email input | yes |
+| `phone` | tel input | no |
+| `people` | number input, default 1 | no |
+| `help` | checkboxes: contribute goods / volunteer / just attending | no |
+| `notes` | textarea | no |
+
+`timestamp` is set inside Apps Script, never sent by the browser. A client
+supplied timestamp can be forged and is not evidence of anything.
+
+### The endpoint is public and writable
+
+This is the part that must not be discovered later. An Apps Script web app
+deployed as "anyone, even anonymous" is an **open write endpoint**. Its URL
+ships inside the site's JavaScript, so anyone who views source can post to it.
+
+Mitigations that do not require a third party:
+
+1. **Honeypot field** — a text input hidden from sight and from assistive
+   technology, `tabindex="-1"`, `autocomplete="off"`. Humans never fill it.
+   Any submission with it filled is dropped silently.
+2. **Time trap** — record when the form was rendered; reject submissions that
+   arrive under three seconds. Bots submit instantly.
+3. **Server-side validation in Apps Script** — reject rows where `event_title`
+   does not match a title in the `events` tab, where `email` fails a basic
+   shape check, or where any field exceeds a sane length.
+4. **Cap the payload** — refuse anything over ~2KB.
+
+These stop naive bots. They do not stop a determined person. If the sheet does
+start collecting junk, the honest next step is a captcha, which means a third
+party script and, in the EU, a cookie notice — the thing this site has so far
+avoided. Say so now rather than discovering it under pressure.
+
+### CORS
+
+Apps Script web apps cannot set arbitrary response headers. Post as a **simple
+request** — `Content-Type: text/plain` with a JSON string body — so the browser
+skips the preflight that Apps Script cannot answer. Verify a real round trip
+against a deployed script before building the success and failure states; do
+not assume the response is readable.
+
+### Failure states the form must handle
+
+A public endpoint on someone else's infrastructure will fail sometimes.
+
+- **Submitting** — button disabled, label changes, so nobody double-posts.
+- **Succeeded** — replace the form with a short confirmation naming the event.
+- **Failed** — keep every value the person typed, explain that it did not send,
+  and offer the contact email as a fallback. Never discard a filled form.
+- **JavaScript off** — the form does not render at all. Show the contact email
+  instead. A form that cannot submit is worse than no form.
+
+### Privacy
+
+The form collects a name, an email and possibly a phone number, and writes
+them to a spreadsheet. One sentence beside the submit button: what it is used
+for, and that it is not shared. No date of birth, no address, no health
+information — none of it is needed to attend, and collecting it creates a duty
+of care a spreadsheet cannot meet.
+
+### What the client deploys
+
+1. Apps Script bound to the sheet, `doPost(e)` appending to `attendance`.
+2. Deploy → New deployment → Web app → Execute as **me**, access
+   **anyone**. Copy the `/exec` URL.
+3. Put that URL in the site config. It is not a secret, but it is a write
+   endpoint; treat it as replaceable and rotate it if abused.
+4. Create the `attendance` header row exactly as the table above, in order.
+
 ## 3. Hosting versus attending
 
 The supplied list is headed "Attendance", and the events are run by other
