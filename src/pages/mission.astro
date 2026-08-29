@@ -9,6 +9,7 @@ import {
   supplyHandoff,
   partnerShowcase,
   healthSupplies,
+  indoorRelief,
 } from '../assets/images/eps';
 
 const sections = [
@@ -80,12 +81,12 @@ const ruleCards = [
   heroSignals={heroSignals}
   quote="“A clear mission turns good intentions into practical support.”"
   nextHref="/what-we-do/"
-  nextLabel="Explore the work"
+  nextLabel="See what we do"
   sections={sections}
-  total={3}
+  total={4}
 >
   <!-- 02: Approach -->
-  <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three pillars">
+  <Panel id="approach" ground="sand" index={2} total={4} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three pillars">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <p class="eyebrow">Approach</p>
@@ -136,7 +137,7 @@ const ruleCards = [
   </Panel>
 
   <!-- 03: Rules / Pillars -->
-  <Panel id="rules" ground="paper" index={3} total={3} label="Pillars" labelledby="rules-title">
+  <Panel id="rules" ground="paper" index={3} total={4} label="Pillars" labelledby="rules-title">
     <div class="panel-head">
       <div class="panel-head__title">
         <p class="eyebrow">Pillars</p>
@@ -175,5 +176,65 @@ const ruleCards = [
       ))}
     </div>
 
+  </Panel>
+  <!-- 04: How the work reaches people -->
+  <Panel id="method" ground="sand" index={4} total={4} label="Our method" labelledby="method-title" ctaHref="/what-we-do/" ctaLabel="See what we do">
+    <div class="panel-head panel-head--split">
+      <div class="panel-head__title">
+        <h2 class="reveal" style="--i:1" id="method-title">Good intentions need a clear path to people.</h2>
+      </div>
+        <p class="lead reveal" style="--i:2">The work follows a simple path: understand the need, prepare useful goods, and share them through trusted relationships.</p>
+    </div>
+
+    <!-- Editorial Showcase Layout -->
+    <div class="model-showcase">
+      <div class="model-showcase__content reveal" style="--i:3">
+        <div class="model-editorial-block">
+          <div class="model-editorial-block__meta">
+            <span class="model-editorial-block__label">Useful giving</span>
+            <span class="model-editorial-block__sep" aria-hidden="true">|</span>
+            <span class="model-editorial-block__tag">Community accountability</span>
+          </div>
+          <p class="model-editorial-block__lead">
+            Our model brings together practical goods, dedicated volunteers, trusted partnerships, and a commitment to serving every community without discrimination.
+          </p>
+        </div>
+      </div>
+
+      <figure class="model-showcase__media reveal" style="--i:4">
+        <div class="model-showcase__image-frame">
+          <Picture
+            src={indoorRelief}
+            widths={[600, 900, 1200]}
+            sizes="(min-width: 940px) 46vw, 92vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="jpeg"
+            quality={75}
+            alt="Volunteers coordinating direct relief with community members in a public hall."
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>Volunteers preparing donated goods for a community distribution event.</figcaption>
+      </figure>
+    </div>
+
+    <!-- Trust & Verification Bar -->
+    <div class="process-guarantee-bar reveal" style="--i:5; margin-top:var(--space-7);">
+      <div class="process-guarantee-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1 -5.93 -9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span>Non-discriminatory service</span>
+      </div>
+      <div class="process-guarantee-divider" aria-hidden="true"></div>
+      <div class="process-guarantee-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Transparent partnerships</span>
+      </div>
+      <div class="process-guarantee-divider" aria-hidden="true"></div>
+      <div class="process-guarantee-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--slate-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>Practical community value</span>
+      </div>
+    </div>
   </Panel>
 </EditorialPage>
