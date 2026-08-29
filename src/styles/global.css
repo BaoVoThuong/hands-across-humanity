@@ -9,37 +9,37 @@
   /* Color Palette — High contrast, professional, warm & commercial */
   --paper: #FFFFFF;
   --surface: #FFFFFF;
-  --surface-alt: #F4F7FA;
-  --surface-hover: #E8EFF6;
+  --surface-alt: #FBF6F0;
+  --surface-hover: #F7EDE4;
 
   /* Closing transitions — a warm paper bridge into the footer */
   --transition-warm: var(--surface-alt);
-  --transition-ink-muted: #0060AE;
-  --transition-border: #9CC3E4;
+  --transition-ink-muted: #B23C0B;
+  --transition-border: #E0C4A6;
   --transition-padding: clamp(2rem, 4vh, 3rem);
   
-  --slate-900: #0B1B33;
-  --slate-800: #12284C;
-  --slate-700: #294366;
-  --slate-600: #475867;
-  --slate-500: #5C6C7E;
-  --slate-100: #F4F7FA;
+  --slate-900: #2B1A10;
+  --slate-800: #3D2517;
+  --slate-700: #4F3423;
+  --slate-600: #6B4A34;
+  --slate-500: #7D5A42;
+  --slate-100: #FBF6F0;
 
   /* Ink & Typography Colors */
-  --fg: #12284C;
-  --fg-muted: #475867;
-  --fg-light: #556172;      /* darkened for the warm sand band: 5.12:1 there */
-  --fg-on-dark: #F8FAFC;
-  --fg-muted-on-dark: #A9BBD0;
+  --fg: #3D2517;
+  --fg-muted: #6B4A34;
+  --fg-light: #7D5A42;      /* darkened for the warm sand band: 5.12:1 there */
+  --fg-on-dark: #FDF8F4;
+  --fg-muted-on-dark: #D6BCA6;
 
   /* Brand Colors */
-  --primary: #0060AE;          /* Signal Blue */
-  --primary-hover: #004E8C;
-  --primary-light: #EAF3FB;
-  --sand-warm: #EEE7DC;      /* feature band on editorial pages */
-  --sand-warm-hover: #E6DDCE; /* row hover on that band — same family, one step down */
+  --primary: #B23C0B;          /* Signal Blue */
+  --primary-hover: #8A2D06;
+  --primary-light: #FDF0E7;
+  --sand-warm: #F5E6D8;      /* feature band on editorial pages */
+  --sand-warm-hover: #EEDBC8; /* row hover on that band — same family, one step down */
   --gold: #F8B33D;             /* Accent — highlights, never a text colour on white */
-  --brand-accent: #C84B2C;     /* "Humanity" in the wordmark on light grounds */
+  --brand-accent: #B23C0B;     /* "Humanity" in the wordmark on light grounds */
   --gold-soft: #F6DCAE;
   
   --emerald: #059669;          /* Trust & Impact Emerald */
@@ -48,19 +48,19 @@
   --emerald-border: #A7F3D0;
 
   /* Action CTAs */
-  --cta: #160042;              /* Deep Indigo — donate only */
-  --cta-hover: #24076B;
-  --cta-active: #0F0030;
+  --cta: #9A3412;              /* Deep Indigo — donate only */
+  --cta-hover: #7C2A0E;
+  --cta-active: #66220B;
   --on-cta: #FFFFFF;
 
   /* Borders & High-Contrast Dividers */
-  --border: #D6E0EA;
-  --border-warm: #C9D8E6;
-  --border-strong: #708499;
-  --divider-color: #DCE5EE;
-  --divider-strong: #B4C5D6;
+  --border: #EADFD4;
+  --border-warm: #E0D0C0;
+  --border-strong: #8B6A52;
+  --divider-color: #EDE0D4;
+  --divider-strong: #D3BCA6;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
-  --focus-ring: #0060AE;
+  --focus-ring: #B23C0B;
 
   /* Responsive Type Scale */
   --fs-display: clamp(2.15rem, 1.5rem + 2.2vw, 3.75rem);
@@ -389,7 +389,7 @@ html:has(body.site-body--editorial) .section {
 .site-body--editorial .page-hero__caption-num { color: var(--primary); }
 .site-body--editorial .page-hero__caption-text { color: var(--slate-700); }
 .site-body--editorial .page-hero__caption-sep {
-  color: var(--border-strong, #94A3B8);
+  color: var(--border-strong, #8B6A52);
 }
 .site-body--editorial .page-hero__signals {
   border-top-color: var(--slate-300);
@@ -1131,7 +1131,7 @@ p {
   font-size: 0.75rem;
 }
 .page-hero__caption-sep {
-  color: var(--border-strong, #94A3B8);
+  color: var(--border-strong, #8B6A52);
   font-weight: 300;
   opacity: 0.6;
   font-size: 0.75rem;
@@ -1750,7 +1750,7 @@ p {
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #0f172a;
+  background: var(--slate-900);
 }
 
 .hero-carousel__slide {
@@ -1978,7 +1978,7 @@ p {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #E2E8F0;
+  color: var(--fg-on-dark);
 }
 .hero-v2__caption-text {
   font-size: var(--fs-small);
@@ -2129,9 +2129,9 @@ p {
   border-color: var(--slate-900);
 }
 .tab-btn[data-category="Clean Water"].is-active {
-  background: #1E40AF;
+  background: var(--primary);
   color: #FFFFFF;
-  border-color: #1E40AF;
+  border-color: var(--primary);
 }
 .tab-btn[data-category="Education"].is-active {
   background: #B45309;
@@ -3344,7 +3344,7 @@ img.img-pos-lower-middle,
 }
 .approach-photo-caption__sep,
 .rule-card__sep {
-  color: var(--border-strong, #94A3B8);
+  color: var(--border-strong, #8B6A52);
   font-weight: 300;
   opacity: 0.6;
   font-size: 0.75rem;
