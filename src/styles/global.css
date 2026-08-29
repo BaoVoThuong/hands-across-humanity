@@ -350,6 +350,10 @@ html:has(body.site-body--editorial) .section {
 .site-body--editorial .panel--hero {
   border-bottom: 0;
 }
+.site-body--editorial .panel--sand {
+  background: var(--primary-light);
+}
+
 .site-body--editorial .page-hero__copy {
   position: relative;
   padding-left: clamp(1rem, 2vw, 1.75rem);
