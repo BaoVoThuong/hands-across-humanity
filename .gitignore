@@ -4,3 +4,8 @@ dist/
 .DS_Store
 /context/
 .vercel
+
+# Local env files — never commit these
+.env
+.env.*
+!.env.example
