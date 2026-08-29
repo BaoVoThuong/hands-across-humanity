@@ -37,6 +37,7 @@
   --primary-hover: #004E8C;
   --primary-light: #EAF3FB;
   --sand-warm: #EEE7DC;      /* feature band on editorial pages */
+  --sand-warm-hover: #E6DDCE; /* row hover on that band — same family, one step down */
   --gold: #F8B33D;             /* Accent — highlights, never a text colour on white */
   --gold-soft: #F6DCAE;
   
@@ -3764,9 +3765,13 @@ p {
 }
 /* The source photographs are 4:3. Displaying them at 4:3 crops nothing;
    the previous 3:2 with a 152px ceiling was discarding 64% of each frame. */
+/* Cropped to 2:1 rather than shown at the source 4:3. Four photographs at
+   full column width will not fit a screen uncropped, and the client chose the
+   wider, larger image over the whole frame. Still far from the 3.7:1 strip
+   this started as. */
 .approach-card__media--event {
-  aspect-ratio: 4 / 3;
-  max-height: none;
+  aspect-ratio: 11 / 5;
+  max-height: 32vh;   /* short viewports crop a little further rather than overflow */
 }
 
 .approach-card__media img {
@@ -5934,7 +5939,7 @@ body {
 
 @media (hover: hover) and (min-width: 761px) {
   .events-table tbody tr { transition: background-color var(--dur-micro) var(--ease-standard); }
-  .events-table tbody tr:hover { background: var(--surface-hover); }
+  .events-table tbody tr:hover { background: var(--sand-warm-hover); }
   .events-table tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
   .events-table tbody tr:hover td:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
 }
@@ -6219,3 +6224,4 @@ main > section.section--ink:not(:first-child) {
 }
 main > .hero-fold-group > section.impact-band { border-top-color: var(--slate-800); }
 .chapter-transition { border-top: 1px solid var(--transition-border); }
+
