@@ -1,6 +1,6 @@
-date,time,title,venue,city,state,map_query,register_url,role,summary
-2026-08-16,9-11AM,Event at Phuoc Duc Monastery,Tu Vien Phuoc Duc,Houston,TX,"10839 Lilleux Rd, Houston, TX 77067",,attending,
-2026-08-29,10-PM,VACA Health Fair,VACA,,,,,attending,
-2026-09-12,10-PM,VAMA Health Fair,Vietnamese American Medical Association of Greater Houston,,,,,attending,
-2026-09-13,10-PM,Back-to-School event,Vien Thong Temple,Houston,TX,"17355 Groeschke Rd, Houston, TX 77084",,attending,
-2026-09-26,,Mid-Autumn Festival,Vietnam Buddhist Center,Sugar Land,TX,"10002 Synott Rd, Sugar Land, TX",,attending,
+"date","time","title","venue","city","state","address"
+"2026-08-16","9-11AM","Event at Phuoc Duc Monastery","Tu Vien Phuoc Duc","Houston","TX","10839 Lilleux Rd, Houston, TX 77067"
+"2026-08-29","10-PM","VACA Health Fair","VACA","","",""
+"2026-09-12","10-PM","VAMA Health Fair","Vietnamese American Medical Association of Greater Houston","","",""
+"2026-09-13","10-PM","Back-to-School event","Vien Thong Temple","Houston","TX","17355 Groeschke Rd, Houston, TX 77084"
+"2026-09-26","","Mid-Autumn Festival","Vietnam Buddhist Center","Sugar Land","TX","10002 Synott Rd, Sugar Land, TX"

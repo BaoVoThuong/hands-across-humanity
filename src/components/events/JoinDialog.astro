@@ -1,0 +1,185 @@
+---
+/**
+ * Sign-up form. Posts to an Apps Script endpoint that appends to the
+ * `attendance` tab.
+ *
+ * Without an endpoint configured the form does not render at all and the
+ * contact fallback is shown instead. A form that cannot submit is worse than
+ * no form: it collects someone's details and drops them.
+ */
+const endpoint = import.meta.env.PUBLIC_ATTENDANCE_ENDPOINT ?? '';
+const contactEmail = 'info@handsacrosshumanity.org';
+---
+
+<dialog class="join-dialog" id="join-dialog" aria-labelledby="join-title">
+  <form method="dialog" class="join-dialog__close-form">
+    <button class="join-dialog__close" value="cancel" aria-label="Close">&times;</button>
+  </form>
+
+  <h2 class="join-dialog__title" id="join-title">Join us at this event</h2>
+  <p class="join-dialog__event" data-join-summary></p>
+  <p class="join-dialog__note">
+    This event is hosted by another organisation. Telling us you are coming
+    helps us plan what to bring — you are not registering with the host.
+  </p>
+
+  {endpoint ? (
+    <form class="join-form" data-join-form novalidate>
+      <input type="hidden" name="event_title" data-field-title />
+      <input type="hidden" name="event_date" data-field-date />
+
+      {/* Honeypot: hidden from sight and from assistive technology. */}
+      <div class="join-form__trap" aria-hidden="true">
+        <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+
+      <div class="join-form__row">
+        <label class="join-field">
+          <span>Your name <b aria-hidden="true">*</b></span>
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label class="join-field">
+          <span>Email <b aria-hidden="true">*</b></span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+      </div>
+
+      <div class="join-form__row">
+        <label class="join-field">
+          <span>Organisation</span>
+          <input type="text" name="organization" autocomplete="organization"
+            placeholder="Leave blank if you are coming as yourself" />
+        </label>
+        <label class="join-field">
+          <span>Coming as</span>
+          <select name="org_type">
+            <option value="individual">An individual</option>
+            <option value="business">A business</option>
+            <option value="faith organisation">A faith organisation</option>
+            <option value="nonprofit">A nonprofit</option>
+            <option value="school">A school</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="join-form__row">
+        <label class="join-field">
+          <span>Phone</span>
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
+        <label class="join-field">
+          <span>How many people</span>
+          <input type="number" name="people" min="1" max="50" value="1" />
+        </label>
+      </div>
+
+      <fieldset class="join-field join-field--checks">
+        <legend>How would you like to help?</legend>
+        <label><input type="checkbox" name="help" value="contribute goods" /> Contribute goods</label>
+        <label><input type="checkbox" name="help" value="volunteer on the day" /> Volunteer on the day</label>
+        <label><input type="checkbox" name="help" value="just attending" /> Just attending</label>
+      </fieldset>
+
+      <label class="join-field">
+        <span>Anything we should know</span>
+        <textarea name="notes" rows="2"></textarea>
+      </label>
+
+      <p class="join-form__privacy">
+        Used only to plan this event. We do not share it with anyone else.
+      </p>
+
+      <p class="join-form__error" data-join-error hidden role="alert"></p>
+
+      <div class="join-form__actions">
+        <button type="submit" class="btn btn--primary" data-join-submit>Send</button>
+        <button type="button" class="btn btn--ghost" data-join-cancel>Cancel</button>
+      </div>
+    </form>
+  ) : (
+    <p class="join-dialog__fallback">
+      Sign-ups are not connected yet. Email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> and we will add you.
+    </p>
+  )}
+
+  <div class="join-dialog__done" data-join-done hidden>
+    <p class="join-dialog__done-title">Thank you — we have your details.</p>
+    <p>We will be in touch before the event.</p>
+    <button type="button" class="btn btn--ghost" data-join-cancel>Close</button>
+  </div>
+</dialog>
+
+<script define:vars={{ endpoint }}>
+  const dialog = document.getElementById('join-dialog');
+  if (dialog) {
+    const form = dialog.querySelector('[data-join-form]');
+    const done = dialog.querySelector('[data-join-done]');
+    const errorEl = dialog.querySelector('[data-join-error]');
+    const summary = dialog.querySelector('[data-join-summary]');
+    let openedAt = 0;
+
+    document.querySelectorAll('[data-join-event]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const title = btn.getAttribute('data-join-event') || '';
+        const date = btn.getAttribute('data-join-date') || '';
+        if (summary) summary.textContent = title;
+        if (form) {
+          form.reset();
+          form.hidden = false;
+          form.querySelector('[data-field-title]').value = title;
+          form.querySelector('[data-field-date]').value = date;
+        }
+        if (done) done.hidden = true;
+        if (errorEl) errorEl.hidden = true;
+        openedAt = Date.now();
+        dialog.showModal();
+      });
+    });
+
+    dialog.querySelectorAll('[data-join-cancel]').forEach((b) =>
+      b.addEventListener('click', () => dialog.close())
+    );
+
+    form?.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const submit = form.querySelector('[data-join-submit]');
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.help = [...form.querySelectorAll('input[name="help"]:checked')].map((c) => c.value);
+      data.elapsed = Date.now() - openedAt;
+
+      if (!data.name || !data.email) {
+        errorEl.textContent = 'Please add your name and email.';
+        errorEl.hidden = false;
+        return;
+      }
+
+      submit.disabled = true;
+      const label = submit.textContent;
+      submit.textContent = 'Sending…';
+      errorEl.hidden = true;
+
+      try {
+        // text/plain keeps this a simple request, so the browser skips the
+        // preflight that Apps Script cannot answer.
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data)
+        });
+        const out = await res.json().catch(() => ({ ok: res.ok }));
+        if (!out.ok) throw new Error(out.message || 'Could not send.');
+        form.hidden = true;
+        done.hidden = false;
+      } catch (err) {
+        // Keep every value the person typed; never discard a filled form.
+        errorEl.textContent =
+          'That did not send. Please try again, or email ' + 'info@handsacrosshumanity.org' + '.';
+        errorEl.hidden = false;
+      } finally {
+        submit.disabled = false;
+        submit.textContent = label;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,65 @@
+---
+import { formatDate, locationLabel, mapUrl, type EventRow } from '../../lib/events';
+
+interface Props { events: EventRow[]; }
+const { events } = Astro.props;
+---
+
+<div class="events-table-wrap">
+  <table class="events-table">
+    <caption class="visually-hidden">Upcoming events, with location and how to join</caption>
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Event</th>
+        <th scope="col">Location</th>
+        <th scope="col">Address</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {events.map((e) => {
+        const d = formatDate(e.date);
+        const place = locationLabel(e);
+        const map = mapUrl(e);
+        return (
+          <tr>
+            <td data-label="Date">
+              <time datetime={e.date} class="events-date">
+                <span class="events-date__month">{d.month}</span>
+                <span class="events-date__day">{d.day}</span>
+              </time>
+              {e.time && <span class="events-time">{e.time}</span>}
+            </td>
+            <td data-label="Event">
+              <span class="events-title">{e.title}</span>
+              {e.venue && <span class="events-venue">{e.venue}</span>}
+            </td>
+            <td data-label="Location">
+              {place ? <span>{place}</span> : <span class="events-muted">To be confirmed</span>}
+            </td>
+            <td data-label="Address">
+              {e.address && map ? (
+                <a class="events-address" href={map} target="_blank" rel="noopener noreferrer">
+                  {e.address}
+                  <span class="visually-hidden"> — open in maps (opens in a new tab)</span>
+                  <svg class="events-address__icon" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+                </a>
+              ) : (
+                <span class="events-muted">To be confirmed</span>
+              )}
+            </td>
+            <td data-label="" class="events-actions">
+              <button class="btn btn--primary btn--sm" type="button"
+                data-join-event={e.title} data-join-date={e.date}>
+                Join us
+              </button>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

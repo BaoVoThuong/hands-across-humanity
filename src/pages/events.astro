@@ -2,111 +2,135 @@
 import { Picture } from 'astro:assets';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
+import UpcomingTable from '../components/events/UpcomingTable.astro';
+import JoinDialog from '../components/events/JoinDialog.astro';
+import { getEvents, formatDate, locationLabel } from '../lib/events';
 import {
-  eventsPageContent,
-  pastEvents,
-  upcomingEvents,
-} from '../data/events';
+  communitySupportWide, communityDistributionWide,
+  educationRelief, healthSupplies, partnerShowcase
+} from '../assets/images/eps';
 
-const hasUpcomingEvents = upcomingEvents.length > 0;
+const { upcoming, past } = await getEvents();
+
+// Photographs stand in for the kinds of work the past events represent. The
+// titles name activity types, not specific occasions, so nothing is asserted
+// that the record cannot support.
+const gallery = [
+  { image: communityDistributionWide, title: 'Community distribution days',
+    alt: 'Volunteers and community members at an indoor distribution of donated goods.',
+    body: 'Household kits prepared and shared with families across the neighborhood.' },
+  { image: educationRelief, title: 'School and learning kits',
+    alt: 'Children holding prepared school and relief kits.',
+    body: 'Books, supplies and everyday essentials handed to children before term starts.' },
+  { image: healthSupplies, title: 'Health and hygiene supplies',
+    alt: 'Health, wellness and essential supplies arranged for community distribution.',
+    body: 'Health and hygiene goods gathered for community health events.' },
+  { image: partnerShowcase, title: 'Partner supply drives',
+    alt: 'Partners and volunteers behind a relief supply table.',
+    body: 'Businesses and community partners contributing goods at scale.' }
+];
+
+const sections = [
+  { id: 'top', label: 'Events' },
+  { id: 'upcoming', label: 'What is next' },
+  { id: 'recent', label: 'Recent work' }
+];
+
+const heroSignals = [
+  { title: 'Community distributions', text: 'Household goods shared directly with families.' },
+  { title: 'School and family support', text: 'Learning supplies for children before term.' },
+  { title: 'Partner supply drives', text: 'Businesses and faith groups contributing together.' }
+];
 ---
 
 <EditorialPage
   activePage="events"
-  eyebrow={eventsPageContent.eyebrow}
-  title={eventsPageContent.title}
-  lead={eventsPageContent.lead}
-  description={eventsPageContent.description}
-  image={eventsPageContent.image}
-  imageAlt={eventsPageContent.imageAlt}
-  caption={eventsPageContent.caption}
-  secondaryHref={eventsPageContent.secondaryHref}
-  secondaryLabel={eventsPageContent.secondaryLabel}
-  heroSignals={eventsPageContent.heroSignals}
-  quote={eventsPageContent.quote}
-  nextHref={eventsPageContent.nextHref}
-  nextLabel={eventsPageContent.nextLabel}
-  sections={eventsPageContent.sections}
+  eyebrow="Events"
+  title="Where the work actually happens."
+  lead="Distribution days, school kit handouts and partner drives — where to find us next."
+  description="Upcoming community events Hands Across Humanity is taking part in, and a look at recent distribution work."
+  image={communitySupportWide}
+  imageAlt="Volunteers coordinating support at a community distribution event."
+  caption="Donated goods prepared for a community distribution event."
+  secondaryHref="#upcoming"
+  secondaryLabel="See what is next"
+  heroSignals={heroSignals}
+  nextHref="/vision/"
+  nextLabel="Read our vision"
+  sections={sections}
   total={3}
 >
-  <Panel id="upcoming" ground="sand" index={2} total={3} label={eventsPageContent.upcoming.eyebrow} labelledby="upcoming-title" nextId="recent" nextLabel={eventsPageContent.sections[2].label}>
+  <!-- 02: Upcoming -->
+  <Panel id="upcoming" ground="sand" index={2} total={3} label="What is next"
+    labelledby="upcoming-title" width="wide" nextId="recent" nextLabel="Recent work">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow">{eventsPageContent.upcoming.eyebrow}</p>
-        <h2 class="reveal" style="--i:1" id="upcoming-title">{eventsPageContent.upcoming.title}</h2>
+        <p class="eyebrow reveal">What is next</p>
+        <h2 class="reveal" style="--i:1" id="upcoming-title">Come and find us.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">{eventsPageContent.upcoming.lead}</p>
+      <p class="lead reveal" style="--i:2">
+        These events are hosted by community partners and we take part in them. Let us
+        know you are coming and we will look out for you.
+      </p>
     </div>
 
-    {hasUpcomingEvents ? (
-      <div class="connect-stories reveal" style="--i:3;">
-        {upcomingEvents.map((event) => (
-          <article class="connect-story">
-            <div class="connect-story__head">
-              <span class="connect-story__num connect-story__num--date">{event.date}</span>
-              <span class="connect-story__title">{event.title}</span>
-              <span class="connect-story__stat">{event.location}</span>
-            </div>
-            <p class="connect-story__body">{event.summary}</p>
-            <a class="approach-card__link" href="/who-we-are/">{eventsPageContent.upcoming.actionLabel} <span aria-hidden="true">→</span></a>
-          </article>
-        ))}
+    {upcoming.length ? (
+      <div class="reveal" style="--i:3">
+        <UpcomingTable events={upcoming} />
       </div>
     ) : (
-      <div class="modest-flow reveal" style="--i:3;">
-        {eventsPageContent.takePartOptions.map((option, index) => (
-          <div class="modest-step">
-            <span class="modest-step__num">{String(index + 1).padStart(2, '0')}</span>
-            <h3 class="modest-step__title">{option.title}</h3>
-            <p class="modest-step__desc">{option.body}</p>
-            <a class="approach-card__link" href={option.href}>
-              {option.linkText} <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        ))}
+      <div class="modest-flow reveal" style="--i:3">
+        <div class="modest-step">
+          <span class="modest-step__num">01</span>
+          <h3 class="modest-step__title">Contribute goods</h3>
+          <p class="modest-step__desc">Businesses and neighbors can pass on what they can spare.</p>
+        </div>
+        <div class="modest-step">
+          <span class="modest-step__num">02</span>
+          <h3 class="modest-step__title">Volunteer with us</h3>
+          <p class="modest-step__desc">Sorting, packing and delivering are all done by hand.</p>
+        </div>
+        <div class="modest-step">
+          <span class="modest-step__num">03</span>
+          <h3 class="modest-step__title">Hear about the next one</h3>
+          <p class="modest-step__desc">Tell us how to reach you and we will let you know.</p>
+        </div>
       </div>
     )}
   </Panel>
 
-  <Panel id="recent" ground="paper" index={3} total={3} label={eventsPageContent.recent.eyebrow} labelledby="recent-title" ctaHref={eventsPageContent.nextHref} ctaLabel={eventsPageContent.nextLabel}>
+  <!-- 03: Recent work -->
+  <Panel id="recent" ground="paper" index={3} total={3} label="Recent work"
+    labelledby="recent-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow">{eventsPageContent.recent.eyebrow}</p>
-        <h2 class="reveal" style="--i:1" id="recent-title">{eventsPageContent.recent.title}</h2>
+        <p class="eyebrow reveal">Recent work</p>
+        <h2 class="reveal" style="--i:1" id="recent-title">What the work has looked like.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">{eventsPageContent.recent.lead}</p>
+      <p class="lead reveal" style="--i:2">
+        {past.length
+          ? `Most recently at ${past[0].venue || past[0].title}${locationLabel(past[0]) ? `, ${locationLabel(past[0])}` : ''}.`
+          : 'Photographs from community distributions, school handouts and partner drives.'}
+      </p>
     </div>
 
-    <div class="columns reveal" style="--i:3;">
-      {pastEvents.map((event) => {
-        const meta = [event.date, event.location].filter(Boolean).join(' · ');
-
-        return (
-          <article class="approach-card">
-            <div class="approach-card__media approach-card__media--event">
-              <Picture
-                src={event.image}
-                widths={[500, 800, 1100]}
-                sizes="(min-width: 860px) 42vw, 92vw"
-                formats={['avif', 'webp']}
-                fallbackFormat="jpeg"
-                quality={85}
-                alt={event.alt}
-                loading="lazy"
-              />
-            </div>
-            <div class="approach-card__content">
-              <h3 class="approach-card__title">{event.title}</h3>
-              {meta && (
-                <p class="approach-card__stat">
-                  <span class="approach-card__stat-label">{meta}</span>
-                </p>
-              )}
-              <p class="approach-card__body">{event.summary}</p>
-            </div>
-          </article>
-        );
-      })}
+    <div class="columns approach-columns events-gallery reveal" style="--i:3">
+      {gallery.map((g) => (
+        <article class="approach-card">
+          <div class="approach-card__media approach-card__media--event">
+            <Picture src={g.image} widths={[600, 900, 1200]}
+              sizes="(min-width: 860px) 44vw, 92vw"
+              formats={['avif', 'webp']} fallbackFormat="jpeg" quality={82}
+              alt={g.alt} loading="lazy" decoding="async" />
+          </div>
+          <div class="approach-card__content">
+            <h3 class="approach-card__title">{g.title}</h3>
+            <p class="approach-card__body">{g.body}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </Panel>
+
+  <JoinDialog />
 </EditorialPage>
