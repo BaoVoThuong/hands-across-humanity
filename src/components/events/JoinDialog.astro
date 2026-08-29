@@ -55,14 +55,41 @@ const contactEmail = 'info@handsacrosshumanity.org';
         </label>
         <label class="join-field">
           <span>Coming as</span>
-          <select name="org_type">
-            <option value="individual">An individual</option>
-            <option value="business">A business</option>
-            <option value="faith organisation">A faith organisation</option>
-            <option value="nonprofit">A nonprofit</option>
-            <option value="school">A school</option>
-            <option value="other">Other</option>
-          </select>
+          <span class="join-select" data-join-select>
+            <select name="org_type" class="join-select__native" tabindex="-1" aria-hidden="true">
+              <option value="individual">An individual</option>
+              <option value="business">A business</option>
+              <option value="faith organisation">A faith organisation</option>
+              <option value="nonprofit">A nonprofit</option>
+              <option value="school">A school</option>
+              <option value="other">Other</option>
+            </select>
+            <button
+              type="button"
+              class="join-select__trigger"
+              data-select-trigger
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="join-org-type-options"
+            >
+              <span data-select-value>An individual</span>
+              <span class="join-select__chevron" aria-hidden="true"></span>
+            </button>
+            <span
+              class="join-select__menu"
+              id="join-org-type-options"
+              data-select-menu
+              role="listbox"
+              hidden
+            >
+              <button type="button" role="option" data-select-option data-value="individual" aria-selected="true">An individual</button>
+              <button type="button" role="option" data-select-option data-value="business" aria-selected="false">A business</button>
+              <button type="button" role="option" data-select-option data-value="faith organisation" aria-selected="false">A faith organisation</button>
+              <button type="button" role="option" data-select-option data-value="nonprofit" aria-selected="false">A nonprofit</button>
+              <button type="button" role="option" data-select-option data-value="school" aria-selected="false">A school</button>
+              <button type="button" role="option" data-select-option data-value="other" aria-selected="false">Other</button>
+            </span>
+          </span>
         </label>
         <label class="join-field">
           <span>How many people</span>
@@ -115,7 +142,86 @@ const contactEmail = 'info@handsacrosshumanity.org';
     const done = dialog.querySelector('[data-join-done]');
     const errorEl = dialog.querySelector('[data-join-error]');
     const summary = dialog.querySelector('[data-join-summary]');
+    const customSelect = form?.querySelector('[data-join-select]');
+    const nativeSelect = customSelect?.querySelector('[name="org_type"]');
+    const selectTrigger = customSelect?.querySelector('[data-select-trigger]');
+    const selectValue = customSelect?.querySelector('[data-select-value]');
+    const selectMenu = customSelect?.querySelector('[data-select-menu]');
+    const selectOptions = [...(customSelect?.querySelectorAll('[data-select-option]') || [])];
     let openedAt = 0;
+
+    const closeSelect = (returnFocus = false) => {
+      if (!selectMenu || !selectTrigger) return;
+      selectMenu.hidden = true;
+      selectTrigger.setAttribute('aria-expanded', 'false');
+      if (returnFocus) selectTrigger.focus();
+    };
+
+    const syncSelect = () => {
+      if (!nativeSelect || !selectValue) return;
+      const selected = nativeSelect.options[nativeSelect.selectedIndex];
+      if (selected) selectValue.textContent = selected.textContent;
+      selectOptions.forEach((option) => {
+        option.setAttribute('aria-selected', option.getAttribute('data-value') === nativeSelect.value ? 'true' : 'false');
+      });
+    };
+
+    const openSelect = () => {
+      if (!selectMenu || !selectTrigger) return;
+      selectMenu.hidden = false;
+      selectTrigger.setAttribute('aria-expanded', 'true');
+      const activeOption = selectOptions.find((option) => option.getAttribute('data-value') === nativeSelect?.value);
+      activeOption?.focus();
+    };
+
+    const chooseSelectOption = (option) => {
+      const value = option.getAttribute('data-value');
+      if (!nativeSelect || !value) return;
+      nativeSelect.value = value;
+      nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      syncSelect();
+      closeSelect(true);
+    };
+
+    selectTrigger?.addEventListener('click', () => {
+      if (selectMenu?.hidden) openSelect();
+      else closeSelect(true);
+    });
+
+    selectTrigger?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openSelect();
+      }
+    });
+
+    selectOptions.forEach((option, index) => {
+      option.tabIndex = -1;
+      option.addEventListener('click', () => chooseSelectOption(option));
+      option.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeSelect(true);
+        } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          const offset = event.key === 'ArrowDown' ? 1 : -1;
+          selectOptions[(index + offset + selectOptions.length) % selectOptions.length]?.focus();
+        } else if (event.key === 'Home' || event.key === 'End') {
+          event.preventDefault();
+          selectOptions[event.key === 'Home' ? 0 : selectOptions.length - 1]?.focus();
+        } else if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          chooseSelectOption(option);
+        }
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (customSelect && !customSelect.contains(event.target)) closeSelect();
+    });
+
+    nativeSelect?.addEventListener('change', syncSelect);
+    syncSelect();
 
     document.querySelectorAll('[data-join-event]').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -124,6 +230,8 @@ const contactEmail = 'info@handsacrosshumanity.org';
         if (summary) summary.textContent = title;
         if (form) {
           form.reset();
+          syncSelect();
+          closeSelect();
           form.hidden = false;
           form.querySelector('[data-field-title]').value = title;
           form.querySelector('[data-field-date]').value = date;

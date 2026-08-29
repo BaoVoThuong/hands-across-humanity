@@ -5997,6 +5997,97 @@ body {
   background: var(--paper); color: var(--fg);
   min-height: 2.5rem;
 }
+.join-select {
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+.join-select__native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.join-select__trigger {
+  width: 100%;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+.join-select__trigger:hover,
+.join-select__trigger[aria-expanded="true"] {
+  border-color: var(--primary);
+  background: var(--surface-alt);
+}
+.join-select__chevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-0.15rem);
+  transition: transform var(--dur-micro) var(--ease-standard);
+}
+.join-select__trigger[aria-expanded="true"] .join-select__chevron {
+  transform: rotate(225deg) translate(-0.1rem, -0.1rem);
+}
+.join-select__menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  left: 0;
+  display: grid;
+  gap: 0.2rem;
+  max-height: 15rem;
+  overflow-y: auto;
+  padding: 0.35rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+.join-select__menu[hidden] { display: none; }
+.join-select__menu [role="option"] {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 0;
+  border-radius: calc(var(--radius-sm) - 2px);
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--fs-small);
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+.join-select__menu [role="option"]:hover,
+.join-select__menu [role="option"]:focus-visible,
+.join-select__menu [role="option"][aria-selected="true"] {
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+.join-select__menu [role="option"][aria-selected="true"]::before {
+  content: '✓';
+  display: inline-block;
+  width: 1.1rem;
+  color: var(--primary);
+  font-weight: 700;
+}
 .join-field textarea { min-height: 2.5rem; resize: vertical; }
 .join-field--checks { border: 0; padding: 0; margin: 0; gap: 0.35rem; }
 .join-field--checks > div { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; }

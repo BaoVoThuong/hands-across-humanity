@@ -4,7 +4,7 @@ import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
 import UpcomingTable from '../components/events/UpcomingTable.astro';
 import JoinDialog from '../components/events/JoinDialog.astro';
-import { getEvents, formatDate, locationLabel } from '../lib/events';
+import { getEvents, periodLabel } from '../lib/events';
 import {
   communitySupportWide, communityDistributionWide,
   educationRelief, healthSupplies, partnerShowcase
@@ -109,7 +109,7 @@ const heroSignals = [
       </div>
       <p class="lead reveal" style="--i:2">
         {past.length
-          ? `Most recently at ${past[0].venue || past[0].title}${locationLabel(past[0]) ? `, ${locationLabel(past[0])}` : ''}.`
+          ? `Activity from ${periodLabel(past)}.`
           : 'Photographs from community distributions, school handouts and partner drives.'}
       </p>
     </div>

@@ -159,3 +159,32 @@ export function mapUrl(e: EventRow): string | null {
     : '');
   return q ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` : null;
 }
+
+/**
+ * Label the period a set of events covers, e.g. "August 2026" or
+ * "August – September 2026". Derived from the dates rather than naming a
+ * single venue, which would speak for only one of them.
+ */
+export function periodLabel(events: EventRow[]): string {
+  const dates = events
+    .map((e) => new Date(`${e.date}T00:00:00Z`))
+    .filter((d) => !Number.isNaN(d.getTime()))
+    .sort((a, b) => a.getTime() - b.getTime());
+  if (!dates.length) return '';
+
+  const fmt = (d: Date, withYear: boolean) =>
+    d.toLocaleDateString('en-US', {
+      month: 'long',
+      ...(withYear ? { year: 'numeric' } : {}),
+      timeZone: 'UTC'
+    });
+
+  const first = dates[0];
+  const last = dates[dates.length - 1];
+  const sameMonth = first.getUTCFullYear() === last.getUTCFullYear()
+    && first.getUTCMonth() === last.getUTCMonth();
+  if (sameMonth) return fmt(first, true);
+
+  const sameYear = first.getUTCFullYear() === last.getUTCFullYear();
+  return `${fmt(first, !sameYear)} – ${fmt(last, true)}`;
+}
