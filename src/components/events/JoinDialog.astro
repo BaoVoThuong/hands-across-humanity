@@ -128,11 +128,10 @@ const contactEmail = 'info@handsacrosshumanity.org';
     </p>
   )}
 
-  <div class="join-dialog__done" data-join-done hidden>
-    <p class="join-dialog__done-title">Thank you — we have your details.</p>
-    <p>We will be in touch before the event.</p>
-    <button type="button" class="btn btn--ghost" data-join-cancel>Close</button>
-  </div>
+
+  <p class="join-dialog__done" data-join-done hidden role="status">
+    Thank you — we have your details. We will be in touch before the event.
+  </p>
 </dialog>
 
 <script define:vars={{ endpoint }}>
@@ -299,7 +298,7 @@ const contactEmail = 'info@handsacrosshumanity.org';
         const out = await res.json().catch(() => ({ ok: res.ok }));
         if (!out.ok) throw new Error(out.message || 'Could not send.');
         form.hidden = true;
-        done.hidden = false;
+        if (done) done.hidden = false;
       } catch (err) {
         // Keep every value the person typed; never discard a filled form.
         errorEl.textContent =

@@ -5523,8 +5523,6 @@ body {
 .join-dialog__note, .join-dialog__fallback {
   margin-top: var(--space-3); font-size: var(--fs-small); color: var(--fg-muted);
 }
-.join-dialog__done { display: grid; gap: var(--space-3); justify-items: start; padding-top: var(--space-4); }
-.join-dialog__done-title { font-weight: 700; }
 
 .join-form { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
 .join-form__row { display: grid; gap: var(--space-3); }
@@ -5698,3 +5696,14 @@ main > section.section--ink:not(:first-child) {
 main > .hero-fold-group > section.impact-band { border-top-color: var(--slate-800); }
 .chapter-transition { border-top: 1px solid var(--transition-border); }
 
+
+/* Success line replaces the form in place. role="status" announces it to a
+   screen reader without moving focus; the dialog's own X closes it. */
+.join-dialog__done {
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--ok, #1B7A4B);
+  background: var(--surface-alt);
+  font-weight: 600;
+  color: var(--fg);
+}
