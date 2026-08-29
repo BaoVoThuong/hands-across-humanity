@@ -2,10 +2,10 @@
 import { Picture } from 'astro:assets';
 import {
   partnerCommunity,
-  communityDistribution,
-  healthSupplies,
+  field03,
+  field04,
   childrenOutreach,
-  supplyStaging,
+  field07,
 } from '../../assets/images/eps';
 
 const anchorStory = {
@@ -17,14 +17,14 @@ const anchorStory = {
 
 const fieldNotes = [
   {
-    image: communityDistribution,
-    alt: 'Volunteers coordinating essential goods with community members at a relief event.',
+    image: field03,
+    alt: 'Volunteers taking part in a community distribution event with local residents.',
     title: 'Listen first',
     text: 'Local people and partners help identify what will be useful.',
   },
   {
-    image: healthSupplies,
-    alt: 'Health, wellness, and essential supplies arranged for community distribution.',
+    image: field04,
+    alt: 'Volunteers preparing health and household supplies at a community donation table.',
     title: 'Prepare useful goods',
     text: 'Health, hygiene, household, and education items are organized for the moment.',
   },
@@ -35,8 +35,8 @@ const fieldNotes = [
     text: 'Every handoff keeps children, families, older adults, and veterans at the center.',
   },
   {
-    image: supplyStaging,
-    alt: 'Volunteers sorting donated goods at a community support table.',
+    image: field07,
+    alt: 'Community partners gathered during a local support activity.',
     title: 'Keep it local',
     text: 'Volunteers and partners help useful support reach the people and places closest to the need.',
   },
@@ -69,7 +69,6 @@ const fieldNotes = [
       </figure>
 
       <div class="about-field-notes__anchor-copy reveal" style="--i:2;">
-        <span class="about-field-notes__mark" aria-hidden="true">A</span>
         <h3>Support works best when people build it together.</h3>
         <p>A business can provide goods. Volunteers can prepare them. Local partners can help place them where they matter.</p>
         <a class="about-field-notes__link" href="/who-we-are/">Meet the network <span aria-hidden="true">→</span></a>

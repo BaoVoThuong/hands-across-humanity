@@ -1,0 +1,390 @@
+---
+import { Picture } from 'astro:assets';
+import {
+  volunteerGroup,
+  field02,
+  field05,
+  field06,
+} from '../../assets/images/eps';
+
+const networkSlides = [
+  {
+    image: volunteerGroup,
+    alt: 'Volunteers and community members gathered with prepared support packages.',
+  },
+  {
+    image: field02,
+    alt: 'Families and community partners gathered with prepared support kits.',
+  },
+  {
+    image: field05,
+    alt: 'A volunteer team gathered with donated goods ready to share.',
+  },
+  {
+    image: field06,
+    alt: 'Community partners standing beside prepared kits for local distribution.',
+  },
+];
+
+const contributors = [
+  {
+    title: 'Businesses and neighbors',
+    text: 'Share useful goods that can meet an everyday need.',
+  },
+  {
+    title: 'Volunteers',
+    text: 'Help sort and prepare donated goods for sharing.',
+  },
+  {
+    title: 'Local partners',
+    text: 'Bring trust, context, and a close understanding of the people served.',
+  },
+];
+---
+
+<section class="about-network-section" aria-labelledby="about-network-title">
+  <div class="container-wide about-network-section__grid">
+    <div class="about-network-section__copy">
+      <h2 id="about-network-title">People make the network.</h2>
+      <p class="about-network-section__lead">
+        Businesses, neighbors, volunteers, and local partners bring different strengths together to make practical support easier to share.
+      </p>
+
+      <div class="about-network-section__contributors" role="list" aria-label="People who make the work possible">
+        {contributors.map((contributor) => (
+          <article class="about-network-section__contributor" role="listitem">
+            <h3>{contributor.title}</h3>
+            <p>{contributor.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <figure class="about-network-section__media">
+      <div
+        class="about-network-carousel"
+        id="about-network-carousel"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Community network photos"
+      >
+        <div class="about-network-carousel__slides">
+          {networkSlides.map((slide, index) => (
+            <div
+              class:list={['about-network-carousel__slide', { 'is-active': index === 0 }]}
+              data-slide-index={index}
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <Picture
+                src={slide.image}
+                widths={[600, 900, 1200, 1600]}
+                sizes="(min-width: 960px) 51vw, 100vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                quality={82}
+                alt={slide.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div class="about-network-carousel__indicators" aria-label="Choose a community photo">
+          {networkSlides.map((_, index) => (
+            <button
+              class:list={['about-network-carousel__dot', { 'is-active': index === 0 }]}
+              data-goto-slide={index}
+              aria-label={`View community photo ${index + 1}`}
+              aria-current={index === 0 ? 'true' : undefined}
+              type="button"
+            ></button>
+          ))}
+        </div>
+
+        <div class="about-network-carousel__navigation">
+          <button class="about-network-carousel__arrow" data-direction="previous" aria-label="View previous community photo" type="button">
+            <span aria-hidden="true">←</span>
+          </button>
+          <button class="about-network-carousel__arrow" data-direction="next" aria-label="View next community photo" type="button">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .about-network-section {
+    scroll-margin-top: var(--header-h);
+    padding-block: clamp(1.25rem, 2vw, 2rem);
+    background: var(--primary-light);
+    border-block: 1px solid var(--border);
+  }
+
+  .about-network-section__grid {
+    display: grid;
+    align-items: start;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .about-network-section__copy {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .about-network-section h2 {
+    max-width: 16ch;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+
+  .about-network-section__lead {
+    max-width: 43ch;
+    color: var(--fg-muted);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+  }
+
+  .about-network-section__contributors {
+    display: grid;
+    gap: 0;
+    margin-top: 0.35rem;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .about-network-section__contributor {
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .about-network-section__contributor h3 {
+    font-size: clamp(1.05rem, 0.95rem + 0.3vw, 1.3rem);
+    line-height: 1.2;
+  }
+
+  .about-network-section__contributor p {
+    margin-top: 0.3rem;
+    max-width: 42ch;
+    color: var(--fg-muted);
+    font-size: var(--fs-small);
+    line-height: 1.45;
+  }
+
+  .about-network-section__media {
+    margin: 0;
+  }
+
+  .about-network-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    background: var(--slate-900);
+  }
+
+  .about-network-carousel__slides {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .about-network-carousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.02);
+    transition: opacity var(--dur-standard) var(--ease-standard), transform var(--dur-standard) var(--ease-standard);
+  }
+
+  .about-network-carousel__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  .about-network-carousel__slide picture,
+  .about-network-carousel__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .about-network-carousel__slide img {
+    object-fit: cover;
+  }
+
+  .about-network-carousel__indicators {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.66);
+    backdrop-filter: blur(8px);
+  }
+
+  .about-network-carousel__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transform-origin: center;
+    transition: transform var(--dur-micro) var(--ease-standard), background var(--dur-micro) var(--ease-standard);
+  }
+
+  .about-network-carousel__dot.is-active {
+    transform: scaleX(2.5);
+    border-radius: 999px;
+    background: var(--gold);
+  }
+
+  .about-network-carousel__arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    color: var(--fg-on-dark);
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(8px);
+    font-size: 1.25rem;
+    transition: background var(--dur-micro) var(--ease-standard), transform var(--dur-micro) var(--ease-standard);
+  }
+
+  .about-network-carousel__arrow:hover,
+  .about-network-carousel__arrow:focus-visible {
+    background: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  .about-network-carousel__navigation {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .about-network-carousel__navigation .about-network-carousel__arrow {
+    pointer-events: auto;
+  }
+
+  @media (min-width: 960px) {
+    .about-network-section__grid {
+      grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about-network-section {
+      padding-block: 1.5rem 0.75rem;
+    }
+
+    .about-network-section h2 {
+      max-width: 16ch;
+      font-size: clamp(2rem, 9.5vw, 2.8rem);
+    }
+
+    .about-network-section__lead {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .about-network-carousel__slides {
+      aspect-ratio: 16 / 9;
+    }
+
+    .about-network-section__contributor {
+      padding-block: 0.55rem;
+    }
+  }
+</style>
+
+<script>
+    const carousel = document.getElementById('about-network-carousel');
+
+  if (carousel) {
+    const slides = Array.from(carousel.querySelectorAll<HTMLElement>('.about-network-carousel__slide'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('.about-network-carousel__dot'));
+    const previous = carousel.querySelector<HTMLButtonElement>('[data-direction="previous"]');
+    const next = carousel.querySelector<HTMLButtonElement>('[data-direction="next"]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const duration = 5500;
+    let currentIndex = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    function showSlide(index: number) {
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === currentIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === currentIndex;
+        dot.classList.toggle('is-active', isActive);
+        if (isActive) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+
+    }
+
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      if (reduceMotion.matches) return;
+      timer = setInterval(() => showSlide(currentIndex + 1), duration);
+    }
+
+    previous?.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+      startTimer();
+    });
+
+    next?.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+      startTimer();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        startTimer();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', stopTimer);
+    carousel.addEventListener('mouseleave', startTimer);
+    carousel.addEventListener('focusin', stopTimer);
+    carousel.addEventListener('focusout', (event) => {
+      if (!carousel.contains(event.relatedTarget as Node | null)) startTimer();
+    });
+    reduceMotion.addEventListener('change', startTimer);
+
+    showSlide(0);
+    startTimer();
+  }
+</script>

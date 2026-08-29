@@ -30,24 +30,12 @@ const containerClass =
   aria-labelledby={labelledby}
 >
   <div class={containerClass}>
-    {!hero && (
-      <p class="panel__meta">
-        <span>{label}</span>
-      </p>
-    )}
     <slot />
   </div>
 
-  {!hero && (
+  {!hero && ctaHref && ctaLabel && (
     <div class="panel__foot">
-      <span>Hands Across Humanity</span>
-      {ctaHref && ctaLabel ? (
-        <a class="btn btn--primary btn--foot" href={ctaHref}>{ctaLabel}<span class="btn__arrow" aria-hidden="true">→</span></a>
-      ) : nextId && nextLabel ? (
-        <a href={`#${nextId}`}>{nextLabel}<span aria-hidden="true">↓</span></a>
-      ) : (
-        <span>End of section</span>
-      )}
+      <a class="btn btn--primary btn--foot" href={ctaHref}>{ctaLabel}<span class="btn__arrow" aria-hidden="true">→</span></a>
     </div>
   )}
 </section>

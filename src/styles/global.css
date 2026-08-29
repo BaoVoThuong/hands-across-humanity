@@ -880,28 +880,6 @@ p {
   letter-spacing: 0.012em;
 }
 
-.panel__meta {
-  width: 100%;
-  margin: 0 0 var(--space-5);
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: clamp(0.86rem, 0.78rem + 0.22vw, 1rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--primary);
-  flex-shrink: 0;
-}
-.panel__meta::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 2px;
-  flex: 0 0 auto;
-  border-radius: 1px;
-  background: var(--primary);
-}
 .panel__foot {
   width: min(calc(100% - 3rem), var(--container));
   margin-inline: auto;
@@ -4042,7 +4020,6 @@ img.img-pos-lower-middle,
   flex-shrink: 0;
   margin-bottom: 0;
 }
-#rules .panel__meta { margin-bottom: clamp(0.35rem, 0.8vh, 0.6rem); }
 #rules .principles { margin-top: 0; gap: clamp(0.75rem, 1.5vw, 1.25rem); }
 #rules .rule-card__media { aspect-ratio: 16 / 10; max-height: 260px; }
 #rules .rule-card { padding-top: clamp(0.35rem, 0.7vh, 0.6rem); }
@@ -4370,7 +4347,7 @@ img.img-pos-lower-middle,
    EDITORIAL CHAPTER TRANSITION (Anti-Slop Authentic Journal Style)
    ============================================================ */
 .chapter-transition {
-  padding-block: clamp(3.5rem, 7vh, 5.5rem);
+  padding-block: clamp(2rem, 4vh, 3rem);
   background: var(--transition-warm);
   color: var(--slate-900);
   border-top: 1px solid var(--transition-border);
@@ -4390,8 +4367,8 @@ img.img-pos-lower-middle,
   font-style: italic;
   color: var(--slate-900);
   max-width: 34ch;
-  margin: 0 0 clamp(1.5rem, 3vh, 2.5rem) 0;
-  padding-bottom: clamp(1.5rem, 3vh, 2.25rem);
+  margin: 0 0 clamp(1rem, 2vh, 1.5rem) 0;
+  padding-bottom: clamp(1rem, 2vh, 1.5rem);
   border-bottom: 1px solid var(--transition-border);
   text-wrap: balance;
   letter-spacing: -0.01em;
@@ -4942,6 +4919,7 @@ img.img-pos-lower-middle,
    ============================================================ */
 #areas .bento-areas-grid {
   gap: clamp(1.75rem, 3.5vh, 3rem);
+  margin-top: clamp(0.75rem, 1.6vh, 1.25rem);
 }
 
 #areas .bento-area-card {
@@ -5069,9 +5047,9 @@ img.img-pos-lower-middle,
 }
 
 .about-field-notes__intro h2 {
-  max-width: 12ch;
+  max-width: 19ch;
   margin: 0;
-  font-size: clamp(1.65rem, 2.4vw, 2.6rem);
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
   line-height: 1.02;
   letter-spacing: -0.035em;
   color: var(--slate-900);
@@ -5147,30 +5125,17 @@ img.img-pos-lower-middle,
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   padding: clamp(1.25rem, 2.2vw, 2rem);
   border: 1px solid var(--border-warm);
+  border-top: 3px solid var(--primary);
   border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow-md);
 }
 
-.about-field-notes__mark {
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  margin-bottom: var(--space-5);
-  border: 1px solid var(--primary);
-  border-radius: 50%;
-  color: var(--primary);
-  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
 .about-field-notes__anchor-copy h3 {
-  max-width: 12ch;
+  max-width: 16ch;
   margin: 0;
   font-size: clamp(1.35rem, 1.8vw, 1.85rem);
   line-height: 1.08;
@@ -5180,7 +5145,7 @@ img.img-pos-lower-middle,
 
 .about-field-notes__anchor-copy p {
   max-width: 38ch;
-  margin: var(--space-5) 0 0;
+  margin: var(--space-4) 0 0;
   font-size: var(--fs-body);
   color: var(--slate-600);
 }
@@ -5189,7 +5154,8 @@ img.img-pos-lower-middle,
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: var(--space-6);
+  margin-top: auto;
+  padding-top: var(--space-5);
   color: var(--primary);
   font-weight: 700;
   text-decoration: none;
@@ -5293,7 +5259,7 @@ img.img-pos-lower-middle,
 
 @media (max-width: 759px) {
   .about-field-notes__intro h2 {
-    max-width: 14ch;
+    max-width: 20ch;
   }
 
   .about-field-notes__anchor-copy h3 {
@@ -5446,12 +5412,6 @@ body {
 
   .faq-section {
     padding-block: clamp(3rem, 8vw, 4rem);
-  }
-
-  .panel__meta {
-    margin-bottom: var(--space-3);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
   }
 
   .panel__foot {
@@ -5784,6 +5744,7 @@ body {
 
   #areas .bento-areas-grid {
     gap: 1.35rem;
+    margin-top: 0.75rem;
   }
 
   #areas .bento-area-card {
@@ -5878,13 +5839,6 @@ body {
     padding: 1.1rem;
   }
 
-  .about-field-notes__mark {
-    width: 2.4rem;
-    height: 2.4rem;
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-  }
-
   .about-field-notes__anchor-copy h3 {
     font-size: 1.25rem;
   }
@@ -5929,13 +5883,13 @@ body {
   }
 
   .chapter-transition {
-    padding-block: 2.5rem;
+    padding-block: 1.5rem;
   }
 
   .chapter-transition__quote {
     font-size: 1.15rem;
     line-height: 1.35;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1.25rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 }
