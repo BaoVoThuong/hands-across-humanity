@@ -7,8 +7,9 @@ import JoinDialog from '../components/events/JoinDialog.astro';
 import { getEvents, periodLabel } from '../lib/events';
 import {
   communitySupportWide, communityDistributionWide,
-  educationRelief, healthSupplies, partnerShowcase
+  healthSupplies, partnerShowcase
 } from '../assets/images/eps';
+import schoolKits from '../assets/images/h2.jpg';
 
 const { upcoming, past } = await getEvents();
 
@@ -19,8 +20,8 @@ const gallery = [
   { image: communityDistributionWide, title: 'Community distribution days',
     alt: 'Volunteers and community members at an indoor distribution of donated goods.',
     body: 'Household kits prepared and shared with families across the neighborhood.' },
-  { image: educationRelief, title: 'School and learning kits',
-    alt: 'Children holding prepared school and relief kits.',
+  { image: schoolKits, title: 'School and learning kits',
+    alt: 'Backpacks packed with school supplies, stacked and ready to hand out.',
     body: 'Books, supplies and everyday essentials handed to children before term starts.' },
   { image: healthSupplies, title: 'Health and hygiene supplies',
     alt: 'Health, wellness and essential supplies arranged for community distribution.',
