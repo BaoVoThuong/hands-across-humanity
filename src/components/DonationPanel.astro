@@ -1,0 +1,228 @@
+---
+import { CONTACT_EMAIL } from '../lib/pages';
+import { DONATION_URL, DONATION_PLATFORM, GIVING_IS_LIVE } from '../lib/giving';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const donationUrl = DONATION_URL;
+const platformName = DONATION_PLATFORM;
+const fallbackHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Donation inquiry')}`;
+const isConfigured = GIVING_IS_LIVE;
+
+const amounts = [25, 50, 100];
+---
+
+<section class:list={['donation-panel', { 'donation-panel--compact': compact }]} data-donation-panel aria-labelledby="donation-panel-title">
+  <div class="donation-panel__controls">
+    <div class="donation-panel__heading">
+      <h2 id="donation-panel-title">Choose a gift with a clear purpose.</h2>
+      <p class="donation-panel__lead">Start with the kind of local support that matters to you, then choose a one-time or monthly gift.</p>
+    </div>
+
+    <fieldset class="donation-focus">
+      <legend>What matters to you? <span>(optional)</span></legend>
+      <div class="donation-focus__choices" role="group" aria-label="Giving preference">
+        <button class="donation-focus__choice" type="button" data-focus="education" aria-pressed="false">Education &amp; family</button>
+        <button class="donation-focus__choice" type="button" data-focus="health" aria-pressed="false">Health &amp; household</button>
+        <button class="donation-focus__choice" type="button" data-focus="community" aria-pressed="false">Community care</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="donation-frequency">
+      <legend>Giving frequency</legend>
+      <div class="donation-choice-group" role="group" aria-label="Giving frequency">
+        <button class="donation-choice is-selected" type="button" data-frequency="one-time" aria-pressed="true">
+          One-time gift
+        </button>
+        <button class="donation-choice" type="button" data-frequency="monthly" aria-pressed="false">
+          Monthly partner
+        </button>
+      </div>
+    </fieldset>
+
+    <fieldset class="donation-amounts-fieldset">
+      <legend>Select amount <span>(USD)</span></legend>
+      <div class="donation-amounts" role="group" aria-label="Donation amount">
+        {amounts.map((amount, index) => (
+          <button
+            class:list={['donation-amount', { 'is-selected': index === 1 }]}
+            type="button"
+            data-amount={amount}
+            aria-pressed={index === 1 ? 'true' : 'false'}
+          >${amount}</button>
+        ))}
+      </div>
+      <label class="donation-custom" for="donation-custom-amount">
+        <span class="donation-custom__currency" aria-hidden="true">$</span>
+        <span class="visually-hidden">Custom donation amount in US dollars</span>
+        <input id="donation-custom-amount" type="number" min="1" step="1" inputmode="decimal" placeholder="Or enter a custom amount" />
+      </label>
+    </fieldset>
+  </div>
+
+  <aside class="donation-panel__summary" aria-label="Donation summary">
+    <p class="donation-panel__summary-label">Your gift can strengthen</p>
+    <p class="donation-panel__summary-focus" data-donation-focus-name>Community support</p>
+    <p class="donation-panel__summary-amount"><span data-donation-summary-amount>$50</span> <span class="donation-panel__summary-cadence" data-donation-summary-cadence>/ one time</span></p>
+    <p class="donation-panel__summary-message" data-donation-message aria-live="polite">Your gift helps strengthen the local network of goods, volunteers, and partners.</p>
+
+    <ul class="donation-panel__benefits">
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4.2L19 6.5" /></svg>
+        <span>Useful goods, volunteer preparation, and local partner coordination.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4.2L19 6.5" /></svg>
+        <span>A giving preference that tells us which part of the work matters to you.</span>
+      </li>
+    </ul>
+
+    <div class="donation-panel__handoff">
+      <a
+        class="btn btn--primary donation-panel__cta"
+        data-donation-handoff
+        data-base-href={donationUrl || undefined}
+        href={donationUrl || fallbackHref}
+        target={isConfigured ? '_blank' : undefined}
+        rel={isConfigured ? 'noopener noreferrer' : undefined}
+        aria-label={isConfigured ? 'Continue to secure giving — opens in a new tab' : 'Ask our giving team by email'}
+      >
+        {isConfigured ? 'Continue to secure giving' : 'Ask our giving team'}
+        <span class="btn__arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="donation-panel__handoff-note">
+        {isConfigured
+          ? `This opens ${platformName} in a new tab. Nothing is collected on this website.`
+          : 'Secure online giving is being connected. Our team can answer questions about a gift by email.'}
+      </p>
+    </div>
+  </aside>
+</section>
+
+<script>
+  const formatAmount = (amount: number) => new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: amount % 1 === 0 ? 0 : 2,
+  }).format(amount);
+
+  document.querySelectorAll<HTMLElement>('[data-donation-panel]').forEach((panel) => {
+    const frequencyButtons = panel.querySelectorAll<HTMLButtonElement>('[data-frequency]');
+    const focusButtons = panel.querySelectorAll<HTMLButtonElement>('[data-focus]');
+    const amountButtons = panel.querySelectorAll<HTMLButtonElement>('[data-amount]');
+    const customInput = panel.querySelector<HTMLInputElement>('#donation-custom-amount');
+    const summaryAmount = panel.querySelector<HTMLElement>('[data-donation-summary-amount]');
+    const summaryCadence = panel.querySelector<HTMLElement>('[data-donation-summary-cadence]');
+    const summaryFocusName = panel.querySelector<HTMLElement>('[data-donation-focus-name]');
+    const summaryMessage = panel.querySelector<HTMLElement>('[data-donation-message]');
+    const handoff = panel.querySelector<HTMLAnchorElement>('[data-donation-handoff]');
+    const baseHref = handoff?.dataset.baseHref || '';
+
+    const query = new URLSearchParams(window.location.search);
+    const permittedFocuses = new Set(['education', 'health', 'community', 'general']);
+    const focusContent: Record<string, { name: string; oneTime: string; monthly: string }> = {
+      general: {
+        name: 'Community support',
+        oneTime: 'Your gift helps strengthen the local network of goods, volunteers, and partners.',
+        monthly: 'A monthly gift helps keep practical community support ready as needs change.',
+      },
+      education: {
+        name: 'Education & family',
+        oneTime: 'Your gift helps strengthen school and family essentials for local distribution.',
+        monthly: 'A monthly gift helps keep education and family essentials ready as needs change.',
+      },
+      health: {
+        name: 'Health & household',
+        oneTime: 'Your gift helps strengthen everyday health, hygiene, and household support.',
+        monthly: 'A monthly gift helps keep practical health and household support ready over time.',
+      },
+      community: {
+        name: 'Community care',
+        oneTime: 'Your gift helps strengthen local distribution and the relationships that make it possible.',
+        monthly: 'A monthly gift helps keep local distribution and partner coordination ready as needs change.',
+      },
+    };
+
+    let frequency = query.get('frequency') === 'monthly' ? 'monthly' : 'one-time';
+    let focus = permittedFocuses.has(query.get('focus') || '') ? query.get('focus')! : 'general';
+    let amount = 50;
+
+    const update = () => {
+      const customAmount = Number(customInput?.value);
+      if (customInput?.value && Number.isFinite(customAmount) && customAmount > 0) {
+        amount = customAmount;
+        amountButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', 'false');
+          button.classList.remove('is-selected');
+        });
+      }
+
+      if (summaryAmount) summaryAmount.textContent = formatAmount(amount);
+      if (summaryCadence) summaryCadence.textContent = frequency === 'monthly' ? '/ month' : '/ one time';
+      if (summaryFocusName) summaryFocusName.textContent = focusContent[focus].name;
+      if (summaryMessage) {
+        summaryMessage.textContent = frequency === 'monthly'
+          ? focusContent[focus].monthly
+          : focusContent[focus].oneTime;
+      }
+
+      frequencyButtons.forEach((item) => {
+        const selected = item.dataset.frequency === frequency;
+        item.setAttribute('aria-pressed', String(selected));
+        item.classList.toggle('is-selected', selected);
+      });
+      focusButtons.forEach((item) => {
+        const selected = item.dataset.focus === focus;
+        item.setAttribute('aria-pressed', String(selected));
+        item.classList.toggle('is-selected', selected);
+      });
+
+      if (handoff && baseHref) {
+        const nextUrl = new URL(baseHref, window.location.href);
+        nextUrl.searchParams.set('frequency', frequency);
+        nextUrl.searchParams.set('amount', String(amount));
+        if (focus === 'general') nextUrl.searchParams.delete('focus');
+        else nextUrl.searchParams.set('focus', focus);
+        handoff.href = nextUrl.toString();
+      }
+    };
+
+    frequencyButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        frequency = button.dataset.frequency || 'one-time';
+        update();
+      });
+    });
+
+    focusButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextFocus = button.dataset.focus || 'general';
+        if (!permittedFocuses.has(nextFocus)) return;
+        focus = nextFocus;
+        update();
+      });
+    });
+
+    amountButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextAmount = Number(button.dataset.amount);
+        if (!Number.isFinite(nextAmount)) return;
+        amount = nextAmount;
+        if (customInput) customInput.value = '';
+        amountButtons.forEach((item) => {
+          const selected = item === button;
+          item.setAttribute('aria-pressed', String(selected));
+          item.classList.toggle('is-selected', selected);
+        });
+        update();
+      });
+    });
+
+    customInput?.addEventListener('input', update);
+    update();
+  });
+</script>

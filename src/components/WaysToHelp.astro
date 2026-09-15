@@ -1,0 +1,25 @@
+---
+import { WAYS_TO_HELP, type WayKey } from '../lib/giving';
+
+interface Props {
+  /** Ways to leave out — the Donate page does not link to itself. */
+  exclude?: WayKey[];
+  /** Where "Give money" points on this page, e.g. the giving panel further down. */
+  moneyHref?: string;
+}
+
+const { exclude = [], moneyHref } = Astro.props;
+const ways = WAYS_TO_HELP
+  .filter((way) => !exclude.includes(way.key))
+  .map((way) => (way.key === 'money' && moneyHref ? { ...way, href: moneyHref } : way));
+---
+
+<ul class="ways-to-help" role="list">
+  {ways.map((way) => (
+    <li class="ways-to-help__item">
+      <h3 class="ways-to-help__title">{way.title}</h3>
+      <p class="ways-to-help__text">{way.text}</p>
+      <a class="ways-to-help__action" href={way.href}>{way.action} <span aria-hidden="true">→</span></a>
+    </li>
+  ))}
+</ul>

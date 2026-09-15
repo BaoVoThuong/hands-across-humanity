@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "check:placeholders": "! grep -rnE '\\[[A-Z][^]]*\\]' dist --include='*.html'",
     "check:empty": "! grep -rnE '<(p|li|dd|dt|figcaption|span|h[1-6])>[[:space:]]*</\\1>' dist --include='*.html'",
-    "prelaunch": "npm run build && npm run check:placeholders && npm run check:empty"
+    "check:images": "node scripts/check-images.mjs",
+    "prelaunch": "npm run build && npm run check:placeholders && npm run check:empty && npm run check:images"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

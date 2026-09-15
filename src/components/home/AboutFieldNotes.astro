@@ -1,5 +1,7 @@
 ---
-import { Picture } from 'astro:assets';
+import DeferredPicture from '../DeferredPicture.astro';
+import RecentEvents from '../RecentEvents.astro';
+import { getEvents } from '../../lib/events';
 import {
   partnerShowcase,
   field03,
@@ -8,37 +10,45 @@ import {
   field07,
 } from '../../assets/images/eps';
 
+/* This section used to retell the process band above it in different words
+   (Listen first · Prepare useful goods · Share with dignity · Keep it local).
+   It now does the job the band cannot: show that the work happens. Captions say
+   what each photograph shows and nothing more — the event, place and date
+   behind each one are not recorded anywhere on the site, so they are not guessed. */
+const { past } = await getEvents();
+const recent = past.slice(0, 2);
+
 const anchorStory = {
   image: partnerShowcase,
-  alt: 'Partners and volunteers behind a table of prepared relief supplies.',
-  label: 'Community in action',
-  caption: 'People, goods, and local knowledge coming together.',
+  alt: 'Partners and volunteers behind a table of prepared supplies.',
+  label: 'Partners and volunteers',
+  caption: 'A table of prepared supplies at an outdoor event.',
 };
 
 const fieldNotes = [
   {
     image: field03,
     alt: 'Volunteers taking part in a community distribution event with local residents.',
-    title: 'Listen first',
-    text: 'Local people and partners help identify what will be useful.',
+    title: 'Community distribution',
+    text: 'Volunteers and local residents at a distribution event.',
   },
   {
     image: field04,
     alt: 'Volunteers preparing health and household supplies at a community donation table.',
-    title: 'Prepare useful goods',
-    text: 'Health, hygiene, household, and education items are organized for the moment.',
+    title: 'Health and household supplies',
+    text: 'Supplies laid out on a donation table.',
   },
   {
     image: childrenOutreach,
     alt: 'Volunteers sharing educational kits with children and families.',
-    title: 'Share with dignity',
-    text: 'Every handoff keeps children, families, older adults, and veterans at the center.',
+    title: 'School kits',
+    text: 'Educational kits shared with children and families.',
   },
   {
     image: field07,
     alt: 'Community partners gathered during a local support activity.',
-    title: 'Keep it local',
-    text: 'Volunteers and partners help useful support reach the people and places closest to the need.',
+    title: 'Local partners',
+    text: 'Partners at a local support activity.',
   },
 ];
 ---
@@ -46,21 +56,18 @@ const fieldNotes = [
 <section class="about-field-notes section section--sand" id="field-notes" aria-labelledby="field-notes-title">
   <div class="container">
     <div class="about-field-notes__intro reveal">
-      <h2 id="field-notes-title">People make the support possible.</h2>
-      <p class="lead">Neighbors, volunteers, businesses, and local leaders bring the work to life through real community activities.</p>
+      <h2 id="field-notes-title">The work, in pictures.</h2>
+      <p class="lead">Neighbors, volunteers, businesses, and local leaders at events we take part in.</p>
     </div>
 
     <div class="about-field-notes__anchor">
       <figure class="about-field-notes__anchor-media reveal" style="--i:1;">
-        <Picture
+        <DeferredPicture
           src={anchorStory.image}
           widths={[700, 1000, 1400]}
           sizes="(min-width: 960px) 58vw, 100vw"
-          formats={['avif', 'webp']}
-          fallbackFormat="jpeg"
           quality={85}
           alt={anchorStory.alt}
-          loading="lazy"
         />
         <figcaption>
           <span>{anchorStory.label}</span>
@@ -69,25 +76,28 @@ const fieldNotes = [
       </figure>
 
       <div class="about-field-notes__anchor-copy reveal" style="--i:2;">
-        <h3>Support works best when people build it together.</h3>
-        <p>A business can provide goods. Volunteers can prepare them. Local partners can help place them where they matter.</p>
-        <a class="about-field-notes__link" href="/what-we-do/">See how it works <span aria-hidden="true">→</span></a>
+        {recent.length > 0 ? (
+          <Fragment>
+            <h3>Recent events</h3>
+            <RecentEvents events={recent} />
+          </Fragment>
+        ) : (
+          <h3>Community events, alongside local partners.</h3>
+        )}
+        <a class="about-field-notes__link" href="/events/#recent">See all events <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
-    <div class="about-field-notes__grid" aria-label="How our work shows up">
+    <div class="about-field-notes__grid" aria-label="Photographs from community events">
       {fieldNotes.map((note, index) => (
         <article class="about-field-notes__note reveal" style={`--i:${index + 3}`}>
           <div class="about-field-notes__note-media">
-            <Picture
+            <DeferredPicture
               src={note.image}
               widths={[400, 700]}
               sizes="(min-width: 960px) 22vw, 50vw"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpeg"
               quality={82}
               alt={note.alt}
-              loading="lazy"
             />
           </div>
           <div class="about-field-notes__note-copy">

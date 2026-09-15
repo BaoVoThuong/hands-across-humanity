@@ -1,5 +1,6 @@
 ---
-import { Picture } from 'astro:assets';
+import DeferredPicture from '../DeferredPicture.astro';
+import WaysToHelp from '../WaysToHelp.astro';
 import {
   volunteerGroup,
   field05,
@@ -21,38 +22,19 @@ const networkSlides = [
   },
 ];
 
-const contributors = [
-  {
-    title: 'Businesses and neighbors',
-    text: 'Share useful goods that can meet an everyday need.',
-  },
-  {
-    title: 'Volunteers',
-    text: 'Help sort and prepare donated goods for sharing.',
-  },
-  {
-    title: 'Local partners',
-    text: 'Bring trust, context, and a close understanding of the people served.',
-  },
-];
+
 ---
 
 <section class="about-network-section" aria-labelledby="about-network-title">
   <div class="container-wide about-network-section__grid">
     <div class="about-network-section__copy">
-      <h2 id="about-network-title">Four groups make this work.</h2>
+      <h2 id="about-network-title">Ways to take part.</h2>
       <p class="about-network-section__lead">
-        Businesses, neighbors, volunteers, and local partners bring different strengths together to make practical support easier to share.
+        The network runs on goods, time, and partnership as well as gifts. Pick the way of helping that fits you.
       </p>
 
-      <div class="about-network-section__contributors" role="list" aria-label="People who make the work possible">
-        {contributors.map((contributor) => (
-          <article class="about-network-section__contributor" role="listitem">
-            <h3>{contributor.title}</h3>
-            <p>{contributor.text}</p>
-          </article>
-        ))}
-      </div>
+      {/* "Four groups make this work" listed three groups and gave none of them a next step. */}
+      <WaysToHelp moneyHref="#give" />
     </div>
 
     <figure class="about-network-section__media">
@@ -74,16 +56,13 @@ const contributors = [
               data-slide-index={index}
               aria-hidden={index === 0 ? 'false' : 'true'}
             >
-              <Picture
+              <DeferredPicture
                 src={slide.image}
                 widths={[600, 900, 1200, 1600]}
                 sizes="(min-width: 960px) 51vw, 100vw"
-                formats={['avif', 'webp']}
-                fallbackFormat="jpeg"
                 quality={82}
                 alt={slide.alt}
-                loading="lazy"
-                decoding="async"
+                defer={index === 0 ? 'auto' : 'manual'}
               />
             </div>
           ))}
@@ -149,31 +128,6 @@ const contributors = [
     color: var(--fg-muted);
     font-size: var(--fs-lead);
     line-height: 1.55;
-  }
-
-  .about-network-section__contributors {
-    display: grid;
-    gap: 0;
-    margin-top: 0.35rem;
-    border-top: 1px solid var(--border-strong);
-  }
-
-  .about-network-section__contributor {
-    padding-block: 0.8rem;
-    border-bottom: 1px solid var(--border-strong);
-  }
-
-  .about-network-section__contributor h3 {
-    font-size: clamp(1.05rem, 0.95rem + 0.3vw, 1.3rem);
-    line-height: 1.2;
-  }
-
-  .about-network-section__contributor p {
-    margin-top: 0.3rem;
-    max-width: 42ch;
-    color: var(--fg-muted);
-    font-size: var(--fs-small);
-    line-height: 1.45;
   }
 
   .about-network-section__media {
@@ -247,7 +201,7 @@ const contributors = [
     padding: 5px 10px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
-    background: rgba(31, 33, 36, 0.68);
+    background: rgba(11, 27, 51, 0.68);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -365,14 +319,12 @@ const contributors = [
       right: 10px;
       padding: 4px 8px;
     }
-
-    .about-network-section__contributor {
-      padding-block: 0.55rem;
-    }
   }
 </style>
 
 <script>
+  import { activatePicture, whenSlideReady } from '../../lib/deferred-images';
+
   const carousel = document.getElementById('about-network-carousel');
 
   if (carousel) {
@@ -395,8 +347,17 @@ const contributors = [
       progressBar.style.width = '100%';
     }
 
-    function showSlide(index: number, restart = true) {
-      currentIndex = (index + slides.length) % slides.length;
+    let request = 0;
+
+    async function showSlide(index: number, restart = true) {
+      const target = (index + slides.length) % slides.length;
+      if (target !== currentIndex) {
+        // Hold the fade until the photo can be shown; a newer click or tick supersedes this one.
+        const ticket = ++request;
+        await whenSlideReady(slides[target]);
+        if (ticket !== request) return;
+      }
+      currentIndex = target;
 
       slides.forEach((slide, slideIndex) => {
         const isActive = slideIndex === currentIndex;
@@ -410,6 +371,9 @@ const contributors = [
         if (isActive) dot.setAttribute('aria-current', 'true');
         else dot.removeAttribute('aria-current');
       });
+
+      // Fetch the slide after this one, never further ahead.
+      void activatePicture(slides[(currentIndex + 1) % slides.length]?.querySelector('picture[data-deferred]'));
 
       if (restart) startTimer();
       else startProgressBar();

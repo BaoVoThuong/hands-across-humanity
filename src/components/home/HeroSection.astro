@@ -1,4 +1,5 @@
 ---
+import DeferredPicture from '../DeferredPicture.astro';
 import { Picture } from 'astro:assets';
 import {
   partnerCommunity,
@@ -11,14 +12,14 @@ import {
 interface Props {
   title?: string;
   lead?: string;
-  donateUrl?: string;
+  recentUrl?: string;
   exploreUrl?: string;
 }
 
 const {
   title = "A community donation network.",
-  lead = "Hands Across Humanity brings together donated goods, volunteers, and local partners to share practical support with children, families, veterans, and neighbors.",
-  donateUrl = "/what-we-do/",
+  lead = "Hands Across Humanity brings together donated goods, volunteers, and local partners in the Houston area to share practical support with children, families, veterans, and neighbors.",
+  recentUrl = "/events/#recent",
   exploreUrl = "/events/#upcoming"
 } = Astro.props;
 
@@ -64,8 +65,9 @@ const slides = [
         <p class="hero-v2__lead reveal" style="--i:2">{lead}</p>
 
         <div class="btn-row reveal" style="--i:3">
-          <a class="btn btn--primary btn--lg" href={donateUrl}>
-            See our work<span class="btn__arrow" aria-hidden="true">→</span>
+          {/* The first thing a visitor is offered is proof, not a request; Donate stays in the header. */}
+          <a class="btn btn--primary btn--lg" href={recentUrl}>
+            See recent work<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
           <a class="btn btn--ghost btn--lg" href={exploreUrl}>
             Upcoming events
@@ -86,7 +88,9 @@ const slides = [
             <div class="hero-carousel__progress-bar" id="hero-carousel-progress"></div>
           </div>
 
-          {/* Slides stack */}
+          {/* Slides stack. Only the first photo loads with the page; the others wait for
+              the carousel to ask for them, one slide ahead. All five used to load eagerly —
+              1.1 MB at once on first visit, and even the first slide took 7.4s on Slow 4G. */}
           <div class="hero-carousel__slides">
             {slides.map((slide, index) => (
               <div
@@ -94,17 +98,28 @@ const slides = [
                 data-slide-index={index}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
-                <Picture
-                  src={slide.image}
-                  widths={[600, 900, 1200]}
-                  sizes="(min-width: 960px) 55vw, 100vw"
-                  formats={['avif', 'webp']}
-                  fallbackFormat="jpeg"
-                  quality={85}
-                  alt={slide.alt}
-                  loading="eager"
-                  fetchpriority={index === 0 ? "high" : "auto"}
-                />
+                {index === 0 ? (
+                  <Picture
+                    src={slide.image}
+                    widths={[600, 900, 1200]}
+                    sizes="(min-width: 960px) 55vw, 100vw"
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpeg"
+                    quality={85}
+                    alt={slide.alt}
+                    loading="eager"
+                    fetchpriority="high"
+                  />
+                ) : (
+                  <DeferredPicture
+                    src={slide.image}
+                    widths={[600, 900, 1200]}
+                    sizes="(min-width: 960px) 55vw, 100vw"
+                    quality={85}
+                    alt={slide.alt}
+                    defer="manual"
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -139,6 +154,8 @@ const slides = [
 </section>
 
 <script>
+  import { activatePicture, whenSlideReady } from '../../lib/deferred-images';
+
   const DURATION = 5000;
   const carousel = document.getElementById('hero-carousel');
   if (carousel) {
@@ -149,6 +166,7 @@ const slides = [
     const dots = carousel.querySelectorAll('.hero-carousel__dot');
 
     let currentIndex = 0;
+    let request = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
 
     function startProgressBar() {
@@ -161,18 +179,30 @@ const slides = [
       progressBar.style.width = '100%';
     }
 
-    function goToSlide(index: number) {
-      if (index === currentIndex) return;
+    // Fetch the slide after the current one, never further ahead.
+    function primeNext() {
+      void activatePicture(slides[(currentIndex + 1) % slides.length]?.querySelector('picture[data-deferred]'));
+    }
+
+    async function goToSlide(index: number) {
+      const target = (index + slides.length) % slides.length;
+      if (target === currentIndex) return;
+      // Hold the fade until the photo can be shown; a newer click or tick supersedes this one.
+      const ticket = ++request;
+      await whenSlideReady(slides[target]);
+      if (ticket !== request) return;
+
       slides[currentIndex]?.classList.remove('is-active');
       slides[currentIndex]?.setAttribute('aria-hidden', 'true');
       dots[currentIndex]?.classList.remove('is-active');
 
-      currentIndex = (index + slides.length) % slides.length;
+      currentIndex = target;
 
       slides[currentIndex]?.classList.add('is-active');
       slides[currentIndex]?.setAttribute('aria-hidden', 'false');
       dots[currentIndex]?.classList.add('is-active');
 
+      primeNext();
       restartTimer();
     }
 
@@ -250,5 +280,6 @@ const slides = [
     }, { passive: true });
 
     startTimer();
+    primeNext();
   }
 </script>

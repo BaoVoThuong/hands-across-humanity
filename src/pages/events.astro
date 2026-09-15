@@ -1,7 +1,8 @@
 ---
-import { Picture } from 'astro:assets';
+import DeferredPicture from '../components/DeferredPicture.astro';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
+import DonationMoment from '../components/DonationMoment.astro';
 import UpcomingTable from '../components/events/UpcomingTable.astro';
 import JoinDialog from '../components/events/JoinDialog.astro';
 import { getEvents, periodLabel } from '../lib/events';
@@ -82,22 +83,25 @@ const fieldArchive = [
 
 const sections = [
   { id: 'top', label: 'Events' },
-  { id: 'upcoming', label: 'What is next' },
+  { id: 'upcoming', label: 'Upcoming events' },
   { id: 'recent', label: 'Recent work' },
   { id: 'field-record', label: 'Field record' }
 ];
 
+// The signals describe what this page holds. They used to promise
+// distribution days and partner drives while the table listed health fairs and
+// festivals hosted by partners.
 const heroSignals = [
-  { title: 'Community distributions', text: 'Household goods shared directly with families.' },
-  { title: 'School and family support', text: 'Learning supplies for children before term.' },
-  { title: 'Partner supply drives', text: 'Businesses and faith groups contributing together.' }
+  { title: 'Hosted by partners', text: 'We take part in events run by local partners.' },
+  { title: 'Come and find us', text: 'Upcoming dates and addresses are listed below.' },
+  { title: 'Recent work', text: past.length ? `Photographs and activity from ${periodLabel(past)}.` : 'Photographs from recent community work.' }
 ];
 ---
 
 <EditorialPage
   activePage="events"
   title="Where the work actually happens."
-  lead="Distribution days, school kit handouts and partner drives — where to find us next."
+  lead="Events we take part in with local partners — where to find us next, and what recent work has looked like."
   description="Upcoming community events Hands Across Humanity is taking part in, and a look at recent distribution work."
   image={communitySupportWide}
   imageAlt="Volunteers coordinating support at a community distribution event."
@@ -107,7 +111,7 @@ const heroSignals = [
   total={4}
 >
   <!-- 02: Upcoming -->
-  <Panel id="upcoming" ground="sand" index={2} total={4} label="What is next"
+  <Panel id="upcoming" ground="sand" index={2} total={4} label="Upcoming events"
     labelledby="upcoming-title" width="wide" nextId="recent" nextLabel="Recent work">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
@@ -164,10 +168,10 @@ const heroSignals = [
       {gallery.map((g) => (
         <article class="approach-card">
           <div class="approach-card__media approach-card__media--event">
-            <Picture src={g.image} class={g.mediaClass} widths={[600, 900, 1200]}
+            <DeferredPicture src={g.image} class={g.mediaClass} widths={[600, 900, 1200]}
               sizes="(min-width: 860px) 44vw, 92vw"
-              formats={['avif', 'webp']} fallbackFormat="jpeg" quality={82}
-              alt={g.alt} loading="lazy" decoding="async" />
+              formats={['webp']} fallbackFormat="jpeg" quality={76}
+              alt={g.alt} decoding="async" />
           </div>
           <div class="approach-card__content">
             <h3 class="approach-card__title">{g.title}</h3>
@@ -195,10 +199,10 @@ const heroSignals = [
       {fieldArchive.map((photo) => (
         <figure class:list={['field-record__item', `field-record__item--${photo.orientation}`]}>
           <div class="field-record__media">
-            <Picture src={photo.image} class={photo.mediaClass} widths={[480, 720, 960]}
+            <DeferredPicture src={photo.image} class={photo.mediaClass} widths={[480, 720, 960]}
               sizes="(min-width: 1100px) 23vw, (min-width: 640px) 31vw, 46vw"
-              formats={['avif', 'webp']} fallbackFormat="jpeg" quality={82}
-              alt={photo.alt} loading="lazy" decoding="async" />
+              formats={['webp']} fallbackFormat="jpeg" quality={76}
+              alt={photo.alt} decoding="async" />
           </div>
           <figcaption class="field-record__caption">
             <span class="field-record__chapter">{photo.chapter}</span>
@@ -208,6 +212,14 @@ const heroSignals = [
       ))}
     </div>
   </Panel>
+
+  <!-- The ask follows the evidence it relies on. -->
+  <DonationMoment
+    title="Help keep community support ready."
+    text="A one-time gift or monthly support helps strengthen the work around the events we take part in."
+    ctaLabel="Support community activity"
+    href="/donate/?focus=community"
+  />
 
   <JoinDialog />
 </EditorialPage>

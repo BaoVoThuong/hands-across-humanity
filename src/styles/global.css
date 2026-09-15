@@ -6,87 +6,92 @@
 :root {
   color-scheme: light;
 
-  /* Palette — white page, orange accent.
-   Every ground and every ink used to carry an orange tint: the page itself was
-   #FFFCF9, body copy was cocoa #3D2A22, and the footer was a clay #A55E42, so
-   the whole site read as warm wash rather than white. Grounds are now white
-   and neutral greys, ink is neutral, and orange is spent only where it means
-   something — links, buttons, the impact band, the wordmark. */
+  /* Palette — white page, navy ink, Signal Blue, gold.
+     One job per colour, so nothing has to be read twice:
+       navy anchors — headings, body copy, the footer;
+       blue acts    — links, buttons, focus rings, the eyebrow over a heading;
+       gold marks   — figures and highlights, and only ever on a dark ground,
+                      because on white it reads 1.9:1.
+     Grounds alternate white, a cool grey and a light-blue feature band. Both
+     tints are cool on purpose: a photograph keeps its own colour instead of
+     borrowing the page's. */
   --paper: #FFFFFF;
   --surface: #FFFFFF;
-  --surface-alt: #F7F7F6;
-  --surface-hover: #EFEFEE;
+  --surface-alt: #F4F7FA;
+  --surface-hover: #E8EFF6;
 
-  /* Closing transitions — the neutral band that bridges into the footer */
+  /* Closing transitions — the grey band that bridges into the footer */
   --transition-warm: var(--surface-alt);
-  --transition-ink-muted: #C2410C;
-  --transition-border: #E7E7E5;
+  --transition-ink-muted: #0060AE;
+  --transition-border: #D6E0EA;
   --transition-padding: clamp(2rem, 4vh, 3rem);
-  
-  --slate-900: #1F2124;
-  --slate-800: #33363A;
 
-  /* The two blocks that break the white page. The band is the one place solid
-     orange covers real estate; the footer is neutral near-black so the orange
-     stays the only colour that carries meaning. The photo mat is a plain grey
-     because a tinted mat pushed its colour into every photograph on it. */
-  --band-deep: #C2410C;        /* the solid orange band */
-  --band-deep-edge: #9A3412;
-  --photo-mat: #F2F1F0;        /* ground behind carousel + card imagery */
-  --footer-bg: #1F2124;        /* neutral near-black */
-  --footer-surface: #2A2D31;
-  --footer-border: #3D4147;
+  --slate-900: #0B1B33;
+  --slate-800: #12284C;
+  --ink-navy: #12284C;
+
+  /* Dark moments. The footer is the deepest navy; anything dark in the middle
+     of a page is a visibly bluer #0A4A85. With both in navy they measured
+     1.18:1 apart — a mid-page block in the footer's own ink reads as a hole in
+     the page. These two sit 1.91:1 apart. */
+  --band-deep: #0A4A85;
+  --band-deep-edge: #073A69;
+  --photo-mat: #E6EDF5;        /* ground behind carousel + card imagery */
+  --footer-bg: #0B1B33;
+  --footer-surface: #12284C;
+  --footer-border: #243C5E;
   --footer-heading: #FFFFFF;
-  --slate-700: #4A4E53;
-  --slate-600: #5C6066;
-  --slate-500: #71757B;
-  --slate-100: #F5F5F4;
+  --slate-700: #294366;
+  --slate-600: #475867;
+  --slate-500: #5C6C7E;
+  --slate-100: #F4F7FA;
 
-  /* Ink & Typography Colors */
-  --fg: #1F2124;
-  --fg-muted: #56595E;
-  --fg-light: #6C7075;
+  /* Ink */
+  --fg: #12284C;
+  --fg-muted: #475867;
+  --fg-light: #556172;
   --fg-on-dark: #FFFFFF;
-  --fg-muted-on-dark: #C6C9CD;
-  --brand-accent-on-dark: #FF9A62;
+  --fg-muted-on-dark: #A9BBD0;        /* on the footer: 8.78:1 */
+  --brand-accent-on-dark: #8CC4F5;    /* "Humanity" and event dates on the footer: 9.30:1 */
 
-  /* The footer is neutral near-black and the impact band is solid orange, so
-     one "on dark" pair cannot serve both: the footer's #C6C9CD measures
-     3.12:1 on the band. These are the band's own, at 5.18:1 and 4.88:1. */
-  --fg-on-band: #FFFFFF;
-  --fg-muted-on-band: #FFF7ED;
+  /* The band's own inks. The footer's muted grey is tuned for #0B1B33, so the
+     impact band and .panel--ink read these instead. */
+  --fg-on-band: #FFFFFF;              /* 9.01:1 */
+  --fg-muted-on-band: #D6E6F5;        /* 7.08:1 */
+  --accent-on-band: #BFE0FF;          /* 6.57:1 */
 
-  /* Brand Colors */
-  --primary: #C2410C;
-  --primary-hover: #9A3412;
-  --primary-light: #FFF1E8;
-  --sand-warm: #FFF4EC;      /* feature band on editorial pages */
-  --sand-warm-hover: #FFE8DA; /* row hover on that band — same family, one step down */
-  --gold: #F59E0B;
-             /* Accent — highlights, never a text colour on white */
-  --gold-on-dark: #FFD9A0;
-  --brand-accent: #C2410C;     /* "Humanity" in the wordmark on light grounds */
-  --gold-soft: #FCD9A8;
-  
+  /* Brand */
+  --primary: #0060AE;                 /* Signal Blue — 6.39:1 on white, 5.66:1 on the feature band */
+  --primary-hover: #004E8C;
+  --primary-light: #EAF3FB;
+  --sand-warm: #EAF2FA;               /* the light-blue feature band; name kept so every rule still resolves */
+  --sand-warm-hover: #DCE9F6;
+  --gold: #F8B33D;                    /* never text on a light ground */
+  --gold-on-dark: #FFD27A;
+  --brand-accent: #0060AE;            /* "Humanity" in the wordmark on light grounds */
+  --gold-soft: #FBE3B4;
+
   --emerald: #059669;          /* Trust & Impact Emerald */
   --emerald-hover: #047857;
   --emerald-light: #ECFDF5;
   --emerald-border: #A7F3D0;
 
-  /* Action CTAs */
-  --cta: #C2410C;
-  --cta-hover: #9A3412;
-  --cta-active: #7C2D12;
+  /* Action — blue acts. The old donate fill was Deep Indigo #160042, close
+     enough to navy body copy that a button read as a paragraph, and 1.06:1 on
+     the carousel scrim. */
+  --cta: #0060AE;
+  --cta-hover: #004E8C;
+  --cta-active: #003B6B;
   --on-cta: #FFFFFF;
 
-  /* Borders & High-Contrast Dividers */
-  --border: #E7E7E5;
-  --border-warm: #EFE2D9;
-  --border-strong: #8A8D92;
-  --divider-color: #EDEDEB;
-  --divider-strong: #DADAD7;
+  /* Borders & dividers */
+  --border: #D6E0EA;
+  --border-warm: #C9D8E6;
+  --border-strong: #6B7F95;           /* 4.12:1 on white, over the 3:1 UI minimum */
+  --divider-color: #DCE5EE;
+  --divider-strong: #B4C5D6;
   --hairline-on-dark: rgba(255, 255, 255, 0.2);
-  --focus-ring: #C2410C;
+  --focus-ring: #0060AE;
 
   /* Responsive Type Scale */
   --fs-display: clamp(2.15rem, 1.5rem + 2.2vw, 3.75rem);
@@ -249,7 +254,7 @@
   font-weight: 700;
   font-size: 0.875rem;
   flex-shrink: 0;
-  border: 1px solid rgba(194, 65, 12, 0.2);
+  border: 1px solid rgba(0, 96, 174, 0.2);
 }
 
 .pull-quote__author-info {
@@ -288,6 +293,8 @@ html {
   scrollbar-color: var(--border-strong) var(--paper);
   scrollbar-width: thin;
   scroll-behavior: smooth;
+  /* Fixed masthead clearance follows the responsive header token. */
+  scroll-padding-top: calc(var(--header-h) + var(--space-3) + env(safe-area-inset-top, 0px));
   scroll-snap-type: none;
   -webkit-text-size-adjust: 100%;
 }
@@ -413,7 +420,7 @@ html:has(body.site-body--editorial) .section {
 .site-body--editorial .page-hero__caption-num { color: var(--primary); }
 .site-body--editorial .page-hero__caption-text { color: var(--slate-700); }
 .site-body--editorial .page-hero__caption-sep {
-  color: var(--border-strong, #8A8D92);
+  color: var(--border-strong, #6B7F95);
 }
 .site-body--editorial .page-hero__signals {
   border-top-color: var(--slate-300);
@@ -571,7 +578,7 @@ p {
   color: var(--slate-700);
   border: 1px solid var(--border);
 }
-.badge--primary { background: var(--primary-light); color: var(--primary); border-color: rgba(194, 65, 12, 0.2); }
+.badge--primary { background: var(--primary-light); color: var(--primary); border-color: rgba(0, 96, 174, 0.2); }
 .badge--emerald { background: var(--emerald-light); color: var(--emerald); border-color: var(--emerald-border); }
 .badge--dark { background: rgba(255, 255, 255, 0.12); color: var(--fg-on-dark); border-color: rgba(255, 255, 255, 0.2); }
 .badge__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
@@ -720,7 +727,7 @@ p {
   width: 100%;
   transform: scaleX(var(--progress, 0));
   transform-origin: 0 50%;
-  background: linear-gradient(90deg, var(--emerald), var(--primary));
+  background: var(--primary);
   will-change: transform;
 }
 
@@ -812,6 +819,55 @@ p {
   font-size: 0.875rem;
 }
 
+.header-donate {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.header-donate__short {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .site-header__inner {
+    gap: var(--space-2);
+  }
+
+  .brand {
+    gap: 0.4rem;
+  }
+
+  .brand__logo-container {
+    flex-basis: 2.5rem;
+    height: 2.5rem;
+    padding: 0.18rem;
+  }
+
+  .brand__name {
+    font-size: 0.9rem;
+  }
+
+  .header-actions {
+    gap: var(--space-2);
+  }
+
+  .header-donate {
+    min-height: 2.4rem;
+    padding-inline: 0.55rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .header-donate__full {
+    display: none;
+  }
+
+  .header-donate__short {
+    display: inline;
+  }
+}
+
 /* Mobile Menu */
 .menu-toggle {
   display: inline-flex;
@@ -864,6 +920,21 @@ p {
   justify-content: space-between;
 }
 .mobile-menu__panel nav a.is-active { color: var(--primary); }
+.mobile-menu__donate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.1rem;
+  margin-top: var(--space-4);
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--on-cta) !important;
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.mobile-menu__donate:hover { background: var(--primary-hover); }
 
 /* ============================================================
    SECTIONS & PANELS
@@ -898,7 +969,12 @@ p {
 
 .panel--paper { background: var(--paper); }
 .panel--sand { background: var(--surface-alt); }
-.panel--ink { background: var(--slate-900); color: var(--fg-on-dark); }
+.panel--ink {
+  background: var(--band-deep);
+  color: var(--fg-on-band);
+  --fg-muted-on-dark: var(--fg-muted-on-band);
+  --brand-accent-on-dark: var(--accent-on-band);
+}
 .panel--ink h1, .panel--ink h2, .panel--ink h3 { 
   color: var(--fg-on-dark); 
   letter-spacing: -0.02em;
@@ -1166,7 +1242,6 @@ p {
   letter-spacing: -0.005em;
 }
 
-
 /* Principles numbered list */
 .principles { display: grid; gap: var(--space-5); margin-top: var(--space-5); }
 @media (min-width: 760px) { .principles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); } }
@@ -1254,7 +1329,6 @@ p {
   line-height: 1.6;
 }
 
-
 /* Prose & Multi-column text */
 .prose p { color: var(--slate-700); line-height: 1.65; }
 .prose p + p { margin-top: var(--space-3); }
@@ -1331,7 +1405,7 @@ p {
   padding-left: var(--space-6);
   border-left: 3px solid var(--primary);
   margin: 0;
-  background: linear-gradient(90deg, rgba(194, 65, 12, 0.04) 0%, transparent 100%);
+  background: linear-gradient(90deg, rgba(0, 96, 174, 0.04) 0%, transparent 100%);
   padding-block: var(--space-4);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
@@ -1421,7 +1495,6 @@ p {
   pointer-events: none;
 }
 
-
 .section {
   padding-block: clamp(4.5rem, 7.5vw, 6.5rem);
   position: relative;
@@ -1432,6 +1505,7 @@ p {
 .section--paper { background: var(--paper); }
 .section--surface { background: var(--surface); }
 .section--sand { background: var(--surface-alt); }
+.section--tint { background: var(--sand-warm); }
 .section--dark { background: var(--band-deep); color: var(--fg-on-dark); }
 .section--dark h1, .section--dark h2, .section--dark h3 { color: var(--fg-on-dark); }
 
@@ -1593,7 +1667,590 @@ p {
   content: '';
   flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--emerald);
+  background: var(--primary);
+}
+
+/* ============================================================
+   DONATION — Persistent, clear, and earned
+   ============================================================ */
+
+.donation-section,
+.donation-page {
+  padding-block: clamp(1rem, 1.75vw, 1.5rem);
+  background: var(--surface-alt);
+  border-block: 1px solid var(--border);
+  scroll-margin-top: calc(var(--header-h) + var(--space-3) + env(safe-area-inset-top, 0px));
+}
+
+.donation-section {
+  /* On About this follows the light-blue "Ways to take part" and sits above the
+     grey closing band, so it takes the white ground. /donate/ keeps the grey. */
+  background: var(--paper);
+  /* Keep the first heading clear of the fixed masthead in both regular scroll
+     and anchor navigation; the card rhythm below carries the compactness. */
+  padding-block-start: max(
+    clamp(1.25rem, 2.25vw, 2.25rem),
+    calc(var(--header-h) + env(safe-area-inset-top, 0px))
+  );
+  padding-block-end: clamp(1rem, 1.75vw, 1.5rem);
+}
+
+.donation-page {
+  padding-top: max(
+    calc(var(--header-h) + clamp(1rem, 2vw, 1.75rem)),
+    calc(var(--header-h) + var(--space-3) + env(safe-area-inset-top, 0px))
+  );
+}
+
+.donation-section__heading,
+.donation-page__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  margin-bottom: clamp(1rem, 1.8vw, 1.35rem);
+}
+
+.donation-section__eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--primary);
+  font-size: var(--fs-micro);
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.donation-section__heading h2,
+.donation-page__heading h1 {
+  max-width: 24ch;
+  margin: 0;
+  font-size: clamp(2rem, 3.1vw, 3.25rem);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.donation-section__heading-copy {
+  max-width: 38ch;
+  margin: 0 0 0.15rem;
+  color: var(--fg-muted);
+  font-size: clamp(0.95rem, 1vw, 1.15rem);
+  line-height: 1.4;
+}
+
+.donation-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(19rem, 0.88fr);
+  gap: clamp(0.4rem, 0.8vw, 0.75rem);
+  padding: clamp(0.4rem, 0.8vw, 0.75rem);
+  background: var(--surface);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.donation-panel--compact {
+  grid-template-columns: minmax(0, 1.08fr) minmax(16rem, 0.92fr);
+}
+
+.donation-panel__controls,
+.donation-panel__summary {
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.donation-panel__controls {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.donation-panel--compact .donation-panel__controls,
+.donation-panel--compact .donation-panel__summary {
+  padding: clamp(0.75rem, 1vw, 1rem);
+}
+
+.donation-panel--compact .donation-panel__controls {
+  gap: clamp(0.5rem, 0.7vw, 0.75rem);
+}
+
+.donation-panel__heading {
+  max-width: 40rem;
+}
+
+.donation-panel h2 {
+  max-width: 19ch;
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+}
+
+.donation-panel--compact h2 {
+  margin-bottom: var(--space-2);
+  font-size: clamp(1.3rem, 1.5vw, 1.65rem);
+  line-height: 1.04;
+}
+
+.donation-panel__lead {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+
+.donation-panel--compact .donation-panel__lead {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.donation-frequency,
+.donation-amounts-fieldset,
+.donation-focus {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.donation-frequency legend,
+.donation-amounts-fieldset legend,
+.donation-focus legend {
+  margin-bottom: var(--space-3);
+  color: var(--slate-900);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.donation-panel--compact .donation-frequency legend,
+.donation-panel--compact .donation-amounts-fieldset legend,
+.donation-panel--compact .donation-focus legend {
+  margin-bottom: 0.4rem;
+}
+
+.donation-amounts-fieldset legend span {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.donation-focus legend span {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.donation-focus__choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.donation-focus__choice {
+  min-height: 3.2rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--slate-800);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-standard), background-color var(--dur-micro) var(--ease-standard), border-color var(--dur-micro) var(--ease-standard), transform var(--dur-micro) var(--ease-out);
+}
+
+.donation-focus__choice:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.donation-focus__choice:active {
+  transform: scale(0.98);
+}
+
+.donation-focus__choice.is-selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary-hover);
+}
+
+.donation-panel--compact .donation-focus__choice {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.5rem;
+  font-size: clamp(0.72rem, 0.8vw, 0.82rem);
+}
+
+.donation-choice-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+}
+
+.donation-choice,
+.donation-amount {
+  min-height: 2.9rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  color: var(--slate-800);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-standard), background-color var(--dur-micro) var(--ease-standard), border-color var(--dur-micro) var(--ease-standard), transform var(--dur-micro) var(--ease-out);
+}
+
+.donation-panel--compact .donation-choice,
+.donation-panel--compact .donation-amount {
+  min-height: 2.15rem;
+  padding-block: 0.3rem;
+}
+
+.donation-choice {
+  border-color: transparent;
+  background: transparent;
+}
+
+.donation-choice:hover,
+.donation-amount:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.donation-choice:active,
+.donation-amount:active {
+  transform: scale(0.98);
+}
+
+.donation-choice.is-selected {
+  background: var(--primary);
+  color: var(--on-cta);
+  box-shadow: var(--shadow-sm);
+}
+
+.donation-choice.is-selected:hover {
+  border-color: var(--primary);
+  color: var(--on-cta);
+}
+
+.donation-amounts {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.donation-panel--compact .donation-amounts {
+  gap: var(--space-2);
+}
+
+.donation-amount.is-selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--on-cta);
+}
+
+.donation-amount.is-selected:hover {
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
+  color: var(--on-cta);
+}
+
+.donation-custom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 3.1rem;
+  margin-top: var(--space-3);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--slate-600);
+  transition: border-color var(--dur-micro) var(--ease-standard), box-shadow var(--dur-micro) var(--ease-standard);
+}
+
+.donation-panel--compact .donation-custom {
+  min-height: 2.25rem;
+  margin-top: var(--space-2);
+}
+
+.donation-custom:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 96, 174, 0.14);
+}
+
+.donation-custom__currency {
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.donation-custom input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--slate-900);
+  font: inherit;
+  font-weight: 600;
+}
+
+.donation-custom input::placeholder {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.donation-panel__summary {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  color: var(--fg);
+}
+
+.donation-panel__summary-label {
+  margin: 0;
+  color: var(--primary);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.donation-panel__summary-focus {
+  margin: 0.45rem 0 0;
+  color: var(--slate-900);
+  font-size: clamp(1.1rem, 1.65vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.donation-panel__summary-amount {
+  margin: 0.35rem 0 0;
+  color: var(--ink-navy);
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.donation-panel__summary-cadence {
+  color: var(--fg-muted);
+  font-family: 'Public Sans Variable', 'Public Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.donation-panel__summary-message {
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  color: var(--fg-muted);
+  line-height: 1.55;
+}
+
+.donation-panel__benefits {
+  display: grid;
+  gap: var(--space-5);
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.donation-panel--compact .donation-panel__benefits {
+  gap: 0.5rem;
+  margin-block: clamp(0.75rem, 1vw, 1rem);
+}
+
+.donation-panel__benefits li {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  color: var(--slate-800);
+  line-height: 1.5;
+}
+
+.donation-panel--compact .donation-panel__benefits li {
+  gap: 0.6rem;
+  font-size: clamp(0.82rem, 0.95vw, 0.95rem);
+  line-height: 1.35;
+}
+
+.donation-panel__benefits svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.12rem;
+  fill: none;
+  stroke: var(--emerald);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.donation-panel--compact .donation-panel__benefits svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.donation-panel__handoff {
+  margin-top: auto;
+}
+
+.donation-panel__cta {
+  width: 100%;
+  justify-content: center;
+}
+
+.donation-panel__handoff-note {
+  margin: var(--space-3) 0 0;
+  color: var(--fg-muted);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.donation-panel--compact .donation-panel__cta {
+  min-height: 2.75rem;
+  padding-inline: var(--space-4);
+}
+
+.donation-panel--compact .donation-panel__handoff-note {
+  font-size: clamp(0.76rem, 0.8vw, 0.85rem);
+}
+
+.donation-panel__summary .donation-panel__cta {
+  background: var(--primary);
+  color: var(--on-cta);
+  box-shadow: var(--shadow-sm);
+}
+
+.donation-panel__summary .donation-panel__cta:hover {
+  background: var(--primary-hover);
+  color: var(--on-cta);
+}
+
+/* Every donation moment now closes its page: below a white or deep-blue
+   section and directly above the grey next-page band, so the light blue keeps
+   it apart from both. Mission passes ground="paper" on the one build where it
+   would follow the light-blue commitments instead. */
+.donation-moment {
+  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  background: var(--sand-warm);
+  border-block: 1px solid var(--border-warm);
+}
+.donation-moment--paper { background: var(--paper); }
+
+.donation-moment__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-7);
+}
+
+.donation-moment__copy {
+  max-width: 44rem;
+}
+
+.donation-moment h2 {
+  max-width: 22ch;
+  margin-bottom: var(--space-3);
+}
+
+.donation-moment p:last-child {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--fg-muted);
+}
+
+.donation-moment__cta {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 820px) {
+  .donation-section__heading,
+  .donation-page__heading {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .donation-moment__inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 640px) {
+
+  .donation-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-panel__summary {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .donation-section,
+  .donation-page {
+    padding-block-end: 2.5rem;
+  }
+
+  .donation-panel--compact .donation-panel__controls,
+  .donation-panel--compact .donation-panel__summary {
+    padding: 1.25rem;
+  }
+
+  .donation-choice-group,
+  .donation-amounts {
+    gap: 0.35rem;
+  }
+
+  .donation-choice,
+  .donation-amount {
+    font-size: var(--fs-small);
+  }
+
+  .donation-amounts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .donation-focus__choices {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-focus__choice,
+  .donation-panel--compact .donation-focus__choice {
+    min-height: 2.75rem;
+    padding: 0.5rem 0.65rem;
+    font-size: var(--fs-small);
+  }
+
+  .donation-moment__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .donation-choice,
+  .donation-amount,
+  .donation-custom {
+    transition: none;
+  }
 }
 
 /* ============================================================
@@ -1665,7 +2322,7 @@ p {
 }
 
 .impact-band__principle strong {
-  color: var(--gold-on-dark);
+  color: var(--gold);
   font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
   font-size: clamp(1rem, 1.4vw, 1.25rem);
   letter-spacing: -0.02em;
@@ -1934,7 +2591,7 @@ p {
   gap: 6px;
   align-items: center;
   padding: 5px 10px;
-  background: rgba(31, 33, 36, 0.68);
+  background: rgba(11, 27, 51, 0.68);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 20px;
@@ -2193,7 +2850,7 @@ p {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(31, 33, 36, 0.68);
+  background: rgba(11, 27, 51, 0.68);
   backdrop-filter: blur(6px);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -2614,286 +3271,9 @@ p {
   }
 }
 
-/* ============================================================
-   ACCORDION FAQ — Commercial Split-Layout & High-Trust Cards
-   ============================================================ */
-.faq-section {
-  padding-block: var(--space-9);
-}
-
-.faq-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  align-items: start;
-}
-
-@media (min-width: 992px) {
-  .faq-grid {
-    grid-template-columns: 360px 1fr;
-    gap: var(--space-9);
-  }
-}
-
-@media (min-width: 1200px) {
-  .faq-grid {
-    grid-template-columns: 420px 1fr;
-  }
-}
-
 /* Cột trái - Sidebar & Support Card */
-.faq-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  position: sticky;
-  top: calc(var(--header-h) + 2rem);
-}
-
-.faq-trust-line {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.faq-trust-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--emerald);
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 0 3px var(--emerald-light);
-  flex-shrink: 0;
-}
-
-.faq-trust-label {
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--emerald-hover);
-  font-feature-settings: 'cv05', 'cv11';
-}
-
-.faq-title {
-  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
-  font-size: var(--fs-h2);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--slate-900);
-  line-height: 1.2;
-  margin-bottom: var(--space-3);
-}
-
-.faq-subtitle {
-  font-size: var(--fs-body);
-  color: var(--fg-muted);
-  line-height: 1.6;
-  max-width: 42ch;
-}
-
-.faq-support-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-6);
-  background: var(--surface);
-  border: 1px solid var(--border-warm);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
-}
-
-.faq-support-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-strong);
-}
-
-.faq-support-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  background: var(--primary-light);
-  color: var(--primary);
-  border-radius: var(--radius-md);
-}
-
-.faq-support-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.faq-support-heading {
-  font-size: var(--fs-body);
-  font-weight: 700;
-  color: var(--slate-900);
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
-
-.faq-support-text {
-  font-size: var(--fs-small);
-  color: var(--fg-muted);
-  line-height: 1.55;
-}
-
-.faq-support-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--primary);
-  text-decoration: none;
-  margin-top: var(--space-2);
-  transition: color var(--dur-micro) var(--ease-out);
-}
-
-.faq-support-link:hover {
-  color: var(--primary-hover);
-  text-decoration: underline;
-}
-
-.faq-support-link svg {
-  transition: transform var(--dur-micro) var(--ease-out);
-}
-
-.faq-support-link:hover svg {
-  transform: translateX(3px);
-}
 
 /* Cột phải - Accordion List với Animation Mượt */
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  width: 100%;
-}
-
-.faq-item {
-  background: var(--surface);
-  border: 1px solid var(--border-warm);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
-}
-
-.faq-item:hover {
-  border-color: var(--border-strong);
-  background-color: var(--surface-alt);
-}
-
-.faq-item[open] {
-  border-color: var(--primary);
-  background-color: var(--surface);
-  box-shadow: var(--shadow-md);
-}
-
-.faq-summary {
-  padding: var(--space-5) var(--space-6);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  user-select: none;
-  list-style: none;
-}
-
-.faq-summary::-webkit-details-marker { display: none; }
-
-.faq-question-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  align-items: flex-start;
-}
-
-.faq-category-tag {
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--primary);
-  font-feature-settings: 'cv05', 'cv11';
-}
-
-.faq-question-text {
-  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: var(--slate-900);
-  line-height: 1.35;
-}
-
-.faq-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  color: var(--primary);
-  transition: transform var(--dur-standard) var(--ease-out), background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
-}
-
-.faq-item:hover .faq-icon-wrapper {
-  border-color: var(--primary);
-}
-
-.faq-item[open] .faq-icon-wrapper {
-  transform: rotate(45deg);
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #FFFFFF;
-}
-
-.faq-content {
-  padding: 0 var(--space-6);
-  color: var(--slate-700);
-  font-size: var(--fs-body);
-  line-height: 1.68;
-  border-top: 1px dashed transparent;
-  transition: border-color var(--dur-micro) var(--ease-out);
-}
-
-.faq-content-inner {
-  padding-bottom: var(--space-6);
-  max-width: 68ch;
-}
-
-.faq-content p {
-  margin: 0;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity var(--dur-standard) var(--ease-out), transform var(--dur-standard) var(--ease-out);
-}
-
-.faq-item[open] .faq-content {
-  border-top-color: var(--divider-color);
-  padding-top: var(--space-4);
-}
-
-.faq-item[open] .faq-content p {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 40ms;
-}
-
-.faq-content p {
-  margin: 0;
-}
 
 /* ============================================================
    FOOTER — Multi-Column Rich Footer
@@ -3826,7 +4206,7 @@ img.img-pos-lower-middle,
 .work-card--featured {
   background: var(--surface);
   border: 2px solid var(--primary);
-  box-shadow: 0 12px 32px -4px rgba(194, 65, 12, 0.15);
+  box-shadow: 0 12px 32px -4px rgba(0, 96, 174, 0.15);
   position: relative;
 }
 @media (min-width: 900px) {
@@ -3944,20 +4324,6 @@ img.img-pos-lower-middle,
   flex-direction: column;
   align-items: center;
 }
-.chapter-transition__quote {
-  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
-  font-weight: 450;
-  font-size: clamp(1.3rem, 2vw, 2rem);
-  line-height: 1.45;
-  font-style: italic;
-  color: var(--slate-900);
-  max-width: 34ch;
-  margin: 0 0 clamp(1rem, 2vh, 1.5rem) 0;
-  padding-bottom: clamp(1rem, 2vh, 1.5rem);
-  border-bottom: 1px solid var(--transition-border);
-  text-wrap: balance;
-  letter-spacing: -0.01em;
-}
 .chapter-transition__footer {
   display: flex;
   flex-direction: column;
@@ -3990,6 +4356,18 @@ img.img-pos-lower-middle,
   font-weight: 700;
   padding: 0.65rem 1.85rem;
 }
+
+.chapter-transition__support {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding-block: 0.45rem;
+  color: var(--primary);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.chapter-transition__support:hover { color: var(--primary-hover); }
 
 /* ============================================================
    WHAT-WE-DO EDITORIAL 2X2 GRID & VIEWPORT FIT CONSTRAINTS
@@ -4953,12 +5331,6 @@ body {
   }
 }
 
-@media (max-width: 991px) {
-  .faq-sidebar {
-    position: static;
-  }
-}
-
 @media (min-width: 640px) and (max-width: 820px) {
   /* Let the pillar metadata wrap instead of expanding the three-column grid. */
   .rule-card__doc-caption > * {
@@ -4975,10 +5347,6 @@ body {
 @media (max-width: 639px) {
   .section {
     padding-block: clamp(3rem, 8vw, 4.25rem);
-  }
-
-  .faq-section {
-    padding-block: clamp(3rem, 8vw, 4rem);
   }
 
   .panel__foot {
@@ -5053,31 +5421,6 @@ body {
   .project-card__funding-meta {
     flex-wrap: wrap;
     gap: 0.2rem 0.75rem;
-  }
-
-  .faq-grid {
-    gap: var(--space-7);
-  }
-
-  .faq-support-card {
-    padding: var(--space-5);
-  }
-
-  .faq-summary {
-    padding: var(--space-4);
-    gap: var(--space-3);
-  }
-
-  .faq-question-text {
-    font-size: 1.05rem;
-  }
-
-  .faq-content {
-    padding-inline: var(--space-4);
-  }
-
-  .faq-content-inner {
-    padding-bottom: var(--space-5);
   }
 
   .footer-newsletter {
@@ -5428,13 +5771,6 @@ body {
 
   .chapter-transition {
     padding-block: var(--transition-padding);
-  }
-
-  .chapter-transition__quote {
-    font-size: 1.15rem;
-    line-height: 1.35;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
   }
 }
 
@@ -5829,7 +6165,6 @@ main > section.section--ink:not(:first-child) {
 main > .hero-fold-group > section.impact-band { border-top-color: var(--band-deep-edge); }
 .chapter-transition { border-top: 1px solid var(--transition-border); }
 
-
 /* Success line replaces the form in place. role="status" announces it to a
    screen reader without moving focus; the dialog's own X closes it. */
 .join-dialog__done {
@@ -5881,15 +6216,12 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
   inset: -8px -2px;
 }
 
-.faq-support-link { padding-block: 0.6rem; min-height: 2.75rem; }
-
 /* Inline card links were 15px tall. */
 .bento-area-card__link {
   padding-block: 0.5rem;
   min-height: 2.5rem;
   align-items: center;
 }
-
 
 /* ============================================================
    FOOTER DETAIL COLUMNS
@@ -5904,6 +6236,11 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
 }
 
 .footer-col .footer-email { font-size: 0.9375rem; word-break: break-word; }
+.footer-give-link {
+  color: var(--brand-accent-on-dark) !important;
+  font-weight: 700;
+}
+.footer-give-link:hover { color: #FFFFFF !important; }
 
 .footer-focus,
 .footer-events {
@@ -5955,3 +6292,101 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
 /* 44px per row stacked five links into a 336px column of mostly air. 32px
    still clears the 24px minimum and lets the four columns read as a set. */
 .footer-col a { padding-block: 0.35rem; min-height: 2rem; }
+
+/* ============================================================
+   WAYS TO TAKE PART · RECENT EVENTS
+   Shared by About, Mission and Donate. Hairline lists in the rhythm of
+   the contributor list they replaced, not cards.
+   ============================================================ */
+.ways-to-help {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--border-strong);
+}
+
+.ways-to-help__item {
+  display: grid;
+  gap: 0.25rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.ways-to-help__title {
+  margin: 0;
+  font-size: clamp(1.05rem, 0.95rem + 0.3vw, 1.3rem);
+  line-height: 1.2;
+  color: var(--slate-900);
+}
+
+.ways-to-help__text {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--fg-muted);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.ways-to-help__action {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em; /* inline-flex drops the space before the arrow */
+  min-height: 2rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.ways-to-help__action:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.donate-ways {
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+  background: var(--paper);
+}
+
+.donate-ways h2 { margin: 0 0 var(--space-5); }
+
+.donate-ways .ways-to-help {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  column-gap: var(--space-7);
+  border-top: 0;
+}
+
+.donate-ways .ways-to-help__item {
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 0;
+}
+
+.recent-events {
+  list-style: none;
+  width: 100%;
+  margin: var(--space-4) 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--border-warm);
+}
+
+.recent-events__item {
+  display: grid;
+  gap: 0.15rem;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+.recent-events__date {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+}
+
+.recent-events__title { font-weight: 600; line-height: 1.3; color: var(--slate-900); }
+.recent-events__where { font-size: var(--fs-small); color: var(--fg-muted); }
+
+.panel-link { margin: var(--space-5) 0 0; }
+
+/* In a full-width panel the rows are short; keep them to a reading measure. */
+.panel .recent-events { max-width: 48rem; }

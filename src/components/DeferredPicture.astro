@@ -1,0 +1,121 @@
+---
+/**
+ * <Picture> with its image held back until it is near the viewport — see
+ * src/lib/deferred-images.ts. The URL is only revealed in a bounded queue, so
+ * a long gallery cannot monopolise the network when the page first opens.
+ *
+ * Renders the variants Astro's own <Picture> would, from the same getImage()
+ * options, so the build emits the same files. The difference is that srcset
+ * ships as data-srcset. The placeholder is an empty SVG carrying the photo's own
+ * aspect ratio, so the box is reserved exactly and nothing shifts when the real
+ * image arrives.
+ */
+import { getImage } from 'astro:assets';
+
+type Format = 'avif' | 'webp' | 'jpeg' | 'png';
+type Optimized = Awaited<ReturnType<typeof getImage>>;
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  widths: number[];
+  sizes: string;
+  formats?: Format[];
+  fallbackFormat?: Format;
+  quality?: number;
+  class?: string;
+  decoding?: 'async' | 'auto' | 'sync';
+  /** auto: released near the viewport. manual: only when a script asks — carousel slides. */
+  defer?: 'auto' | 'manual';
+}
+
+const {
+  src,
+  alt,
+  widths,
+  sizes,
+  // Below-the-fold media favours WebP: it is substantially faster to encode
+  // during Astro's on-demand dev transforms, while still retaining JPEG as a
+  // universal fallback. Priority media keeps AVIF through Astro <Picture>.
+  formats = ['webp'],
+  fallbackFormat = 'jpeg',
+  quality,
+  class: className,
+  decoding = 'async',
+  defer = 'auto',
+  ...rest
+} = Astro.props;
+
+// Scoped styles in the calling component reach this markup through these
+// attributes, the same way Astro's <Picture> forwards them.
+const scope = Object.fromEntries(Object.entries(rest).filter(([key]) => key.startsWith('data-astro-cid')));
+
+const transform = { src, widths, sizes, quality, alt };
+const sources = await Promise.all(formats.map((format: Format) => getImage({ ...transform, format })));
+const fallback = await getImage({ ...transform, format: fallbackFormat });
+
+const { loading: _loading, decoding: _decoding, class: _class, ...imgAttributes } = fallback.attributes;
+// Written pre-encoded: a raw SVG tag inside the frontmatter breaks `astro check`.
+const placeholder = `data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20${imgAttributes.width}%20${imgAttributes.height}'%2F%3E`;
+---
+
+<picture
+  class="deferred-picture"
+  data-deferred={defer}
+  data-deferred-state="held"
+  data-fallback-src={fallback.src}
+  data-fallback-srcset={fallback.srcSet.attribute}
+  aria-busy="true"
+  {...scope}
+>
+  {sources.map((image: Optimized) => (
+    <source data-srcset={image.srcSet.attribute} type={`image/${image.options.format}`} sizes={sizes} />
+  ))}
+  <img
+    src={placeholder}
+    data-src={fallback.src}
+    data-srcset={fallback.srcSet.attribute}
+    {...imgAttributes}
+    {...scope}
+    class={className}
+    loading="lazy"
+    decoding={decoding}
+  />
+</picture>
+
+<noscript>
+  <style>picture[data-deferred] { display: none !important; }</style>
+  <picture {...scope}>
+    {sources.map((image: Optimized) => (
+      <source srcset={image.srcSet.attribute} type={`image/${image.options.format}`} sizes={sizes} />
+    ))}
+    <img src={fallback.src} srcset={fallback.srcSet.attribute} sizes={sizes} {...imgAttributes} {...scope} class={className} loading="lazy" decoding={decoding} />
+  </picture>
+</noscript>
+
+<style>
+  .deferred-picture {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--photo-mat, #f2efeb);
+  }
+
+  .deferred-picture > img {
+    opacity: 0;
+    transition: opacity 180ms ease-out;
+  }
+
+  .deferred-picture[data-deferred-state='loaded'] > img,
+  .deferred-picture[data-deferred-state='error'] > img {
+    opacity: 1;
+  }
+
+  .deferred-picture[data-deferred-state='error'] {
+    background: var(--surface-alt, #f8f6f3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deferred-picture > img { transition: none; }
+  }
+</style>

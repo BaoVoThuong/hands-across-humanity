@@ -1,7 +1,10 @@
 ---
+import DeferredPicture from '../components/DeferredPicture.astro';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
-import { Picture } from 'astro:assets';
+import DonationMoment from '../components/DonationMoment.astro';
+import RecentEvents from '../components/RecentEvents.astro';
+import { getEvents } from '../lib/events';
 import {
   communityDistribution,
   reliefDistributionWide,
@@ -11,164 +14,189 @@ import {
   healthSupplies,
 } from '../assets/images/eps';
 
+/* Mission answers one question — what does Hands Across Humanity exist to do —
+   in the order a visitor needs it: the purpose, with who it is for and why it
+   is needed in the hero's signal row, then how the work runs, what it holds itself to, and dated proof that it
+   is happening. Only then does it ask for support.
+
+   The hero used to open on "Saving lives" and on communities "affected by
+   disasters, all-hazards events, and catastrophic situations". Nothing on the
+   site shows either: every dated activity is a community event in the Houston
+   area. The claims come back when there is a real response to show beside them. */
+
+const { past } = await getEvents();
+const recent = past.slice(0, 2);
+
 const sections = [
   { id: 'top', label: 'Mission' },
-  { id: 'approach', label: 'Approach' },
-  { id: 'rules', label: 'Three pillars' }
+  { id: 'approach', label: 'How support moves' },
+  { id: 'rules', label: 'Commitments' },
+  ...(recent.length ? [{ id: 'now', label: 'Recently' }] : []),
 ];
+const total = sections.length;
 
+// Who, why and why-this-way sit in the hero's signal row, where every editorial
+// page carries its summary. As a separate section they left the hero a screen
+// tall with nothing at its base, followed by a short band that read as an
+// afterthought.
 const heroSignals = [
   {
     title: 'Who we serve',
-    text: 'Children, families, veterans, older adults, and communities facing urgent need.',
+    text: 'Children, families, veterans, older adults, and neighbors facing an urgent need.',
   },
   {
-    title: 'How support moves',
-    text: 'Collected, prepared, and shared through local partners and volunteers.',
+    title: 'The need',
+    text: 'Useful goods often sit unused while communities nearby are under pressure.',
   },
   {
-    title: 'Why it matters',
-    text: 'Faster, more dignified support when everyday life is disrupted.',
+    title: 'Why this approach',
+    text: 'Local partners know what will help, so goods reach the right hands.',
   },
 ];
 
-const ruleCards = [
+// These were "Three pillars" that restated the hero and linked to pages that
+// did not deliver what the links promised. They are now the three commitments
+// that used to sit on Work, where they answer what the work holds itself to.
+const commitments = [
   {
-    title: 'Support starts with people',
-    body: 'We collect and share essential supplies with children, families, veterans, older adults, and communities affected by disasters and other urgent situations.',
+    title: 'Listen first',
+    body: 'Learn what people and local partners need before deciding what support will be useful.',
     image: communityDistribution,
-    alt: 'Volunteers coordinating essential goods with community members at a relief event.',
-    captionTitle: 'Direct community support',
-    captionStat: 'Essential goods',
-    href: '/what-we-do/#areas',
-    linkText: 'See where support goes'
+    alt: 'Volunteers coordinating essential goods with community members at a community event.',
+    caption: 'Volunteers with community members',
   },
   {
-    title: 'Useful aid, ready when needed',
-    body: 'Strategic partnerships, dedicated volunteers, and efficient transport support help essential goods reach people quickly and reliably.',
+    title: 'Prepare with care',
+    body: 'Sort, organize, and move goods carefully with volunteers and partners.',
     image: supplyHandoff,
-    alt: 'Volunteers moving boxed supplies on a cart for direct distribution.',
-    captionTitle: 'Coordinated supply handoff',
-    captionStat: 'Practical response',
-    href: '/what-we-do/#connect',
-    linkText: 'See how it comes together'
+    alt: 'Volunteers moving boxed supplies on a cart for distribution.',
+    caption: 'Boxed supplies on the way to distribution',
   },
   {
-    title: 'Partnerships that multiply care',
-    body: 'Businesses, nonprofits, houses of worship, volunteers, and local leaders work together so communities can prepare, respond, and recover with dignity.',
+    title: 'Share without discrimination',
+    body: 'Every handoff is welcoming, non-discriminatory, and dignified.',
     image: partnerShowcase,
-    alt: 'Corporate partners and volunteers gathered behind a relief supply table.',
-    captionTitle: 'Community support network',
-    captionStat: 'Shared responsibility',
-    href: '/vision/',
-    linkText: 'Meet our partners'
-  }
+    alt: 'Partners and volunteers gathered behind a table of supplies.',
+    caption: 'Partners and volunteers at a supply table',
+  },
 ];
 ---
 
 <EditorialPage
   activePage="mission"
-  title="Saving lives and restoring hope, one delivery at a time."
-  lead="Hands Across Humanity rapidly collects and distributes essential supplies and resources to children, families, veterans, older adults, and communities affected by disasters, all-hazards events, and catastrophic situations."
-  description="Through strategic public-private partnerships, a dedicated volunteer network, and efficient transport support, we empower communities to prepare, respond, and recover with dignity and resilience."
+  title="Getting useful goods to neighbors, one delivery at a time."
+  lead="Hands Across Humanity collects essential supplies and shares them through local partners and volunteers in the Houston area."
+  description="Hands Across Humanity collects useful goods and shares them through local partners and volunteers in the Houston area, with children, families, veterans, older adults, and neighbors facing an urgent need."
   image={reliefDistributionWide}
-  imageAlt="Volunteers and community members coordinating relief distribution in a large public hall."
-  caption="Saving lives and restoring hope, one delivery at a time."
+  imageAlt="Volunteers and community members coordinating a distribution in a large public hall."
+  caption="Volunteers and neighbors at a community distribution in a public hall."
   heroSignals={heroSignals}
-  quote="“A clear mission turns good intentions into practical support.”"
   sections={sections}
-  total={3}
+  total={total}
 >
-  <!-- 02: Approach -->
-  <Panel id="approach" ground="sand" index={2} total={3} label="Approach" labelledby="approach-title" nextId="rules" nextLabel="Three pillars">
+  <!-- 02: How support moves -->
+  <Panel id="approach" ground="paper" index={2} total={total} label="How support moves" labelledby="approach-title" nextId="rules" nextLabel="Commitments">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow">Approach</p>
-        <h2 class="reveal" style="--i:1" id="approach-title">From available goods to useful support.</h2>
+        <p class="eyebrow">How support moves</p>
+        <h2 class="reveal" style="--i:1" id="approach-title">Gather, prepare, share.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Partnerships, volunteers, and reliable transport help communities prepare, respond, and recover with dignity.</p>
+      <p class="lead reveal" style="--i:2">Businesses and neighbors gather useful goods, volunteers prepare them, and local partners share them where they are needed.</p>
     </div>
-    
+
     <div class="columns approach-columns reveal" style="--i:3;">
       <article class="approach-card">
         <div class="approach-card__media">
-          <Picture
+          <DeferredPicture
             src={healthSupplies}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
-            formats={['avif', 'webp']}
-            fallbackFormat="jpeg"
             quality={90}
             alt="Health, wellness, and essential supplies arranged for community distribution."
-            loading="lazy"
           />
         </div>
         <div class="approach-card__content">
-          <h3 class="approach-card__title">Collect useful goods</h3>
-          <p class="approach-card__body">Health, hygiene, household, and education goods are gathered around a clear community need.</p>
+          <h3 class="approach-card__title">Gather and prepare</h3>
+          <p class="approach-card__body">Health, hygiene, household, and education goods are collected and sorted around a clear community need.</p>
         </div>
       </article>
 
       <article class="approach-card">
         <div class="approach-card__media">
-          <Picture
+          <DeferredPicture
             src={communityDistributionWide}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
-            formats={['avif', 'webp']}
-            fallbackFormat="jpeg"
             quality={90}
             alt="Volunteers distributing essential goods to community members at a public support event."
-            loading="lazy"
           />
         </div>
         <div class="approach-card__content">
-          <h3 class="approach-card__title">Share through trusted relationships</h3>
-          <p class="approach-card__body">Volunteers and local partners prepare and share useful support in a welcoming, non-discriminatory, and dignified way.</p>
+          <h3 class="approach-card__title">Share</h3>
+          <p class="approach-card__body">Volunteers and local partners hand goods to the people they are meant for.</p>
         </div>
       </article>
     </div>
+    <p class="panel-link reveal" style="--i:4"><a class="rule-card__link" href="/what-we-do/#connect">See how it works in detail <span aria-hidden="true">→</span></a></p>
   </Panel>
 
-  <!-- 03: Rules / Pillars -->
-  <Panel id="rules" ground="paper" index={3} total={3} label="Pillars" labelledby="rules-title">
+  <!-- 03: Commitments -->
+  <Panel id="rules" ground="sand" index={3} total={total} label="Commitments" labelledby="rules-title" nextId={recent.length ? 'now' : undefined} nextLabel={recent.length ? 'Recently' : undefined}>
     <div class="panel-head">
       <div class="panel-head__title">
-        <p class="eyebrow">Pillars</p>
-        <h2 class="reveal" style="--i:1" id="rules-title">Three commitments behind the mission.</h2>
+        <p class="eyebrow">Commitments</p>
+        <h2 class="reveal" style="--i:1" id="rules-title">What we hold ourselves to.</h2>
       </div>
     </div>
-    
+
     <div class="principles">
-      {ruleCards.map((rule, idx) => (
+      {commitments.map((rule, idx) => (
         <figure class="rule-card reveal" style={`--i:${idx + 2}`}>
           <div class="rule-card__media">
-            <Picture
+            <DeferredPicture
               src={rule.image}
               widths={[400, 700]}
               sizes="(min-width: 768px) 33vw, 90vw"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpeg"
               quality={80}
               alt={rule.alt}
-              loading="lazy"
             />
           </div>
           <figcaption class="rule-card__doc-caption">
-            <span>{rule.captionTitle}</span>
+            <span>{rule.caption}</span>
           </figcaption>
           <div class="rule-card__content">
             <h3 class="rule-card__title">{rule.title}</h3>
             <p class="rule-card__body">{rule.body}</p>
-            <div class="rule-card__action">
-              <a href={rule.href} class="rule-card__link">
-                {rule.linkText} <span aria-hidden="true">→</span>
-              </a>
-            </div>
           </div>
         </figure>
       ))}
     </div>
-
   </Panel>
-  </EditorialPage>
+
+  <!-- 05: Dated proof, from the events sheet -->
+  {recent.length > 0 && (
+    <Panel id="now" ground="paper" index={4} total={total} label="Recently" labelledby="now-title">
+      <div class="panel-head panel-head--split">
+        <div class="panel-head__title">
+          <p class="eyebrow">Recently</p>
+          <h2 class="reveal" style="--i:1" id="now-title">What it looks like now.</h2>
+        </div>
+        <p class="lead reveal" style="--i:2">Events we took part in with local partners.</p>
+      </div>
+      <div class="reveal" style="--i:3">
+        <RecentEvents events={recent} />
+        <p class="panel-link"><a class="rule-card__link" href="/events/#recent">See all events <span aria-hidden="true">→</span></a></p>
+      </div>
+    </Panel>
+  )}
+
+  <!-- The ask comes last, after the proof. On the rare build with no past
+       events it follows the light-blue commitments, so it takes the white ground. -->
+  <DonationMoment
+    title="Help make the next handoff ready."
+    text="A gift helps strengthen the practical work around gathering, preparing, and sharing useful support with local partners."
+    ctaLabel="Support the next handoff"
+    href="/donate/?focus=community"
+    ground={recent.length ? 'tint' : 'paper'}
+  />
+</EditorialPage>

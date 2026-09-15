@@ -1,23 +1,26 @@
 ---
-import { Picture } from 'astro:assets';
+import DeferredPicture from '../components/DeferredPicture.astro';
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
+import DonationMoment from '../components/DonationMoment.astro';
 import {
   childrenOutreach,
   healthSupplies,
-  partnerTeam,
   reliefStation,
   communitySupplies,
   educationRelief,
-  supplyStaging,
 } from '../assets/images/eps';
 import { FOCUS_AREAS } from '../lib/pages';
 
+/* Work says what the network does and — once, for the whole site — exactly how
+   support moves. "Five ways support reaches people" mixed three programs with
+   two ways other people contribute; those two now live in About's "Ways to
+   take part". The three habits moved to Mission, where they are commitments. */
+
 const sections = [
-  { id: 'top', label: 'What we do' },
-  { id: 'areas', label: 'Core focus' },
-  { id: 'connect', label: 'Ecosystem' },
-  { id: 'habits', label: 'How we work' }
+  { id: 'top', label: 'Work' },
+  { id: 'areas', label: 'Programs' },
+  { id: 'connect', label: 'How support moves' },
 ];
 
 const heroSignals = FOCUS_AREAS;
@@ -32,8 +35,6 @@ const workAreas = [
     statLabel: 'Kits for learning and readiness',
     image: childrenOutreach,
     alt: 'Volunteers sharing educational kits with children and families.',
-    href: '/what-we-do/#areas',
-    linkText: 'See this work'
   },
   {
     num: '02',
@@ -44,45 +45,17 @@ const workAreas = [
     statLabel: 'Health, hygiene, and household supplies',
     image: healthSupplies,
     alt: 'Health, wellness, and essential supplies arranged for community distribution.',
-    href: '/what-we-do/#areas',
-    linkText: 'See this work'
   },
   {
     num: '03',
     category: 'Community care',
     title: 'Make each handoff welcoming',
-    body: 'Local distribution brings useful goods closer to children, families, veterans, older adults, and neighbors.',
+    body: 'Local distribution brings useful goods closer to the neighbors who need them.',
     stat: 'Community support',
     statLabel: 'Dignified, non-discriminatory distribution',
     image: reliefStation,
     alt: 'Community members receiving essential goods at a relief station.',
-    href: '/what-we-do/#areas',
-    linkText: 'See this work'
   },
-  {
-    num: '04',
-    category: 'Business partnership',
-    title: 'Put surplus to good use',
-    body: 'Businesses can help useful products reach people instead of sitting unused when communities are under pressure.',
-    stat: 'Shared resources',
-    statLabel: 'Business and community contributions',
-    image: partnerTeam,
-    alt: 'Partner representatives supporting a community relief event.',
-    href: '/vision/',
-    linkText: 'Explore partnerships'
-  },
-  {
-    num: '05',
-    category: 'People-powered support',
-    title: 'Make the work possible',
-    body: 'Volunteers, nonprofits, houses of worship, and local leaders help turn goods into care people can trust.',
-    stat: 'Shared responsibility',
-    statLabel: 'Volunteer and partner support',
-    image: supplyStaging,
-    alt: 'Volunteers sorting and organizing donated goods for community support.',
-    href: '/vision/',
-    linkText: 'Meet the network'
-  }
 ];
 ---
 
@@ -95,35 +68,31 @@ const workAreas = [
   imageAlt="Children holding prepared school and relief kits with community volunteers."
   caption="Education essentials prepared for children and families."
   heroSignals={heroSignals}
-  quote="“Useful goods become support when people prepare and share them together.”"
   sections={sections}
-  total={4}
+  total={3}
 >
-  <!-- 02: Core Focus Areas Grid -->
-  <Panel id="areas" ground="sand" index={2} total={4} label="Core focus" labelledby="areas-title" nextId="connect" nextLabel="Ecosystem">
+  <!-- 02: Programs -->
+  <Panel id="areas" ground="sand" index={2} total={3} label="Programs" labelledby="areas-title" nextId="connect" nextLabel="How support moves">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <h2 class="reveal" style="--i:1" id="areas-title">Five ways support reaches people.</h2>
+        <h2 class="reveal" style="--i:1" id="areas-title">Three ways support reaches people.</h2>
       </div>
       <p class="lead reveal" style="--i:2">Each activity starts with a local need and ends with practical support in the community.</p>
     </div>
-    
+
     <div class="bento-areas-grid reveal" style="--i:3;">
       {workAreas.map((area, idx) => (
         <article class={`bento-area-card bento-area-card--${idx + 1}`}>
           <div class="bento-area-card__media">
-            <Picture
+            <DeferredPicture
               src={area.image}
               widths={[350, 700]}
               sizes="(min-width: 768px) 40vw, 90vw"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpeg"
               quality={85}
               alt={area.alt}
-              loading="lazy"
             />
           </div>
-          
+
           <div class="bento-area-card__body">
             <span class="bento-area-card__category-tag">{area.category}</span>
             <div class="bento-area-card__top">
@@ -133,16 +102,16 @@ const workAreas = [
                 <h3 class="bento-area-card__title">{area.title}</h3>
               </div>
             </div>
-            
+
             <p class="bento-area-card__desc">{area.body}</p>
-            
+
             <div class="bento-area-card__footer">
               <div class="bento-area-card__stat">
                 <span class="bento-area-card__stat-val">{area.stat}</span>
                 <span class="bento-area-card__stat-label">{area.statLabel}</span>
               </div>
-              <a href={area.href} class="bento-area-card__link">
-                {area.linkText} <span aria-hidden="true">→</span>
+              <a href="/events/#recent" class="bento-area-card__link">
+                See recent work <span aria-hidden="true">→</span>
               </a>
             </div>
           </div>
@@ -151,32 +120,31 @@ const workAreas = [
     </div>
   </Panel>
 
-  <!-- 03: Collaborative Ecosystem -->
-  <Panel id="connect" ground="paper" index={3} total={4} label="Ecosystem" labelledby="connect-title">
+  <!-- 03: How support moves — the one full explanation on the site -->
+  <Panel id="connect" ground="paper" index={3} total={3} label="How support moves" labelledby="connect-title">
     <div class="panel-head panel-head--split" style="margin-bottom: clamp(0.4rem, 1vh, 0.75rem);">
       <div class="panel-head__title">
-        <h2 class="reveal" style="--i:1" id="connect-title">How the parts fit together.</h2>
+        <h2 class="reveal" style="--i:1" id="connect-title">How support moves.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">Businesses, volunteers, nonprofits, houses of worship, and local leaders each move support from availability to action.</p>
+      <p class="lead reveal" style="--i:2">Gather, prepare, share — each step carried by different people in the network.</p>
     </div>
-    
+
     <div class="connect-journal-grid reveal" style="--i:3;">
-      <!-- Left Column -->
       <div class="connect-stories">
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">01</span>
-          <span class="connect-story__title">Bring useful goods</span>
+            <span class="connect-story__title">Gather</span>
             <span class="connect-story__stat">Practical items</span>
           </div>
-          <p class="connect-story__body">Health, hygiene, household, and education supplies give communities something practical to work with.</p>
+          <p class="connect-story__body">Businesses and neighbors bring health, hygiene, household, and education supplies together.</p>
         </article>
 
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">02</span>
-          <span class="connect-story__title">Prepare for the need</span>
-            <span class="connect-story__stat">Sort & organize</span>
+            <span class="connect-story__title">Prepare</span>
+            <span class="connect-story__stat">Sort &amp; organize</span>
           </div>
           <p class="connect-story__body">Volunteers sort and organize goods so useful items are ready for a community partner.</p>
         </article>
@@ -184,61 +152,39 @@ const workAreas = [
         <article class="connect-story">
           <div class="connect-story__head">
             <span class="connect-story__num">03</span>
-          <span class="connect-story__title">Share locally</span>
+            <span class="connect-story__title">Share</span>
             <span class="connect-story__stat">Community events</span>
           </div>
-          <p class="connect-story__body">Local distribution events help essential support reach children, families, older adults, veterans, and neighbors.</p>
+          <p class="connect-story__body">Local partners and volunteers hand goods to neighbors at community events.</p>
         </article>
-
       </div>
 
-      <!-- Right Column -->
       <div class="connect-feature">
         <figure class="connect-feature__media" style="margin: 0;">
           <div class="connect-feature__media-box">
-            <Picture
+            <DeferredPicture
               src={communitySupplies}
               widths={[400, 750]}
               sizes="(min-width: 940px) 40vw, 90vw"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpeg"
               quality={82}
               alt="Volunteers and community members coordinating essential goods at a relief station."
-              loading="lazy"
             />
           </div>
           <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
-            <span class="approach-card__tag">People-powered support</span>
+            <span class="approach-card__tag">Community distribution</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-photo-caption__text">Community distribution and shared care</span>
+            <span class="approach-photo-caption__text">Volunteers and neighbors coordinating goods</span>
           </figcaption>
         </figure>
+      </div>
+    </div>
+  </Panel>
 
-      </div>
-    </div>
-  </Panel>
-  <!-- 04: How we conduct the work -->
-  <Panel id="habits" ground="sand" index={4} total={4} label="How we work" labelledby="habits-title">
-    <div class="panel-head">
-      <h2 class="reveal" style="--i:1" id="habits-title">Three habits shape the work.</h2>
-    </div>
-    
-    <div class="modest-flow reveal" style="--i:2">
-      <div class="modest-step">
-        <span class="modest-step__num">01</span>
-        <h3 class="modest-step__title">Listen first</h3>
-        <p class="modest-step__desc">Learn what people and local partners need before deciding what support will be useful.</p>
-      </div>
-      <div class="modest-step">
-        <span class="modest-step__num">02</span>
-        <h3 class="modest-step__title">Prepare with care</h3>
-        <p class="modest-step__desc">Sort, organize, and move donations carefully with the help of dedicated volunteers and partners.</p>
-      </div>
-      <div class="modest-step">
-        <span class="modest-step__num">03</span>
-        <h3 class="modest-step__title">Share without discrimination</h3>
-        <p class="modest-step__desc">Connect useful goods with children, families, older adults, veterans, and communities with dignity.</p>
-      </div>
-    </div>
-  </Panel>
+  <!-- The ask follows the explanation it relies on. -->
+  <DonationMoment
+    title="Support the kind of help that matters to you."
+    text="Choose education and family support, health and household essentials, or community care before you decide how you want to give."
+    ctaLabel="Choose a giving focus"
+    href="/donate/"
+  />
 </EditorialPage>

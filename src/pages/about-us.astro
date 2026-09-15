@@ -4,34 +4,16 @@ import HeroSection from '../components/home/HeroSection.astro';
 import ImpactBand from '../components/home/ImpactBand.astro';
 import AboutFieldNotes from '../components/home/AboutFieldNotes.astro';
 import AboutNetworkSection from '../components/home/AboutNetworkSection.astro';
-import FaqSection from '../components/home/FaqSection.astro';
 import ClosingCTA from '../components/home/ClosingCTA.astro';
+import DonationSection from '../components/home/DonationSection.astro';
 import { pageOf } from '../lib/pages';
 
-const description = 'Hands Across Humanity is a community donation network connecting useful goods, volunteers, businesses, and local partners with people who need practical support.';
+/* The entry page tells the story in the order a first-time visitor needs it:
+   who this is, how support moves, proof that it happens, how to take part —
+   and only then one place to give. It used to offer nine ways to give before
+   showing a single dated activity. */
 
-const faqs = [
-  {
-    category: 'The goods',
-    q: 'What kinds of goods do you share?',
-    a: 'We focus on practical health, hygiene, household, and education supplies that can help people through a difficult moment.'
-  },
-  {
-    category: 'The people',
-    q: 'Who is the work for?',
-    a: 'Children, families, veterans, older adults, and neighbors facing an urgent need. Local partners help us understand what will be useful.'
-  },
-  {
-    category: 'The work',
-    q: 'What do volunteers do?',
-    a: 'Volunteers help collect, sort, prepare, and share practical goods at community activities.'
-  },
-  {
-    category: 'The network',
-    q: 'Who can take part?',
-    a: 'Businesses, nonprofits, houses of worship, community groups, local leaders, and neighbors can all play a role in the work.'
-  }
-];
+const description = 'Hands Across Humanity is a community donation network in the Houston area, connecting useful goods, volunteers, businesses, and local partners with people who need practical support.';
 ---
 
 <SiteLayout
@@ -46,7 +28,7 @@ const faqs = [
     </div>
     <AboutFieldNotes />
     <AboutNetworkSection />
-    <FaqSection faqs={faqs} />
+    <DonationSection />
     <ClosingCTA />
   </main>
 </SiteLayout>

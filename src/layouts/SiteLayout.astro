@@ -4,9 +4,10 @@ import '@fontsource-variable/public-sans';
 import '../styles/global.css';
 import BackToTop from '../components/ui/BackToTop.astro';
 import { Image } from 'astro:assets';
-import logoMark from '../assets/images/logo-mark.png';
+import logoMark from '../assets/images/logo-mark-blue.png';
 import { PAGES, SITE_NAME, CONTACT_EMAIL, FOCUS_AREAS } from '../lib/pages';
 import { getEvents, formatDate, locationLabel } from '../lib/events';
+import { GIVE_LABEL } from '../lib/giving';
 
 interface Props {
   title: string;
@@ -32,7 +33,7 @@ const footerEvents = upcoming.slice(0, 3);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#FFFCF9" />
+    <meta name="theme-color" content="#FFFFFF" />
     <meta name="color-scheme" content="light" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Hands Across Humanity" />
@@ -50,7 +51,7 @@ const footerEvents = upcoming.slice(0, 3);
   <body class:list={{ 'site-body--editorial': Boolean(activePage) }}>
     <!--
     THESIS: High-impact commercial humanitarian platform with elevated visual hierarchy, structured proof points, interactive impact controls, rich project cards, and clean typography.
-    OWN-WORLD: Palette: warm paper, sunset apricot, coral clay, and cocoa ink. Typography: Montserrat + Public Sans.
+    OWN-WORLD: Palette: white page, navy ink (#12284C), Signal Blue (#0060AE) for anything that acts, gold (#F8B33D) on dark grounds only. Typography: Montserrat + Public Sans.
     STORY: Visitors instantly grasp the mission, explore active field projects, view field stories & proof points, and follow the work through prominent CTAs.
     FIRST VIEWPORT: Split hero with bold headline, action CTAs, real-time live field badge overlay, and stats bar.
     FORM: Form 4 candidate, seed bd589f42.
@@ -80,6 +81,10 @@ const footerEvents = upcoming.slice(0, 3);
         </nav>
 
         <div class="header-actions">
+          <a class="btn btn--primary btn--header header-donate" href="/donate/" aria-label="Donate — give goods, time, or money">
+            <span class="header-donate__full">Donate</span>
+            <span class="header-donate__short" aria-hidden="true">Give</span>
+          </a>
           <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false" aria-label="Open main menu">
             <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
           </button>
@@ -100,6 +105,7 @@ const footerEvents = upcoming.slice(0, 3);
               aria-current={activePage === item.key ? 'page' : undefined}
             >{item.name}</a>
           ))}
+          <a class="mobile-menu__donate" href="/donate/">{GIVE_LABEL} <span aria-hidden="true">→</span></a>
         </nav>
       </div>
     </div>
@@ -124,6 +130,7 @@ const footerEvents = upcoming.slice(0, 3);
             <p class="footer-blurb">We connect practical donations with trusted community partners so support can be shared with dignity.</p>
             <h4>Get in touch</h4>
             <a class="footer-email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <a class="footer-give-link" href="/donate/">{GIVE_LABEL} <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="footer-col">
@@ -180,6 +187,7 @@ const footerEvents = upcoming.slice(0, 3);
         if (!menu || !toggle) return;
         menu.hidden = true;
         toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open main menu');
         document.documentElement.classList.remove('menu-open');
       };
 
@@ -187,6 +195,7 @@ const footerEvents = upcoming.slice(0, 3);
         if (!menu || !toggle) return;
         menu.hidden = false;
         toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close main menu');
         document.documentElement.classList.add('menu-open');
       };
 
@@ -247,8 +256,9 @@ const footerEvents = upcoming.slice(0, 3);
           closeMenu();
 
           const headerEl = document.querySelector('[data-header]');
-          const headerH = headerEl ? headerEl.getBoundingClientRect().height : 76;
-          const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - headerH - 8;
+          const headerH = headerEl?.getBoundingClientRect().height ?? 0;
+          const scrollGap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--space-3')) || 0;
+          const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - headerH - scrollGap;
 
           window.scrollTo({
             top: Math.max(0, targetTop),
@@ -260,6 +270,13 @@ const footerEvents = upcoming.slice(0, 3);
           }
         }
       });
+    </script>
+    <script>
+      // Below-the-fold photographs wait for this page's priority image, and a click through to
+      // another page stops this page's downloads — see src/lib/deferred-images.ts.
+      import { startDeferredImages, stopLoadingOnNavigate } from '../lib/deferred-images';
+      startDeferredImages();
+      stopLoadingOnNavigate();
     </script>
   </body>
 </html>

@@ -1,0 +1,28 @@
+---
+/**
+ * Dated proof that the work is happening, read from the same events sheet as
+ * the Events page. Only what the sheet records is shown — date, title, venue,
+ * place — so nothing here can claim more than the record does.
+ */
+import { formatDate, type EventRow } from '../lib/events';
+
+interface Props {
+  events: EventRow[];
+}
+
+const { events } = Astro.props;
+const where = (e: EventRow) =>
+  [e.venue, e.city && e.state ? `${e.city}, ${e.state}` : e.city].filter(Boolean).join(' · ');
+---
+
+{events.length > 0 && (
+  <ul class="recent-events" role="list">
+    {events.map((e: EventRow) => (
+      <li class="recent-events__item">
+        <time class="recent-events__date" datetime={e.date}>{formatDate(e.date).full}</time>
+        <span class="recent-events__title">{e.title}</span>
+        {where(e) && <span class="recent-events__where">{where(e)}</span>}
+      </li>
+    ))}
+  </ul>
+)}

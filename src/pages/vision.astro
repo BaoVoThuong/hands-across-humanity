@@ -1,12 +1,18 @@
 ---
 import EditorialPage from '../components/EditorialPage.astro';
 import Panel from '../components/Panel.astro';
+import DonationMoment from '../components/DonationMoment.astro';
 import { partnerCommunity } from '../assets/images/eps';
+
+/* Vision states the local base before the ambition. It used to open on "a
+   nation", while the only place the site names is Houston and every dated event
+   is in the Houston area. Monthly giving now closes the page, after the case for
+   staying close to people has been made rather than before it. */
 
 const sections = [
   { id: 'top', label: 'Vision' },
-  { id: 'principles', label: 'Coalition' },
-  { id: 'belief', label: 'Reach' }
+  { id: 'principles', label: 'Partners' },
+  { id: 'belief', label: 'Staying local' },
 ];
 
 const heroSignals = [
@@ -27,24 +33,23 @@ const heroSignals = [
 
 <EditorialPage
   activePage="vision"
-  title="A nation where no one faces crisis alone."
-  lead="We believe coordinated support should reach people in need before a difficult moment becomes prolonged hardship."
-  description="We envision strong partnerships between businesses, houses of worship, nonprofits, and local stakeholders that turn surplus into lifelines and coordinated logistics into dependable support."
+  title="No one should face a hard moment alone."
+  lead="It starts in the Houston area: coordinated support that reaches people before a difficult moment becomes prolonged hardship."
+  description="Hands Across Humanity is growing a network of businesses, houses of worship, nonprofits, and neighbors that turns spare goods into dependable local support, starting in the Houston area."
   image={partnerCommunity}
   imageAlt="Community partners and families gathered with prepared support packages."
   caption="Partners sharing prepared goods with families and communities."
   heroSignals={heroSignals}
-  quote="“Strong partnerships make practical support possible at a wider scale.”"
   sections={sections}
   total={3}
 >
-  <!-- 02: Coalition & Principles -->
-  <Panel id="principles" ground="sand" index={2} total={3} label="Coalition" labelledby="vision-principles-title" nextId="belief" nextLabel="Reach">
+  <!-- 02: Partners -->
+  <Panel id="principles" ground="sand" index={2} total={3} label="Partners" labelledby="vision-principles-title" nextId="belief" nextLabel="Staying local">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <h2 class="reveal" style="--i:1" id="vision-principles-title">Build a wider circle of support.</h2>
       </div>
-      <p class="lead reveal" style="--i:2">We build strong partnerships that bridge the gap between available resources and urgent community needs.</p>
+      <p class="lead reveal" style="--i:2">Each kind of partner brings something different to the same work.</p>
     </div>
     <div class="principles principles--editorial">
       <article class="principle-item reveal" style="--i:3">
@@ -61,7 +66,7 @@ const heroSignals = [
           <span class="principle-item__num">02</span>
           <span class="principle-item__kicker">Useful resources</span>
         </header>
-          <h3 class="principle-item__title">Turn availability into support</h3>
+        <h3 class="principle-item__title">Turn availability into support</h3>
         <p class="principle-item__body">We help useful products move from businesses and contributors to people who can use them when needs are urgent.</p>
       </article>
 
@@ -70,24 +75,23 @@ const heroSignals = [
           <span class="principle-item__num">03</span>
           <span class="principle-item__kicker">Shared impact</span>
         </header>
-          <h3 class="principle-item__title">Grow local capacity</h3>
-          <p class="principle-item__body">Coordinated, non-discriminatory action helps partners reach further together.</p>
+        <h3 class="principle-item__title">Grow local capacity</h3>
+        <p class="principle-item__body">Coordinated, non-discriminatory action helps partners reach further together.</p>
       </article>
     </div>
   </Panel>
 
-  <!-- 03: Reach & Bridges -->
-  <Panel id="belief" ground="paper" index={3} total={3} label="Reach" labelledby="belief-title" ctaHref="/about-us/" ctaLabel="Back to the overview">
+  <!-- 03: Staying local -->
+  <Panel id="belief" ground="paper" index={3} total={3} label="Staying local" labelledby="belief-title">
     <div class="panel-head">
       <h2 class="reveal" style="--i:1" id="belief-title">Support should stay close to the people it serves.</h2>
     </div>
 
-    <!-- 3-Step Modest Action Flow -->
     <div class="modest-flow reveal" style="--i:2">
       <div class="modest-step">
         <span class="modest-step__num">01</span>
-        <h3 class="modest-step__title">Protect people</h3>
-        <p class="modest-step__desc">Coordinate practical aid for children, families, veterans, older adults, and communities facing a difficult moment.</p>
+        <h3 class="modest-step__title">Start with people</h3>
+        <p class="modest-step__desc">Practical aid for people facing a difficult moment, shared with dignity.</p>
       </div>
       <div class="modest-step">
         <span class="modest-step__num">02</span>
@@ -97,8 +101,16 @@ const heroSignals = [
       <div class="modest-step">
         <span class="modest-step__num">03</span>
         <h3 class="modest-step__title">Grow the network</h3>
-        <p class="modest-step__desc">Build bridges of practical support from Houston outward to communities facing urgent need.</p>
+        <p class="modest-step__desc">Bring more partners into the network as trust builds.</p>
       </div>
     </div>
   </Panel>
+
+  <!-- Monthly giving belongs here: it is the long-term ask on the long-term page. -->
+  <DonationMoment
+    title="Become a monthly partner in the work."
+    text="Monthly gifts help keep practical support ready as local needs change and the network grows."
+    ctaLabel="Explore monthly giving"
+    href="/donate/?frequency=monthly&focus=community"
+  />
 </EditorialPage>

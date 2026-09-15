@@ -6,6 +6,7 @@ Current documentary set:
 
 Brand mark:
 
+- `logo-mark-blue.png` — `logo-mark.png` recoloured to Signal Blue #0060AE for the blue site palette; generated from the orange file, which is kept unchanged
 - `logo-mark.png` — a regenerated high-resolution orange hands-and-heart mark based on the supplied logo lockup for the compact header/footer treatment
 
 - `eps/eps-partner-showcase.jpg` — partners and volunteers behind a relief supply table

@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  text: string;
+  ctaLabel: string;
+  href?: string;
+  /** Chosen per page so the moment never shares a background with its neighbours. */
+  ground?: 'tint' | 'paper';
+}
+
+const { title, text, ctaLabel, href = '/donate/', ground = 'tint' } = Astro.props;
+---
+
+<section class:list={['donation-moment', `donation-moment--${ground}`]} aria-labelledby="donation-moment-title">
+  <div class="container donation-moment__inner">
+    <div class="donation-moment__copy">
+      <h2 id="donation-moment-title">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <a class="btn btn--primary donation-moment__cta" href={href}>
+      {ctaLabel} <span class="btn__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
