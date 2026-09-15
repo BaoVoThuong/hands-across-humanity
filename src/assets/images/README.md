@@ -6,8 +6,8 @@ Current documentary set:
 
 Brand mark:
 
-- `logo-mark-blue.png` — `logo-mark.png` recoloured to Signal Blue #0060AE for the blue site palette; generated from the orange file, which is kept unchanged
-- `logo-mark.png` — a regenerated high-resolution orange hands-and-heart mark based on the supplied logo lockup for the compact header/footer treatment
+- `logo-mark-teal-navy.jpg` — cropped directly from the supplied two-person logo lockup; used in the compact header and footer.
+- `logo-mark-blue.png` and `logo-mark.png` — earlier marks retained as legacy assets, not used by the current teal-and-navy identity.
 
 - `eps/eps-partner-showcase.jpg` — partners and volunteers behind a relief supply table
 - `eps/eps-education-relief.jpg` — children holding prepared school and relief kits
