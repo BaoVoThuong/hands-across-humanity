@@ -1,0 +1,121 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import WaysToHelp from '../../components/WaysToHelp.astro';
+import { CONTACT_EMAIL } from '../../lib/pages';
+import { DONOR_PORTAL_URL } from '../../lib/giving';
+
+const title = 'Thank you | Hands Across Humanity';
+const description = 'Thank you for your gift to Hands Across Humanity.';
+const manageHref = DONOR_PORTAL_URL
+  || `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('My monthly gift')}`;
+---
+
+<SiteLayout title={title} description={description} noindex>
+  <main id="main">
+    <section class="donation-page donation-thanks" aria-labelledby="donation-thanks-title">
+      <div class="container">
+        <div class="donation-thanks__incomplete" data-thanks-incomplete hidden>
+          <h1>Your payment was not completed.</h1>
+          <p>Nothing was charged. If something went wrong with your card or bank, you can try again or choose another payment method.</p>
+          <a class="btn btn--primary" href="/donate/">Back to giving <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div data-thanks-done>
+        <header class="donation-page__heading">
+          <div>
+            <h1 id="donation-thanks-title">Thank you. Your gift is on its way to the work.</h1>
+          </div>
+          <p class="donation-section__heading-copy">
+            Stripe has processed your payment and will email a receipt to the address you entered at checkout.
+          </p>
+        </header>
+
+        <div class="donation-thanks__body">
+          <p data-monthly-only hidden>
+            {`Your monthly gift renews on the same day each month. ${DONOR_PORTAL_URL
+              ? 'You can update your card or cancel at any time from your donor page.'
+              : `To change or cancel it, email ${CONTACT_EMAIL} and we will take care of it.`}`}
+          </p>
+          <p>
+            Questions about your gift? Write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+          </p>
+          <div class="donation-thanks__actions">
+            <a class="btn btn--primary" href="/events/#upcoming">
+              See upcoming events <span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="donation-thanks__manage" data-monthly-only hidden href={manageHref}>
+              Manage monthly gift
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="donate-ways" aria-labelledby="donate-ways-title">
+      <div class="container">
+        <h2 id="donate-ways-title">Other ways to help.</h2>
+        <WaysToHelp exclude={['money']} />
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<script>
+  // Stripe returns here with ?session_id=… Confirm the session really
+  // completed before thanking anyone: a redirect-based payment method can
+  // also land here unfinished. If the check itself fails (network), keep the
+  // thank-you, since Stripe only completes the redirect after payment.
+  const params = new URLSearchParams(window.location.search);
+  const showMonthly = () =>
+    document.querySelectorAll<HTMLElement>('[data-monthly-only]').forEach((el) => { el.hidden = false; });
+  if (params.get('frequency') === 'monthly') showMonthly();
+
+  const sessionId = params.get('session_id');
+  if (sessionId) {
+    fetch(`/api/checkout-status?${params.toString()}`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (!data) return;
+        if (data.monthly) showMonthly();
+        if (data.status !== 'complete') {
+          document.querySelector<HTMLElement>('[data-thanks-done]')!.hidden = true;
+          document.querySelector<HTMLElement>('[data-thanks-incomplete]')!.hidden = false;
+        }
+      })
+      .catch(() => {});
+  }
+</script>
+
+<style>
+  .donation-thanks__body {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 40rem;
+    padding-block-end: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .donation-thanks__body a:not(.btn) {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .donation-thanks__incomplete {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    max-width: 40rem;
+    padding-block-end: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .donation-thanks__incomplete[hidden] { display: none; }
+
+  .donation-thanks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+</style>

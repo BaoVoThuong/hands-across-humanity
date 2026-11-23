@@ -2128,6 +2128,16 @@ html.menu-open .site-header { z-index: 120; }
   text-align: center;
 }
 
+.donation-panel__handoff-note[data-state='error'] {
+  color: var(--error, #B3261E);
+  font-weight: 600;
+}
+
+.donation-panel__cta[aria-busy='true'] {
+  opacity: 0.75;
+  cursor: progress;
+}
+
 .donation-panel--compact .donation-panel__cta {
   min-height: 2.75rem;
   padding-inline: var(--space-4);
@@ -6768,4 +6778,261 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
 .donation-panel--compact .donation-choice,
 .donation-panel--compact .donation-amount {
   min-height: 2.75rem;
+}
+
+/* ---------- donation checkout dialog (embedded Stripe Checkout) ----------
+   Desktop: a two-pane sheet. The deep-blue pane restates the gift so the donor
+   never loses sight of what they are paying for; the white pane holds Stripe's
+   form and is the only part that scrolls. Phone: a full-screen sheet with the
+   gift as a compact band on top. */
+.donation-checkout {
+  --checkout-aside-w: 20rem;
+  position: fixed;
+  inset: 0;
+  width: min(100% - 2rem, 60rem);
+  height: min(100dvh - 2rem, 50rem);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: 0 30px 80px -12px rgba(11, 27, 51, 0.45), 0 12px 24px -8px rgba(11, 27, 51, 0.2);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+.donation-checkout::backdrop {
+  background: rgba(11, 27, 51, 0.62);
+  backdrop-filter: blur(3px);
+}
+.donation-checkout[open] { animation: checkout-in var(--dur-standard) var(--ease-out); }
+.donation-checkout[open]::backdrop { animation: checkout-fade var(--dur-standard) var(--ease-out); }
+@keyframes checkout-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+}
+@keyframes checkout-fade {
+  from { opacity: 0; }
+}
+
+.donation-checkout__frame {
+  display: grid;
+  grid-template-columns: var(--checkout-aside-w) minmax(0, 1fr);
+  height: 100%;
+}
+
+/* Close sits on the white pane on desktop and on the blue band on phones. */
+.donation-checkout__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  color: var(--fg-muted);
+  transition: background-color var(--dur-micro) var(--ease-standard), color var(--dur-micro) var(--ease-standard);
+}
+.donation-checkout__close:hover { background: var(--surface-hover); color: var(--fg); }
+.donation-checkout__close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.donation-checkout__close svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* ---- the gift pane ---- */
+.donation-checkout__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background:
+    radial-gradient(120% 60% at 0% 0%, rgba(140, 196, 245, 0.18), transparent 60%),
+    var(--band-deep);
+  color: var(--fg-on-band);
+  overflow-y: auto;
+}
+.donation-checkout__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: 0.01em;
+}
+.donation-checkout__logo { height: 2.25rem; min-width: 2.25rem; }
+.donation-checkout__eyebrow {
+  font-size: var(--fs-micro);
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-on-band);
+}
+.donation-checkout__amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.5rem;
+  margin-top: var(--space-2);
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 2rem + 1.4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--gold-on-dark);
+  font-variant-numeric: tabular-nums;
+}
+.donation-checkout__cadence {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--fg-muted-on-band);
+}
+.donation-checkout__focus {
+  margin-top: var(--space-3);
+  font-weight: 700;
+  font-size: var(--fs-lead);
+}
+.donation-checkout__message {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-muted-on-band);
+}
+.donation-checkout__assurances {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(214, 230, 245, 0.22);
+  font-size: var(--fs-small);
+}
+.donation-checkout__assurances li { display: flex; align-items: flex-start; gap: var(--space-3); }
+.donation-checkout__assurances li[hidden] { display: none; }
+.donation-checkout__assurances svg {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.1rem;
+  fill: none;
+  stroke: var(--accent-on-band);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.donation-checkout__fineprint {
+  margin-top: auto;
+  font-size: var(--fs-micro);
+  line-height: 1.5;
+  color: var(--fg-muted-on-band);
+}
+
+/* ---- the payment pane ---- */
+.donation-checkout__main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.donation-checkout__title {
+  flex: none;
+  padding: 1.35rem 4rem 1rem clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-h3);
+}
+.donation-checkout__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-5) clamp(0.75rem, 2vw, 1.5rem) var(--space-6);
+}
+.donation-checkout__mount { max-width: 30rem; margin-inline: auto; }
+
+/* Skeleton while Stripe.js and the session load. */
+.donation-checkout__skeleton {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 26rem;
+  margin: var(--space-4) auto 0;
+}
+.donation-checkout[data-state='loading'] .donation-checkout__skeleton { display: flex; }
+.donation-checkout__bone {
+  display: block;
+  height: 2.75rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, var(--surface-alt) 25%, var(--surface-hover) 50%, var(--surface-alt) 75%);
+  background-size: 200% 100%;
+  animation: checkout-shimmer 1.4s linear infinite;
+}
+.donation-checkout__bone--button { height: 3rem; margin-bottom: var(--space-4); }
+.donation-checkout__bone--label { width: 35%; height: 0.8rem; margin-top: var(--space-3); }
+.donation-checkout__bone--tall { height: 6rem; }
+@keyframes checkout-shimmer {
+  to { background-position: -200% 0; }
+}
+
+.donation-checkout__error {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  max-width: 24rem;
+  margin: clamp(2rem, 8vh, 4rem) auto 0;
+  text-align: center;
+  color: var(--error, #B3261E);
+  font-weight: 600;
+}
+.donation-checkout__error[hidden] { display: none; }
+
+.donation-checkout__mock {
+  display: block;
+  width: 100%;
+  height: 31rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+/* ---- phones: full-screen sheet, gift as a compact band ---- */
+@media (max-width: 760px) {
+  .donation-checkout {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+  }
+  .donation-checkout[open] { animation-name: checkout-up; }
+  @keyframes checkout-up {
+    from { opacity: 0; transform: translateY(24px); }
+  }
+  .donation-checkout__frame {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .donation-checkout__close { color: var(--fg-on-band); top: max(0.6rem, env(safe-area-inset-top)); }
+  .donation-checkout__close:hover { background: rgba(255, 255, 255, 0.14); color: var(--fg-on-band); }
+  .donation-checkout__aside {
+    gap: 0;
+    padding: max(1rem, env(safe-area-inset-top)) 3.75rem 1rem 1rem;
+    overflow: visible;
+  }
+  .donation-checkout__brand,
+  .donation-checkout__message,
+  .donation-checkout__assurances,
+  .donation-checkout__fineprint { display: none; }
+  .donation-checkout__amount { margin-top: 0.1rem; font-size: 1.9rem; }
+  .donation-checkout__focus { margin-top: 0.2rem; font-size: var(--fs-small); color: var(--fg-muted-on-band); }
+  .donation-checkout__title { display: none; }
+  .donation-checkout__scroll { padding: var(--space-4) 0.5rem calc(var(--space-6) + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .donation-checkout[open],
+  .donation-checkout[open]::backdrop { animation: none; }
+  .donation-checkout__bone { animation: none; }
 }

@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/images/logo-mark-teal-navy.jpg';
 import { CONTACT_EMAIL } from '../lib/pages';
-import { DONATION_URL, DONATION_PLATFORM, GIVING_IS_LIVE } from '../lib/giving';
+import { GIVING_IS_LIVE, MAX_GIFT_USD, MIN_GIFT_USD, STRIPE_PUBLISHABLE_KEY } from '../lib/giving';
 
 interface Props {
   compact?: boolean;
@@ -8,15 +10,22 @@ interface Props {
 
 const { compact = false } = Astro.props;
 
-const donationUrl = DONATION_URL;
-const platformName = DONATION_PLATFORM;
 const fallbackHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Donation inquiry')}`;
 const isConfigured = GIVING_IS_LIVE;
 
 const amounts = [25, 50, 100];
 ---
 
-<section class:list={['donation-panel', { 'donation-panel--compact': compact }]} data-donation-panel aria-labelledby="donation-panel-title">
+<section
+  class:list={['donation-panel', { 'donation-panel--compact': compact }]}
+  data-donation-panel
+  data-live={isConfigured ? 'true' : undefined}
+  data-min={MIN_GIFT_USD}
+  data-max={MAX_GIFT_USD}
+  data-contact={CONTACT_EMAIL}
+  data-stripe-key={isConfigured ? STRIPE_PUBLISHABLE_KEY || undefined : undefined}
+  aria-labelledby="donation-panel-title"
+>
   <div class="donation-panel__controls">
     <div class="donation-panel__heading">
       <h2 id="donation-panel-title">Choose a gift with a clear purpose.</h2>
@@ -59,7 +68,7 @@ const amounts = [25, 50, 100];
       <label class="donation-custom" for="donation-custom-amount">
         <span class="donation-custom__currency" aria-hidden="true">$</span>
         <span class="visually-hidden">Custom donation amount in US dollars</span>
-        <input id="donation-custom-amount" type="number" min="1" step="1" inputmode="decimal" placeholder="Or enter a custom amount" />
+        <input id="donation-custom-amount" type="number" min={MIN_GIFT_USD} max={MAX_GIFT_USD} step="1" inputmode="decimal" placeholder="Or enter a custom amount" />
       </label>
     </fieldset>
   </div>
@@ -82,25 +91,96 @@ const amounts = [25, 50, 100];
     </ul>
 
     <div class="donation-panel__handoff">
-      <a
-        class="btn btn--primary donation-panel__cta"
-        data-donation-handoff
-        data-base-href={donationUrl || undefined}
-        href={donationUrl || fallbackHref}
-        target={isConfigured ? '_blank' : undefined}
-        rel={isConfigured ? 'noopener noreferrer' : undefined}
-        aria-label={isConfigured ? 'Continue to secure giving — opens in a new tab' : 'Ask our giving team by email'}
-      >
-        {isConfigured ? 'Continue to secure giving' : 'Ask our giving team'}
-        <span class="btn__arrow" aria-hidden="true">→</span>
-      </a>
-      <p class="donation-panel__handoff-note">
+      {isConfigured ? (
+        <button class="btn btn--primary donation-panel__cta" type="button" data-donation-checkout>
+          Continue to secure checkout
+          <span class="btn__arrow" aria-hidden="true">→</span>
+        </button>
+      ) : (
+        <a
+          class="btn btn--primary donation-panel__cta"
+          data-donation-mailto
+          href={fallbackHref}
+          aria-label="Ask our giving team by email"
+        >
+          Ask our giving team
+          <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      )}
+      <p class="donation-panel__handoff-note" data-donation-note aria-live="polite">
         {isConfigured
-          ? `This opens ${platformName} in a new tab. Nothing is collected on this website.`
+          ? 'Secure payment by Stripe, right on this page. Card details go straight to Stripe and are never stored here.'
           : 'Secure online giving is being connected. Our team can answer questions about a gift by email.'}
       </p>
     </div>
   </aside>
+
+  {isConfigured && (
+    <dialog class="donation-checkout" data-donation-dialog data-state="loading" aria-labelledby="donation-checkout-title">
+      <button class="donation-checkout__close" type="button" data-checkout-close aria-label="Close checkout">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+
+      <div class="donation-checkout__frame">
+        <aside class="donation-checkout__aside" aria-label="Your gift">
+          <div class="donation-checkout__brand">
+            <span class="brand__logo-container donation-checkout__logo">
+              <Image src={logoMark} alt="" width={48} height={38} class="brand__logo-img" />
+            </span>
+            <span>Hands Across Humanity</span>
+          </div>
+
+          <div class="donation-checkout__gift">
+            <p class="donation-checkout__eyebrow">Your gift</p>
+            <p class="donation-checkout__amount">
+              <span data-checkout-amount>$50</span>
+              <span class="donation-checkout__cadence" data-checkout-cadence>one time</span>
+            </p>
+            <p class="donation-checkout__focus" data-checkout-focus>Community support</p>
+            <p class="donation-checkout__message" data-checkout-message></p>
+          </div>
+
+          <ul class="donation-checkout__assurances">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
+              <span>Secure payment processed by Stripe</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+              <span>An emailed receipt for your records</span>
+            </li>
+            <li data-checkout-monthly-only hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" /><path d="M18 3v4h-4M6 21v-4h4" /></svg>
+              <span>Change or cancel your monthly gift anytime</span>
+            </li>
+          </ul>
+
+          <p class="donation-checkout__fineprint">Card details go straight to Stripe and are never stored by this website.</p>
+        </aside>
+
+        <section class="donation-checkout__main" aria-labelledby="donation-checkout-title">
+          <h2 class="donation-checkout__title" id="donation-checkout-title">Payment details</h2>
+          <div class="donation-checkout__scroll">
+            <div class="donation-checkout__skeleton" aria-hidden="true">
+              <span class="donation-checkout__bone donation-checkout__bone--button"></span>
+              <span class="donation-checkout__bone donation-checkout__bone--label"></span>
+              <span class="donation-checkout__bone"></span>
+              <span class="donation-checkout__bone donation-checkout__bone--label"></span>
+              <span class="donation-checkout__bone donation-checkout__bone--tall"></span>
+              <span class="donation-checkout__bone donation-checkout__bone--label"></span>
+              <span class="donation-checkout__bone"></span>
+            </div>
+            <p class="visually-hidden" data-checkout-loading role="status">Loading secure payment form…</p>
+            <div class="donation-checkout__error" data-checkout-error role="alert" hidden>
+              <p data-checkout-error-text></p>
+              <button class="btn btn--primary" type="button" data-checkout-retry>Try again</button>
+            </div>
+            <div class="donation-checkout__mount" data-checkout-mount></div>
+          </div>
+        </section>
+      </div>
+    </dialog>
+  )}
 </section>
 
 <script>
@@ -119,8 +199,12 @@ const amounts = [25, 50, 100];
     const summaryCadence = panel.querySelector<HTMLElement>('[data-donation-summary-cadence]');
     const summaryFocusName = panel.querySelector<HTMLElement>('[data-donation-focus-name]');
     const summaryMessage = panel.querySelector<HTMLElement>('[data-donation-message]');
-    const handoff = panel.querySelector<HTMLAnchorElement>('[data-donation-handoff]');
-    const baseHref = handoff?.dataset.baseHref || '';
+    const mailtoLink = panel.querySelector<HTMLAnchorElement>('[data-donation-mailto]');
+    const checkoutButton = panel.querySelector<HTMLButtonElement>('[data-donation-checkout]');
+    const note = panel.querySelector<HTMLElement>('[data-donation-note]');
+    const defaultNote = note?.textContent?.trim() || '';
+    const minGift = Number(panel.dataset.min) || 1;
+    const maxGift = Number(panel.dataset.max) || 10000;
 
     const query = new URLSearchParams(window.location.search);
     const permittedFocuses = new Set(['education', 'health', 'community', 'general']);
@@ -150,6 +234,19 @@ const amounts = [25, 50, 100];
     let frequency = query.get('frequency') === 'monthly' ? 'monthly' : 'one-time';
     let focus = permittedFocuses.has(query.get('focus') || '') ? query.get('focus')! : 'general';
     let amount = 50;
+
+    // Coming back from a cancelled Stripe Checkout: restore the amount too.
+    const returnedAmount = Number(query.get('amount'));
+    if (Number.isFinite(returnedAmount) && returnedAmount > 0) {
+      const preset = [...amountButtons].find((button) => Number(button.dataset.amount) === returnedAmount);
+      amountButtons.forEach((button) => {
+        const selected = button === preset;
+        button.setAttribute('aria-pressed', String(selected));
+        button.classList.toggle('is-selected', selected);
+      });
+      if (preset) amount = returnedAmount;
+      else if (customInput) customInput.value = String(returnedAmount);
+    }
 
     const update = () => {
       const customAmount = Number(customInput?.value);
@@ -190,17 +287,10 @@ const amounts = [25, 50, 100];
         item.classList.toggle('is-selected', selected);
       });
 
-      if (handoff && baseHref) {
-        const nextUrl = new URL(baseHref, window.location.href);
-        nextUrl.searchParams.set('frequency', frequency);
-        nextUrl.searchParams.set('amount', String(amount));
-        if (focus === 'general') nextUrl.searchParams.delete('focus');
-        else nextUrl.searchParams.set('focus', focus);
-        handoff.href = nextUrl.toString();
-      } else if (handoff) {
+      if (mailtoLink) {
         // Until online giving is live the button opens an email. Carry the
         // choices into it so the visitor does not have to type them again.
-        const mailto = new URL(handoff.getAttribute('href') || '', window.location.href);
+        const mailto = new URL(mailtoLink.getAttribute('href') || '', window.location.href);
         const lines = [
           'Hello,',
           '',
@@ -209,7 +299,7 @@ const amounts = [25, 50, 100];
           'Please let me know how to complete the gift.',
         ];
         mailto.search = `?subject=${encodeURIComponent('Donation inquiry')}&body=${encodeURIComponent(lines.join('\n'))}`;
-        handoff.href = mailto.toString();
+        mailtoLink.href = mailto.toString();
       }
     };
 
@@ -245,7 +335,148 @@ const amounts = [25, 50, 100];
       });
     });
 
-    customInput?.addEventListener('input', update);
+    customInput?.addEventListener('input', () => {
+      update();
+      if (note && note.dataset.state === 'error') setNote(defaultNote);
+    });
+
+    const setNote = (text: string, state?: 'error') => {
+      if (!note) return;
+      note.textContent = text;
+      if (state) note.dataset.state = state;
+      else delete note.dataset.state;
+    };
+
+    // ---- Embedded Stripe Checkout, opened in a dialog on this page ----
+    const dialog = panel.querySelector<HTMLDialogElement>('[data-donation-dialog]');
+    const mountEl = dialog?.querySelector<HTMLElement>('[data-checkout-mount]');
+    const loadingEl = dialog?.querySelector<HTMLElement>('[data-checkout-loading]');
+    const errorEl = dialog?.querySelector<HTMLElement>('[data-checkout-error]');
+    const errorText = dialog?.querySelector<HTMLElement>('[data-checkout-error-text]');
+    const giftAmount = dialog?.querySelector<HTMLElement>('[data-checkout-amount]');
+    const giftCadence = dialog?.querySelector<HTMLElement>('[data-checkout-cadence]');
+    const giftFocus = dialog?.querySelector<HTMLElement>('[data-checkout-focus]');
+    const giftMessage = dialog?.querySelector<HTMLElement>('[data-checkout-message]');
+    const monthlyOnly = dialog?.querySelectorAll<HTMLElement>('[data-checkout-monthly-only]') ?? [];
+    const publishableKey = panel.dataset.stripeKey || '';
+    const contact = panel.dataset.contact || 'our team';
+    let embedded: { destroy(): void } | null = null;
+    // Bumped on every open and close, so a slow request that finishes after
+    // the dialog was closed (or reopened) cannot mount into it.
+    let attempt = 0;
+
+    /** loading → skeleton; ready → Stripe's form; error → message + retry. */
+    const setState = (state: 'loading' | 'ready' | 'error', message = '') => {
+      if (!dialog) return;
+      dialog.dataset.state = state;
+      if (loadingEl) loadingEl.textContent = state === 'loading' ? 'Loading secure payment form…' : '';
+      if (errorEl) errorEl.hidden = state !== 'error';
+      if (errorText) errorText.textContent = message;
+    };
+
+    // showModal() does not stop the page behind from scrolling, so pin it the
+    // same way the events sign-up dialog does (a fixed body holding position).
+    let pinnedAt: number | null = null;
+    const lockScroll = () => {
+      if (pinnedAt !== null) return;
+      pinnedAt = window.scrollY;
+      Object.assign(document.body.style, { position: 'fixed', top: `-${pinnedAt}px`, left: '0', right: '0', width: '100%' });
+    };
+    const unlockScroll = () => {
+      if (pinnedAt === null) return;
+      Object.assign(document.body.style, { position: '', top: '', left: '', right: '', width: '' });
+      window.scrollTo(0, pinnedAt);
+      pinnedAt = null;
+    };
+
+    const unmount = () => {
+      attempt += 1;
+      embedded?.destroy();
+      embedded = null;
+      mountEl?.replaceChildren();
+    };
+
+    const mountCheckout = async () => {
+      if (!dialog || !mountEl) return;
+      unmount();
+      const current = attempt;
+      setState('loading');
+
+      try {
+        const response = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount, frequency, focus }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(typeof data.error === 'string' ? data.error : 'Secure checkout could not be opened.');
+        }
+        if (current !== attempt) return;
+
+        if (typeof data.mockUrl === 'string') {
+          // STRIPE_MOCK on the dev server: a local stand-in for Stripe's form.
+          const frame = document.createElement('iframe');
+          frame.className = 'donation-checkout__mock';
+          frame.title = 'Test payment form';
+          frame.src = data.mockUrl;
+          mountEl.append(frame);
+          setState('ready');
+          return;
+        }
+
+        if (typeof data.clientSecret !== 'string' || !publishableKey) {
+          throw new Error('Secure checkout could not be opened.');
+        }
+        const { loadStripe } = await import('@stripe/stripe-js/pure');
+        const stripe = await loadStripe(publishableKey);
+        if (!stripe) throw new Error('The secure payment form could not load.');
+        if (current !== attempt) return;
+        const checkout = await stripe.createEmbeddedCheckoutPage({ clientSecret: data.clientSecret });
+        if (current !== attempt) {
+          checkout.destroy();
+          return;
+        }
+        embedded = checkout;
+        checkout.mount(mountEl);
+        setState('ready');
+      } catch (error) {
+        if (current !== attempt) return;
+        const message = error instanceof Error ? error.message : 'Secure checkout could not be opened.';
+        setState('error', `${message} Please try again, or email ${contact}.`);
+      }
+    };
+
+    dialog?.querySelector('[data-checkout-close]')?.addEventListener('click', () => dialog.close());
+    dialog?.querySelector('[data-checkout-retry]')?.addEventListener('click', () => mountCheckout());
+    dialog?.addEventListener('close', () => {
+      unmount();
+      unlockScroll();
+      setNote('Checkout closed. Nothing was charged — your choices are still here.');
+      checkoutButton?.focus();
+    });
+
+    checkoutButton?.addEventListener('click', () => {
+      if (amount < minGift || amount > maxGift) {
+        setNote(`Please choose an amount between ${formatAmount(minGift)} and ${formatAmount(maxGift)}.`, 'error');
+        customInput?.focus();
+        return;
+      }
+      if (!dialog) return;
+
+      setNote(defaultNote);
+      const monthly = frequency === 'monthly';
+      if (giftAmount) giftAmount.textContent = formatAmount(amount);
+      if (giftCadence) giftCadence.textContent = monthly ? 'per month' : 'one time';
+      if (giftFocus) giftFocus.textContent = focusContent[focus].name;
+      if (giftMessage) giftMessage.textContent = monthly ? focusContent[focus].monthly : focusContent[focus].oneTime;
+      monthlyOnly.forEach((el) => { el.hidden = !monthly; });
+
+      lockScroll();
+      dialog.showModal();
+      mountCheckout();
+    });
+
     update();
   });
 </script>
