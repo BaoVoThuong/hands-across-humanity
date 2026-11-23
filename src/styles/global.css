@@ -895,6 +895,9 @@ p {
 
 .mobile-menu { position: fixed; inset: 0; z-index: 110; }
 .mobile-menu[hidden] { display: none; }
+/* The panel leaves room for the header at its top; the header has to sit
+   above it, or the open menu hides the logo and its own close button. */
+html.menu-open .site-header { z-index: 120; }
 .mobile-menu__backdrop {
   position: absolute; inset: 0; width: 100%; height: 100%;
   background: rgba(15, 23, 42, 0.6);
@@ -921,6 +924,10 @@ p {
   justify-content: space-between;
 }
 .mobile-menu__panel nav a.is-active { color: var(--primary); }
+.mobile-menu__panel nav a.mobile-menu__donate {
+  padding: 0.7rem 1rem;
+  border-bottom: 0;
+}
 .mobile-menu__donate {
   display: flex;
   align-items: center;
@@ -3666,6 +3673,14 @@ p {
   max-height: none;
 }
 
+/* The picture wrapper must fill the frame too, or a photo wider than the
+   frame leaves an empty band beneath it instead of being cropped to fit. */
+.approach-card__media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .approach-card__media img {
   width: 100%;
   height: 100%;
@@ -3791,89 +3806,378 @@ img.img-pos-lower-middle,
   color: var(--fg-muted-on-dark);
 }
 
-.field-record__grid {
+/* ============================================================
+   EVENTS PHOTO ARCHIVE — FILTERS, EVEN GRID, LIGHTBOX
+   Thumbnails share one crop so 28 photographs read as one surface
+   instead of a page-long wall; the lightbox shows each frame whole.
+   ============================================================ */
+.archive {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.8rem, 1.5vw, 1.25rem);
-  align-items: start;
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.field-record__item {
-  min-width: 0;
-  margin: 0;
+.archive__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.field-record__item--feature {
-  grid-column: span 2;
+.archive__filters[hidden] {
+  display: none;
 }
 
-.field-record__media {
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-sm);
+.archive__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg-on-dark);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color var(--dur-standard) var(--ease-out),
+    border-color var(--dur-standard) var(--ease-out), color var(--dur-standard) var(--ease-out);
+}
+
+.archive__filter:hover {
+  border-color: rgba(255, 255, 255, 0.7);
   background: rgba(255, 255, 255, 0.08);
 }
 
-.field-record__item--landscape .field-record__media,
-.field-record__item--feature .field-record__media {
+.archive__filter[aria-pressed='true'] {
+  border-color: #FFFFFF;
+  background: #FFFFFF;
+  color: var(--band-deep);
+}
+
+.archive__filter-count {
+  min-width: 1.5rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.archive__filter[aria-pressed='true'] .archive__filter-count {
+  background: rgba(10, 74, 133, 0.12);
+}
+
+.archive__filter:focus-visible,
+.archive__tile:focus-visible {
+  outline: 3px solid var(--accent-on-band);
+  outline-offset: 3px;
+}
+
+.archive__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.2vw, 1rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.archive__item {
+  min-width: 0;
+}
+
+.archive__item[hidden] {
+  display: none;
+}
+
+.archive__tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
   aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  text-decoration: none;
+  isolation: isolate;
 }
 
-.field-record__item--portrait .field-record__media {
-  aspect-ratio: 3 / 4;
-}
-
-.field-record__media picture,
-.field-record__media img {
+.archive__tile picture,
+.archive__tile img {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.field-record__media img {
+.archive__tile img {
   object-fit: cover;
-  object-position: center;
-  transition: transform var(--dur-standard) var(--ease-out);
+  object-position: center 35%;
+  transition: transform 600ms var(--ease-out);
 }
 
-.field-record__item:hover .field-record__media img {
-  transform: scale(1.025);
-}
-
-.field-record__caption {
+.archive__caption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
   display: grid;
-  gap: 0.2rem;
-  padding-top: 0.45rem;
+  gap: 0.15rem;
+  padding: 2.25rem 0.85rem 0.7rem;
+  background: linear-gradient(to top, rgba(5, 20, 40, 0.88), rgba(5, 20, 40, 0.55) 55%, transparent);
 }
 
-.field-record__chapter {
-  color: var(--brand-accent-on-dark);
+.archive__caption-group {
+  color: var(--accent-on-band);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.08em;
   line-height: 1.2;
   text-transform: uppercase;
 }
 
-.field-record__title {
-  color: var(--fg-on-dark);
-  font-size: clamp(0.8rem, 0.75rem + 0.16vw, 0.95rem);
+.archive__caption-title {
+  font-size: 0.9rem;
   font-weight: 650;
   line-height: 1.25;
 }
 
+.archive__expand {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(5, 20, 40, 0.6);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .archive__tile:hover img {
+    transform: scale(1.05);
+  }
+
+  .archive__tile:hover .archive__expand,
+  .archive__tile:focus-visible .archive__expand {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.archive__more {
+  display: flex;
+  justify-content: center;
+}
+
+.archive__more[hidden] {
+  display: none;
+}
+
+@media (max-width: 1099px) {
+  .archive__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 639px) {
-  .field-record__grid {
+  .archive__filters {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter, 1rem) * -1);
+    padding-inline: var(--gutter, 1rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .archive__filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .archive__filter {
+    flex: none;
+  }
+
+  .archive__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem 0.75rem;
   }
 
-  .field-record__item--feature {
-    grid-column: span 2;
+  .archive__caption {
+    padding: 1.75rem 0.6rem 0.5rem;
   }
 
-  .field-record__title {
-    font-size: 0.78rem;
+  .archive__caption-group {
+    display: none;
+  }
+
+  .archive__caption-title {
+    font-size: 0.8rem;
+  }
+}
+
+/* Lightbox */
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background: rgba(4, 14, 30, 0.96);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox[open] {
+  animation: lightbox-in 220ms var(--ease-out);
+}
+
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox__frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: clamp(3.5rem, 6vh, 4.5rem) clamp(1rem, 7vw, 6rem);
+}
+
+.lightbox__figure {
+  display: grid;
+  justify-items: center;
+  gap: 0.85rem;
+  max-width: 100%;
+  margin: 0;
+}
+
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.lightbox__img.is-ready {
+  opacity: 1;
+}
+
+.lightbox__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem 0.85rem;
+  text-align: center;
+}
+
+.lightbox__group {
+  color: var(--accent-on-band);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lightbox__title {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.lightbox__count {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 200ms ease-out, border-color 200ms ease-out;
+}
+
+.lightbox__btn:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.lightbox__btn:focus-visible {
+  outline: 3px solid var(--accent-on-band);
+  outline-offset: 3px;
+}
+
+.lightbox__btn--prev,
+.lightbox__btn--next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__btn--prev { left: clamp(0.75rem, 2vw, 1.75rem); }
+.lightbox__btn--next { right: clamp(0.75rem, 2vw, 1.75rem); }
+
+.lightbox__btn--close {
+  top: clamp(0.75rem, 2vh, 1.25rem);
+  right: clamp(0.75rem, 2vw, 1.75rem);
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+@media (max-width: 639px) {
+  .lightbox__frame {
+    padding: 4rem 0.75rem 6rem;
+  }
+
+  .lightbox__btn--prev,
+  .lightbox__btn--next {
+    top: auto;
+    bottom: 1.25rem;
+    transform: none;
+  }
+
+  .lightbox__btn--prev { left: calc(50% - 3.5rem); }
+  .lightbox__btn--next { right: calc(50% - 3.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox[open] { animation: none; }
+  .archive__tile img,
+  .archive__expand,
+  .lightbox__img { transition: none; }
+}
+
+/* Recent work: four activity cards in one row on wide screens, not a 2×2
+   wall of half-screen photographs. */
+@media (min-width: 1100px) {
+  .events-gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 1.6vw, 1.5rem);
   }
 }
 .approach-card__audit-badge {
@@ -4842,6 +5146,19 @@ img.img-pos-lower-middle,
     border-radius: var(--radius-lg);
     background: transparent;
     box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+  }
+
+  /* A grid lets the picture stretch to the frame's min-height, so a photo
+     wider than the frame is cropped to fill it instead of leaving a band
+     of empty frame beneath it (Vision's hero did). */
+  .site-body--editorial .page-hero__media {
+    display: grid;
+  }
+
+  .site-body--editorial .page-hero__media picture {
+    display: block;
+    min-width: 0;
+    min-height: 0;
   }
 
   .site-body--editorial .page-hero__media img {
@@ -6391,3 +6708,64 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
 
 /* In a full-width panel the rows are short; keep them to a reading measure. */
 .panel .recent-events { max-width: 48rem; }
+
+/* ============================================================
+   EVENTS — EMPTY UPCOMING STATE
+   Says plainly that nothing is scheduled and offers the next step.
+   ============================================================ */
+.events-empty {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.events-empty__title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.15rem, 1.02rem + 0.4vw, 1.45rem);
+  line-height: 1.25;
+}
+
+.events-empty__text {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--slate-600);
+}
+
+.events-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 859px) {
+  .events-empty {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .events-empty__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* Donate: three preset amounts, three equal columns at every width (the
+   five-column grid left them bunched to the left; two columns orphaned $100),
+   and every choice at least 44px tall to tap. */
+.donation-amounts,
+.donation-panel--compact .donation-amounts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.donation-amount,
+.donation-choice,
+.donation-focus__choice,
+.donation-panel--compact .donation-choice,
+.donation-panel--compact .donation-amount {
+  min-height: 2.75rem;
+}

@@ -5,80 +5,130 @@ import Panel from '../components/Panel.astro';
 import DonationMoment from '../components/DonationMoment.astro';
 import UpcomingTable from '../components/events/UpcomingTable.astro';
 import JoinDialog from '../components/events/JoinDialog.astro';
+import PhotoArchive from '../components/events/PhotoArchive.astro';
 import { getEvents, periodLabel } from '../lib/events';
+import { CONTACT_EMAIL } from '../lib/pages';
 import {
-  communitySupportWide, communityDistributionWide,
-  healthSupplies, partnerShowcase,
-  communityOutdoorPartners, communityRecognition, communityRoundtable,
-  lionsClubGathering, reliefShipmentLoading, reliefShipmentRamp,
-  reliefPallets, communityMeal, partnerPortrait, immunizationPartners,
-  communityMealTwo, communityRecognitionEvent, heritageMonthEvent, communityTeam
+  communitySupportWide, indoorRelief, backpackStockpile, healthSupplies, supplyStaging,
+  partnerTeam,
+  reliefShipmentLoading, reliefShipmentRamp, reliefPallets, volunteerTeamOutdoor,
+  clinicPartners, clinicTeamPortrait, communityHealthBriefing, hopeClinicRecognition,
+  immunizationPartners, lionsClubVolunteers,
+  communityRecognition, awardCeremonyStage, livingGivingAward, livingGivingAwardPortrait,
+  podiumPresentation, communityRecognitionEvent, heritageMonthEvent, tasteOfAfricaGala,
+  tasteOfAfricaGalaSpeaker,
+  communityRoundtable, communityMeal, communityMealTwo, lionsClubGathering,
+  communityOutdoorPartners, communityTeam, partnerPortrait, communityBoothGathering,
 } from '../assets/images/eps';
-import schoolKits from '../assets/images/h2.jpg';
 
 const { upcoming, past } = await getEvents();
+const notifyHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Tell me about the next event')}`;
 
 // Photographs stand in for the kinds of work the past events represent. The
 // titles name activity types, not specific occasions, so nothing is asserted
-// that the record cannot support.
+// that the record cannot support. None of these four repeats a home-page hero
+// slide; "School and learning kits" used to show a copy of the home page's
+// school-kit selfie described as a stack of backpacks.
 const gallery = [
-  { image: communityDistributionWide, title: 'Community distribution days',
-    alt: 'Volunteers and community members at an indoor distribution of donated goods.',
-    body: 'Household kits prepared and shared with families across the neighborhood.', mediaClass: '' },
-  { image: schoolKits, title: 'School and learning kits',
-    alt: 'Backpacks packed with school supplies, stacked and ready to hand out.',
-    body: 'Books, supplies and everyday essentials handed to children before term starts.', mediaClass: '' },
+  { image: indoorRelief, title: 'Community distribution days',
+    alt: 'Community members moving between tables of donated goods in a two-storey indoor hall.',
+    body: 'Household goods prepared and shared with families across the neighborhood.' },
+  { image: backpackStockpile, title: 'School and learning kits',
+    alt: 'Two volunteers standing beside a large stack of new backpacks.',
+    body: 'Backpacks and school supplies gathered for children before term starts.' },
   { image: healthSupplies, title: 'Health and hygiene supplies',
-    alt: 'Health, wellness and essential supplies arranged for community distribution.',
-    body: 'Health and hygiene goods gathered for community health events.', mediaClass: '' },
-  { image: partnerShowcase, title: 'Partner supply drives',
-    alt: 'Partners and volunteers behind a relief supply table.',
-    body: 'Businesses and community partners contributing goods at scale.', mediaClass: '' }
+    alt: 'Vitamins, medicines and health products laid out on a table at an outdoor event.',
+    body: 'Health and hygiene goods gathered for community health events.' },
+  { image: supplyStaging, title: 'Partner supply drives',
+    alt: 'Boxed goods and bagged supplies set out on a table at an outdoor event, with volunteers behind it.',
+    body: 'Businesses and community partners contributing goods at scale.' }
 ];
 
+// The full archive, grouped by what each photograph shows. PhotoArchive shows
+// it as filterable thumbnails; the lightbox shows each frame uncropped. Titles
+// name what is visible, including any organisation printed on a banner in the
+// frame, and nothing that is not.
 const fieldArchive = [
-  { image: communityRoundtable, title: 'Community roundtable', chapter: 'Listen first', orientation: 'feature',
-    alt: 'A large group of adults seated around a dinner table during a community gathering.',
-    body: 'A community gathering around one table.', mediaClass: '' },
-  { image: communityOutdoorPartners, title: 'Community partners outdoors', chapter: 'Keep it local', orientation: 'portrait',
-    alt: 'Two community partners standing together outside a public gathering.',
-    body: 'People and partners meeting in the field.', mediaClass: 'img-pos-top' },
-  { image: communityRecognition, title: 'Recognition and partnership', chapter: 'Build trust', orientation: 'portrait',
-    alt: 'Four adults standing with a certificate in front of red paper-crane artwork.',
-    body: 'A recognition moment shared by community partners.', mediaClass: 'img-pos-top' },
-  { image: lionsClubGathering, title: 'Partner gathering', chapter: 'Build trust', orientation: 'landscape',
-    alt: 'Community partners gathered beneath a Lions Club banner.',
-    body: 'Partners making time to connect and coordinate.', mediaClass: '' },
-  { image: reliefShipmentLoading, title: 'Shipment loading', chapter: 'Prepare with care', orientation: 'portrait',
-    alt: 'A worker in a safety vest moving a pallet of boxed supplies into a delivery truck.',
-    body: 'Palletized supplies prepared for transport.', mediaClass: '' },
-  { image: reliefShipmentRamp, title: 'Shipment handoff', chapter: 'Prepare with care', orientation: 'portrait',
-    alt: 'Pallets of boxed supplies at the back of a delivery truck.',
-    body: 'A supply handoff at the loading ramp.', mediaClass: '' },
-  { image: reliefPallets, title: 'Prepared pallets', chapter: 'Prepare with care', orientation: 'landscape',
-    alt: 'Pallets of boxed supplies staged outside a building beside a delivery truck.',
-    body: 'Goods staged before they move into the community.', mediaClass: '' },
-  { image: communityMeal, title: 'Community meal', chapter: 'Share with dignity', orientation: 'landscape',
-    alt: 'Community members gathered around a table during a shared meal.',
-    body: 'Relationships grow through shared time together.', mediaClass: '' },
-  { image: communityRecognitionEvent, title: 'Community recognition', chapter: 'Build trust', orientation: 'feature',
-    alt: 'A group of people posing at a community recognition event.',
-    body: 'A recognition moment with volunteers and partners.', mediaClass: '' },
-  { image: partnerPortrait, title: 'Partner portrait', chapter: 'Build trust', orientation: 'portrait',
-    alt: 'Three community partners standing together indoors at a public gathering.',
-    body: 'A partner conversation captured between events.', mediaClass: 'img-pos-top' },
-  { image: immunizationPartners, title: 'Immunization partnership', chapter: 'Build trust', orientation: 'landscape',
-    alt: 'Three partners standing in front of an Immunization Partnership event backdrop.',
-    body: 'Partners showing up together at a public event.', mediaClass: '' },
-  { image: communityMealTwo, title: 'Shared table', chapter: 'Share with dignity', orientation: 'landscape',
-    alt: 'Community members gathered for a meal around a restaurant table.',
-    body: 'A shared meal and a room full of conversation.', mediaClass: '' },
-  { image: heritageMonthEvent, title: 'Heritage month gathering', chapter: 'Build trust', orientation: 'landscape',
-    alt: 'Three people standing in front of a display for Asian American Pacific Islander Heritage Month.',
-    body: 'Partners gathered during a heritage-month event.', mediaClass: '' },
-  { image: communityTeam, title: 'Community team', chapter: 'Keep it local', orientation: 'portrait',
-    alt: 'Community partners standing together at an indoor gathering.',
-    body: 'The people who keep the network connected.', mediaClass: 'img-pos-top' },
+  {
+    id: 'goods',
+    title: 'Getting goods ready',
+    photos: [
+      { image: reliefShipmentLoading, title: 'Shipment loading',
+        alt: 'A worker in a safety vest moving a pallet of boxed supplies into a delivery truck.' },
+      { image: reliefShipmentRamp, title: 'At the loading ramp',
+        alt: 'Shrink-wrapped pallets of boxed supplies on the lift gate of a delivery truck.' },
+      { image: reliefPallets, title: 'Pallets staged',
+        alt: 'Shrink-wrapped pallets of boxed supplies staged outside beside a delivery truck.' },
+      { image: volunteerTeamOutdoor, title: 'Volunteer team',
+        alt: 'A large team of volunteers in yellow shirts beside rows of filled orange bags.' },
+    ],
+  },
+  {
+    id: 'health',
+    title: 'Health partners',
+    photos: [
+      { image: clinicTeamPortrait, title: 'Clinic partners',
+        alt: 'Volunteers in navy shirts and clinic staff in white coats posing together in a clinic lobby.' },
+      { image: clinicPartners, title: 'Clinic visit',
+        alt: 'Two partners standing with a physician in a white coat in a clinic hallway.' },
+      { image: communityHealthBriefing, title: 'Information session',
+        alt: 'Two presenters speaking to a seated audience at a community information session.' },
+      { image: hopeClinicRecognition, title: 'Recognition at a clinic',
+        alt: 'A man holding a certificate between two women in front of a Hope Clinic banner.' },
+      { image: lionsClubVolunteers, title: 'Lions Club volunteers',
+        alt: 'Volunteers, including Lions Club members in purple, smiling together at a community event.' },
+      { image: immunizationPartners, title: 'Immunization partnership',
+        alt: 'Three partners standing in front of an Immunization Partnership event backdrop.' },
+    ],
+  },
+  {
+    id: 'recognition',
+    title: 'Celebrations and recognition',
+    photos: [
+      { image: livingGivingAward, title: 'Foundation award',
+        alt: 'Partners and a child holding a plaque, gathered in front of Living & Giving Foundation banners.' },
+      { image: awardCeremonyStage, title: 'Award presentation',
+        alt: 'Five people on a stage, one holding a framed award, at a formal ceremony.' },
+      { image: communityRecognition, title: 'Certificate moment',
+        alt: 'Four adults standing with a certificate in front of red paper-crane artwork.' },
+      { image: podiumPresentation, title: 'Community presentation',
+        alt: 'A group holding white envelopes around a speaker at a podium in a hotel meeting room.' },
+      { image: communityRecognitionEvent, title: 'Heritage month celebration',
+        alt: 'A large group posing in front of a red heritage-month celebration backdrop.' },
+      { image: heritageMonthEvent, title: 'Heritage month gathering',
+        alt: 'Three people standing in front of a display for Asian American Pacific Islander Heritage Month.' },
+      { image: livingGivingAwardPortrait, title: 'Foundation award, closer',
+        alt: 'A smaller group with a child holding a plaque in front of Living & Giving Foundation banners.' },
+      { image: tasteOfAfricaGala, title: 'Taste of Africa Gala',
+        alt: 'Six women, several in African prints, posing before the Taste of Africa Gala backdrop.' },
+      { image: tasteOfAfricaGalaSpeaker, title: 'Gala speaker',
+        alt: 'A speaker at a podium beside a screen reading Taste of Africa Gala.' },
+    ],
+  },
+  {
+    id: 'together',
+    title: 'Time together',
+    photos: [
+      { image: lionsClubGathering, title: 'Partner gathering',
+        alt: 'Community partners gathered beneath a Lions Club banner.' },
+      { image: communityOutdoorPartners, title: 'Outside the venue',
+        alt: 'Two community partners standing together outside a public gathering.' },
+      { image: communityRoundtable, title: 'Community roundtable',
+        alt: 'A large group of adults seated around a dinner table during a community gathering.' },
+      { image: communityMeal, title: 'Community meal',
+        alt: 'Community members gathered around a table during a shared meal.' },
+      { image: partnerPortrait, title: 'Partner portrait',
+        alt: 'Three community partners standing together indoors at a public gathering.' },
+      { image: communityMealTwo, title: 'Shared table',
+        alt: 'Community members gathered for a meal around a restaurant table.' },
+      { image: communityBoothGathering, title: 'Event booth',
+        alt: 'A group of adults and children gathered in front of a CW39 Houston event tent in a public hall.' },
+      { image: communityTeam, title: 'Community team',
+        alt: 'Six community partners standing together at an indoor community event.' },
+      { image: partnerTeam, title: 'Event volunteers',
+        alt: 'Three partners, two in yellow shirts, standing together at an outdoor community event.' },
+    ],
+  },
 ];
 
 const sections = [
@@ -93,7 +143,9 @@ const sections = [
 // festivals hosted by partners.
 const heroSignals = [
   { title: 'Hosted by partners', text: 'We take part in events run by local partners.' },
-  { title: 'Come and find us', text: 'Upcoming dates and addresses are listed below.' },
+  upcoming.length
+    ? { title: 'Come and find us', text: 'Upcoming dates and addresses are listed below.' }
+    : { title: 'Next dates', text: 'Nothing is scheduled yet. Ask us to tell you when it is.' },
   { title: 'Recent work', text: past.length ? `Photographs and activity from ${periodLabel(past)}.` : 'Photographs from recent community work.' }
 ];
 ---
@@ -104,8 +156,8 @@ const heroSignals = [
   lead="Events we take part in with local partners — where to find us next, and what recent work has looked like."
   description="Upcoming community events Hands Across Humanity is taking part in, and a look at recent distribution work."
   image={communitySupportWide}
-  imageAlt="Volunteers coordinating support at a community distribution event."
-  caption="Donated goods prepared for a community distribution event."
+  imageAlt="A wide view of a busy indoor hall with community members at tables of donated goods."
+  caption="Neighbors at tables of donated goods during a community distribution."
   heroSignals={heroSignals}
   sections={sections}
   total={4}
@@ -119,8 +171,9 @@ const heroSignals = [
         <h2 class="reveal" style="--i:1" id="upcoming-title">Come and find us.</h2>
       </div>
       <p class="lead reveal" style="--i:2">
-        These events are hosted by community partners and we take part in them. Let us
-        know you are coming and we will look out for you.
+        {upcoming.length
+          ? 'These events are hosted by community partners and we take part in them. Let us know you are coming and we will look out for you.'
+          : 'The events we take part in are hosted by community partners, so dates appear here once a partner confirms them.'}
       </p>
     </div>
 
@@ -129,21 +182,22 @@ const heroSignals = [
         <UpcomingTable events={upcoming} />
       </div>
     ) : (
-      <div class="modest-flow reveal" style="--i:3">
-        <div class="modest-step">
-          <span class="modest-step__num">01</span>
-          <h3 class="modest-step__title">Contribute goods</h3>
-          <p class="modest-step__desc">Businesses and neighbors can pass on what they can spare.</p>
+      /* With nothing scheduled, say so plainly and offer the one useful next
+         step. Three generic steps used to sit here, so a visitor sent by
+         "Upcoming events" never learned the calendar was empty. */
+      <div class="events-empty reveal" style="--i:3">
+        <div class="events-empty__copy">
+          <h3 class="events-empty__title">No upcoming events are scheduled yet.</h3>
+          <p class="events-empty__text">
+            New dates are added as partners confirm them. Email us and we will tell you
+            when the next one is set{past.length ? ` — or see what we did in ${periodLabel(past)}` : ''}.
+          </p>
         </div>
-        <div class="modest-step">
-          <span class="modest-step__num">02</span>
-          <h3 class="modest-step__title">Volunteer with us</h3>
-          <p class="modest-step__desc">Sorting, packing and delivering are all done by hand.</p>
-        </div>
-        <div class="modest-step">
-          <span class="modest-step__num">03</span>
-          <h3 class="modest-step__title">Hear about the next one</h3>
-          <p class="modest-step__desc">Tell us how to reach you and we will let you know.</p>
+        <div class="events-empty__actions">
+          <a class="btn btn--primary" href={notifyHref}>
+            Tell me about the next event<span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--secondary" href="#recent">See recent work</a>
         </div>
       </div>
     )}
@@ -168,7 +222,7 @@ const heroSignals = [
       {gallery.map((g) => (
         <article class="approach-card">
           <div class="approach-card__media approach-card__media--event">
-            <DeferredPicture src={g.image} class={g.mediaClass} widths={[600, 900, 1200]}
+            <DeferredPicture src={g.image} widths={[600, 900, 1200]}
               sizes="(min-width: 860px) 44vw, 92vw"
               formats={['webp']} fallbackFormat="jpeg" quality={76}
               alt={g.alt} decoding="async" />
@@ -191,25 +245,12 @@ const heroSignals = [
         <h2 class="reveal" style="--i:1" id="field-record-title">The work is made of many small rooms.</h2>
       </div>
       <p class="lead reveal" style="--i:2">
-        A fuller record of the people, partnerships, preparation, and shared time behind each community handoff.
+        The people, partnerships, preparation, and shared time behind each community handoff. Choose a group, or open any photograph to see it whole.
       </p>
     </div>
 
-    <div class="field-record__grid reveal" style="--i:3" aria-label="Field photographs from Hands Across Humanity">
-      {fieldArchive.map((photo) => (
-        <figure class:list={['field-record__item', `field-record__item--${photo.orientation}`]}>
-          <div class="field-record__media">
-            <DeferredPicture src={photo.image} class={photo.mediaClass} widths={[480, 720, 960]}
-              sizes="(min-width: 1100px) 23vw, (min-width: 640px) 31vw, 46vw"
-              formats={['webp']} fallbackFormat="jpeg" quality={76}
-              alt={photo.alt} decoding="async" />
-          </div>
-          <figcaption class="field-record__caption">
-            <span class="field-record__chapter">{photo.chapter}</span>
-            <span class="field-record__title">{photo.title}</span>
-          </figcaption>
-        </figure>
-      ))}
+    <div class="reveal" style="--i:3">
+      <PhotoArchive groups={fieldArchive} />
     </div>
   </Panel>
 

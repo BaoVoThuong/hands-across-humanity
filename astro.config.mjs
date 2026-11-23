@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 
-// The canonical site URL is intentionally unset until the client confirms the
-// production domain. This prevents a fabricated canonical or sitemap URL.
+// The production domain, confirmed on 2026-11-23. www redirects here (Vercel).
 export default defineConfig({
+  site: 'https://handsacrosshumanity.org',
   integrations: [],
   output: 'static',
   // The site's entry page now lives at /about-us/; keep the root reachable.

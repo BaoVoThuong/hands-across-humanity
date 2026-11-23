@@ -6,8 +6,8 @@ import DonationMoment from '../components/DonationMoment.astro';
 import {
   childrenOutreach,
   healthSupplies,
-  reliefStation,
-  communitySupplies,
+  communitySupportWide,
+  supplyTableIndoor,
   educationRelief,
 } from '../assets/images/eps';
 import { FOCUS_AREAS } from '../lib/pages';
@@ -34,7 +34,7 @@ const workAreas = [
     stat: 'School essentials',
     statLabel: 'Kits for learning and readiness',
     image: childrenOutreach,
-    alt: 'Volunteers sharing educational kits with children and families.',
+    alt: 'Volunteers and schoolchildren holding school-supply kits, posing for a selfie at an outdoor event.',
   },
   {
     num: '02',
@@ -44,7 +44,7 @@ const workAreas = [
     stat: 'Everyday needs',
     statLabel: 'Health, hygiene, and household supplies',
     image: healthSupplies,
-    alt: 'Health, wellness, and essential supplies arranged for community distribution.',
+    alt: 'Vitamins, medicines and health products laid out on a table at an outdoor event.',
   },
   {
     num: '03',
@@ -53,8 +53,8 @@ const workAreas = [
     body: 'Local distribution brings useful goods closer to the neighbors who need them.',
     stat: 'Community support',
     statLabel: 'Dignified, non-discriminatory distribution',
-    image: reliefStation,
-    alt: 'Community members receiving essential goods at a relief station.',
+    image: communitySupportWide,
+    alt: 'A wide view of a busy indoor hall with community members at tables of donated goods.',
   },
 ];
 ---
@@ -65,7 +65,7 @@ const workAreas = [
   lead="We collect useful goods, prepare them with care, and share them with people and partners facing urgent need."
   description="Hands Across Humanity brings together contributors, volunteers, businesses, houses of worship, nonprofits, and local leaders to turn useful goods into practical support."
   image={educationRelief}
-  imageAlt="Children holding prepared school and relief kits with community volunteers."
+  imageAlt="Schoolchildren in uniform holding school-supply kits beside volunteers at an outdoor event."
   caption="Education essentials prepared for children and families."
   heroSignals={heroSignals}
   sections={sections}
@@ -163,17 +163,17 @@ const workAreas = [
         <figure class="connect-feature__media" style="margin: 0;">
           <div class="connect-feature__media-box">
             <DeferredPicture
-              src={communitySupplies}
+              src={supplyTableIndoor}
               widths={[400, 750]}
               sizes="(min-width: 940px) 40vw, 90vw"
               quality={82}
-              alt="Volunteers and community members coordinating essential goods at a relief station."
+              alt="Health products and printed information on a round table at an indoor community event, with two volunteers behind it."
             />
           </div>
           <figcaption class="approach-photo-caption" style="margin-top: 0.35rem;">
-            <span class="approach-card__tag">Community distribution</span>
+            <span class="approach-card__tag">Prepared and ready</span>
             <span class="approach-photo-caption__sep" aria-hidden="true">|</span>
-            <span class="approach-photo-caption__text">Volunteers and neighbors coordinating goods</span>
+            <span class="approach-photo-caption__text">Supplies set out for neighbors at a community event</span>
           </figcaption>
         </figure>
       </div>

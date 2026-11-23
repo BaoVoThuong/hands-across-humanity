@@ -3,11 +3,11 @@ import DeferredPicture from '../DeferredPicture.astro';
 import RecentEvents from '../RecentEvents.astro';
 import { getEvents } from '../../lib/events';
 import {
-  partnerShowcase,
-  field03,
-  field04,
+  communityDistribution,
+  volunteersOutdoorEvent,
+  supplyTableIndoor,
   childrenOutreach,
-  field07,
+  communityPartnersGroup,
 } from '../../assets/images/eps';
 
 /* This section used to retell the process band above it in different words
@@ -18,37 +18,38 @@ import {
 const { past } = await getEvents();
 const recent = past.slice(0, 2);
 
+// The anchor used to repeat the third hero slide a screen above it.
 const anchorStory = {
-  image: partnerShowcase,
-  alt: 'Partners and volunteers behind a table of prepared supplies.',
-  label: 'Partners and volunteers',
-  caption: 'A table of prepared supplies at an outdoor event.',
+  image: communityDistribution,
+  alt: 'Volunteers in navy shirts talking with community members across a table of boxed goods under an outdoor pavilion.',
+  label: 'Volunteers and neighbors',
+  caption: 'Goods shared across a table at an outdoor community event.',
 };
 
 const fieldNotes = [
   {
-    image: field03,
-    alt: 'Volunteers taking part in a community distribution event with local residents.',
-    title: 'Community distribution',
-    text: 'Volunteers and local residents at a distribution event.',
+    image: volunteersOutdoorEvent,
+    alt: 'Two volunteers in navy shirts at an outdoor community event under a pavilion.',
+    title: 'Volunteers on site',
+    text: 'Two volunteers at an outdoor community event.',
   },
   {
-    image: field04,
-    alt: 'Volunteers preparing health and household supplies at a community donation table.',
+    image: supplyTableIndoor,
+    alt: 'Health products and printed information on a round table at an indoor community event, with two volunteers behind it.',
     title: 'Health and household supplies',
     text: 'Supplies laid out on a donation table.',
   },
   {
     image: childrenOutreach,
-    alt: 'Volunteers sharing educational kits with children and families.',
+    alt: 'Volunteers and schoolchildren holding school-supply kits, posing for a selfie at an outdoor event.',
     title: 'School kits',
-    text: 'Educational kits shared with children and families.',
+    text: 'School-supply kits in the hands of children.',
   },
   {
-    image: field07,
-    alt: 'Community partners gathered during a local support activity.',
+    image: communityPartnersGroup,
+    alt: 'Community partners, families and a child holding a toy panda at an indoor gathering.',
     title: 'Local partners',
-    text: 'Partners at a local support activity.',
+    text: 'Partners and families at a local gathering.',
   },
 ];
 ---

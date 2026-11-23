@@ -1,0 +1,266 @@
+---
+/**
+ * The Events photo archive: filter chips, an even grid of thumbnails, and a
+ * lightbox that shows each photograph whole.
+ *
+ * It replaced one long field record that ran every photograph at full size,
+ * four groups deep, and made Events the longest page on the site by a margin.
+ * Thumbnails now share one crop so the grid reads as a single surface; the
+ * lightbox is where a frame keeps its own proportions.
+ *
+ * Without JavaScript every tile is visible and each one links to the larger
+ * image, so nothing is hidden behind a script.
+ */
+import { getImage } from 'astro:assets';
+import DeferredPicture from '../DeferredPicture.astro';
+
+interface Photo {
+  image: ImageMetadata;
+  title: string;
+  alt: string;
+}
+
+interface Group {
+  id: string;
+  title: string;
+  photos: Photo[];
+}
+
+interface Props {
+  groups: Group[];
+  /** Tiles shown under "All" before "Show all" is pressed. */
+  initial?: number;
+}
+
+const { groups, initial = 8 }: Props = Astro.props;
+
+// Interleave the groups for the "All" view, so the first rows show the range
+// of the work instead of four pallet photographs in a row.
+const longest = Math.max(...groups.map((group: Group) => group.photos.length));
+const ordered = Array.from({ length: longest }, (_, row) =>
+  groups.flatMap((group: Group) => (group.photos[row] ? [{ ...group.photos[row], group }] : [])),
+).flat();
+
+const photos = await Promise.all(
+  ordered.map(async (photo) => {
+    const full = await getImage({
+      src: photo.image,
+      width: Math.min(photo.image.width, 1600),
+      format: 'webp',
+      quality: 82,
+    });
+    return { ...photo, full };
+  }),
+);
+const total = photos.length;
+---
+
+<div class="archive" data-archive data-initial={initial}>
+  <div class="archive__filters" role="group" aria-label="Show photographs from" data-archive-filters hidden>
+    <button type="button" class="archive__filter" data-filter="all" aria-pressed="true">
+      All <span class="archive__filter-count">{total}</span>
+    </button>
+    {groups.map((group: Group) => (
+      <button type="button" class="archive__filter" data-filter={group.id} aria-pressed="false">
+        {group.title} <span class="archive__filter-count">{group.photos.length}</span>
+      </button>
+    ))}
+  </div>
+
+  <p class="visually-hidden" aria-live="polite" data-archive-status></p>
+
+  <ul class="archive__grid" role="list">
+    {photos.map((photo, index) => (
+      <li class="archive__item" data-group={photo.group.id}>
+        <a
+          class="archive__tile"
+          href={photo.full.src}
+          data-index={index}
+          data-full={photo.full.src}
+          data-width={photo.full.attributes.width}
+          data-height={photo.full.attributes.height}
+          data-title={photo.title}
+          data-group-title={photo.group.title}
+          data-alt={photo.alt}
+        >
+          <DeferredPicture
+            src={photo.image}
+            widths={[360, 480, 720]}
+            sizes="(min-width: 1100px) 22vw, (min-width: 640px) 30vw, 46vw"
+            quality={76}
+            alt={photo.alt}
+            class="archive__img"
+          />
+          <span class="archive__caption">
+            <span class="archive__caption-group">{photo.group.title}</span>
+            <span class="archive__caption-title">{photo.title}</span>
+          </span>
+          <span class="archive__expand" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="archive__more" data-archive-more-row hidden>
+    <button type="button" class="btn btn--ghost" data-archive-more>
+      Show all {total} photographs
+    </button>
+  </div>
+
+  <dialog class="lightbox" aria-label="Photograph viewer" data-lightbox>
+    <div class="lightbox__frame">
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" alt="" data-lightbox-img />
+        <figcaption class="lightbox__caption">
+          <span class="lightbox__group" data-lightbox-group></span>
+          <span class="lightbox__title" data-lightbox-title></span>
+          <span class="lightbox__count" data-lightbox-count></span>
+        </figcaption>
+      </figure>
+      <button type="button" class="lightbox__btn lightbox__btn--prev" aria-label="Previous photograph" data-lightbox-prev>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+      </button>
+      <button type="button" class="lightbox__btn lightbox__btn--next" aria-label="Next photograph" data-lightbox-next>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
+      </button>
+      <button type="button" class="lightbox__btn lightbox__btn--close" aria-label="Close photograph viewer" data-lightbox-close>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  function setupArchive(root: HTMLElement) {
+    const initial = Number(root.dataset.initial) || 8;
+    const filters = root.querySelector<HTMLElement>('[data-archive-filters]');
+    const filterButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    const items = Array.from(root.querySelectorAll<HTMLLIElement>('.archive__item'));
+    const status = root.querySelector<HTMLElement>('[data-archive-status]');
+    const moreRow = root.querySelector<HTMLElement>('[data-archive-more-row]');
+    const moreButton = root.querySelector<HTMLButtonElement>('[data-archive-more]');
+    const dialog = root.querySelector<HTMLDialogElement>('[data-lightbox]');
+    const img = root.querySelector<HTMLImageElement>('[data-lightbox-img]');
+    const groupLabel = root.querySelector<HTMLElement>('[data-lightbox-group]');
+    const titleLabel = root.querySelector<HTMLElement>('[data-lightbox-title]');
+    const countLabel = root.querySelector<HTMLElement>('[data-lightbox-count]');
+    if (!filters || !moreRow || !moreButton || !dialog || !img) return;
+
+    let filter = 'all';
+    let expanded = false;
+    let current: HTMLAnchorElement[] = [];
+    let position = 0;
+    let opener: HTMLAnchorElement | null = null;
+
+    const matching = () => items.filter((item) => filter === 'all' || item.dataset.group === filter);
+
+    function apply() {
+      const list = matching();
+      const limit = filter === 'all' && !expanded ? initial : list.length;
+      items.forEach((item) => { item.hidden = true; });
+      list.forEach((item, index) => { item.hidden = index >= limit; });
+      moreRow!.hidden = limit >= list.length;
+      const shown = Math.min(limit, list.length);
+      if (status) status.textContent = `Showing ${shown} of ${list.length} photographs.`;
+    }
+
+    filters.hidden = false;
+    apply();
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        filter = button.dataset.filter ?? 'all';
+        filterButtons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        apply();
+      });
+    });
+
+    moreButton.addEventListener('click', () => {
+      const firstHidden = matching().find((item) => item.hidden);
+      expanded = true;
+      apply();
+      firstHidden?.querySelector('a')?.focus();
+    });
+
+    // Size the photograph to the space the viewer leaves for it. Most of the
+    // archive arrived as ~480px exports, so enlargement stops at 1.6× to keep
+    // the frame sharp instead of filling the screen with blur.
+    function fit() {
+      const w = img!.width;
+      const h = img!.height;
+      if (!w || !h) return;
+      const narrow = window.innerWidth < 640;
+      const availW = window.innerWidth - (narrow ? 24 : Math.min(192, window.innerWidth * 0.14) * 2);
+      const availH = window.innerHeight - (narrow ? 224 : 176);
+      const scale = Math.min(1.6, availW / w, availH / h);
+      img!.style.width = `${Math.round(w * scale)}px`;
+      img!.style.height = `${Math.round(h * scale)}px`;
+    }
+
+    window.addEventListener('resize', () => { if (dialog!.open) fit(); });
+
+    function show(index: number) {
+      position = (index + current.length) % current.length;
+      const tile = current[position];
+      const data = tile.dataset;
+      img!.classList.remove('is-ready');
+      img!.onload = () => img!.classList.add('is-ready');
+      img!.width = Number(data.width);
+      img!.height = Number(data.height);
+      fit();
+      img!.src = data.full ?? '';
+      img!.alt = data.alt ?? '';
+      if (img!.complete) img!.classList.add('is-ready');
+      if (groupLabel) groupLabel.textContent = data.groupTitle ?? '';
+      if (titleLabel) titleLabel.textContent = data.title ?? '';
+      if (countLabel) countLabel.textContent = `${position + 1} / ${current.length}`;
+    }
+
+    root.querySelector('.archive__grid')?.addEventListener('click', (event) => {
+      const tile = (event.target as Element).closest<HTMLAnchorElement>('.archive__tile');
+      if (!tile) return;
+      const mouse = event as MouseEvent;
+      if (mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.button !== 0) return;
+      event.preventDefault();
+      // Navigate through everything in the current filter, including tiles
+      // still folded behind "Show all".
+      current = matching().map((item) => item.querySelector<HTMLAnchorElement>('.archive__tile')!);
+      opener = tile;
+      show(current.indexOf(tile));
+      dialog!.showModal();
+    });
+
+    root.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => show(position - 1));
+    root.querySelector('[data-lightbox-next]')?.addEventListener('click', () => show(position + 1));
+    root.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog!.close());
+
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); show(position - 1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); show(position + 1); }
+    });
+
+    // A click on the dimmed backdrop, outside the photograph and controls, closes.
+    dialog.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      if (target === dialog || target.classList.contains('lightbox__frame')) dialog!.close();
+    });
+
+    let startX: number | null = null;
+    dialog.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+    dialog.addEventListener('pointerup', (event) => {
+      if (startX === null || event.pointerType === 'mouse') { startX = null; return; }
+      const dx = event.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 50) show(position + (dx < 0 ? 1 : -1));
+    });
+
+    dialog.addEventListener('close', () => {
+      opener?.focus();
+      img!.removeAttribute('src');
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-archive]').forEach(setupArchive);
+</script>

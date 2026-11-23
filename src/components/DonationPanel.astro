@@ -159,6 +159,15 @@ const amounts = [25, 50, 100];
           button.setAttribute('aria-pressed', 'false');
           button.classList.remove('is-selected');
         });
+      } else if (![...amountButtons].some((button) => button.getAttribute('aria-pressed') === 'true')) {
+        // The custom field was cleared: fall back to the default preset rather
+        // than keeping a typed amount that is no longer on screen.
+        amount = 50;
+        amountButtons.forEach((button) => {
+          const selected = Number(button.dataset.amount) === amount;
+          button.setAttribute('aria-pressed', String(selected));
+          button.classList.toggle('is-selected', selected);
+        });
       }
 
       if (summaryAmount) summaryAmount.textContent = formatAmount(amount);
@@ -188,6 +197,19 @@ const amounts = [25, 50, 100];
         if (focus === 'general') nextUrl.searchParams.delete('focus');
         else nextUrl.searchParams.set('focus', focus);
         handoff.href = nextUrl.toString();
+      } else if (handoff) {
+        // Until online giving is live the button opens an email. Carry the
+        // choices into it so the visitor does not have to type them again.
+        const mailto = new URL(handoff.getAttribute('href') || '', window.location.href);
+        const lines = [
+          'Hello,',
+          '',
+          `I would like to give ${formatAmount(amount)} ${frequency === 'monthly' ? 'each month' : 'once'}`
+            + (focus === 'general' ? '.' : ` toward ${focusContent[focus].name}.`),
+          'Please let me know how to complete the gift.',
+        ];
+        mailto.search = `?subject=${encodeURIComponent('Donation inquiry')}&body=${encodeURIComponent(lines.join('\n'))}`;
+        handoff.href = mailto.toString();
       }
     };
 
@@ -202,7 +224,8 @@ const amounts = [25, 50, 100];
       button.addEventListener('click', () => {
         const nextFocus = button.dataset.focus || 'general';
         if (!permittedFocuses.has(nextFocus)) return;
-        focus = nextFocus;
+        // The preference is optional, so a second press clears it.
+        focus = focus === nextFocus ? 'general' : nextFocus;
         update();
       });
     });

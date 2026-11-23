@@ -8,10 +8,10 @@ import { getEvents } from '../lib/events';
 import {
   communityDistribution,
   reliefDistributionWide,
-  communityDistributionWide,
-  supplyHandoff,
-  partnerShowcase,
-  healthSupplies,
+  indoorRelief,
+  waterDelivery,
+  reliefStation,
+  supplyStaging,
 } from '../assets/images/eps';
 
 /* Mission answers one question — what does Hands Across Humanity exist to do —
@@ -62,22 +62,22 @@ const commitments = [
     title: 'Listen first',
     body: 'Learn what people and local partners need before deciding what support will be useful.',
     image: communityDistribution,
-    alt: 'Volunteers coordinating essential goods with community members at a community event.',
+    alt: 'Volunteers in navy shirts talking with community members across a table of boxed goods under an outdoor pavilion.',
     caption: 'Volunteers with community members',
   },
   {
     title: 'Prepare with care',
     body: 'Sort, organize, and move goods carefully with volunteers and partners.',
-    image: supplyHandoff,
-    alt: 'Volunteers moving boxed supplies on a cart for distribution.',
-    caption: 'Boxed supplies on the way to distribution',
+    image: waterDelivery,
+    alt: 'Three volunteers wheeling stacked cases of bottled water on a hand truck across a parking lot.',
+    caption: 'Cases of water on the way to distribution',
   },
   {
     title: 'Share without discrimination',
     body: 'Every handoff is welcoming, non-discriminatory, and dignified.',
-    image: partnerShowcase,
-    alt: 'Partners and volunteers gathered behind a table of supplies.',
-    caption: 'Partners and volunteers at a supply table',
+    image: reliefStation,
+    alt: 'Volunteers and community members, some in grey robes, gathered at a table of goods under an outdoor pavilion.',
+    caption: 'Volunteers and neighbors at one table',
   },
 ];
 ---
@@ -88,7 +88,7 @@ const commitments = [
   lead="Hands Across Humanity collects essential supplies and shares them through local partners and volunteers in the Houston area."
   description="Hands Across Humanity collects useful goods and shares them through local partners and volunteers in the Houston area, with children, families, veterans, older adults, and neighbors facing an urgent need."
   image={reliefDistributionWide}
-  imageAlt="Volunteers and community members coordinating a distribution in a large public hall."
+  imageAlt="A volunteer handing a packaged item to a community member in a crowded public hall."
   caption="Volunteers and neighbors at a community distribution in a public hall."
   heroSignals={heroSignals}
   sections={sections}
@@ -108,11 +108,11 @@ const commitments = [
       <article class="approach-card">
         <div class="approach-card__media">
           <DeferredPicture
-            src={healthSupplies}
+            src={supplyStaging}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
             quality={90}
-            alt="Health, wellness, and essential supplies arranged for community distribution."
+            alt="Boxed goods and bagged supplies set out on a table at an outdoor event, with volunteers behind it."
           />
         </div>
         <div class="approach-card__content">
@@ -124,11 +124,11 @@ const commitments = [
       <article class="approach-card">
         <div class="approach-card__media">
           <DeferredPicture
-            src={communityDistributionWide}
+            src={indoorRelief}
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 45vw, 90vw"
             quality={90}
-            alt="Volunteers distributing essential goods to community members at a public support event."
+            alt="Community members moving between tables of donated goods in a two-storey indoor hall."
           />
         </div>
         <div class="approach-card__content">

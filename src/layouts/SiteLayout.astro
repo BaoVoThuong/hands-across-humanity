@@ -183,12 +183,13 @@ const footerEvents = upcoming.slice(0, 3);
       const menu = document.querySelector('#primary-menu') as HTMLElement | null;
       const backdrop = menu?.querySelector('.mobile-menu__backdrop');
 
-      const closeMenu = () => {
-        if (!menu || !toggle) return;
+      const closeMenu = ({ returnFocus = false } = {}) => {
+        if (!menu || !toggle || menu.hidden) return;
         menu.hidden = true;
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open main menu');
         document.documentElement.classList.remove('menu-open');
+        if (returnFocus) (toggle as HTMLElement).focus();
       };
 
       const openMenu = () => {
@@ -197,12 +198,20 @@ const footerEvents = upcoming.slice(0, 3);
         toggle.setAttribute('aria-expanded', 'true');
         toggle.setAttribute('aria-label', 'Close main menu');
         document.documentElement.classList.add('menu-open');
+        // Move focus into the menu so keyboard and screen-reader users land on it.
+        menu.querySelector<HTMLElement>('nav a')?.focus();
       };
 
       toggle?.addEventListener('click', () =>
         toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu()
       );
-      backdrop?.addEventListener('click', closeMenu);
+      backdrop?.addEventListener('click', () => closeMenu({ returnFocus: true }));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu({ returnFocus: true });
+      });
+      // A same-page link (#section) would otherwise leave the menu covering
+      // the section it just scrolled to.
+      menu?.querySelectorAll('nav a').forEach((link) => link.addEventListener('click', () => closeMenu()));
 
       // Scroll Progress Indicator
       const header = document.querySelector('[data-header]');

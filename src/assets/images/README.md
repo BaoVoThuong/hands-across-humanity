@@ -1,47 +1,72 @@
 # Image register
 
-The `eps/` folder contains the documentary photography supplied for this site. The images show real community distribution, prepared supplies, volunteers, children, and partner activity. Each photo is used with descriptive alt text matched to the surrounding content.
+`eps/` holds the documentary photography the client supplied: 48 unique photographs of real community distributions, partner events, volunteers and children. `eps/index.ts` exports every one under a name that says what the frame shows, grouped the same way as below.
 
-Current documentary set:
+## Rules this set follows
 
-Brand mark:
+- **No duplicates.** Every file was checked byte-for-byte (md5) and visually (difference hash). Several client batches resend the same photo under a new filename or as a smaller WebP; those copies are not kept.
+- **Resolution decides placement.** The JPGs are 2048px masters (except `eps-community-partners-group.jpg`, 600px) and can fill heroes, carousels and cards. The WebPs are ~480px social-media exports and appear only as small tiles in the Events field record.
+- **Each photo appears at most twice on the site, and never twice on one page.**
+- **Alt text and captions describe what is visible**, including any organisation printed on a banner in the frame, and nothing that is not. If a photo is swapped, its alt and caption are rewritten with it.
 
-- `logo-mark-teal-navy.jpg` — cropped directly from the supplied two-person logo lockup; used in the compact header and footer.
-- `logo-mark-blue.png` and `logo-mark.png` — earlier marks retained as legacy assets, not used by the current teal-and-navy identity.
+## Distribution and goods (2048px)
 
-- `eps/eps-partner-showcase.jpg` — partners and volunteers behind a relief supply table
-- `eps/eps-education-relief.jpg` — children holding prepared school and relief kits
-- `eps/eps-health-supplies.jpg` — health, wellness, and essential supplies
-- `eps/eps-fleet-delivery.jpg` — volunteers moving boxed supplies for delivery
-- `eps/eps-community-support-wide.jpg` — volunteers coordinating a distribution event
-- `eps/eps-relief-distribution-wide.jpg` — large public-hall distribution
-- `eps/eps-community-distribution-wide.jpg` — indoor community aid activity
-- `eps/eps-community-distribution.jpg` — direct community distribution
-- `eps/eps-children-outreach.jpg` — children and volunteers at an outreach event
-- `eps/eps-relief-station.jpg` — community relief station with prepared goods
-- `eps/eps-partner-team.jpg` — partner representatives at a relief event
-- `eps/eps-community-supplies.jpg` — essential goods at a relief station
-- `eps/eps-supply-staging.jpg` — donated goods being staged for distribution
-- `eps/eps-indoor-relief.jpg` — volunteers coordinating relief in a public hall
-- `eps/eps-partner-community.jpg` — community partners and families with support packages
+| File | Shows | Used on |
+|---|---|---|
+| `eps-community-distribution.jpg` | Volunteers in navy talking with community members across a table of boxed goods, outdoor pavilion | Home field notes (anchor) · Mission commitments |
+| `eps-community-distribution-wide.jpg` | Crowd at tables of goods in a large indoor hall | Home hero carousel |
+| `eps-community-support-wide.jpg` | Wide view of a busy indoor hall with tables of donated goods | Events hero · What We Do programs |
+| `eps-relief-distribution-wide.jpg` | A volunteer handing a packaged item to a community member in a crowded hall | Mission hero |
+| `eps-indoor-relief.jpg` | Community members moving between tables in a two-storey indoor hall | Mission approach · Events recent work |
+| `eps-relief-station.jpg` | Volunteers and community members, some in grey robes, at a table of goods under a pavilion | Mission commitments |
+| `eps-supply-staging.jpg` | Boxed goods and bagged supplies on an outdoor table, volunteers behind | Mission approach · Events recent work |
+| `eps-health-supplies.jpg` | Vitamins, medicines and health products on an outdoor table | What We Do programs · Events recent work |
+| `eps-supply-table-indoor.jpg` | Health products and flyers on a round indoor table, two volunteers behind | Home field notes · What We Do "How support moves" |
+| `eps-partner-showcase.jpg` | Partners making heart hands behind a long table of donated supplies | Home hero carousel |
+| `eps-water-delivery.jpg` | Three volunteers wheeling cases of bottled water on a hand truck | Mission commitments |
 
-New field archive imports:
+## Children, school kits and families (2048px)
 
-- `eps/eps-community-outdoor-partners.webp` — two community partners outside a public gathering
-- `eps/eps-community-recognition.webp` — partners sharing a certificate moment
-- `eps/eps-community-roundtable.webp` — a group gathered around a dinner table
-- `eps/eps-lions-club-gathering.webp` — community partners beneath a Lions Club banner
-- `eps/eps-relief-shipment-loading.webp` — boxed supplies being loaded into a delivery truck
-- `eps/eps-relief-shipment-ramp.webp` — boxed supplies at a truck loading ramp
-- `eps/eps-relief-pallets.webp` — prepared pallets staged beside a delivery truck
-- `eps/eps-community-meal.webp` — community members sharing a meal
-- `eps/eps-partner-portrait.webp` — community partners at an indoor gathering
-- `eps/eps-immunization-partners.webp` — partners at an Immunization Partnership event
-- `eps/eps-community-meal-two.webp` — community members gathered around a shared table
-- `eps/eps-community-recognition-event.webp` — a community recognition gathering
-- `eps/eps-heritage-month-event.webp` — partners at an Asian American Pacific Islander Heritage Month event
-- `eps/eps-community-team.webp` — community partners at an indoor gathering
+| File | Shows | Used on |
+|---|---|---|
+| `eps-education-relief.jpg` | Schoolchildren in uniform holding school-supply kits beside volunteers | Home hero carousel · What We Do hero |
+| `eps-children-outreach.jpg` | Volunteers and schoolchildren with school-supply kits, selfie | Home field notes · What We Do programs |
+| `eps-backpack-handout.jpg` | Volunteers, parents and children holding new backpacks before a pile of backpacks | Home hero carousel |
+| `eps-backpack-stockpile.jpg` | Two volunteers beside a large stack of new backpacks | Home "Ways to take part" carousel · Events recent work |
+| `eps-holiday-gift-bags.jpg` | Volunteers, families and children behind rows of holiday gift bags | Home hero carousel · Vision hero |
 
-One of the 15 supplied files was byte-for-byte identical to `eps-community-recognition.webp`, so it is not duplicated in the web gallery.
+## Team and partners (2048px; `community-partners-group` is 600px)
 
-The duplicate source photo in `eps_pic` was not copied into the app because it is byte-for-byte identical to its original. The `h*.jpg` files are retained as legacy documentary assets; logos are retained separately. The Astro image pipeline emits optimized AVIF/WebP derivatives at build time.
+| File | Shows | Used on |
+|---|---|---|
+| `eps-team-thank-you.jpg` | Four team members behind boxed electronics under a thank-you banner | Home "Ways to take part" carousel |
+| `eps-team-selfie.jpg` | Four team members in navy shirts, selfie at an indoor event | Home "Ways to take part" carousel |
+| `eps-volunteers-outdoor-event.jpg` | Two volunteers in navy shirts at an outdoor pavilion event | Home field notes |
+| `eps-community-partners-group.jpg` | Partners, families and a child holding a toy panda at an indoor gathering | Home field notes |
+| `eps-partner-team.jpg` | Three partners, two in yellow shirts, at an outdoor event | Events field record |
+
+## Events field record (~480px WebP)
+
+All shown once, in the Events "Field record", in four groups:
+
+- **Getting goods ready:** `eps-relief-shipment-loading`, `eps-relief-shipment-ramp`, `eps-relief-pallets`, `eps-volunteer-team-outdoor`
+- **Health partners:** `eps-clinic-team-portrait`, `eps-clinic-partners`, `eps-community-health-briefing`, `eps-hope-clinic-recognition`, `eps-lions-club-volunteers`, `eps-immunization-partners`
+- **Celebrations and recognition:** `eps-living-giving-award`, `eps-award-ceremony-stage`, `eps-community-recognition`, `eps-podium-presentation`, `eps-community-recognition-event`, `eps-heritage-month-event`, `eps-living-giving-award-portrait`, `eps-taste-of-africa-gala`, `eps-taste-of-africa-gala-speaker`
+- **Time together:** `eps-lions-club-gathering`, `eps-community-outdoor-partners`, `eps-community-roundtable`, `eps-community-meal`, `eps-partner-portrait`, `eps-community-meal-two`, `eps-community-booth-gathering`, `eps-community-team`, plus `eps-partner-team.jpg`
+
+Within each group the order is set so rows break evenly at desktop width. The grid keeps each photo's own proportions, so changing the order changes where rows break.
+
+## Brand mark
+
+- `logo-mark-teal-navy.jpg`: cropped from the supplied two-person logo lockup; used in the header and footer.
+- `logo-mark-blue.png` and `logo-mark.png`: earlier marks kept as legacy assets, not used by the current identity.
+- `Logo.svg`, `Logo.pdf`: source lockup files.
+
+## History of this set
+
+- **November 2026 import:** the client sent 25 files. Nine were byte-identical to photos already here. Three more were ~480px WebP copies of photos held as 2048px JPGs (`water-delivery`, `holiday-gift-bags`, `community-team`), so only the higher-resolution version is kept. The other 13 were new and are in the field record.
+- **Earlier duplicates removed:** `h2.jpg` was the same photo as `eps-children-outreach.jpg`, and `eps-community-supplies.jpg` was the same photo as `eps-relief-station.jpg`.
+- **Restored:** `eps-indoor-relief.jpg` was deleted as unused in c74ce77. It is back, and now in use.
+- **Renamed** so each name describes the frame: `eps-field-01`…`07` → `team-selfie`, `backpack-handout`, `volunteers-outdoor-event`, `supply-table-indoor`, `team-thank-you`, `backpack-stockpile`, `community-partners-group`. Also `eps-fleet-delivery` → `eps-water-delivery`, `eps-partner-community` → `eps-holiday-gift-bags`, and `eps-donation-presentation` → `eps-podium-presentation` (the frame shows envelopes, not a stated donation).
+
+The Astro image pipeline emits optimised AVIF/WebP derivatives at build time.
