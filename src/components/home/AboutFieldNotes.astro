@@ -2,13 +2,7 @@
 import DeferredPicture from '../DeferredPicture.astro';
 import RecentEvents from '../RecentEvents.astro';
 import { getEvents } from '../../lib/events';
-import {
-  communityDistribution,
-  volunteersOutdoorEvent,
-  supplyTableIndoor,
-  childrenOutreach,
-  communityPartnersGroup,
-} from '../../assets/images/eps';
+import { backpackStockpile } from '../../assets/images/eps';
 
 /* This section used to retell the process band above it in different words
    (Listen first · Prepare useful goods · Share with dignity · Keep it local).
@@ -18,40 +12,15 @@ import {
 const { past } = await getEvents();
 const recent = past.slice(0, 2);
 
-// The anchor used to repeat the third hero slide a screen above it.
+// One photograph, used nowhere else on the site. The four small tiles that sat
+// under it repeated photos shown on Mission, Work and Events, so they are gone.
 const anchorStory = {
-  image: communityDistribution,
-  alt: 'Volunteers in navy shirts talking with community members across a table of boxed goods under an outdoor pavilion.',
-  label: 'Volunteers and neighbors',
-  caption: 'Goods shared across a table at an outdoor community event.',
+  image: backpackStockpile,
+  alt: 'Two volunteers beside a large stack of new backpacks.',
+  label: 'School kits, ready to share',
+  caption: 'A wall of new backpacks gathered by volunteers.',
 };
 
-const fieldNotes = [
-  {
-    image: volunteersOutdoorEvent,
-    alt: 'Two volunteers in navy shirts at an outdoor community event under a pavilion.',
-    title: 'Volunteers on site',
-    text: 'Two volunteers at an outdoor community event.',
-  },
-  {
-    image: supplyTableIndoor,
-    alt: 'Health products and printed information on a round table at an indoor community event, with two volunteers behind it.',
-    title: 'Health and household supplies',
-    text: 'Supplies laid out on a donation table.',
-  },
-  {
-    image: childrenOutreach,
-    alt: 'Volunteers and schoolchildren holding school-supply kits, posing for a selfie at an outdoor event.',
-    title: 'School kits',
-    text: 'School-supply kits in the hands of children.',
-  },
-  {
-    image: communityPartnersGroup,
-    alt: 'Community partners, families and a child holding a toy panda at an indoor gathering.',
-    title: 'Local partners',
-    text: 'Partners and families at a local gathering.',
-  },
-];
 ---
 
 <section class="about-field-notes section section--sand" id="field-notes" aria-labelledby="field-notes-title">
@@ -85,28 +54,9 @@ const fieldNotes = [
         ) : (
           <h3>Community events, alongside local partners.</h3>
         )}
-        <a class="about-field-notes__link" href="/events/#recent">See all events <span aria-hidden="true">→</span></a>
+        <a class="about-field-notes__link" href="/events/#field-record">See all events <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
-    <div class="about-field-notes__grid" aria-label="Photographs from community events">
-      {fieldNotes.map((note, index) => (
-        <article class="about-field-notes__note reveal" style={`--i:${index + 3}`}>
-          <div class="about-field-notes__note-media">
-            <DeferredPicture
-              src={note.image}
-              widths={[400, 700]}
-              sizes="(min-width: 960px) 22vw, 50vw"
-              quality={82}
-              alt={note.alt}
-            />
-          </div>
-          <div class="about-field-notes__note-copy">
-            <h3>{note.title}</h3>
-            <p>{note.text}</p>
-          </div>
-        </article>
-      ))}
-    </div>
   </div>
 </section>

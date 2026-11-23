@@ -2,8 +2,6 @@
 import DeferredPicture from '../DeferredPicture.astro';
 import { Picture } from 'astro:assets';
 import {
-  holidayGiftBags,
-  educationRelief,
   communityDistributionWide,
   backpackHandout,
   partnerShowcase,
@@ -19,23 +17,13 @@ interface Props {
 const {
   title = "A community donation network.",
   lead = "Hands Across Humanity brings together donated goods, volunteers, and local partners in the Houston area to share practical support with children, families, veterans, and neighbors.",
-  recentUrl = "/events/#recent",
+  recentUrl = "/events/#field-record",
   exploreUrl = "/events/#upcoming"
 } = Astro.props;
 
+/* Three slides, none shown anywhere else on the site: the holiday gift bags
+   open Vision and the school kits open Work. */
 const slides = [
-  {
-    image: holidayGiftBags,
-    alt: "Volunteers, families and children gathered behind rows of colourful holiday gift bags.",
-    lead: "Community partnership",
-    title: "Support arrives through the people a community already trusts."
-  },
-  {
-    image: educationRelief,
-    alt: "Schoolchildren in uniform holding school-supply kits beside volunteers at an outdoor event.",
-    lead: "School & family support",
-    title: "Putting education essentials into the hands of children and families."
-  },
   {
     image: partnerShowcase,
     alt: "Partners and volunteers making heart shapes with their hands behind a long table of donated supplies.",

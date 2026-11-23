@@ -16,5 +16,10 @@ export default defineConfig({
   },
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' }
+  },
+  // Pre-bundle Stripe.js at dev-server start so Vite never re-optimises it
+  // mid-session (that left the checkout dialog fetching a stale chunk).
+  vite: {
+    optimizeDeps: { include: ['@stripe/stripe-js/pure'] }
   }
 });

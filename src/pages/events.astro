@@ -1,6 +1,6 @@
 ---
-import DeferredPicture from '../components/DeferredPicture.astro';
 import EditorialPage from '../components/EditorialPage.astro';
+import type { HeroSignal } from '../components/HeroSignals.astro';
 import Panel from '../components/Panel.astro';
 import DonationMoment from '../components/DonationMoment.astro';
 import UpcomingTable from '../components/events/UpcomingTable.astro';
@@ -9,8 +9,7 @@ import PhotoArchive from '../components/events/PhotoArchive.astro';
 import { getEvents, periodLabel } from '../lib/events';
 import { CONTACT_EMAIL } from '../lib/pages';
 import {
-  communitySupportWide, indoorRelief, backpackStockpile, healthSupplies, supplyStaging,
-  partnerTeam, volunteersOutdoorEvent, teamThankYou,
+  partnerTeam, volunteersOutdoorEvent, teamThankYou, communityPartnersGroup,
   reliefShipmentLoading, reliefShipmentRamp, reliefPallets, volunteerTeamOutdoor,
   clinicPartners, clinicTeamPortrait, communityHealthBriefing, hopeClinicRecognition,
   immunizationPartners, lionsClubVolunteers,
@@ -23,26 +22,6 @@ import {
 
 const { upcoming, past } = await getEvents();
 const notifyHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Tell me about the next event')}`;
-
-// Photographs stand in for the kinds of work the past events represent. The
-// titles name activity types, not specific occasions, so nothing is asserted
-// that the record cannot support. None of these four repeats a home-page hero
-// slide; "School and learning kits" used to show a copy of the home page's
-// school-kit selfie described as a stack of backpacks.
-const gallery = [
-  { image: indoorRelief, title: 'Community distribution days',
-    alt: 'Community members moving between tables of donated goods in a two-storey indoor hall.',
-    body: 'Household goods prepared and shared with families across the neighborhood.' },
-  { image: backpackStockpile, title: 'School and learning kits',
-    alt: 'Two volunteers standing beside a large stack of new backpacks.',
-    body: 'Backpacks and school supplies gathered for children before term starts.' },
-  { image: healthSupplies, title: 'Health and hygiene supplies',
-    alt: 'Vitamins, medicines and health products laid out on a table at an outdoor event.',
-    body: 'Health and hygiene goods gathered for community health events.' },
-  { image: supplyStaging, title: 'Partner supply drives',
-    alt: 'Boxed goods and bagged supplies set out on a table at an outdoor event, with volunteers behind it.',
-    body: 'Businesses and community partners contributing goods at scale.' }
-];
 
 // The full archive, grouped by what each photograph shows. PhotoArchive shows
 // it as filterable thumbnails; the lightbox shows each frame uncropped. Titles
@@ -125,8 +104,8 @@ const fieldArchive = [
         alt: 'A group of adults and children gathered in front of a CW39 Houston event tent in a public hall.' },
       { image: communityTeam, title: 'Community team',
         alt: 'Six community partners standing together at an indoor community event.' },
-      { image: partnerTeam, title: 'Event volunteers',
-        alt: 'Three partners, two in yellow shirts, standing together at an outdoor community event.' },
+      { image: communityPartnersGroup, title: 'Partners and families',
+        alt: 'Community partners, families and a child holding a toy panda at an indoor gathering.' },
     ],
   },
 ];
@@ -134,19 +113,18 @@ const fieldArchive = [
 const sections = [
   { id: 'top', label: 'Events' },
   { id: 'upcoming', label: 'Upcoming events' },
-  { id: 'recent', label: 'Recent work' },
   { id: 'field-record', label: 'Field record' }
 ];
 
 // The signals describe what this page holds. They used to promise
 // distribution days and partner drives while the table listed health fairs and
 // festivals hosted by partners.
-const heroSignals = [
-  { title: 'Hosted by partners', text: 'We take part in events run by local partners.' },
+const heroSignals: HeroSignal[] = [
+  { icon: 'handshake', title: 'Hosted by partners', text: 'We take part in events run by local partners.' },
   upcoming.length
-    ? { title: 'Come and find us', text: 'Upcoming dates and addresses are listed below.' }
-    : { title: 'Next dates', text: 'Nothing is scheduled yet. Ask us to tell you when it is.' },
-  { title: 'Recent work', text: past.length ? `Photographs and activity from ${periodLabel(past)}.` : 'Photographs from recent community work.' }
+    ? { icon: 'calendar', title: 'Come and find us', text: 'Upcoming dates and addresses are listed below.' }
+    : { icon: 'calendar', title: 'Next dates', text: 'Nothing is scheduled yet. Ask us to tell you when it is.' },
+  { icon: 'camera', title: 'Recent work', text: past.length ? `Photographs and activity from ${periodLabel(past)}.` : 'Photographs from recent community work.' }
 ];
 ---
 
@@ -156,20 +134,20 @@ const heroSignals = [
   lead="Events we take part in with local partners — where to find us next, and what recent work has looked like."
   description="Upcoming community events Hands Across Humanity is taking part in, and a look at recent distribution work."
   heroVariant="mosaic"
-  image={communitySupportWide}
+  image={partnerTeam}
   gallery={[
     { src: volunteersOutdoorEvent, alt: 'Two volunteers in navy shirts at an outdoor pavilion event.' },
     { src: teamThankYou, alt: 'Four team members behind boxed electronics under a thank-you banner.' },
   ]}
-  imageAlt="A wide view of a busy indoor hall with community members at tables of donated goods."
-  caption="Neighbors at tables of donated goods during a community distribution."
+  imageAlt="Three partners, two in yellow shirts, standing together at an outdoor community event."
+  caption="Partners at an outdoor community event."
   heroSignals={heroSignals}
   sections={sections}
-  total={4}
+  total={3}
 >
   <!-- 02: Upcoming -->
-  <Panel id="upcoming" ground="sand" index={2} total={4} label="Upcoming events"
-    labelledby="upcoming-title" nextId="recent" nextLabel="Recent work">
+  <Panel id="upcoming" ground="sand" index={2} total={3} label="Upcoming events"
+    labelledby="upcoming-title" nextId="field-record" nextLabel="Field record">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
         <h2 class="reveal" style="--i:1" id="upcoming-title">Come and find us.</h2>
@@ -201,53 +179,21 @@ const heroSignals = [
           <a class="btn btn--primary" href={notifyHref}>
             Tell me about the next event<span class="btn__arrow" aria-hidden="true">→</span>
           </a>
-          <a class="btn btn--secondary" href="#recent">See recent work</a>
+          <a class="btn btn--secondary" href="#field-record">See recent work</a>
         </div>
       </div>
     )}
   </Panel>
 
-  <!-- 03: Recent work -->
-  <Panel id="recent" ground="paper" index={3} total={4} label="Recent work"
-    labelledby="recent-title" nextId="field-record" nextLabel="Field record">
-    <div class="panel-head panel-head--split">
-      <div class="panel-head__title">
-        <h2 class="reveal" style="--i:1" id="recent-title">What the work has looked like.</h2>
-      </div>
-      <p class="lead reveal" style="--i:2">
-        {past.length
-          ? `Activity from ${periodLabel(past)}.`
-          : 'Photographs from community distributions, school handouts and partner drives.'}
-      </p>
-    </div>
-
-    <div class="columns approach-columns events-gallery reveal" style="--i:3">
-      {gallery.map((g) => (
-        <article class="approach-card">
-          <div class="approach-card__media approach-card__media--event">
-            <DeferredPicture src={g.image} widths={[600, 900, 1200]}
-              sizes="(min-width: 860px) 44vw, 92vw"
-              formats={['webp']} fallbackFormat="jpeg" quality={76}
-              alt={g.alt} decoding="async" />
-          </div>
-          <div class="approach-card__content">
-            <h3 class="approach-card__title">{g.title}</h3>
-            <p class="approach-card__body">{g.body}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </Panel>
-
-  <!-- 04: Field record -->
-  <Panel id="field-record" ground="ink" index={4} total={4} label="Field record"
+  <!-- 03: Field record — also where every "see recent work" link lands -->
+  <Panel id="field-record" ground="ink" index={3} total={3} label="Field record"
     labelledby="field-record-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head panel-head--split field-record__head">
       <div class="panel-head__title">
         <h2 class="reveal" style="--i:1" id="field-record-title">The work is made of many small rooms.</h2>
       </div>
       <p class="lead reveal" style="--i:2">
-        The people, partnerships, preparation, and shared time behind each community handoff. Choose a group, or open any photograph to see it whole.
+        The people, partnerships, preparation, and shared time behind each community handoff{past.length ? `, ${periodLabel(past)}` : ''}. Choose a group, or open any photograph to see it whole.
       </p>
     </div>
 

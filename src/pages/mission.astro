@@ -1,6 +1,7 @@
 ---
 import DeferredPicture from '../components/DeferredPicture.astro';
 import EditorialPage from '../components/EditorialPage.astro';
+import type { HeroSignal } from '../components/HeroSignals.astro';
 import Panel from '../components/Panel.astro';
 import DonationMoment from '../components/DonationMoment.astro';
 import RecentEvents from '../components/RecentEvents.astro';
@@ -39,17 +40,20 @@ const total = sections.length;
 // page carries its summary. As a separate section they left the hero a screen
 // tall with nothing at its base, followed by a short band that read as an
 // afterthought.
-const heroSignals = [
+const heroSignals: HeroSignal[] = [
   {
     title: 'Who we serve',
+    icon: 'people',
     text: 'Children, families, veterans, older adults, and neighbors facing an urgent need.',
   },
   {
     title: 'The need',
+    icon: 'box',
     text: 'Useful goods often sit unused while communities nearby are under pressure.',
   },
   {
     title: 'Why this approach',
+    icon: 'handshake',
     text: 'Local partners know what will help, so goods reach the right hands.',
   },
 ];
@@ -183,7 +187,7 @@ const commitments = [
       </div>
       <div class="reveal" style="--i:3">
         <RecentEvents events={recent} />
-        <p class="panel-link"><a class="rule-card__link" href="/events/#recent">See all events <span aria-hidden="true">→</span></a></p>
+        <p class="panel-link"><a class="rule-card__link" href="/events/#field-record">See all events <span aria-hidden="true">→</span></a></p>
       </div>
     </Panel>
   )}

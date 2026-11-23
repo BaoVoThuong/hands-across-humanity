@@ -23,7 +23,8 @@ const sections = [
   { id: 'connect', label: 'How support moves' },
 ];
 
-const heroSignals = FOCUS_AREAS;
+const FOCUS_ICONS = ['book', 'heart', 'home'] as const;
+const heroSignals = FOCUS_AREAS.map((area, i) => ({ ...area, icon: FOCUS_ICONS[i] }));
 
 const workAreas = [
   {
@@ -92,7 +93,7 @@ const workAreas = [
             <p class="program-card__category">{area.category}</p>
             <h3 class="program-card__title">{area.title}</h3>
             <p class="program-card__text">{area.body}</p>
-            <a href="/events/#recent" class="program-card__link">
+            <a href="/events/#field-record" class="program-card__link">
               See recent work <span aria-hidden="true">→</span>
             </a>
           </div>

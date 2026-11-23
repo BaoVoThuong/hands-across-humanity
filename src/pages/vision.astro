@@ -1,5 +1,6 @@
 ---
 import EditorialPage from '../components/EditorialPage.astro';
+import type { HeroSignal } from '../components/HeroSignals.astro';
 import Panel from '../components/Panel.astro';
 import DonationMoment from '../components/DonationMoment.astro';
 import { holidayGiftBags } from '../assets/images/eps';
@@ -15,17 +16,20 @@ const sections = [
   { id: 'belief', label: 'Staying local' },
 ];
 
-const heroSignals = [
+const heroSignals: HeroSignal[] = [
   {
     title: 'Connected communities',
+    icon: 'network',
     text: 'People and partners ready to respond before hardship grows.',
   },
   {
     title: 'Shared resources',
+    icon: 'box',
     text: 'Surplus goods become practical support for a real need.',
   },
   {
     title: 'Local reach',
+    icon: 'pin',
     text: 'A wider network grows from Houston outward.',
   },
 ];

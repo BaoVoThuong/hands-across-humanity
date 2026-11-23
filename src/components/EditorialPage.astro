@@ -2,10 +2,10 @@
 import { Picture } from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import DeferredPicture from '../components/DeferredPicture.astro';
+import HeroSignals, { type HeroSignal } from '../components/HeroSignals.astro';
 import { pageOf, nextPage } from '../lib/pages';
 
 interface RailItem { id: string; label: string; }
-interface SignalItem { title: string; text: string; }
 interface GalleryItem { src: ImageMetadata; alt: string; }
 /**
  * Each inner page opens differently, so the four pages stop reading as one
@@ -24,7 +24,7 @@ interface Props {
   image: ImageMetadata;
   imageAlt: string;
   caption: string;
-  heroSignals?: SignalItem[];
+  heroSignals?: HeroSignal[];
   heroVariant?: HeroVariant;
   /** Two supporting photos for the mosaic hero. */
   gallery?: GalleryItem[];
@@ -55,6 +55,7 @@ const {
 }: Props = Astro.props;
 
 const variant: HeroVariant = heroVariant === 'mosaic' && gallery.length < 2 ? 'split' : heroVariant;
+const signalsInCopy = variant === 'split';
 const heroSizes = {
   immersive: '100vw',
   split: '(min-width: 900px) 58vw, 100vw',
@@ -93,6 +94,9 @@ const firstSection = onThisPage[0];
             )}
             <a class="btn btn--secondary" href={next.href}>{next.cta}</a>
           </div>
+          {/* On Work the signals fill the words' column, so it is no shorter than
+              the photo; elsewhere they run in a row under the hero. */}
+          {signalsInCopy && <HeroSignals signals={heroSignals} />}
         </div>
 
         <figure class="page-intro__figure">
@@ -123,16 +127,7 @@ const firstSection = onThisPage[0];
         )}
       </div>
 
-      {heroSignals.length > 0 && (
-        <div class="page-intro__signals" aria-label="At a glance">
-          {heroSignals.map((signal) => (
-            <div class="page-intro__signal reveal">
-              <p class="page-intro__signal-title">{signal.title}</p>
-              <p class="page-intro__signal-text">{signal.text}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      {!signalsInCopy && <HeroSignals signals={heroSignals} />}
     </section>
 
     <slot />

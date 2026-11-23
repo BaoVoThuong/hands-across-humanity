@@ -115,6 +115,12 @@ const amounts = [25, 50, 100];
     </div>
   </aside>
 
+  {isConfigured && STRIPE_PUBLISHABLE_KEY && (
+    <Fragment>
+      <link rel="preconnect" href="https://js.stripe.com" />
+      <link rel="preconnect" href="https://api.stripe.com" />
+    </Fragment>
+  )}
   {isConfigured && (
     <dialog class="donation-checkout" data-donation-dialog data-state="loading" aria-labelledby="donation-checkout-title">
       <button class="donation-checkout__close" type="button" data-checkout-close aria-label="Close checkout">
@@ -184,6 +190,12 @@ const amounts = [25, 50, 100];
 </section>
 
 <script>
+  // Static, not a dynamic import(): a lazily fetched chunk can fail mid-session
+  // (Vite re-optimising deps in dev, or a redeploy replacing chunk hashes while
+  // a page is open). The "pure" entry does not load Stripe.js until
+  // loadStripe() is called on checkout, so this costs nothing up front.
+  import { loadStripe } from '@stripe/stripe-js/pure';
+
   const formatAmount = (amount: number) => new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -374,20 +386,26 @@ const amounts = [25, 50, 100];
       if (errorText) errorText.textContent = message;
     };
 
-    // showModal() does not stop the page behind from scrolling, so pin it the
-    // same way the events sign-up dialog does (a fixed body holding position).
-    let pinnedAt: number | null = null;
-    const lockScroll = () => {
-      if (pinnedAt !== null) return;
-      pinnedAt = window.scrollY;
-      Object.assign(document.body.style, { position: 'fixed', top: `-${pinnedAt}px`, left: '0', right: '0', width: '100%' });
+    // The page behind is held still by CSS (html:has(.donation-checkout[open])
+    // in polish.css). Pinning the body with position: fixed, as before, forced a
+    // full re-layout and a scroll jump on every open and close.
+
+    // Stripe.js is fetched once, as early as the visitor shows intent (hover or
+    // focus on the button), so it is usually ready before they click.
+    let stripePromise: ReturnType<typeof loadStripe> | null = null;
+    const getStripe = () => {
+      stripePromise ??= loadStripe(publishableKey).catch((error) => {
+        stripePromise = null;
+        throw error;
+      });
+      return stripePromise;
     };
-    const unlockScroll = () => {
-      if (pinnedAt === null) return;
-      Object.assign(document.body.style, { position: '', top: '', left: '', right: '', width: '' });
-      window.scrollTo(0, pinnedAt);
-      pinnedAt = null;
-    };
+    if (publishableKey && checkoutButton) {
+      const warm = () => { void getStripe().catch(() => {}); };
+      checkoutButton.addEventListener('pointerenter', warm, { once: true });
+      checkoutButton.addEventListener('focus', warm, { once: true });
+      checkoutButton.addEventListener('touchstart', warm, { once: true, passive: true });
+    }
 
     const unmount = () => {
       attempt += 1;
@@ -396,13 +414,57 @@ const amounts = [25, 50, 100];
       mountEl?.replaceChildren();
     };
 
+    /**
+     * Stripe's form loads its iframe, then animates its own height for about
+     * half a second as it lays out. Showing it before that is the "lag". So
+     * wait for the frame to load, for its height to start changing, and then
+     * for it to hold still for a moment. If it never changes, show it anyway.
+     */
+    const whenFormSettles = (container: HTMLElement, done: () => void) => {
+      const watch = (frame: HTMLIFrameElement) => {
+        frame.addEventListener('load', () => {
+          let first = true;
+          let quiet = 0;
+          const finish = () => { observer.disconnect(); done(); };
+          const observer = new ResizeObserver(() => {
+            if (first) { first = false; return; } // the initial report is not a change
+            window.clearTimeout(quiet);
+            quiet = window.setTimeout(finish, 250);
+          });
+          observer.observe(frame);
+          quiet = window.setTimeout(finish, 1500); // no resize at all: it is already laid out
+        }, { once: true });
+      };
+      const existing = container.querySelector('iframe');
+      if (existing) return watch(existing);
+      const added = new MutationObserver(() => {
+        const frame = container.querySelector('iframe');
+        if (frame) { added.disconnect(); watch(frame); }
+      });
+      added.observe(container, { childList: true, subtree: true });
+    };
+
     const mountCheckout = async () => {
       if (!dialog || !mountEl) return;
       unmount();
       const current = attempt;
       setState('loading');
 
+      // Keep the skeleton until the form has actually drawn, then fade it in;
+      // showing the iframe as soon as it was mounted flashed a blank frame that
+      // then jumped in height. The timer is a backstop if no signal arrives.
+      let revealed = false;
+      const reveal = () => {
+        if (revealed || current !== attempt) return;
+        revealed = true;
+        setState('ready');
+      };
+      const backstop = window.setTimeout(reveal, 6000);
+
       try {
+        // The session and Stripe.js load side by side instead of one after the other.
+        const stripeLoading = publishableKey ? getStripe() : null;
+        stripeLoading?.catch(() => {});
         const response = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -419,28 +481,33 @@ const amounts = [25, 50, 100];
           const frame = document.createElement('iframe');
           frame.className = 'donation-checkout__mock';
           frame.title = 'Test payment form';
+          frame.addEventListener('load', reveal, { once: true });
           frame.src = data.mockUrl;
           mountEl.append(frame);
-          setState('ready');
           return;
         }
 
-        if (typeof data.clientSecret !== 'string' || !publishableKey) {
+        if (typeof data.clientSecret !== 'string' || !stripeLoading) {
           throw new Error('Secure checkout could not be opened.');
         }
-        const { loadStripe } = await import('@stripe/stripe-js/pure');
-        const stripe = await loadStripe(publishableKey);
+        const stripe = await stripeLoading;
         if (!stripe) throw new Error('The secure payment form could not load.');
         if (current !== attempt) return;
-        const checkout = await stripe.createEmbeddedCheckoutPage({ clientSecret: data.clientSecret });
+        const checkout = await stripe.createEmbeddedCheckoutPage({
+          clientSecret: data.clientSecret,
+          onAnalyticsEvent: (event) => {
+            if (event.eventType === 'checkoutRendered') reveal();
+          },
+        });
         if (current !== attempt) {
           checkout.destroy();
           return;
         }
         embedded = checkout;
+        whenFormSettles(mountEl, reveal);
         checkout.mount(mountEl);
-        setState('ready');
       } catch (error) {
+        window.clearTimeout(backstop);
         if (current !== attempt) return;
         const message = error instanceof Error ? error.message : 'Secure checkout could not be opened.';
         setState('error', `${message} Please try again, or email ${contact}.`);
@@ -451,7 +518,6 @@ const amounts = [25, 50, 100];
     dialog?.querySelector('[data-checkout-retry]')?.addEventListener('click', () => mountCheckout());
     dialog?.addEventListener('close', () => {
       unmount();
-      unlockScroll();
       setNote('Checkout closed. Nothing was charged — your choices are still here.');
       checkoutButton?.focus();
     });
@@ -472,7 +538,6 @@ const amounts = [25, 50, 100];
       if (giftMessage) giftMessage.textContent = monthly ? focusContent[focus].monthly : focusContent[focus].oneTime;
       monthlyOnly.forEach((el) => { el.hidden = !monthly; });
 
-      lockScroll();
       dialog.showModal();
       mountCheckout();
     });
