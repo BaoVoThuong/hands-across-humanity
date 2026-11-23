@@ -10,7 +10,7 @@ import { getEvents, periodLabel } from '../lib/events';
 import { CONTACT_EMAIL } from '../lib/pages';
 import {
   communitySupportWide, indoorRelief, backpackStockpile, healthSupplies, supplyStaging,
-  partnerTeam,
+  partnerTeam, volunteersOutdoorEvent, teamThankYou,
   reliefShipmentLoading, reliefShipmentRamp, reliefPallets, volunteerTeamOutdoor,
   clinicPartners, clinicTeamPortrait, communityHealthBriefing, hopeClinicRecognition,
   immunizationPartners, lionsClubVolunteers,
@@ -155,7 +155,12 @@ const heroSignals = [
   title="Where the work actually happens."
   lead="Events we take part in with local partners — where to find us next, and what recent work has looked like."
   description="Upcoming community events Hands Across Humanity is taking part in, and a look at recent distribution work."
+  heroVariant="mosaic"
   image={communitySupportWide}
+  gallery={[
+    { src: volunteersOutdoorEvent, alt: 'Two volunteers in navy shirts at an outdoor pavilion event.' },
+    { src: teamThankYou, alt: 'Four team members behind boxed electronics under a thank-you banner.' },
+  ]}
   imageAlt="A wide view of a busy indoor hall with community members at tables of donated goods."
   caption="Neighbors at tables of donated goods during a community distribution."
   heroSignals={heroSignals}
@@ -164,10 +169,9 @@ const heroSignals = [
 >
   <!-- 02: Upcoming -->
   <Panel id="upcoming" ground="sand" index={2} total={4} label="Upcoming events"
-    labelledby="upcoming-title" width="wide" nextId="recent" nextLabel="Recent work">
+    labelledby="upcoming-title" nextId="recent" nextLabel="Recent work">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">What is next</p>
         <h2 class="reveal" style="--i:1" id="upcoming-title">Come and find us.</h2>
       </div>
       <p class="lead reveal" style="--i:2">
@@ -208,7 +212,6 @@ const heroSignals = [
     labelledby="recent-title" nextId="field-record" nextLabel="Field record">
     <div class="panel-head panel-head--split">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">Recent work</p>
         <h2 class="reveal" style="--i:1" id="recent-title">What the work has looked like.</h2>
       </div>
       <p class="lead reveal" style="--i:2">
@@ -241,7 +244,6 @@ const heroSignals = [
     labelledby="field-record-title" ctaHref="/vision/" ctaLabel="Read our vision">
     <div class="panel-head panel-head--split field-record__head">
       <div class="panel-head__title">
-        <p class="eyebrow reveal">Field record</p>
         <h2 class="reveal" style="--i:1" id="field-record-title">The work is made of many small rooms.</h2>
       </div>
       <p class="lead reveal" style="--i:2">

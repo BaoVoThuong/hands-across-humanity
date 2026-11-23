@@ -39,9 +39,9 @@
 
 | File | Shows | Used on |
 |---|---|---|
-| `eps-team-thank-you.jpg` | Four team members behind boxed electronics under a thank-you banner | Home "Ways to take part" carousel |
+| `eps-team-thank-you.jpg` | Four team members behind boxed electronics under a thank-you banner | Home "Ways to take part" carousel · Events hero mosaic |
 | `eps-team-selfie.jpg` | Four team members in navy shirts, selfie at an indoor event | Home "Ways to take part" carousel |
-| `eps-volunteers-outdoor-event.jpg` | Two volunteers in navy shirts at an outdoor pavilion event | Home field notes |
+| `eps-volunteers-outdoor-event.jpg` | Two volunteers in navy shirts at an outdoor pavilion event | Home field notes · Events hero mosaic |
 | `eps-community-partners-group.jpg` | Partners, families and a child holding a toy panda at an indoor gathering | Home field notes |
 | `eps-partner-team.jpg` | Three partners, two in yellow shirts, at an outdoor event | Events field record |
 

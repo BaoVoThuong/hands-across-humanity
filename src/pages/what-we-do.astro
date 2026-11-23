@@ -31,8 +31,6 @@ const workAreas = [
     category: 'Learning and readiness',
     title: 'Help children keep learning',
     body: 'School kits and child-focused goods help families stay ready when daily life is disrupted.',
-    stat: 'School essentials',
-    statLabel: 'Kits for learning and readiness',
     image: childrenOutreach,
     alt: 'Volunteers and schoolchildren holding school-supply kits, posing for a selfie at an outdoor event.',
   },
@@ -41,8 +39,6 @@ const workAreas = [
     category: 'Health & household',
     title: 'Share everyday essentials',
     body: 'Health, hygiene, wellness, and household goods meet practical needs when routines are disrupted.',
-    stat: 'Everyday needs',
-    statLabel: 'Health, hygiene, and household supplies',
     image: healthSupplies,
     alt: 'Vitamins, medicines and health products laid out on a table at an outdoor event.',
   },
@@ -51,8 +47,6 @@ const workAreas = [
     category: 'Community care',
     title: 'Make each handoff welcoming',
     body: 'Local distribution brings useful goods closer to the neighbors who need them.',
-    stat: 'Community support',
-    statLabel: 'Dignified, non-discriminatory distribution',
     image: communitySupportWide,
     alt: 'A wide view of a busy indoor hall with community members at tables of donated goods.',
   },
@@ -64,6 +58,7 @@ const workAreas = [
   title="Turning useful donations into community support."
   lead="We collect useful goods, prepare them with care, and share them with people and partners facing urgent need."
   description="Hands Across Humanity brings together contributors, volunteers, businesses, houses of worship, nonprofits, and local leaders to turn useful goods into practical support."
+  heroVariant="split"
   image={educationRelief}
   imageAlt="Schoolchildren in uniform holding school-supply kits beside volunteers at an outdoor event."
   caption="Education essentials prepared for children and families."
@@ -80,40 +75,26 @@ const workAreas = [
       <p class="lead reveal" style="--i:2">Each activity starts with a local need and ends with practical support in the community.</p>
     </div>
 
-    <div class="bento-areas-grid reveal" style="--i:3;">
+    <div class="program-cards">
       {workAreas.map((area, idx) => (
-        <article class={`bento-area-card bento-area-card--${idx + 1}`}>
-          <div class="bento-area-card__media">
+        <article class="program-card reveal" style={`--i:${idx + 3}`}>
+          <div class="program-card__media">
             <DeferredPicture
               src={area.image}
-              widths={[350, 700]}
-              sizes="(min-width: 768px) 40vw, 90vw"
-              quality={85}
+              widths={[400, 700]}
+              sizes="(min-width: 900px) 30vw, 92vw"
+              quality={80}
               alt={area.alt}
             />
+            <span class="program-card__num" aria-hidden="true">{area.num}</span>
           </div>
-
-          <div class="bento-area-card__body">
-            <span class="bento-area-card__category-tag">{area.category}</span>
-            <div class="bento-area-card__top">
-              <div class="bento-area-card__title-row">
-                <span class="bento-area-card__num">{area.num}</span>
-                <span class="bento-area-card__divider" aria-hidden="true">/</span>
-                <h3 class="bento-area-card__title">{area.title}</h3>
-              </div>
-            </div>
-
-            <p class="bento-area-card__desc">{area.body}</p>
-
-            <div class="bento-area-card__footer">
-              <div class="bento-area-card__stat">
-                <span class="bento-area-card__stat-val">{area.stat}</span>
-                <span class="bento-area-card__stat-label">{area.statLabel}</span>
-              </div>
-              <a href="/events/#recent" class="bento-area-card__link">
-                See recent work <span aria-hidden="true">→</span>
-              </a>
-            </div>
+          <div class="program-card__body">
+            <p class="program-card__category">{area.category}</p>
+            <h3 class="program-card__title">{area.title}</h3>
+            <p class="program-card__text">{area.body}</p>
+            <a href="/events/#recent" class="program-card__link">
+              See recent work <span aria-hidden="true">→</span>
+            </a>
           </div>
         </article>
       ))}

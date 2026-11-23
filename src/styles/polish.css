@@ -1,0 +1,772 @@
+/* ============================================================
+   POLISH LAYER (2026-11)
+   Loaded after global.css. New, self-contained components only, so the
+   refresh can be read (and reverted) in one place instead of being spread
+   through 7,000 lines of earlier overrides.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   INNER-PAGE HEROES (.page-intro) — see EditorialPage.astro
+   One markup, four arrangements, so Mission, Work, Vision and Events
+   each open differently.
+   ------------------------------------------------------------ */
+.page-intro {
+  /* The gap between the viewport edge and the edge of .container, so hero
+     copy lines up with the header logo and every section below. */
+  --intro-gutter: max(clamp(1rem, 2.5vw, 3rem), calc((100% - var(--container)) / 2));
+  --intro-scrim: 11, 27, 51;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Hero + "at a glance" row always fill exactly one screen: the photo
+     stretches or shrinks to take whatever the words leave. */
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: var(--header-h);
+  background: var(--paper);
+}
+
+.page-intro__stage {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.page-intro__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.page-intro__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: var(--fs-micro);
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.page-intro__kicker::before {
+  content: '';
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.page-intro__title {
+  max-width: 16ch;
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  /* Scales with the window's height as well as its width, so the words
+     never force the intro past one screen on a short laptop display. */
+  font-size: clamp(2.1rem, min(1.4rem + 3vw, 7vh), 4.4rem);
+  font-weight: 750;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--ink-navy);
+  text-wrap: balance;
+}
+
+.page-intro__lead {
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+
+.page-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.page-intro__figure {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+}
+.page-intro__media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--photo-mat);
+}
+.page-intro__media picture,
+.page-intro__media img,
+.page-intro__tile picture,
+.page-intro__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* The frame decides the size, never the photo: the image is laid over its
+   frame, so a tall photo cannot push the intro past one screen. */
+.page-intro__media img,
+.page-intro__tile img {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+.page-intro__tile {
+  position: relative;
+  min-height: 0;
+}
+
+.page-intro__caption {
+  margin-top: 0.65rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+
+/* "At a glance" row under every hero: a short blue rule over each item
+   instead of vertical dividers. */
+.page-intro__signals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  width: min(100% - clamp(2rem, 5vw, 6rem), var(--container));
+  flex: none;
+  margin: clamp(1.25rem, 3.5vh, 2.5rem) auto 0;
+  padding-bottom: clamp(1.25rem, 4vh, 2.75rem);
+}
+.page-intro__signal {
+  position: relative;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.page-intro__signal::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 2.5rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+.page-intro__signal-title {
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink-navy);
+}
+.page-intro__signal-text {
+  max-width: 38ch;
+  margin-top: var(--space-2);
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+/* ---- 1. immersive (Mission): photo fills the screen ---- */
+.page-intro--immersive .page-intro__stage {
+  min-height: 24rem;
+  background: var(--footer-bg);
+}
+.page-intro--immersive .page-intro__figure,
+.page-intro--immersive .page-intro__copy { grid-area: 1 / 1; }
+.page-intro--immersive .page-intro__media {
+  position: absolute;
+  inset: 0;
+}
+.page-intro--immersive .page-intro__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(var(--intro-scrim), 0.9) 0%, rgba(var(--intro-scrim), 0.66) 38%, rgba(var(--intro-scrim), 0.12) 72%, rgba(var(--intro-scrim), 0) 100%),
+    linear-gradient(0deg, rgba(var(--intro-scrim), 0.6) 0%, rgba(var(--intro-scrim), 0) 42%);
+}
+.page-intro--immersive .page-intro__caption {
+  position: absolute;
+  right: var(--intro-gutter);
+  bottom: 1.25rem;
+  z-index: 1;
+  max-width: 30ch;
+  margin: 0;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.8);
+}
+.page-intro--immersive .page-intro__copy {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  padding: clamp(2rem, 6vh, 5rem) var(--intro-gutter) clamp(2rem, 7vh, 5rem);
+}
+.page-intro--immersive .page-intro__kicker { color: var(--accent-on-band); }
+.page-intro--immersive .page-intro__title { max-width: 16ch; color: #FFFFFF; }
+.page-intro--immersive .page-intro__lead { color: rgba(255, 255, 255, 0.88); }
+.page-intro--immersive .btn--primary {
+  background: #FFFFFF;
+  color: var(--ink-navy);
+}
+.page-intro--immersive .btn--primary:hover {
+  background: var(--primary-light);
+  color: var(--ink-navy);
+}
+.page-intro--immersive .btn--secondary {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.page-intro--immersive .btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+/* ---- 2. split (Work): words on white beside a tall photo ---- */
+.page-intro--split .page-intro__stage {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  width: min(100% - clamp(2rem, 5vw, 6rem), var(--container));
+  margin-inline: auto;
+  padding-top: clamp(1rem, 2.5vh, 2rem);
+}
+.page-intro--split .page-intro__copy {
+  align-self: center;
+  padding-block: clamp(1.5rem, 5vh, 3.5rem);
+}
+.page-intro--split .page-intro__media {
+  min-height: 16rem;
+  border-radius: var(--radius-xl);
+}
+
+/* ---- 3. statement (Vision): centred headline over a cinematic strip ---- */
+.page-intro--statement {
+  background: linear-gradient(var(--sand-warm) 0 70%, var(--paper) 70%);
+}
+.page-intro--statement .page-intro__stage {
+  grid-template-rows: auto minmax(0, 1fr);
+  justify-items: center;
+  gap: clamp(1rem, 3vh, 2.25rem);
+  width: min(100% - clamp(2rem, 5vw, 6rem), var(--container));
+  margin-inline: auto;
+  padding-top: clamp(1rem, 4.5vh, 3.5rem);
+  text-align: center;
+}
+.page-intro--statement .page-intro__copy { align-items: center; gap: var(--space-3); }
+.page-intro--statement .page-intro__actions { margin-top: var(--space-2); }
+.page-intro--statement .page-intro__kicker::after {
+  content: '';
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+}
+.page-intro--statement .page-intro__title {
+  max-width: 22ch;
+  font-size: clamp(2.3rem, min(1.4rem + 3.4vw, 7vh), 4.6rem);
+}
+.page-intro--statement .page-intro__lead { max-width: 52ch; }
+.page-intro--statement .page-intro__actions { justify-content: center; }
+.page-intro--statement .page-intro__figure { width: 100%; min-height: 0; }
+.page-intro--statement .page-intro__media {
+  min-height: 12rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+.page-intro--statement .page-intro__figure { position: relative; }
+/* Caption on the photo (as in the mosaic) so the strip keeps that height. */
+.page-intro--statement .page-intro__media::after,
+.page-intro--mosaic .page-intro__media::after {
+  content: '';
+  position: absolute;
+  inset: 55% 0 0;
+  background: linear-gradient(0deg, rgba(var(--intro-scrim), 0.72), rgba(var(--intro-scrim), 0));
+  pointer-events: none;
+}
+.page-intro--statement .page-intro__caption {
+  position: absolute;
+  inset: auto 1.25rem 1rem;
+  z-index: 1;
+  margin: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ---- 4. mosaic (Events): words beside a three-photo collage ---- */
+.page-intro--mosaic .page-intro__stage {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.72fr) minmax(0, 0.42fr);
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  width: min(100% - clamp(2rem, 5vw, 6rem), var(--container));
+  margin-inline: auto;
+  padding-top: clamp(1rem, 3vh, 2rem);
+}
+.page-intro--mosaic .page-intro__copy {
+  align-self: center;
+  padding-right: clamp(1rem, 3vw, 3rem);
+}
+.page-intro--mosaic .page-intro__media,
+.page-intro--mosaic .page-intro__tile {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--photo-mat);
+}
+/* The caption sits on the photo so the main frame and the tiles share edges. */
+.page-intro--mosaic .page-intro__figure { position: relative; }
+.page-intro--mosaic .page-intro__caption {
+  position: absolute;
+  inset: auto 1rem 0.9rem;
+  z-index: 1;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+}
+.page-intro__mosaic {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: inherit;
+  min-height: 0;
+}
+.page-intro--mosaic .page-intro__mosaic { gap: clamp(0.6rem, 1vw, 0.9rem); }
+
+/* ---- tablet & phone ---- */
+@media (max-width: 899px) {
+  .page-intro--split .page-intro__stage,
+  .page-intro--mosaic .page-intro__stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+  .page-intro--statement .page-intro__stage { grid-template-rows: none; }
+  .page-intro--split .page-intro__copy { padding: var(--space-4) 0 var(--space-6); }
+  .page-intro--split .page-intro__media {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+  }
+
+  .page-intro--mosaic .page-intro__copy { padding: var(--space-4) 0 var(--space-6); }
+  .page-intro--mosaic .page-intro__media { aspect-ratio: 4 / 3; }
+  .page-intro--mosaic .page-intro__mosaic {
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+  }
+  .page-intro--mosaic .page-intro__tile { aspect-ratio: 1; }
+
+  .page-intro--statement .page-intro__media { aspect-ratio: 4 / 3; }
+}
+
+
+@media (max-width: 640px) {
+  .page-intro--immersive .page-intro__stage { min-height: max(30rem, 82svh); }
+  .page-intro--immersive .page-intro__media::after {
+    background: linear-gradient(0deg, rgba(var(--intro-scrim), 0.94) 0%, rgba(var(--intro-scrim), 0.7) 48%, rgba(var(--intro-scrim), 0.2) 100%);
+  }
+  .page-intro--immersive .page-intro__copy { padding-bottom: clamp(2rem, 6vh, 3rem); }
+  .page-intro--immersive .page-intro__caption {
+    top: 0.85rem;
+    bottom: auto;
+    font-size: 0.75rem;
+  }
+  .page-intro--statement .page-intro__stage {
+    justify-items: stretch;
+    text-align: left;
+  }
+  .page-intro--statement .page-intro__copy { align-items: flex-start; }
+  .page-intro--statement .page-intro__kicker::after { display: none; }
+  .page-intro--statement .page-intro__actions { justify-content: flex-start; }
+  .page-intro--statement .page-intro__caption { text-align: left; }
+  .page-intro__actions .btn { flex: 1 1 auto; }
+}
+
+/* Short laptop windows (~1366×768 screens): keep only the titles of the
+   "at a glance" row so the hero still fits one screen without crushing the
+   photo. */
+@media (min-width: 900px) and (max-height: 720px) {
+  .page-intro__signals {
+    margin-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+  .page-intro__signal { padding-top: var(--space-3); }
+  .page-intro__signal-text { display: none; }
+  .page-intro--statement .page-intro__lead { display: none; }
+  .page-intro--statement .page-intro__media { min-height: 10rem; }
+}
+/* The centred headline stacks everything above its photo, so it needs the
+   compact row a little sooner than the side-by-side layouts. */
+@media (min-width: 900px) and (max-height: 820px) {
+  .page-intro--statement .page-intro__stage { padding-top: var(--space-4); }
+  .page-intro--statement .page-intro__signals {
+    margin-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+  .page-intro--statement .page-intro__signal-text { display: none; }
+}
+
+/* ------------------------------------------------------------
+   NEXT PAGE — a quiet full-width link row instead of another
+   coloured band between the donation moment and the footer.
+   ------------------------------------------------------------ */
+.next-page {
+  border-top: 1px solid var(--border);
+  background: var(--paper);
+}
+.next-page__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'meta arrow'
+    'title arrow';
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0.35rem;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  color: var(--ink-navy);
+  text-decoration: none;
+}
+.next-page__meta {
+  grid-area: meta;
+  font-size: var(--fs-micro);
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.next-page__title {
+  grid-area: title;
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(1.55rem, 1.05rem + 2vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  transition: color var(--dur-micro) var(--ease-standard);
+}
+.next-page__arrow {
+  grid-area: arrow;
+  display: grid;
+  place-items: center;
+  width: clamp(3rem, 5vw, 4rem);
+  aspect-ratio: 1;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--dur-micro) var(--ease-standard),
+    border-color var(--dur-micro) var(--ease-standard),
+    color var(--dur-micro) var(--ease-standard),
+    transform var(--dur-standard) var(--ease-out);
+}
+.next-page__arrow svg {
+  width: 45%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.next-page__link:hover .next-page__title { color: var(--primary); }
+.next-page__link:hover .next-page__arrow {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+  transform: translateX(4px);
+}
+.next-page__link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-page__link:hover .next-page__arrow { transform: none; }
+}
+
+/* ------------------------------------------------------------
+   PROGRAM CARDS (Work → "Three ways support reaches people")
+   Three equal cards: the photo leads, one line of category, a title,
+   one sentence, one link. Replaces the bento rows that stacked a tag,
+   a number, a title, a restated "stat" and a link on every card.
+   ------------------------------------------------------------ */
+.program-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+.program-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: transform var(--dur-standard) var(--ease-out), box-shadow var(--dur-standard) var(--ease-out);
+}
+.program-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.program-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--photo-mat);
+}
+.program-card__media picture,
+.program-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.program-card__media img {
+  object-fit: cover;
+  transition: transform var(--dur-reveal) var(--ease-out);
+}
+.program-card:hover .program-card__media img { transform: scale(1.03); }
+.program-card__num {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  display: grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding-inline: 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.94);
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-weight: 750;
+  font-size: 0.95rem;
+  color: var(--ink-navy);
+  font-variant-numeric: tabular-nums;
+}
+.program-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: clamp(1.15rem, 2vw, 1.6rem);
+}
+.program-card__category {
+  font-size: var(--fs-micro);
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.program-card__title {
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink-navy);
+}
+.program-card__text {
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.program-card__link {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--primary);
+}
+.program-card__link:hover { color: var(--primary-hover); text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* ------------------------------------------------------------
+   RECENT EVENTS — cards with a calendar tile (Mission, About)
+   ------------------------------------------------------------ */
+.recent-events {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: var(--space-4);
+  border-top: 0;
+}
+.panel .recent-events { max-width: none; }
+.recent-events__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.recent-events__cal {
+  display: grid;
+  flex: none;
+  width: 3.5rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  background: var(--surface);
+}
+.recent-events__cal-month {
+  padding: 0.2rem 0;
+  background: var(--primary);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.recent-events__cal-day {
+  padding: 0.25rem 0 0.35rem;
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 750;
+  line-height: 1.1;
+  color: var(--ink-navy);
+  font-variant-numeric: tabular-nums;
+}
+.recent-events__info {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.recent-events__title { font-size: 1.05rem; }
+
+/* ------------------------------------------------------------
+   VISION — the two numbered rows now look different on purpose:
+   partners as cards, "staying local" as connected steps.
+   ------------------------------------------------------------ */
+.principles--editorial {
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding-top: 0;
+  border-top: 0;
+}
+.principles--editorial .principle-item,
+.principles--editorial .principle-item:first-child,
+.principles--editorial .principle-item:last-child {
+  padding: clamp(1.35rem, 2.4vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.principles--editorial .principle-item__head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.principles--editorial .principle-item__num {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  font-size: 1.1rem;
+  font-weight: 750;
+}
+.principles--editorial .principle-item__body { font-size: 0.975rem; }
+
+.modest-flow {
+  position: relative;
+  gap: var(--space-6);
+  padding-block: var(--space-5) 0;
+  border: 0;
+}
+@media (min-width: 768px) {
+  /* One line runs through all three step markers. */
+  .modest-flow::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-5) + 1.4rem);
+    left: 1.4rem;
+    right: 1.4rem;
+    height: 2px;
+    background: var(--border-warm);
+  }
+  .modest-step:not(:last-child)::after { display: none; }
+}
+.modest-step { gap: var(--space-3); }
+.modest-step__num {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  font-size: 1rem;
+  font-weight: 750;
+}
+.modest-step:first-child .modest-step__num {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+.modest-step__desc { font-size: 0.975rem; }
+
+/* ------------------------------------------------------------
+   HOME — "How support moves" band: three numbered steps with room
+   to breathe, aligned to the same top line.
+   ------------------------------------------------------------ */
+.impact-band__inner { padding-block: clamp(1.25rem, 3.2vh, 2.25rem); }
+.impact-band__intro h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); }
+.impact-band__principles { counter-reset: step; align-items: start; }
+.impact-band__principle {
+  counter-increment: step;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-3);
+  row-gap: 0.2rem;
+  align-items: start;
+}
+.impact-band__principle::before {
+  content: counter(step, decimal-leading-zero);
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-full);
+  font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 750;
+  color: var(--gold-on-dark);
+  font-variant-numeric: tabular-nums;
+}
+.impact-band__principle strong {
+  color: #FFFFFF;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.25;
+}
+.impact-band__principle span {
+  font-size: 0.925rem;
+  max-width: 28ch;
+}
+
+/* ------------------------------------------------------------
+   DONATION PANEL — one shape for every choice. Focus chips were small
+   left-aligned boxes, amounts were pills and the custom field a square;
+   they now share a height, a radius and a centred label.
+   ------------------------------------------------------------ */
+.donation-panel .donation-focus__choice,
+.donation-panel .donation-amount,
+.donation-panel .donation-custom {
+  min-height: 2.9rem;
+  border-radius: var(--radius-md);
+}
+.donation-panel .donation-focus__choice {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-align: center;
+}
+.donation-panel .donation-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.donation-panel .donation-choice-group { border-radius: var(--radius-md); }
+.donation-panel .donation-choice {
+  min-height: 2.6rem;
+  border-radius: calc(var(--radius-md) - 3px);
+  font-size: 0.95rem;
+}
+.donation-panel .donation-custom { margin-top: var(--space-2); }

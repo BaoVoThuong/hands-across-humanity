@@ -19,9 +19,16 @@ const where = (e: EventRow) =>
   <ul class="recent-events" role="list">
     {events.map((e: EventRow) => (
       <li class="recent-events__item">
-        <time class="recent-events__date" datetime={e.date}>{formatDate(e.date).full}</time>
-        <span class="recent-events__title">{e.title}</span>
-        {where(e) && <span class="recent-events__where">{where(e)}</span>}
+        {/* A calendar tile for scanning; the full date below is what is read out. */}
+        <span class="recent-events__cal" aria-hidden="true">
+          <span class="recent-events__cal-month">{formatDate(e.date).month}</span>
+          <span class="recent-events__cal-day">{formatDate(e.date).day}</span>
+        </span>
+        <span class="recent-events__info">
+          <time class="recent-events__date" datetime={e.date}>{formatDate(e.date).full}</time>
+          <span class="recent-events__title">{e.title}</span>
+          {where(e) && <span class="recent-events__where">{where(e)}</span>}
+        </span>
       </li>
     ))}
   </ul>

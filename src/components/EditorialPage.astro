@@ -1,21 +1,33 @@
 ---
 import { Picture } from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Panel from '../components/Panel.astro';
+import DeferredPicture from '../components/DeferredPicture.astro';
 import { pageOf, nextPage } from '../lib/pages';
 
 interface RailItem { id: string; label: string; }
 interface SignalItem { title: string; text: string; }
+interface GalleryItem { src: ImageMetadata; alt: string; }
+/**
+ * Each inner page opens differently, so the four pages stop reading as one
+ * template with the words swapped:
+ *   immersive — the photo fills the screen, words sit on a dark scrim (Mission)
+ *   split     — words on white beside a tall photo (Work)
+ *   statement — a centred headline over a wide cinematic photo (Vision)
+ *   mosaic    — words beside a three-photo collage, needs `gallery` (Events)
+ */
+type HeroVariant = 'immersive' | 'split' | 'statement' | 'mosaic';
 interface Props {
   title: string;
   description: string;
   activePage: string;
-  eyebrow?: string;
   lead: string;
   image: ImageMetadata;
   imageAlt: string;
   caption: string;
   heroSignals?: SignalItem[];
+  heroVariant?: HeroVariant;
+  /** Two supporting photos for the mosaic hero. */
+  gallery?: GalleryItem[];
   sections: RailItem[];
   total: number;
 }
@@ -37,15 +49,24 @@ const {
       text: 'Local relationships keep support grounded after the urgent moment has passed.',
     },
   ],
-  sections, total
+  heroVariant = 'split',
+  gallery = [],
+  sections,
 }: Props = Astro.props;
+
+const variant: HeroVariant = heroVariant === 'mosaic' && gallery.length < 2 ? 'split' : heroVariant;
+const heroSizes = {
+  immersive: '100vw',
+  split: '(min-width: 900px) 58vw, 100vw',
+  statement: '(min-width: 1400px) 82rem, 94vw',
+  mosaic: '(min-width: 900px) 34vw, 94vw',
+}[variant];
 
 /* The chain used to be retyped on every page, so it drifted: Mission pointed
    forward twice under two names, Events had no way back, and Vision offered
    the same link with the same words in two places. Both ends now come from
    the reading order in one place, and cannot disagree with the nav. */
 const here = pageOf(activePage);
-const eyebrow = Astro.props.eyebrow ?? here?.name ?? '';
 const next = nextPage(activePage);
 
 const onThisPage = sections.slice(1);
@@ -58,15 +79,13 @@ const firstSection = onThisPage[0];
   activePage={activePage}
 >
   <main id="main">
-    <!-- Page Hero -->
-    <Panel id="top" ground="paper" index={1} total={total} label={eyebrow} labelledby="page-title" nextId={firstSection?.id} nextLabel={firstSection?.label} hero={true}>
-      <div class="page-hero__grid page-hero__grid--field">
-        <div class="page-hero__copy">
-          <p class="page-hero__kicker reveal" style="--i:1;">{eyebrow}</p>
-          <h1 class="reveal page-hero__title" style="--i:2;" id="page-title">{title}</h1>
-          <p class="lead reveal page-hero__lead" style="--i:3;">{lead}</p>
-
-          <div class="btn-row reveal page-hero__actions" style="--i:4;">
+    <!-- Page hero: one shared structure, arranged per variant in polish.css -->
+    <section class:list={['page-intro', `page-intro--${variant}`]} id="top" aria-labelledby="page-title">
+      <div class="page-intro__stage">
+        <div class="page-intro__copy">
+          <h1 class="page-intro__title reveal" style="--i:2;" id="page-title">{title}</h1>
+          <p class="page-intro__lead reveal" style="--i:3;">{lead}</p>
+          <div class="page-intro__actions reveal" style="--i:4;">
             {firstSection && (
               <a class="btn btn--primary" href={`#${firstSection.id}`}>
                 {firstSection.label}<span class="btn__arrow" aria-hidden="true">↓</span>
@@ -74,57 +93,60 @@ const firstSection = onThisPage[0];
             )}
             <a class="btn btn--secondary" href={next.href}>{next.cta}</a>
           </div>
-
         </div>
 
-        <figure class="page-hero__figure page-hero__figure--field reveal" style="--i:5;">
-          <div class="page-hero__media">
+        <figure class="page-intro__figure">
+          <div class="page-intro__media">
             <Picture
               src={image}
-              widths={[600, 900, 1200]}
-              sizes="(min-width: 940px) 50vw, 92vw"
+              widths={variant === 'mosaic' ? [500, 800, 1100] : [800, 1200, 1600, 2048]}
+              sizes={heroSizes}
               formats={['avif', 'webp']}
               fallbackFormat="jpeg"
-              quality={75}
+              quality={72}
               alt={imageAlt}
               loading="eager"
               fetchpriority="high"
             />
           </div>
-          <figcaption class="page-hero__caption">
-            <span class="page-hero__caption-text">{caption}</span>
-          </figcaption>
+          <figcaption class="page-intro__caption">{caption}</figcaption>
         </figure>
+
+        {variant === 'mosaic' && (
+          <div class="page-intro__mosaic">
+            {gallery.slice(0, 2).map((item) => (
+              <div class="page-intro__tile">
+                <DeferredPicture src={item.src} alt={item.alt} widths={[400, 700]} sizes="(min-width: 900px) 22vw, 46vw" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {heroSignals.length > 0 && (
-        <div class="page-hero__signals reveal" style="--i:6;" aria-label="How we work">
+        <div class="page-intro__signals" aria-label="At a glance">
           {heroSignals.map((signal) => (
-            <div class="page-hero__signal">
-              <p class="page-hero__signal-title">{signal.title}</p>
-              <p class="page-hero__signal-text">{signal.text}</p>
+            <div class="page-intro__signal reveal">
+              <p class="page-intro__signal-title">{signal.title}</p>
+              <p class="page-intro__signal-text">{signal.text}</p>
             </div>
           ))}
         </div>
       )}
-    </Panel>
+    </section>
 
     <slot />
 
-    <!-- Bottom page navigation -->
-    <section class="chapter-transition chapter-transition--warm" id="next-chapter">
-      <div class="container-narrow">
-        {/* The italic quote that sat here had no speaker, so it read as a testimonial
-            nobody gave. Next-page links name their destination instead. */}
-        <div class="chapter-transition__footer">
-          <span class="chapter-transition__meta">Up next</span>
-          <h2 class="chapter-transition__title">{next.cta}</h2>
-          <a class="btn btn--primary chapter-transition__btn" href={next.href}>
-            Continue to {next.name} <span class="btn__arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- Bottom page navigation: one quiet row, not another coloured band -->
+    <nav class="next-page" aria-label="Next page">
+      <a class="next-page__link container" href={next.href}>
+        <span class="next-page__meta">Up next</span>
+        <span class="next-page__title">{next.cta}</span>
+        <span class="next-page__arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </span>
+      </a>
+    </nav>
 
   </main>
 
