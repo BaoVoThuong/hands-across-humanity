@@ -1,9 +1,13 @@
 {
   "name": "Hands Across Humanity",
-  "short_name": "Hands Across Humanity",
-  "start_url": "/",
+  "short_name": "Hands Across",
+  "start_url": "/about-us/",
   "display": "standalone",
-  "background_color": "#FAF7F2",
-  "theme_color": "#FAF7F2",
-  "description": "Humanitarian relief and community support through local people and practical work."
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "description": "A community donation network in the Houston area, connecting useful goods, volunteers, and local partners with people who need practical support.",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
 }

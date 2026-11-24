@@ -38,6 +38,12 @@ const footerEvents = upcoming.slice(0, 3);
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#FFFFFF" />
+    <!-- Tab and home-screen icons, cut from logo-mark-teal-navy.jpg. Without
+         them browsers showed a generic globe in the tab. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="color-scheme" content="light" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Hands Across Humanity" />
