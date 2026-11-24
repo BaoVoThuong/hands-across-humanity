@@ -1,18 +1,32 @@
 ---
 import DeferredPicture from '../DeferredPicture.astro';
 import WaysToHelp from '../WaysToHelp.astro';
-import { teamSelfie } from '../../assets/images/eps';
+import { teamSelfie, teamThankYou, volunteersOutdoorEvent, partnerTeam } from '../../assets/images/eps';
 
-// One photo, shown nowhere else on the site (the thank-you team photo now opens
-// Events and the backpacks anchor "The work, in pictures"). With a single slide
-// the carousel controls are not rendered and its script stays idle; adding a
-// slide here brings them back.
+// The people who take part: team, volunteers and partners. The client asked for
+// more photographs on About, so this is a carousel again; the last three also
+// appear in the Events hero. With a single slide the carousel controls are not
+// rendered and its script stays idle.
 const networkSlides = [
   {
     image: teamSelfie,
     alt: 'Four team members in navy shirts taking a selfie at an indoor community event.',
   },
-];
+  {
+    image: teamThankYou,
+    alt: 'Four team members behind boxed electronics under a thank-you banner.',
+  },
+  {
+    image: volunteersOutdoorEvent,
+    alt: 'Two volunteers in navy shirts at an outdoor pavilion event.',
+  },
+  {
+    image: partnerTeam,
+    alt: 'Three partners, two in yellow shirts, standing together at an outdoor community event.',
+    // A portrait frame in a landscape box: keep the faces, crop the ground.
+    focus: 'top',
+  },
+] as { image: ImageMetadata; alt: string; focus?: 'top' }[];
 const isCarousel = networkSlides.length > 1;
 
 
@@ -49,6 +63,7 @@ const isCarousel = networkSlides.length > 1;
             <div
               class:list={['about-network-carousel__slide', { 'is-active': index === 0 }]}
               data-slide-index={index}
+              data-focus={slide.focus}
               aria-hidden={index === 0 ? 'false' : 'true'}
             >
               <DeferredPicture
@@ -187,6 +202,11 @@ const isCarousel = networkSlides.length > 1;
 
   .about-network-carousel__slide img {
     object-fit: cover;
+  }
+
+  /* The img comes from DeferredPicture, outside this component's scope. */
+  .about-network-carousel__slide[data-focus='top'] :global(img) {
+    object-position: center 22%;
   }
 
   .about-network-carousel__indicators {

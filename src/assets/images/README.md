@@ -6,8 +6,20 @@
 
 - **No duplicates.** Every file was checked byte-for-byte (md5) and visually (difference hash). Several client batches resend the same photo under a new filename or as a smaller WebP; those copies are not kept.
 - **Resolution decides placement.** The JPGs are 2048px masters (except `eps-community-partners-group.jpg`, 600px) and can fill heroes, carousels and cards. The WebPs are ~480px social-media exports and appear only as small tiles in the Events field record, as does the 600px partners photo.
-- **Each photo appears exactly once on the whole site.** When a slot needs a photo, pick one that is not shown anywhere else, whose subject matches what the slot says, and whose orientation matches the frame (portrait photos in portrait frames). If there is no such photo, drop the slot rather than repeat one.
+- **A photo never appears twice on the same page.** It may appear on more than one page: the client asked (24 November 2026) for About Us, the page most visitors open first, to carry many more photographs, and allowed repeats across pages to do it. When a slot needs a photo, pick one whose subject matches what the slot says and whose orientation matches the frame. A portrait photo in a landscape frame needs its crop set so faces stay in view.
 - **Alt text and captions describe what is visible**, including any organisation printed on a banner in the frame, and nothing that is not. If a photo is swapped, its alt and caption are rewritten with it.
+
+## About Us (18 photographs, all 2048px)
+
+| Section | Photos |
+|---|---|
+| Hero carousel (5) | `partner-showcase`, `backpack-handout`, `community-distribution-wide`, `holiday-gift-bags`, `relief-distribution-wide` |
+| "The work, in pictures" mosaic (5) | `community-support-wide` (large), `children-outreach`, `water-delivery`, `relief-station`, `supply-table-indoor` |
+| "The work, in pictures" anchor (1) | `backpack-stockpile` |
+| "What we share" cards (3) | `education-relief`, `health-supplies`, `community-distribution` |
+| "Ways to take part" carousel (4) | `team-selfie`, `team-thank-you`, `volunteers-outdoor-event`, `partner-team` (cropped to the top) |
+
+The "Used on" columns below list the other pages.
 
 ## Distribution and goods (2048px)
 
@@ -71,3 +83,4 @@ Within each group the order is set so rows break evenly at desktop width. The gr
 
 The Astro image pipeline emits optimised AVIF/WebP derivatives at build time.
 - **November 2026 placement review:** every photo now appears once. The home hero carousel went from five slides to three, "The work, in pictures" lost its four small tiles, "Ways to take part" shows one photo instead of three, and Events lost its four-photo "Recent work" section (its links now land on the field record). Events opens on `partner-team` (portrait, in a portrait frame) instead of a cropped hall photo, and Mission's "Gather, prepare, share" photos are 3:2 instead of 21:9 strips.
+- **24 November 2026, client feedback:** About Us needed more photographs to catch first-time visitors, and repeats across pages are fine. The hero carousel went back to five slides, "The work, in pictures" gained a five-photo mosaic, a new "What we share" section has three photo cards, and "Ways to take part" is a four-photo carousel again. The rule changed from "once on the whole site" to "once per page".

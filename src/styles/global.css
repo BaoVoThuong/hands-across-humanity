@@ -5860,9 +5860,11 @@ body {
     display: none;
   }
 
+  /* Anchor jumps clear the fixed header through scroll-margin-top, so the
+     header's height here was only an empty band above each heading. */
   .site-body--editorial :is(#approach, #rules, #areas, #connect).panel {
-    padding-top: calc(var(--header-h) + 1rem);
-    padding-bottom: 1.35rem;
+    padding-top: 2.25rem;
+    padding-bottom: 1.75rem;
   }
 
   #approach .approach-columns {
@@ -5907,34 +5909,35 @@ body {
     margin-top: 1rem;
   }
 
+  /* A thumbnail beside the text squeezed the caption into a three-line column
+     and left a white band under shorter photos. Photo on top reads better. */
   #rules .rule-card {
-    display: grid;
-    grid-template-columns: minmax(6.25rem, 0.34fr) minmax(0, 0.66fr);
-    grid-template-areas:
-      'media content'
-      'caption content';
-    column-gap: 0.8rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
   }
 
   #rules .rule-card__media {
-    grid-area: media;
-    aspect-ratio: 1;
+    aspect-ratio: 16 / 9;
     max-height: none;
   }
 
-  #rules .rule-card__doc-caption {
-    grid-area: caption;
+  #rules .rule-card__media picture {
     display: block;
-    padding-top: 0.35rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  #rules .rule-card__doc-caption {
+    display: block;
+    padding-top: 0.4rem;
     border-bottom: 0;
-    font-size: 0.75rem;
-    line-height: 1.3;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: var(--fg-muted);
   }
 
   #rules .rule-card__content {
-    grid-area: content;
-    padding: 0;
+    padding: 0.2rem 0 0;
     gap: 0.35rem;
   }
 
@@ -7035,4 +7038,101 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
   .donation-checkout[open],
   .donation-checkout[open]::backdrop { animation: none; }
   .donation-checkout__bone { animation: none; }
+}
+
+/* ============================================================
+   PHONE POLISH (client review, November 2026)
+   Found by walking every page at 390px and 360px in Chromium's
+   phone emulation. Each rule says what it fixed.
+   ============================================================ */
+@media (max-width: 939px) {
+  /* Every other panel also reserved the fixed header's height above its
+     heading. scroll-margin-top already clears the header on anchor jumps. */
+  .panel:not(.panel--hero) {
+    padding-top: clamp(2rem, 7vw, 2.75rem);
+  }
+}
+
+/* The open menu has to scroll when it is taller than the screen: on a phone
+   held sideways, Vision and the give button sat below the fold, out of reach. */
+.mobile-menu__panel {
+  max-height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 639px) {
+  /* The floating back-to-top button covered the right edge of text and
+     buttons on every screen. The header stays pinned, so it is not needed. */
+  .back-to-top {
+    display: none !important;
+  }
+
+  /* Header Donate was 38px tall, under the 44px a thumb needs. Only the
+     height grows: any wider and the site name is cut short at 390px. */
+  .site-header .header-donate {
+    min-height: 2.75rem;
+  }
+
+  /* "Email us about goods", "Choose an upcoming event"... were 32px tall. */
+  .ways-to-help__action {
+    min-height: 2.75rem;
+  }
+
+  /* Panel foot buttons ("Read our vision") were 11px capitals. */
+  .panel__foot a.btn--foot {
+    min-height: 2.75rem;
+    padding-inline: 1.1rem;
+    font-size: 0.8125rem;
+  }
+
+  /* "PREPARED AND READY | SUPPLIES SET OUT FOR NEI…" wrapped mid-sentence
+     with the divider left hanging. Label above, sentence below, sentence case. */
+  .approach-photo-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+  .approach-photo-caption__sep {
+    display: none;
+  }
+  .approach-photo-caption__text {
+    font-size: 0.8125rem;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.4;
+  }
+
+  /* The footer ran two and a half screens. The page links now sit three to
+     a row, and "What we share" (the same three areas shown on About and
+     Work) is left to the larger layouts. */
+  .footer-grid {
+    gap: var(--space-6);
+  }
+  .footer-grid > .footer-col:nth-child(2) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-4);
+    row-gap: 0;
+  }
+  .footer-grid > .footer-col:nth-child(2) h4 {
+    grid-column: 1 / -1;
+  }
+  .footer-grid > .footer-col:nth-child(3) {
+    display: none;
+  }
+  .site-footer .footer-col a {
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 379px) {
+  /* At 360px (common Android widths) the name was cut to "Hands Across Hum…".
+     Two short lines read better than a clipped name. */
+  .site-header .brand__name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    font-size: 0.85rem;
+    line-height: 1.12;
+  }
 }

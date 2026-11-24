@@ -1,0 +1,165 @@
+---
+import DeferredPicture from '../DeferredPicture.astro';
+import { FOCUS_AREAS } from '../../lib/pages';
+import { educationRelief, healthSupplies, communityDistribution } from '../../assets/images/eps';
+
+/* The three kinds of support, each with a photograph of it happening. The
+   titles and text come from FOCUS_AREAS, the same list the footer and the
+   donation panel use, so the three stay named the same everywhere. */
+const photos = [
+  {
+    image: educationRelief,
+    alt: 'Schoolchildren in uniform holding school-supply kits beside volunteers.',
+  },
+  {
+    image: healthSupplies,
+    alt: 'Vitamins, medicines and health products laid out on an outdoor table.',
+  },
+  {
+    image: communityDistribution,
+    alt: 'Volunteers in navy shirts talking with community members across a table of boxed goods under an outdoor pavilion.',
+  },
+];
+
+const areas = FOCUS_AREAS.map((area, i) => ({ ...area, ...photos[i] }));
+---
+
+<section class="about-focus section" id="what-we-share" aria-labelledby="about-focus-title">
+  <div class="container">
+    <div class="about-focus__head reveal">
+      <h2 id="about-focus-title">What we share.</h2>
+      <p class="lead">Three kinds of practical support, gathered with partners and handed to the people they are meant for.</p>
+    </div>
+
+    <ul class="about-focus__grid">
+      {areas.map((area, i) => (
+        <li class="about-focus__card reveal" style={`--i:${i + 1}`}>
+          <a href="/what-we-do/#areas">
+            <div class="about-focus__media">
+              <DeferredPicture
+                src={area.image}
+                widths={[500, 800, 1100]}
+                sizes="(min-width: 760px) 33vw, 100vw"
+                quality={82}
+                alt={area.alt}
+              />
+            </div>
+            <div class="about-focus__body">
+              <h3>{area.title}</h3>
+              <p>{area.text}</p>
+              <span class="about-focus__more">See the program <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about-focus {
+    background: var(--paper);
+  }
+
+  .about-focus__head {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .about-focus__head h2 {
+    margin: 0;
+  }
+
+  .about-focus__head .lead {
+    max-width: 52ch;
+    margin: 0;
+    color: var(--fg-muted);
+  }
+
+  .about-focus__grid {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 760px) {
+    .about-focus__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .about-focus__card a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.08));
+    transition: box-shadow var(--dur-standard, 300ms) var(--ease-out, ease), transform var(--dur-standard, 300ms) var(--ease-out, ease);
+  }
+
+  .about-focus__card a:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .about-focus__card a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .about-focus__media {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--photo-mat, var(--surface-alt));
+  }
+
+  .about-focus__media :global(picture),
+  .about-focus__media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .about-focus__media :global(img) {
+    object-fit: cover;
+  }
+
+  .about-focus__body {
+    display: grid;
+    gap: var(--space-2);
+    flex: 1;
+    align-content: start;
+    padding: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .about-focus__body h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .about-focus__body p {
+    margin: 0;
+    color: var(--fg-muted);
+    line-height: 1.5;
+  }
+
+  .about-focus__more {
+    margin-top: var(--space-2);
+    color: var(--primary);
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-focus__card a,
+    .about-focus__card a:hover { transition: none; transform: none; }
+  }
+</style>

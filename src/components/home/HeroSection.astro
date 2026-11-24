@@ -5,6 +5,8 @@ import {
   communityDistributionWide,
   backpackHandout,
   partnerShowcase,
+  holidayGiftBags,
+  reliefDistributionWide,
 } from '../../assets/images/eps';
 
 interface Props {
@@ -21,8 +23,11 @@ const {
   exploreUrl = "/events/#upcoming"
 } = Astro.props;
 
-/* Three slides, none shown anywhere else on the site: the holiday gift bags
-   open Vision and the school kits open Work. */
+/* About is the first page most visitors see, so its opening carousel carries
+   five photographs (the client asked for more pictures up front). Two of them
+   also open other pages: the gift bags open Vision and the hall handoff opens
+   Mission. No photo repeats within this page. Only the first slide loads with
+   the page; the rest are fetched one slide ahead. */
 const slides = [
   {
     image: partnerShowcase,
@@ -41,6 +46,18 @@ const slides = [
     alt: "Community members and volunteers crowding around tables of goods in a large indoor hall.",
     lead: "Community distribution",
     title: "Sharing support through relationships built on dignity and trust."
+  },
+  {
+    image: holidayGiftBags,
+    alt: "Volunteers, families and children standing behind rows of holiday gift bags.",
+    lead: "Families at the center",
+    title: "Bringing neighbors, families, and partners to the same table."
+  },
+  {
+    image: reliefDistributionWide,
+    alt: "A volunteer handing a packaged item to a community member in a crowded public hall.",
+    lead: "Hand to hand",
+    title: "Every handoff is local, welcoming, and dignified."
   }
 ];
 ---
