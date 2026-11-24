@@ -307,6 +307,9 @@
   align-self: center;
   padding-block: clamp(1rem, 3vh, 2.5rem);
 }
+/* The split hero has no signals row, so its caption sat 3px from the next
+   section. This matches the space under the other heroes' signals. */
+.page-intro--split { padding-bottom: clamp(1rem, 3.5vh, 2.5rem); }
 .page-intro--split .page-intro__title { max-width: 18ch; }
 .page-intro--split .page-intro__media {
   min-height: 16rem;
@@ -494,7 +497,7 @@
   align-items: center;
   column-gap: 2rem;
   row-gap: 0.35rem;
-  padding-block: clamp(2rem, 5vw, 3.5rem);
+  padding-block: var(--section-space);
   color: var(--ink-navy);
   text-decoration: none;
 }

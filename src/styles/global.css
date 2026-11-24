@@ -115,6 +115,9 @@
   --space-7: 2.25rem;
   --space-8: 3.25rem;
   --space-9: 4.5rem;
+  /* Space above and below the content of every section after the first, so
+     the gap between any two sections is the same on every page. */
+  --section-space: clamp(2rem, 3vw, 3rem);
 
   --header-h: 4.25rem;
   --container: 72rem;
@@ -1504,7 +1507,7 @@ html.menu-open .site-header { z-index: 120; }
 }
 
 .section {
-  padding-block: clamp(4.5rem, 7.5vw, 6.5rem);
+  padding-block: var(--section-space);
   position: relative;
   scroll-margin-top: var(--header-h);
   scroll-snap-align: start;
@@ -1684,7 +1687,7 @@ html.menu-open .site-header { z-index: 120; }
 
 .donation-section,
 .donation-page {
-  padding-block: clamp(1rem, 1.75vw, 1.5rem);
+  padding-block: var(--section-space);
   background: var(--surface-alt);
   border-block: 1px solid var(--border);
   scroll-margin-top: calc(var(--header-h) + var(--space-3) + env(safe-area-inset-top, 0px));
@@ -1694,13 +1697,9 @@ html.menu-open .site-header { z-index: 120; }
   /* On About this follows the light-blue "Ways to take part" and sits above the
      grey closing band, so it takes the white ground. /donate/ keeps the grey. */
   background: var(--paper);
-  /* Keep the first heading clear of the fixed masthead in both regular scroll
-     and anchor navigation; the card rhythm below carries the compactness. */
-  padding-block-start: max(
-    clamp(1.25rem, 2.25vw, 2.25rem),
-    calc(var(--header-h) + env(safe-area-inset-top, 0px))
-  );
-  padding-block-end: clamp(1rem, 1.75vw, 1.5rem);
+  /* It is never the first block on a page, and scroll-margin-top already
+     clears the header on anchor jumps, so it takes the shared section space.
+     It used to add the header's height above its heading. */
 }
 
 .donation-page {
@@ -2163,7 +2162,7 @@ html.menu-open .site-header { z-index: 120; }
    it apart from both. Mission passes ground="paper" on the one build where it
    would follow the light-blue commitments instead. */
 .donation-moment {
-  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  padding-block: var(--section-space);
   background: var(--sand-warm);
   border-block: 1px solid var(--border-warm);
 }
@@ -2222,9 +2221,8 @@ html.menu-open .site-header { z-index: 120; }
 }
 
 @media (max-width: 520px) {
-  .donation-section,
   .donation-page {
-    padding-block-end: 2.5rem;
+    padding-block-end: var(--section-space);
   }
 
   .donation-panel--compact .donation-panel__controls,
@@ -5319,7 +5317,6 @@ img.img-pos-lower-middle,
    ============================================================ */
 .about-field-notes {
   overflow: hidden;
-  padding-block: clamp(2.25rem, 3.5vw, 3.5rem);
 }
 
 .about-field-notes__intro {
@@ -5673,10 +5670,6 @@ body {
 }
 
 @media (max-width: 639px) {
-  .section {
-    padding-block: clamp(3rem, 8vw, 4.25rem);
-  }
-
   .panel__foot {
     width: min(calc(100% - 2rem), var(--container));
     flex-wrap: wrap;
@@ -6042,10 +6035,6 @@ body {
   #connect .connect-story__body {
     font-size: 0.82rem;
     line-height: 1.45;
-  }
-
-  .about-field-notes {
-    padding-block: 2.25rem;
   }
 
   .about-field-notes__anchor {
@@ -6674,7 +6663,7 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
 .ways-to-help__action:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .donate-ways {
-  padding-block: clamp(2rem, 4vw, 3.5rem);
+  padding-block: var(--section-space);
   background: var(--paper);
 }
 
@@ -7045,12 +7034,17 @@ main > .hero-fold-group > section.impact-band { border-top-color: var(--band-dee
    Found by walking every page at 390px and 360px in Chromium's
    phone emulation. Each rule says what it fixed.
    ============================================================ */
-@media (max-width: 939px) {
-  /* Every other panel also reserved the fixed header's height above its
-     heading. scroll-margin-top already clears the header on anchor jumps. */
-  .panel:not(.panel--hero) {
-    padding-top: clamp(2rem, 7vw, 2.75rem);
-  }
+/* One spacing for every panel at every width. Panels used to add the fixed
+   header's height above their heading, and the editorial pages cancelled that
+   piecemeal per breakpoint and per id, so tablets still got 116-121px gaps.
+   scroll-margin-top clears the header on anchor jumps. The selector outranks
+   the #approach/#areas/#connect/#rules rules. */
+.site-body--editorial .panel:not(.panel--hero),
+.site-body--editorial :is(#approach, #rules, #areas, #connect).panel {
+  padding-block: var(--section-space);
+}
+.site-body--editorial .panel:not(.panel--hero) > :is(.container, .container-narrow, .container-wide) {
+  padding-block: 0;
 }
 
 /* The open menu has to scroll when it is taller than the screen: on a phone

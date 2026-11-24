@@ -114,7 +114,7 @@ const isCarousel = networkSlides.length > 1;
 <style>
   .about-network-section {
     scroll-margin-top: var(--header-h);
-    padding-block: clamp(1.25rem, 2vw, 2rem);
+    padding-block: var(--section-space);
     background: var(--sand-warm);
     border-block: 1px solid var(--border);
   }
@@ -315,10 +315,6 @@ const isCarousel = networkSlides.length > 1;
   }
 
   @media (max-width: 600px) {
-    .about-network-section {
-      padding-block: 1.5rem 0.75rem;
-    }
-
     .about-network-section h2 {
       max-width: 16ch;
       font-size: clamp(2rem, 9.5vw, 2.8rem);
