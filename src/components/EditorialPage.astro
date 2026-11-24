@@ -4,6 +4,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import DeferredPicture from '../components/DeferredPicture.astro';
 import HeroSignals, { type HeroSignal } from '../components/HeroSignals.astro';
 import { pageOf, nextPage } from '../lib/pages';
+import { blurBackground } from '../lib/blur-placeholder';
 
 interface RailItem { id: string; label: string; }
 interface GalleryItem { src: ImageMetadata; alt: string; }
@@ -70,6 +71,10 @@ const heroSizes = {
 const here = pageOf(activePage);
 const next = nextPage(activePage);
 
+// The hero photo is the first thing seen; its blurred preview fills the frame
+// until the full image arrives, instead of a grey box.
+const heroPreview = await blurBackground(image);
+
 const onThisPage = sections.slice(1);
 const firstSection = onThisPage[0];
 ---
@@ -100,7 +105,7 @@ const firstSection = onThisPage[0];
         </div>
 
         <figure class="page-intro__figure">
-          <div class="page-intro__media">
+          <div class="page-intro__media" style={heroPreview}>
             <Picture
               src={image}
               widths={variant === 'mosaic' ? [500, 800, 1100] : [800, 1200, 1600, 2048]}

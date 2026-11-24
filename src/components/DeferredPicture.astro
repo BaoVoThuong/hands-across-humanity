@@ -11,6 +11,7 @@
  * image arrives.
  */
 import { getImage } from 'astro:assets';
+import { blurBackground } from '../lib/blur-placeholder';
 
 type Format = 'avif' | 'webp' | 'jpeg' | 'png';
 type Optimized = Awaited<ReturnType<typeof getImage>>;
@@ -55,6 +56,8 @@ const sources = await Promise.all(formats.map((format: Format) => getImage({ ...
 const fallback = await getImage({ ...transform, format: fallbackFormat });
 
 const { loading: _loading, decoding: _decoding, class: _class, ...imgAttributes } = fallback.attributes;
+// A blurred preview sits behind the photo until it loads, instead of a grey box.
+const preview = await blurBackground(src);
 // Written pre-encoded: a raw SVG tag inside the frontmatter breaks `astro check`.
 const placeholder = `data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20${imgAttributes.width}%20${imgAttributes.height}'%2F%3E`;
 ---
@@ -66,6 +69,7 @@ const placeholder = `data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.or
   data-fallback-src={fallback.src}
   data-fallback-srcset={fallback.srcSet.attribute}
   aria-busy="true"
+  style={preview}
   {...scope}
 >
   {sources.map((image: Optimized) => (
@@ -112,7 +116,7 @@ const placeholder = `data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.or
   }
 
   .deferred-picture[data-deferred-state='error'] {
-    background: var(--surface-alt, #f8f6f3);
+    background-color: var(--surface-alt, #f8f6f3);
   }
 
   @media (prefers-reduced-motion: reduce) {

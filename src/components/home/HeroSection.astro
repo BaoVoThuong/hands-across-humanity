@@ -1,6 +1,7 @@
 ---
 import DeferredPicture from '../DeferredPicture.astro';
 import { Picture } from 'astro:assets';
+import { blurBackground } from '../../lib/blur-placeholder';
 import {
   communityDistributionWide,
   backpackHandout,
@@ -60,6 +61,10 @@ const slides = [
     title: "Every handoff is local, welcoming, and dignified."
   }
 ];
+
+// Blurred previews behind each slide, so the carousel opens on the photo's
+// colours rather than a grey box while the first image downloads.
+const previews = await Promise.all(slides.map((slide) => blurBackground(slide.image)));
 ---
 
 <section class="hero-v2" id="hero">
@@ -100,6 +105,7 @@ const slides = [
             {slides.map((slide, index) => (
               <div
                 class={`hero-carousel__slide ${index === 0 ? 'is-active' : ''}`}
+                style={previews[index]}
                 data-slide-index={index}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
